@@ -1293,7 +1293,7 @@ class Share extends \OC\Share\Constants {
 				// Make sure the unique user target is returned if it exists,
 				// unique targets should follow the group share in the database
 				// If the limit is not 1, the filtering can be done later
-				$where .= ' ORDER BY `*PREFIX*share`.`id` DESC';
+				$where .= ' ORDER BY `*PREFIX*share`.`id` ASC';
 			}
 			// The limit must be at least 3, because filtering needs to be done
 			if ($limit < 3) {
@@ -1311,7 +1311,7 @@ class Share extends \OC\Share\Constants {
 		$result = $query->execute($queryArgs);
 		if (\OC_DB::isError($result)) {
 			\OC_Log::write('OCP\Share',
-				\OC_DB::getErrorMessage($result) . ', select=' . $select . ' where=' . $where,
+				\OC_DB::getErrorMessage($result) . ', select=' . $select . ' where=',
 				\OC_Log::ERROR);
 		}
 		$items = array();
@@ -1412,6 +1412,7 @@ class Share extends \OC\Share\Constants {
 			}
 
 			$items[$row['id']] = $row;
+
 		}
 		if (!empty($items)) {
 			$collectionItems = array();
@@ -1491,6 +1492,10 @@ class Share extends \OC\Share\Constants {
 				$items = array_merge($items, $collectionItems);
 			}
 
+			if (isset($shareWith) && $shareWith === \OCP\User::getUser()) {
+				$items = self::groupItems($items, $itemType);
+			}
+
 			return self::formatResult($items, $column, $backend, $format, $parameters);
 		}
 
@@ -1498,6 +1503,45 @@ class Share extends \OC\Share\Constants {
 	}
 
 	/**
+	 * group items with link to the same source
+	 *
+	 * @param array $items
+	 * @param string $itemType
+	 * @return array of grouped items
+	 */
+	private static function groupItems($items, $itemType) {
+
+		$fileSharing = ($itemType === 'file' || $itemType === 'folder') ? true : false;
+
+		$result = array();
+
+		foreach ($items as $item) {
+			$grouped = false;
+			foreach ($result as $key => $r) {
+				// for file/folder shares we need to compare file_source, otherwise we compare item_source
+				if (( $fileSharing && $item['file_source'] === $r['file_source']) ||
+						(!$fileSharing && $item['item_source'] === $r['item_source'])) {
+					// add the first item to the list of grouped shares
+					if (!isset($result[$key]['grouped'])) {
+						$result[$key]['grouped'][] = $result[$key];
+					}
+					$result[$key]['permissions'] = (int) $item['permissions'] | (int) $r['permissions'];
+					$result[$key]['grouped'][] = $item;
+					$grouped = true;
+					break;
+				}
+			}
+
+			if (!$grouped) {
+				$result[] = $item;
+			}
+
+		}
+
+		return $result;
+	}
+
+/**
 	 * Put shared item into the database
 	 * @param string $itemType Item type
 	 * @param string $itemSource Item source
