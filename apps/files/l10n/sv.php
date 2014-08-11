@@ -1,5 +1,6 @@
 <?php
 $TRANSLATIONS = array(
+"Unknown error" => "Okänt fel",
 "Could not move %s - File with this name already exists" => "Kunde inte flytta %s - Det finns redan en fil med detta namn",
 "Could not move %s" => "Kan inte flytta %s",
 "File name cannot be empty." => "Filnamn kan inte vara tomt.",
@@ -41,6 +42,8 @@ $TRANSLATIONS = array(
 "Could not create folder" => "Kunde ej skapa katalog",
 "Error fetching URL" => "Fel vid hämtning av URL",
 "Share" => "Dela",
+"Delete" => "Radera",
+"Unshare" => "Sluta dela",
 "Delete permanently" => "Radera permanent",
 "Rename" => "Byt namn",
 "Your download is being prepared. This might take some time if the files are big." => "Din nedladdning förbereds. Det kan ta tid om det är stora filer.",
@@ -68,10 +71,6 @@ $TRANSLATIONS = array(
 "File handling" => "Filhantering",
 "Maximum upload size" => "Maximal storlek att ladda upp",
 "max. possible: " => "max. möjligt:",
-"Needed for multi-file and folder downloads." => "Krävs för nerladdning av flera mappar och filer.",
-"Enable ZIP-download" => "Aktivera ZIP-nerladdning",
-"0 is unlimited" => "0 är oändligt",
-"Maximum input size for ZIP files" => "Största tillåtna storlek för ZIP-filer",
 "Save" => "Spara",
 "WebDAV" => "WebDAV",
 "Use this address to <a href=\"%s\" target=\"_blank\">access your Files via WebDAV</a>" => "Använd denna adress till <a href=\"%s\" target=\"_blank\">nå dina Filer via WebDAV</a>",
@@ -81,14 +80,12 @@ $TRANSLATIONS = array(
 "New folder" => "Ny mapp",
 "Folder" => "Mapp",
 "From link" => "Från länk",
-"Cancel upload" => "Avbryt uppladdning",
 "You don’t have permission to upload or create files here" => "Du har ej tillåtelse att ladda upp eller skapa filer här",
 "Nothing in here. Upload something!" => "Ingenting här. Ladda upp något!",
 "Download" => "Ladda ner",
-"Delete" => "Radera",
 "Upload too large" => "För stor uppladdning",
 "The files you are trying to upload exceed the maximum size for file uploads on this server." => "Filerna du försöker ladda upp överstiger den maximala storleken för filöverföringar på servern.",
 "Files are being scanned, please wait." => "Filer skannas, var god vänta",
-"Current scanning" => "Aktuell skanning"
+"Currently scanning" => "sökning pågår"
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

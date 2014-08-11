@@ -41,6 +41,39 @@ class Proxy extends \OC_FileProxy {
 	private static $fopenMode = array(); // remember the fopen mode
 	private static $enableEncryption = false; // Enable encryption for the given path
 
+
+	/**
+	 * check if path is excluded from encryption
+	 *
+	 * @param string $path relative to data/
+	 * @param string $uid user
+	 * @return boolean
+	 */
+	private function isExcludedPath($path, $uid) {
+
+		$view = new \OC\Files\View();
+
+		// files outside of the files-folder are excluded
+		if(strpos($path, '/' . $uid . '/files') !== 0) {
+			return true;
+		}
+
+		if (!$view->file_exists($path)) {
+			$path = dirname($path);
+		}
+
+		// we don't encrypt server-to-server shares
+		list($storage, ) = \OC\Files\Filesystem::resolvePath($path);
+		/**
+		 * @var \OCP\Files\Storage $storage
+		 */
+		if ($storage->instanceOfStorage('OCA\Files_Sharing\External\Storage')) {
+			return true;
+		}
+
+		return false;
+	}
+
 	/**
 	 * Check if a file requires encryption
 	 * @param string $path
@@ -50,7 +83,7 @@ class Proxy extends \OC_FileProxy {
 	 * Tests if server side encryption is enabled, and if we should call the
 	 * crypt stream wrapper for the given file
 	 */
-	private static function shouldEncrypt($path, $mode = 'w') {
+	private function shouldEncrypt($path, $mode = 'w') {
 
 		$userId = Helper::getUser($path);
 		$session = new Session(new \OC\Files\View());
@@ -59,7 +92,7 @@ class Proxy extends \OC_FileProxy {
 		if (
 				$session->getInitialized() !== Session::INIT_SUCCESSFUL // encryption successful initialized
 				|| Crypt::mode() !== 'server'   // we are not in server-side-encryption mode
-				|| strpos($path, '/' . $userId . '/files') !== 0 // path is not in files/
+				|| $this->isExcludedPath($path, $userId) // if path is excluded from encryption
 				|| substr($path, 0, 8) === 'crypt://' // we are already in crypt mode
 		) {
 			return false;
@@ -85,7 +118,7 @@ class Proxy extends \OC_FileProxy {
 	 */
 	public function preFile_put_contents($path, &$data) {
 
-		if (self::shouldEncrypt($path)) {
+		if ($this->shouldEncrypt($path)) {
 
 			if (!is_resource($data)) {
 
@@ -124,8 +157,8 @@ class Proxy extends \OC_FileProxy {
 					// store new unenecrypted size so that it can be updated
 					// in the post proxy
 					$tmpFileInfo = $view->getFileInfo($tmpPath);
-					if ( isset($tmpFileInfo['size']) ) {
-						self::$unencryptedSizes[\OC\Files\Filesystem::normalizePath($path)] = $tmpFileInfo['size'];
+					if ( isset($tmpFileInfo['unencrypted_size']) ) {
+						self::$unencryptedSizes[\OC\Files\Filesystem::normalizePath($path)] = $tmpFileInfo['unencrypted_size'];
 					}
 
 					// remove our temp file
@@ -170,9 +203,6 @@ class Proxy extends \OC_FileProxy {
 		$plainData = null;
 		$view = new \OC\Files\View('/');
 
-		// init session
-		$session = new \OCA\Encryption\Session($view);
-
 		// If data is a catfile
 		if (
 			Crypt::mode() === 'server'
@@ -187,18 +217,6 @@ class Proxy extends \OC_FileProxy {
 				}
 			}
 
-		} elseif (
-			Crypt::mode() == 'server'
-			&& \OC::$session->exists('legacyenckey')
-			&& Crypt::isEncryptedMeta($path)
-		) {
-			// Disable encryption proxy to prevent recursive calls
-			$proxyStatus = \OC_FileProxy::$enabled;
-			\OC_FileProxy::$enabled = false;
-
-			$plainData = Crypt::legacyBlockDecrypt($data, $session->getLegacyKey());
-
-			\OC_FileProxy::$enabled = $proxyStatus;
 		}
 
 		if (!isset($plainData)) {
@@ -219,7 +237,7 @@ class Proxy extends \OC_FileProxy {
 	public function preFopen($path, $mode) {
 
 		self::$fopenMode[$path] = $mode;
-		self::$enableEncryption = self::shouldEncrypt($path, $mode);
+		self::$enableEncryption = $this->shouldEncrypt($path, $mode);
 
 	}
 
@@ -275,7 +293,7 @@ class Proxy extends \OC_FileProxy {
 			\OC_FileProxy::$enabled = false;
 
 			// get file size
-			$data['size'] = self::postFileSize($path, $data['size']);
+			$data['size'] = self::postFileSize($path, $data['size'], $data);
 
 			// Re-enable the proxy
 			\OC_FileProxy::$enabled = $proxyStatus;
@@ -289,7 +307,7 @@ class Proxy extends \OC_FileProxy {
 	 * @param int $size
 	 * @return int|bool
 	 */
-	public function postFileSize($path, $size) {
+	public function postFileSize($path, $size, $fileInfo = null) {
 
 		$view = new \OC\Files\View('/');
 
@@ -323,9 +341,8 @@ class Proxy extends \OC_FileProxy {
 			return $size;
 		}
 
-		$fileInfo = false;
 		// get file info from database/cache if not .part file
-		if (!Helper::isPartialFilePath($path)) {
+		if (empty($fileInfo) && !Helper::isPartialFilePath($path)) {
 			$proxyState = \OC_FileProxy::$enabled;
 			\OC_FileProxy::$enabled = false;
 			$fileInfo = $view->getFileInfo($path);
@@ -333,7 +350,7 @@ class Proxy extends \OC_FileProxy {
 		}
 
 		// if file is encrypted return real file size
-		if ($fileInfo && $fileInfo['encrypted'] === true) {
+		if (isset($fileInfo['encrypted']) && $fileInfo['encrypted'] === true) {
 			// try to fix unencrypted file size if it doesn't look plausible
 			if ((int)$fileInfo['size'] > 0 && (int)$fileInfo['unencrypted_size'] === 0 ) {
 				$fixSize = $util->getFileSize($path);

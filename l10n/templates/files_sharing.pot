@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud Core 6.0.0\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-05-24 01:54-0400\n"
+"POT-Creation-Date: 2014-08-11 01:54-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,8 +17,68 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: js/share.js:44 js/share.js:52
-msgid "Shared by {owner}"
+#: ajax/external.php:17
+msgid "Server to server sharing is not enabled on this server"
+msgstr ""
+
+#: ajax/external.php:47
+msgid "Couldn't add remote share"
+msgstr ""
+
+#: appinfo/app.php:33 js/app.js:34
+msgid "Shared with you"
+msgstr ""
+
+#: appinfo/app.php:45 js/app.js:53
+msgid "Shared with others"
+msgstr ""
+
+#: appinfo/app.php:54 js/app.js:72
+msgid "Shared by link"
+msgstr ""
+
+#: js/app.js:35
+msgid "No files have been shared with you yet."
+msgstr ""
+
+#: js/app.js:54
+msgid "You haven't shared any files yet."
+msgstr ""
+
+#: js/app.js:73
+msgid "You haven't shared any files by link yet."
+msgstr ""
+
+#: js/external.js:48 js/external.js:59
+msgid "Do you want to add the remote share {name} from {owner}@{remote}?"
+msgstr ""
+
+#: js/external.js:51 js/external.js:62
+msgid "Remote share"
+msgstr ""
+
+#: js/external.js:65
+msgid "Remote share password"
+msgstr ""
+
+#: js/external.js:76
+msgid "Cancel"
+msgstr ""
+
+#: js/external.js:77
+msgid "Add remote share"
+msgstr ""
+
+#: js/public.js:204
+msgid "No ownCloud installation found at {remote}"
+msgstr ""
+
+#: js/public.js:205
+msgid "Invalid ownCloud url"
+msgstr ""
+
+#: js/sharedfilelist.js:126
+msgid "Shared by"
 msgstr ""
 
 #: templates/authenticate.php:4
@@ -29,8 +89,16 @@ msgstr ""
 msgid "The password is wrong. Try again."
 msgstr ""
 
-#: templates/authenticate.php:10
+#: templates/authenticate.php:10 templates/authenticate.php:12
 msgid "Password"
+msgstr ""
+
+#: templates/list.php:16
+msgid "Name"
+msgstr ""
+
+#: templates/list.php:20
+msgid "Share time"
 msgstr ""
 
 #: templates/part.404.php:3
@@ -57,15 +125,31 @@ msgstr ""
 msgid "For more info, please ask the person who sent this link."
 msgstr ""
 
-#: templates/public.php:21
+#: templates/public.php:27
+msgid "Add to your ownCloud"
+msgstr ""
+
+#: templates/public.php:35
 msgid "Download"
 msgstr ""
 
-#: templates/public.php:52
+#: templates/public.php:66
 #, php-format
 msgid "Download %s"
 msgstr ""
 
-#: templates/public.php:56
+#: templates/public.php:70
 msgid "Direct link"
+msgstr ""
+
+#: templates/settings-admin.php:3
+msgid "Remote Shares"
+msgstr ""
+
+#: templates/settings-admin.php:7
+msgid "Allow other instances to mount public links shared from this server"
+msgstr ""
+
+#: templates/settings-admin.php:11
+msgid "Allow users to mount public link shares"
 msgstr ""

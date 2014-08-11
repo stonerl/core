@@ -1,5 +1,8 @@
 <?php
 $TRANSLATIONS = array(
+"Storage not available" => "Almacenamento non dispoñíbel",
+"Storage invalid" => "Almacenamento incorrecto",
+"Unknown error" => "Produciuse un erro descoñecido",
 "Could not move %s - File with this name already exists" => "Non foi posíbel mover %s; Xa existe un ficheiro con ese nome.",
 "Could not move %s" => "Non foi posíbel mover %s",
 "File name cannot be empty." => "O nome de ficheiro non pode estar baleiro",
@@ -9,6 +12,7 @@ $TRANSLATIONS = array(
 "The name %s is already used in the folder %s. Please choose a different name." => "Xa existe o nome %s no cartafol %s. Escolla outro nome.",
 "Not a valid source" => "Esta orixe non é correcta",
 "Server is not allowed to open URLs, please check the server configuration" => "O servidor non ten permisos para abrir os enderezos URL, comprobe a configuración do servidor",
+"The file exceeds your quota by %s" => "O ficheiro excede a súa cota en %s",
 "Error while downloading %s to %s" => "Produciuse un erro ao descargar %s en %s",
 "Error when creating the file" => "Produciuse un erro ao crear o ficheiro",
 "Folder name cannot be empty." => "O nome de cartafol non pode estar baleiro.",
@@ -41,6 +45,9 @@ $TRANSLATIONS = array(
 "Could not create folder" => "Non foi posíbel crear o cartafol",
 "Error fetching URL" => "Produciuse un erro ao obter o URL",
 "Share" => "Compartir",
+"Delete" => "Eliminar",
+"Disconnect storage" => "Desconectar o almacenamento",
+"Unshare" => "Deixar de compartir",
 "Delete permanently" => "Eliminar permanentemente",
 "Rename" => "Renomear",
 "Your download is being prepared. This might take some time if the files are big." => "Está a prepararse a súa descarga. Isto pode levar bastante tempo se os ficheiros son grandes.",
@@ -68,10 +75,6 @@ $TRANSLATIONS = array(
 "File handling" => "Manexo de ficheiro",
 "Maximum upload size" => "Tamaño máximo do envío",
 "max. possible: " => "máx. posíbel: ",
-"Needed for multi-file and folder downloads." => "Precísase para a descarga de varios ficheiros e cartafoles.",
-"Enable ZIP-download" => "Activar a descarga ZIP",
-"0 is unlimited" => "0 significa ilimitado",
-"Maximum input size for ZIP files" => "Tamaño máximo de descarga para os ficheiros ZIP",
 "Save" => "Gardar",
 "WebDAV" => "WebDAV",
 "Use this address to <a href=\"%s\" target=\"_blank\">access your Files via WebDAV</a>" => "Empregue esta ligazón para  <a href=\"%s\" target=\"_blank\">acceder aos seus ficheiros mediante WebDAV</a>",
@@ -81,14 +84,12 @@ $TRANSLATIONS = array(
 "New folder" => "Novo cartafol",
 "Folder" => "Cartafol",
 "From link" => "Desde a ligazón",
-"Cancel upload" => "Cancelar o envío",
 "You don’t have permission to upload or create files here" => "Non ten permisos para enviar ou crear ficheiros aquí.",
 "Nothing in here. Upload something!" => "Aquí non hai nada. Envíe algo.",
 "Download" => "Descargar",
-"Delete" => "Eliminar",
-"Upload too large" => "Envío demasiado grande",
+"Upload too large" => "Envío grande de máis",
 "The files you are trying to upload exceed the maximum size for file uploads on this server." => "Os ficheiros que tenta enviar exceden do tamaño máximo permitido neste servidor",
 "Files are being scanned, please wait." => "Estanse analizando os ficheiros. Agarde.",
-"Current scanning" => "Análise actual"
+"Currently scanning" => "Análise actual"
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

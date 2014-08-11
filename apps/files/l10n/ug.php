@@ -1,5 +1,6 @@
 <?php
 $TRANSLATIONS = array(
+"Unknown error" => "يوچۇن خاتالىق",
 "Could not move %s" => "%s يۆتكىيەلمەيدۇ",
 "No file was uploaded. Unknown error" => "ھېچقانداق ھۆججەت يۈكلەنمىدى. يوچۇن خاتالىق",
 "No file was uploaded" => "ھېچقانداق ھۆججەت يۈكلەنمىدى",
@@ -11,6 +12,8 @@ $TRANSLATIONS = array(
 "File upload is in progress. Leaving the page now will cancel the upload." => "ھۆججەت يۈكلەش مەشغۇلاتى ئېلىپ بېرىلىۋاتىدۇ. Leaving the page now will cancel the upload.",
 "{new_name} already exists" => "{new_name} مەۋجۇت",
 "Share" => "ھەمبەھىر",
+"Delete" => "ئۆچۈر",
+"Unshare" => "ھەمبەھىرلىمە",
 "Delete permanently" => "مەڭگۈلۈك ئۆچۈر",
 "Rename" => "ئات ئۆزگەرت",
 "Pending" => "كۈتۈۋاتىدۇ",
@@ -27,10 +30,8 @@ $TRANSLATIONS = array(
 "Text file" => "تېكىست ھۆججەت",
 "New folder" => "يېڭى قىسقۇچ",
 "Folder" => "قىسقۇچ",
-"Cancel upload" => "يۈكلەشتىن ۋاز كەچ",
 "Nothing in here. Upload something!" => "بۇ جايدا ھېچنېمە يوق. Upload something!",
 "Download" => "چۈشۈر",
-"Delete" => "ئۆچۈر",
 "Upload too large" => "يۈكلەندىغىنى بەك چوڭ"
 );
 $PLURAL_FORMS = "nplurals=1; plural=0;";

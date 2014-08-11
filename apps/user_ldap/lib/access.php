@@ -27,20 +27,24 @@ namespace OCA\user_ldap\lib;
  * Class Access
  * @package OCA\user_ldap\lib
  */
-class Access extends LDAPUtility {
+class Access extends LDAPUtility implements user\IUserTools {
+	/**
+	 * @var \OCA\user_ldap\lib\Connection
+	 */
 	public $connection;
+	public $userManager;
 	//never ever check this var directly, always use getPagedSearchResultState
 	protected $pagedSearchedSuccessful;
 
 	protected $cookies = array();
 
-	/**
-	 * @param Connection $connection
-	 * @param ILDAPWrapper $ldap
-	 */
-	public function __construct(Connection $connection, ILDAPWrapper $ldap) {
+
+	public function __construct(Connection $connection, ILDAPWrapper $ldap,
+		user\Manager $userManager) {
 		parent::__construct($ldap);
 		$this->connection = $connection;
+		$this->userManager = $userManager;
+		$this->userManager->setLdapAccess($this);
 	}
 
 	/**
@@ -48,6 +52,14 @@ class Access extends LDAPUtility {
 	 */
 	private function checkConnection() {
 		return ($this->connection instanceof Connection);
+	}
+
+	/**
+	 * returns the Connection instance
+	 * @return \OCA\user_ldap\lib\Connection
+	 */
+	public function getConnection() {
+		return $this->connection;
 	}
 
 	/**
@@ -169,6 +181,33 @@ class Access extends LDAPUtility {
 		$dn = str_replace(array_keys($replacements), array_values($replacements), $dn);
 
 		return $dn;
+	}
+
+	/**
+	 * returns a DN-string that is cleaned from not domain parts, e.g.
+	 * cn=foo,cn=bar,dc=foobar,dc=server,dc=org
+	 * becomes dc=foobar,dc=server,dc=org
+	 * @param string $dn
+	 * @return string
+	 */
+	public function getDomainDNFromDN($dn) {
+		$allParts = $this->ldap->explodeDN($dn, 0);
+		if($allParts === false) {
+			//not a valid DN
+			return '';
+		}
+		$domainParts = array();
+		$dcFound = false;
+		foreach($allParts as $part) {
+			if(!$dcFound && strpos($part, 'dc=') === 0) {
+				$dcFound = true;
+			}
+			if($dcFound) {
+				$domainParts[] = $part;
+			}
+		}
+		$domainDN = implode(',', $domainParts);
+		return $domainDN;
 	}
 
 	/**
@@ -525,7 +564,7 @@ class Access extends LDAPUtility {
 			if(!\OC_Group::groupExists($altName)) {
 				return $altName;
 			}
-			$altName = $name . '_' . $lastNo + $attempts;
+			$altName = $name . '_' . ($lastNo + $attempts);
 			$attempts++;
 		}
 		return false;
@@ -572,6 +611,7 @@ class Access extends LDAPUtility {
 
 	/**
 	 * @param boolean $isUsers
+	 * @return array
 	 */
 	private function mappedComponents($isUsers) {
 		$table = $this->getMapTable($isUsers);
@@ -598,7 +638,7 @@ class Access extends LDAPUtility {
 
 		$sqlAdjustment = '';
 		$dbType = \OCP\Config::getSystemValue('dbtype');
-		if($dbType === 'mysql') {
+		if($dbType === 'mysql' || $dbType == 'oci') {
 			$sqlAdjustment = 'FROM DUAL';
 		}
 
@@ -624,6 +664,12 @@ class Access extends LDAPUtility {
 
 		if($insRows === 0) {
 			return false;
+		}
+
+		if($isUser) {
+			//make sure that email address is retrieved prior to login, so user
+			//will be notified when something is shared with him
+			$this->userManager->get($ocName)->update();
 		}
 
 		return true;
@@ -709,10 +755,18 @@ class Access extends LDAPUtility {
 	}
 
 	/**
-	 * prepares and executes an LDAP search operation
-	 * @param string $filter the LDAP filter for the search
-	 * @param array $base an array containing the LDAP subtree(s) that shall be searched
-	 * @param string|string[] $attr optional, array, one or more attributes that shall be
+	 * returns the number of available groups
+	 * @param string $filter the LDAP search filter
+	 * @param string[] $attr optional
+	 * @param int|null $limit
+	 * @param int|null $offset
+	 * @return int|bool
+	 */
+	public function countGroups($filter, $attr = array('dn'), $limit = null, $offset = null) {
+		return $this->count($filter, $this->connection->ldapBaseGroups, $attr, $limit, $offset);
+	}
+
+	/**
 	 * retrieved. Results will according to the order in the array.
 	 * @param int $limit optional, maximum results to be counted
 	 * @param int $offset optional, a starting point
@@ -811,8 +865,8 @@ class Access extends LDAPUtility {
 	private function count($filter, $base, $attr = null, $limit = null, $offset = null, $skipHandling = false) {
 		\OCP\Util::writeLog('user_ldap', 'Count filter:  '.print_r($filter, true), \OCP\Util::DEBUG);
 
-		if(is_null($limit)) {
-			$limit = $this->connection->ldapPagingSize;
+		if(is_null($limit) || $limit <= 0) {
+			$limit = intval($this->connection->ldapPagingSize);
 		}
 
 		$counter = 0;
@@ -871,6 +925,10 @@ class Access extends LDAPUtility {
 	 * @return array with the search result
 	 */
 	private function search($filter, $base, $attr = null, $limit = null, $offset = null, $skipHandling = false) {
+		if($limit <= 0) {
+			//otherwise search will fail
+			$limit = null;
+		}
 		$search = $this->executeSearch($filter, $base, $attr, $limit, $offset);
 		if($search === false) {
 			return array();
@@ -885,7 +943,7 @@ class Access extends LDAPUtility {
 			$this->processPagedSearchStatus($sr, $filter, $base, 1, $limit,
 											$offset, $pagedSearchOK,
 											$skipHandling);
-			return;
+			return array();
 		}
 
 		// Do the server-side sorting
@@ -1011,9 +1069,10 @@ class Access extends LDAPUtility {
 	}
 
 	/**
-	 * combines the input filters with AND
+	 * combines the input filters with OR
 	 * @param string[] $filters the filters to connect
 	 * @return string the combined filter
+	 * Combines Filter arguments with OR
 	 */
 	public function combineFilterWithOr($filters) {
 		return $this->combineFilter($filters, '|');
@@ -1206,6 +1265,61 @@ class Access extends LDAPUtility {
 		$hex_guid_to_guid_str .= '-' . substr($hex_guid, 20);
 
 		return strtoupper($hex_guid_to_guid_str);
+	}
+
+	/**
+	 * gets a SID of the domain of the given dn
+	 * @param string $dn
+	 * @return string|bool
+	 */
+	public function getSID($dn) {
+		$domainDN = $this->getDomainDNFromDN($dn);
+		$cacheKey = 'getSID-'.$domainDN;
+		if($this->connection->isCached($cacheKey)) {
+			return $this->connection->getFromCache($cacheKey);
+		}
+
+		$objectSid = $this->readAttribute($domainDN, 'objectsid');
+		if(!is_array($objectSid) || empty($objectSid)) {
+			$this->connection->writeToCache($cacheKey, false);
+			return false;
+		}
+		$domainObjectSid = $this->convertSID2Str($objectSid[0]);
+		$this->connection->writeToCache($cacheKey, $domainObjectSid);
+
+		return $domainObjectSid;
+	}
+
+	/**
+	 * converts a binary SID into a string representation
+	 * @param string $sid
+	 * @return string
+	 * @link http://blogs.freebsdish.org/tmclaugh/2010/07/21/finding-a-users-primary-group-in-ad/#comment-2855
+	 */
+	public function convertSID2Str($sid) {
+		try {
+			if(!function_exists('bcadd')) {
+				\OCP\Util::writeLog('user_ldap',
+					'You need to install bcmath module for PHP to have support ' .
+					'for AD primary groups', \OCP\Util::WARN);
+				throw new \Exception('missing bcmath module');
+			}
+			$srl = ord($sid[0]);
+			$numberSubID = ord($sid[1]);
+			$x = substr($sid, 2, 6);
+			$h = unpack('N', "\x0\x0" . substr($x,0,2));
+			$l = unpack('N', substr($x,2,6));
+			$iav = bcadd(bcmul($h[1], bcpow(2,32)), $l[1]);
+			$subIDs = array();
+			for ($i=0; $i<$numberSubID; $i++) {
+				$subID = unpack('V', substr($sid, 8+4*$i, 4));
+				$subIDs[] = $subID[1];
+			}
+		} catch (\Exception $e) {
+			return '';
+		}
+
+		return sprintf('S-%d-%d-%s', $srl, $iav, implode('-', $subIDs));
 	}
 
 	/**

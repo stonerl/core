@@ -35,11 +35,18 @@
 			});
 
 			$(document).on('keydown keyup', function(event) {
-				if(event.target !== self.$dialog.get(0) && self.$dialog.find($(event.target)).length === 0) {
+				if (
+					event.target !== self.$dialog.get(0) &&
+					self.$dialog.find($(event.target)).length === 0
+				) {
 					return;
 				}
 				// Escape
-				if(event.keyCode === 27 && event.type === 'keydown' && self.options.closeOnEscape) {
+				if (
+					event.keyCode === 27 &&
+					event.type === 'keydown' &&
+					self.options.closeOnEscape
+				) {
 					event.stopImmediatePropagation();
 					self.close();
 					return false;
@@ -52,7 +59,10 @@
 						return false;
 					}
 					// If no button is selected we trigger the primary
-					if(self.$buttonrow && self.$buttonrow.find($(event.target)).length === 0) {
+					if (
+						self.$buttonrow &&
+						self.$buttonrow.find($(event.target)).length === 0
+					) {
 						var $button = self.$buttonrow.find('button.primary');
 						if($button) {
 							$button.trigger('click');
@@ -100,6 +110,13 @@
 					} else {
 						var $buttonrow = $('<div class="oc-dialog-buttonrow" />');
 						this.$buttonrow = $buttonrow.appendTo(this.$dialog);
+					}
+					if (value.length === 1) {
+						this.$buttonrow.addClass('onebutton');
+					} else if (value.length === 2) {
+						this.$buttonrow.addClass('twobuttons');
+					} else if (value.length === 3) {
+						this.$buttonrow.addClass('threebuttons');
 					}
 					$.each(value, function(idx, val) {
 						var $button = $('<button>').text(val.text);

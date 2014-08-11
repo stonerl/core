@@ -18,8 +18,8 @@
 		this.initialize($el, options);
 	};
 	FileList.prototype = {
-		SORT_INDICATOR_ASC_CLASS: 'icon-triangle-s',
-		SORT_INDICATOR_DESC_CLASS: 'icon-triangle-n',
+		SORT_INDICATOR_ASC_CLASS: 'icon-triangle-n',
+		SORT_INDICATOR_DESC_CLASS: 'icon-triangle-s',
 
 		id: 'files',
 		appName: t('files', 'Files'),
@@ -125,7 +125,7 @@
 			this.$container = options.scrollContainer || $(window);
 			this.$table = $el.find('table:first');
 			this.$fileList = $el.find('#fileList');
-			this.fileActions = OCA.Files.FileActions;
+			this._initFileActions(options.fileActions);
 			this.files = [];
 			this._selectedFiles = {};
 			this._selectionSummary = new OCA.Files.FileSummary();
@@ -150,11 +150,10 @@
 
 			this.$el.find('thead th .columntitle').click(_.bind(this._onClickHeader, this));
 
-			$(window).resize(function() {
-				// TODO: debounce this ?
-				var width = $(this).width();
-				self.breadcrumb.resize(width, false);
-			});
+			this._onResize = _.debounce(_.bind(this._onResize, this), 100);
+			$(window).resize(this._onResize);
+
+			this.$el.on('show', this._onResize);
 
 			this.$fileList.on('click','td.filename>a.name', _.bind(this._onClickFile, this));
 			this.$fileList.on('change', 'td.filename>input:checkbox', _.bind(this._onClickFileCheckbox, this));
@@ -166,6 +165,42 @@
 			this.setupUploadEvents();
 
 			this.$container.on('scroll', _.bind(this._onScroll, this));
+		},
+
+		/**
+		 * Destroy / uninitialize this instance.
+		 */
+		destroy: function() {
+			// TODO: also unregister other event handlers
+			this.fileActions.off('registerAction', this._onFileActionsUpdated);
+			this.fileActions.off('setDefault', this._onFileActionsUpdated);
+		},
+
+		_initFileActions: function(fileActions) {
+			this.fileActions = fileActions;
+			if (!this.fileActions) {
+				this.fileActions = new OCA.Files.FileActions();
+				this.fileActions.registerDefaultActions();
+			}
+			this._onFileActionsUpdated = _.debounce(_.bind(this._onFileActionsUpdated, this), 100);
+			this.fileActions.on('registerAction', this._onFileActionsUpdated);
+			this.fileActions.on('setDefault', this._onFileActionsUpdated);
+		},
+
+		/**
+		 * Event handler for when the window size changed
+		 */
+		_onResize: function() {
+			var containerWidth = this.$el.width();
+			var actionsWidth = 0;
+			$.each(this.$el.find('#controls .actions'), function(index, action) {
+				actionsWidth += $(action).outerWidth();
+			});
+
+			// substract app navigation toggle when visible
+			containerWidth -= $('#app-navigation-toggle').width();
+
+			this.breadcrumb.setMaxWidth(containerWidth - actionsWidth - 10);
 		},
 
 		/**
@@ -248,7 +283,14 @@
 					var action = this.fileActions.getDefault(mime,type, permissions);
 					if (action) {
 						event.preventDefault();
-						action(filename);
+						// also set on global object for legacy apps
+						window.FileActions.currentFile = this.fileActions.currentFile;
+						action(filename, {
+							$file: $tr,
+							fileList: this,
+							fileActions: this.fileActions,
+							dir: $tr.attr('data-path') || this.getCurrentDirectory()
+						});
 					}
 				}
 			}
@@ -329,7 +371,12 @@
 					this.setSort(sort, (this._sortDirection === 'desc')?'asc':'desc');
 				}
 				else {
-					this.setSort(sort, 'asc');
+					if ( sort === 'name' ) {	//default sorting of name is opposite to size and mtime
+						this.setSort(sort, 'asc');
+					}
+					else {
+						this.setSort(sort, 'desc');
+					}
 				}
 				this.reload();
 			}
@@ -353,7 +400,7 @@
 		 * This appends/renders the next page of entries when reaching the bottom.
 		 */
 		_onScroll: function(e) {
-			if (this.$container.scrollTop() + this.$container.height() > this.$el.height() - 100) {
+			if (this.$container.scrollTop() + this.$container.height() > this.$el.height() - 300) {
 				this._nextPage(true);
 			}
 		},
@@ -433,6 +480,7 @@
 		/**
 		 * Appends the next page of files into the table
 		 * @param animate true to animate the new elements
+		 * @return array of DOM elements of the newly added files
 		 */
 		_nextPage: function(animate) {
 			var index = this.$fileList.children().length,
@@ -443,12 +491,12 @@
 				isAllSelected = this.isAllSelected();
 
 			if (index >= this.files.length) {
-				return;
+				return false;
 			}
 
 			while (count > 0 && index < this.files.length) {
 				fileData = this.files[index];
-				tr = this._renderRow(fileData, {updateSummary: false});
+				tr = this._renderRow(fileData, {updateSummary: false, silent: true});
 				this.$fileList.append(tr);
 				if (isAllSelected || this._selectedFiles[fileData.id]) {
 					tr.addClass('selected');
@@ -456,10 +504,15 @@
 				}
 				if (animate) {
 					tr.addClass('appear transparent');
-					newTrs.push(tr);
 				}
+				newTrs.push(tr);
 				index++;
 				count--;
+			}
+
+			// trigger event for newly added rows
+			if (newTrs.length > 0) {
+				this.$fileList.trigger($.Event('fileActionsReady', {fileList: this, $files: newTrs}));
 			}
 
 			if (animate) {
@@ -470,6 +523,25 @@
 					}
 				}, 0);
 			}
+			return newTrs;
+		},
+
+		/**
+		 * Event handler for when file actions were updated.
+		 * This will refresh the file actions on the list.
+		 */
+		_onFileActionsUpdated: function() {
+			var self = this;
+			var $files = this.$fileList.find('tr');
+			if (!$files.length) {
+				return;
+			}
+
+			$files.each(function() {
+				self.fileActions.display($(this).find('td.filename'), false, self);
+			});
+			this.$fileList.trigger($.Event('fileActionsReady', {fileList: this, $files: $files}));
+
 		},
 
 		/**
@@ -481,7 +553,6 @@
 			// detach to make adding multiple rows faster
 			this.files = filesArray;
 
-			this.$fileList.detach();
 			this.$fileList.empty();
 
 			// clear "Select all" checkbox
@@ -490,13 +561,12 @@
 			this.isEmpty = this.files.length === 0;
 			this._nextPage();
 
-			this.$el.find('thead').after(this.$fileList);
-
 			this.updateEmptyContent();
-			this.$fileList.trigger(jQuery.Event("fileActionsReady"));
 
 			this.fileSummary.calculate(filesArray);
 
+			this._selectedFiles = {};
+			this._selectionSummary.clear();
 			this.updateSelectionSummary();
 			$(window).scrollTop(0);
 
@@ -515,17 +585,12 @@
 				type = fileData.type || 'file',
 				mtime = parseInt(fileData.mtime, 10) || new Date().getTime(),
 				mime = fileData.mimetype,
+				path = fileData.path,
 				linkUrl;
 			options = options || {};
 
 			if (type === 'dir') {
 				mime = mime || 'httpd/unix-directory';
-			}
-
-			// user should always be able to rename a share mount point
-			var allowRename = 0;
-			if (fileData.isShareMountPoint) {
-				allowRename = OC.PERMISSION_UPDATE;
 			}
 
 			//containing tr
@@ -537,8 +602,19 @@
 				"data-mime": mime,
 				"data-mtime": mtime,
 				"data-etag": fileData.etag,
-				"data-permissions": fileData.permissions | allowRename || this.getDirectoryPermissions()
+				"data-permissions": fileData.permissions || this.getDirectoryPermissions()
 			});
+
+			if (fileData.mountType) {
+				tr.attr('data-mounttype', fileData.mountType);
+			}
+
+			if (!_.isUndefined(path)) {
+				tr.attr('data-path', path);
+			}
+			else {
+				path = this.getCurrentDirectory();
+			}
 
 			if (type === 'dir') {
 				// use default folder icon
@@ -556,10 +632,10 @@
 
 			// linkUrl
 			if (type === 'dir') {
-				linkUrl = this.linkTo(this.getCurrentDirectory() + '/' + name);
+				linkUrl = this.linkTo(path + '/' + name);
 			}
 			else {
-				linkUrl = this.getDownloadUrl(name, this.getCurrentDirectory());
+				linkUrl = this.getDownloadUrl(name, path);
 			}
 			td.append('<input id="select-' + this.id + '-' + fileData.id +
 				'" type="checkbox" /><label for="select-' + this.id + '-' + fileData.id + '"></label>');
@@ -579,7 +655,9 @@
 				basename = name;
 				extension = false;
 			}
-			var nameSpan=$('<span></span>').addClass('nametext').text(basename);
+			var nameSpan=$('<span></span>').addClass('nametext');
+			var innernameSpan = $('<span></span>').addClass('innernametext').text(basename);
+			nameSpan.append(innernameSpan);
 			linkElem.append(nameSpan);
 			if (extension) {
 				nameSpan.append($('<span></span>').addClass('extension').text(extension));
@@ -596,7 +674,7 @@
 
 			// size column
 			if (typeof(fileData.size) !== 'undefined' && fileData.size >= 0) {
-				simpleSize = humanFileSize(parseInt(fileData.size, 10));
+				simpleSize = humanFileSize(parseInt(fileData.size, 10), true);
 				sizeColor = Math.round(160-Math.pow((fileData.size/(1024*1024)),2));
 			} else {
 				simpleSize = t('files', 'Pending');
@@ -608,8 +686,13 @@
 			}).text(simpleSize);
 			tr.append(td);
 
-			// date column
-			var modifiedColor = Math.round((Math.round((new Date()).getTime() / 1000) - mtime)/60/60/24*5);
+			// date column (1000 milliseconds to seconds, 60 seconds, 60 minutes, 24 hours)
+			// difference in days multiplied by 5 - brightest shade for files older than 32 days (160/5)
+			var modifiedColor = Math.round(((new Date()).getTime() - mtime )/1000/60/60/24*5 );
+			// ensure that the brightest color is still readable
+			if (modifiedColor >= '160') {
+				modifiedColor = 160;
+			}
 			td = $('<td></td>').attr({ "class": "date" });
 			td.append($('<span></span>').attr({
 				"class": "modified",
@@ -627,7 +710,9 @@
 		 *
 		 * @param fileData map of file attributes
 		 * @param options map of attributes:
-		 * - "updateSummary" true to update the summary after adding (default), false otherwise
+		 * - "updateSummary": true to update the summary after adding (default), false otherwise
+		 * - "silent": true to prevent firing events like "fileActionsReady"
+		 * - "animate": true to animate preview loading (defaults to true here)
 		 * @return new tr element (not appended to the table)
 		 */
 		add: function(fileData, options) {
@@ -635,7 +720,7 @@
 			var $tr;
 			var $rows;
 			var $insertionPoint;
-			options = options || {};
+			options = _.extend({animate: true}, options || {});
 
 			// there are three situations to cover:
 			// 1) insertion point is visible on the current page
@@ -693,12 +778,14 @@
 		 * @param options map of attributes:
 		 * - "index" optional index at which to insert the element
 		 * - "updateSummary" true to update the summary after adding (default), false otherwise
+		 * - "animate" true to animate the preview rendering
 		 * @return new tr element (not appended to the table)
 		 */
 		_renderRow: function(fileData, options) {
 			options = options || {};
 			var type = fileData.type || 'file',
 				mime = fileData.mimetype,
+				path = fileData.path || this.getCurrentDirectory(),
 				permissions = parseInt(fileData.permissions, 10) || 0;
 
 			if (fileData.isShareMountPoint) {
@@ -729,13 +816,13 @@
 			}
 
 			// display actions
-			this.fileActions.display(filenameTd, false);
+			this.fileActions.display(filenameTd, !options.silent, this);
 
 			if (fileData.isPreviewAvailable) {
 				// lazy load / newly inserted td ?
-				if (!fileData.icon) {
+				if (options.animate) {
 					this.lazyLoadPreview({
-						path: this.getCurrentDirectory() + '/' + fileData.name,
+						path: path + '/' + fileData.name,
 						mime: mime,
 						etag: fileData.etag,
 						callback: function(url) {
@@ -746,7 +833,7 @@
 				else {
 					// set the preview URL directly
 					var urlSpec = {
-							file: this.getCurrentDirectory() + '/' + fileData.name,
+							file: path + '/' + fileData.name,
 							c: fileData.etag
 						};
 					var previewUrl = this.generatePreviewUrl(urlSpec);
@@ -777,23 +864,21 @@
 		 * @param {boolean} force set to true to force changing directory
 		 */
 		changeDirectory: function(targetDir, changeUrl, force) {
+			var self = this;
 			var currentDir = this.getCurrentDirectory();
 			targetDir = targetDir || '/';
 			if (!force && currentDir === targetDir) {
 				return;
 			}
 			this._setCurrentDir(targetDir, changeUrl);
-			this.reload();
+			this.reload().then(function(success){
+				if (!success) {
+					self.changeDirectory(currentDir, true);
+				}
+			});
 		},
 		linkTo: function(dir) {
 			return OC.linkTo('files', 'index.php')+"?dir="+ encodeURIComponent(dir).replace(/%2F/g, '/');
-		},
-
-		/**
-		 * Sets the file actions handler
-		 */
-		setFileActions: function(fileActions) {
-			this.fileActions = fileActions;
 		},
 
 		/**
@@ -836,21 +921,31 @@
 			this._sort = sort;
 			this._sortDirection = (direction === 'desc')?'desc':'asc';
 			this._sortComparator = comparator;
+
 			if (direction === 'desc') {
 				this._sortComparator = function(fileInfo1, fileInfo2) {
 					return -comparator(fileInfo1, fileInfo2);
 				};
 			}
 			this.$el.find('thead th .sort-indicator')
-				.removeClass(this.SORT_INDICATOR_ASC_CLASS + ' ' + this.SORT_INDICATOR_DESC_CLASS);
+				.removeClass(this.SORT_INDICATOR_ASC_CLASS)
+				.removeClass(this.SORT_INDICATOR_DESC_CLASS)
+				.toggleClass('hidden', true)
+				.addClass(this.SORT_INDICATOR_DESC_CLASS);
+
 			this.$el.find('thead th.column-' + sort + ' .sort-indicator')
+				.removeClass(this.SORT_INDICATOR_ASC_CLASS)
+				.removeClass(this.SORT_INDICATOR_DESC_CLASS)
+				.toggleClass('hidden', false)
 				.addClass(direction === 'desc' ? this.SORT_INDICATOR_DESC_CLASS : this.SORT_INDICATOR_ASC_CLASS);
 		},
+
 		/**
-		 * @brief Reloads the file list using ajax call
+		 * Reloads the file list using ajax call
+		 *
+		 * @return ajax call object
 		 */
 		reload: function() {
-			var self = this;
 			this._selectedFiles = {};
 			this._selectionSummary.clear();
 			this.$el.find('.select-all').prop('checked', false);
@@ -864,32 +959,35 @@
 					dir : this.getCurrentDirectory(),
 					sort: this._sort,
 					sortdirection: this._sortDirection
-				},
-				error: function(result) {
-					self.reloadCallback(result);
-				},
-				success: function(result) {
-					self.reloadCallback(result);
 				}
 			});
+			var callBack = this.reloadCallback.bind(this);
+			return this._reloadCall.then(callBack, callBack);
 		},
 		reloadCallback: function(result) {
 			delete this._reloadCall;
 			this.hideMask();
 
 			if (!result || result.status === 'error') {
+				// if the error is not related to folder we're trying to load, reload the page to handle logout etc
+				if (result.data.error === 'authentication_error' ||
+					result.data.error === 'token_expired' ||
+					result.data.error === 'application_not_enabled'
+				) {
+					OC.redirect(OC.generateUrl('apps/files'));
+				}
 				OC.Notification.show(result.data.message);
-				return;
+				return false;
 			}
 
 			if (result.status === 404) {
 				// go back home
 				this.changeDirectory('/');
-				return;
+				return false;
 			}
 			// aborted ?
 			if (result.status === 0){
-				return;
+				return true;
 			}
 
 			// TODO: should rather return upload file size through
@@ -901,6 +999,7 @@
 			}
 
 			this.setFiles(result.data.files);
+			return true;
 		},
 
 		updateStorageStatistics: function(force) {
@@ -936,7 +1035,7 @@
 
 		/**
 		 * Lazy load a file's preview.
-		 * 
+		 *
 		 * @param path path of the file
 		 * @param mime mime type
 		 * @param callback callback function to call when the image was loaded
@@ -1179,9 +1278,20 @@
 				return true;
 			};
 
+			function restore() {
+				input.tipsy('hide');
+				tr.data('renaming',false);
+				form.remove();
+				td.children('a.name').show();
+			}
+
 			form.submit(function(event) {
 				event.stopPropagation();
 				event.preventDefault();
+				if (input.hasClass('error')) {
+					return;
+				}
+
 				try {
 					var newName = input.val();
 					input.tipsy('hide');
@@ -1203,7 +1313,7 @@
 						$.ajax({
 							url: OC.filePath('files','ajax','rename.php'),
 							data: {
-								dir : self.getCurrentDirectory(),
+								dir : tr.attr('data-path') || self.getCurrentDirectory(),
 								newname: newName,
 								file: oldname
 							},
@@ -1219,16 +1329,16 @@
 								// reinsert row
 								self.files.splice(tr.index(), 1);
 								tr.remove();
-								self.add(fileInfo, {updateSummary: false});
-								self.$fileList.trigger($.Event('fileActionsReady'));
+								tr = self.add(fileInfo, {updateSummary: false, silent: true});
+								self.$fileList.trigger($.Event('fileActionsReady', {fileList: self, $files: $(tr)}));
 							}
 						});
 					} else {
 						// add back the old file info when cancelled
 						self.files.splice(tr.index(), 1);
 						tr.remove();
-						self.add(oldFileInfo, {updateSummary: false});
-						self.$fileList.trigger($.Event('fileActionsReady'));
+						tr = self.add(oldFileInfo, {updateSummary: false, silent: true});
+						self.$fileList.trigger($.Event('fileActionsReady', {fileList: self, $files: $(tr)}));
 					}
 				} catch (error) {
 					input.attr('title', error);
@@ -1251,10 +1361,7 @@
 					input.addClass('error');
 				}
 				if (event.keyCode === 27) {
-					input.tipsy('hide');
-					tr.data('renaming',false);
-					form.remove();
-					td.children('a.name').show();
+					restore();
 				}
 			});
 			input.click(function(event) {
@@ -1490,7 +1597,7 @@
 				numMatch=base.match(/\((\d+)\)/);
 				var num=2;
 				if (numMatch && numMatch.length>0) {
-					num=parseInt(numMatch[numMatch.length-1])+1;
+					num=parseInt(numMatch[numMatch.length-1], 10)+1;
 					base=base.split('(');
 					base.pop();
 					base=$.trim(base.join('('));
@@ -1514,16 +1621,24 @@
 			// handle upload events
 			var fileUploadStart = this.$el.find('#file_upload_start');
 
+			// detect the progress bar resize
+			fileUploadStart.on('resized', this._onResize);
+
 			fileUploadStart.on('fileuploaddrop', function(e, data) {
 				OC.Upload.log('filelist handle fileuploaddrop', e, data);
 
-				var dropTarget = $(e.originalEvent.target).closest('tr, .crumb');
-				// check if dropped inside this list at all
-				if (dropTarget && !self.$el.has(dropTarget).length) {
+				var dropTarget = $(e.originalEvent.target);
+				// check if dropped inside this container and not another one
+				if (dropTarget.length && !self.$el.is(dropTarget) && !self.$el.has(dropTarget).length) {
 					return false;
 				}
 
-				if (dropTarget && (dropTarget.data('type') === 'dir' || dropTarget.hasClass('crumb'))) { // drag&drop upload to folder
+				// find the closest tr or crumb to use as target
+				dropTarget = dropTarget.closest('tr, .crumb');
+
+				// if dropping on tr or crumb, drag&drop upload to folder
+				if (dropTarget && (dropTarget.data('type') === 'dir' ||
+					dropTarget.hasClass('crumb'))) {
 
 					// remember as context
 					data.context = dropTarget;
@@ -1542,15 +1657,13 @@
 						dir = dropTarget.data('dir') || '/';
 					}
 
-					// update folder in form
-					data.formData = function(form) {
-						return [
-							{name: 'dir', value: dir},
-							{name: 'requesttoken', value: oc_requesttoken},
-							{name: 'file_directory', value: data.files[0].relativePath}
-						];
-					};
+					// add target dir
+					data.targetDir = dir;
 				} else {
+					// we are dropping somewhere inside the file list, which will
+					// upload the file to the current directory
+					data.targetDir = self.getCurrentDirectory();
+
 					// cancel uploads to current dir if no permission
 					var isCreatable = (self.getDirectoryPermissions() & OC.PERMISSION_CREATE) !== 0;
 					if (!isCreatable) {
@@ -1632,15 +1745,34 @@
 						data.context.find('td.filesize').text(humanFileSize(size));
 					} else {
 						// only append new file if uploaded into the current folder
-						if (file.directory !== '/' && file.directory !== self.getCurrentDirectory()) {
+						if (file.directory !== self.getCurrentDirectory()) {
+							// Uploading folders actually uploads a list of files
+							// for which the target directory (file.directory) might lie deeper
+							// than the current directory
 
-							var fileDirectory = file.directory.replace('/','').replace(/\/$/, "").split('/');
+							var fileDirectory = file.directory.replace('/','').replace(/\/$/, "");
+							var currentDirectory = self.getCurrentDirectory().replace('/','').replace(/\/$/, "") + '/';
 
-							if (fileDirectory.length === 1) {
+							if (currentDirectory !== '/') {
+								// abort if fileDirectory does not start with current one
+								if (fileDirectory.indexOf(currentDirectory) !== 0) {
+									return;
+								}
+
+								// remove the current directory part
+								fileDirectory = fileDirectory.substr(currentDirectory.length);
+							}
+
+							// only take the first section of the path
+							fileDirectory = fileDirectory.split('/');
+
+							var fd;
+							// if the first section exists / is a subdir
+							if (fileDirectory.length) {
 								fileDirectory = fileDirectory[0];
 
-								// Get the directory 
-								var fd = self.findFileEl(fileDirectory);
+								// See whether it is already in the list
+								fd = self.findFileEl(fileDirectory);
 								if (fd.length === 0) {
 									var dir = {
 										name: fileDirectory,
@@ -1650,19 +1782,15 @@
 										size: 0,
 										id: file.parentId
 									};
-									self.add(dir, {insert: true});
+									fd = self.add(dir, {insert: true});
 								}
-							} else {
-								fileDirectory = fileDirectory[0];
-							}
-							
-							fileDirectory = self.findFileEl(fileDirectory);
 
-							// update folder size
-							size = parseInt(fileDirectory.attr('data-size'), 10);
-							size += parseInt(file.size, 10);
-							fileDirectory.attr('data-size', size);
-							fileDirectory.find('td.filesize').text(humanFileSize(size));
+								// update folder size
+								size = parseInt(fd.attr('data-size'), 10);
+								size += parseInt(file.size, 10);
+								fd.attr('data-size', size);
+								fd.find('td.filesize').text(OC.Util.humanFileSize(size));
+							}
 
 							return;
 						}

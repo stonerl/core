@@ -65,6 +65,7 @@ class OC_API {
 		$name = strtolower($method).$url;
 		$name = str_replace(array('/', '{', '}'), '_', $name);
 		if(!isset(self::$actions[$name])) {
+			$oldCollection = OC::$server->getRouter()->getCurrentCollection();
 			OC::$server->getRouter()->useCollection('ocs');
 			OC::$server->getRouter()->create($name, $url)
 				->method($method)
@@ -72,6 +73,7 @@ class OC_API {
 				->requirements($requirements)
 				->action('OC_API', 'call');
 			self::$actions[$name] = array();
+			OC::$server->getRouter()->useCollection($oldCollection);
 		}
 		self::$actions[$name][] = array('app' => $app, 'action' => $action, 'authlevel' => $authLevel);
 	}
@@ -301,7 +303,7 @@ class OC_API {
 	 * @param OC_OCS_Result $result
 	 * @param string $format the format xml|json
 	 */
-	private static function respond($result, $format='xml') {
+	public static function respond($result, $format='xml') {
 		// Send 401 headers if unauthorised
 		if($result->getStatusCode() === self::RESPOND_UNAUTHORISED) {
 			header('WWW-Authenticate: Basic realm="Authorisation Required"');

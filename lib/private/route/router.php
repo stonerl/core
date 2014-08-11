@@ -26,6 +26,11 @@ class Router implements IRouter {
 	protected $collection = null;
 
 	/**
+	 * @var string
+	 */
+	protected $collectionName = null;
+
+	/**
 	 * @var \Symfony\Component\Routing\RouteCollection
 	 */
 	protected $root = null;
@@ -160,7 +165,18 @@ class Router implements IRouter {
 	 */
 	public function useCollection($name) {
 		$this->collection = $this->getCollection($name);
+		$this->collectionName = $name;
 	}
+
+	/**
+	 * returns the current collection name in use for adding routes
+	 *
+	 * @return string the collection name
+	 */
+	public function getCurrentCollection() {
+		return $this->collectionName;
+	}
+
 
 	/**
 	 * Create a \OC\Route\Route.
@@ -188,8 +204,13 @@ class Router implements IRouter {
 		if (substr($url, 0, 6) === '/apps/') {
 			// empty string / 'apps' / $app / rest of the route
 			list(, , $app,) = explode('/', $url, 4);
+			\OC::$REQUESTEDAPP = $app;
 			$this->loadRoutes($app);
 		} else if (substr($url, 0, 6) === '/core/' or substr($url, 0, 10) === '/settings/') {
+			\OC::$REQUESTEDAPP = $url;
+			if (!\OC_Config::getValue('maintenance', false) && !\OCP\Util::needUpgrade()) {
+				\OC_App::loadApps();
+			}
 			$this->loadRoutes('core');
 		} else {
 			$this->loadRoutes();

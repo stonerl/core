@@ -1,5 +1,6 @@
 <?php
 $TRANSLATIONS = array(
+"Unknown error" => "Lỗi chưa biết",
 "Could not move %s - File with this name already exists" => "Không thể di chuyển %s - Đã có tên tập tin này trên hệ thống",
 "Could not move %s" => "Không thể di chuyển %s",
 "File name cannot be empty." => "Tên file không được rỗng",
@@ -35,6 +36,8 @@ $TRANSLATIONS = array(
 "Could not create file" => "Không thể tạo file",
 "Could not create folder" => "Không thể tạo thư mục",
 "Share" => "Chia sẻ",
+"Delete" => "Xóa",
+"Unshare" => "Bỏ chia sẻ",
 "Delete permanently" => "Xóa vĩnh vễn",
 "Rename" => "Sửa tên",
 "Your download is being prepared. This might take some time if the files are big." => "Your download is being prepared. This might take some time if the files are big.",
@@ -58,10 +61,6 @@ $TRANSLATIONS = array(
 "File handling" => "Xử lý tập tin",
 "Maximum upload size" => "Kích thước tối đa ",
 "max. possible: " => "tối đa cho phép:",
-"Needed for multi-file and folder downloads." => "Cần thiết cho tải nhiều tập tin và thư mục.",
-"Enable ZIP-download" => "Cho phép ZIP-download",
-"0 is unlimited" => "0 là không giới hạn",
-"Maximum input size for ZIP files" => "Kích thước tối đa cho các tập tin ZIP",
 "Save" => "Lưu",
 "WebDAV" => "WebDAV",
 "New" => "Tạo mới",
@@ -70,14 +69,11 @@ $TRANSLATIONS = array(
 "New folder" => "Tạo thư mục",
 "Folder" => "Thư mục",
 "From link" => "Từ liên kết",
-"Cancel upload" => "Hủy upload",
 "You don’t have permission to upload or create files here" => "Bạn không có quyền upload hoặc tạo files ở đây",
 "Nothing in here. Upload something!" => "Không có gì ở đây .Hãy tải lên một cái gì đó !",
 "Download" => "Tải về",
-"Delete" => "Xóa",
 "Upload too large" => "Tập tin tải lên quá lớn",
 "The files you are trying to upload exceed the maximum size for file uploads on this server." => "Các tập tin bạn đang tải lên vượt quá kích thước tối đa cho phép trên máy chủ .",
-"Files are being scanned, please wait." => "Tập tin đang được quét ,vui lòng chờ.",
-"Current scanning" => "Hiện tại đang quét"
+"Files are being scanned, please wait." => "Tập tin đang được quét ,vui lòng chờ."
 );
 $PLURAL_FORMS = "nplurals=1; plural=0;";

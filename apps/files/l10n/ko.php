@@ -1,5 +1,6 @@
 <?php
 $TRANSLATIONS = array(
+"Unknown error" => "알 수 없는 오류",
 "Could not move %s - File with this name already exists" => "항목 %s을(를) 이동시킬 수 없음 - 같은 이름의 파일이 이미 존재함",
 "Could not move %s" => "항목 %s을(를) 이동시킬 수 없음",
 "File name cannot be empty." => "파일 이름이 비어 있을 수 없습니다.",
@@ -36,6 +37,8 @@ $TRANSLATIONS = array(
 "Could not create folder" => "폴더를 만들 수 없음",
 "Error fetching URL" => "URL을 가져올 수 없음",
 "Share" => "공유",
+"Delete" => "삭제",
+"Unshare" => "공유 해제",
 "Delete permanently" => "영구히 삭제",
 "Rename" => "이름 바꾸기",
 "Your download is being prepared. This might take some time if the files are big." => "다운로드 준비 중입니다. 파일 크기가 크면 시간이 오래 걸릴 수도 있습니다.",
@@ -60,10 +63,6 @@ $TRANSLATIONS = array(
 "File handling" => "파일 처리",
 "Maximum upload size" => "최대 업로드 크기",
 "max. possible: " => "최대 가능:",
-"Needed for multi-file and folder downloads." => "다중 파일 및 폴더 다운로드에 필요합니다.",
-"Enable ZIP-download" => "ZIP 다운로드 허용",
-"0 is unlimited" => "0은 무제한입니다",
-"Maximum input size for ZIP files" => "ZIP 파일 최대 크기",
 "Save" => "저장",
 "WebDAV" => "WebDAV",
 "Use this address to <a href=\"%s\" target=\"_blank\">access your Files via WebDAV</a>" => "WebDAV로 파일에 접근하려면 <a href=\"%s\" target=\"_blank\">이 주소를 사용하십시오</a>",
@@ -73,14 +72,11 @@ $TRANSLATIONS = array(
 "New folder" => "새 폴더",
 "Folder" => "폴더",
 "From link" => "링크에서",
-"Cancel upload" => "업로드 취소",
 "You don’t have permission to upload or create files here" => "여기에 파일을 업로드하거나 만들 권한이 없습니다",
 "Nothing in here. Upload something!" => "내용이 없습니다. 업로드할 수 있습니다!",
 "Download" => "다운로드",
-"Delete" => "삭제",
 "Upload too large" => "업로드한 파일이 너무 큼",
 "The files you are trying to upload exceed the maximum size for file uploads on this server." => "이 파일이 서버에서 허용하는 최대 업로드 가능 용량보다 큽니다.",
-"Files are being scanned, please wait." => "파일을 검색하고 있습니다. 기다려 주십시오.",
-"Current scanning" => "현재 검색"
+"Files are being scanned, please wait." => "파일을 검색하고 있습니다. 기다려 주십시오."
 );
 $PLURAL_FORMS = "nplurals=1; plural=0;";

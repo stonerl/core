@@ -1,5 +1,6 @@
 <?php
 $TRANSLATIONS = array(
+"Unknown error" => "خطأ غير معروف. ",
 "Could not move %s - File with this name already exists" => "فشل في نقل الملف %s - يوجد ملف بنفس هذا الاسم",
 "Could not move %s" => "فشل في نقل %s",
 "File name cannot be empty." => "اسم الملف لا يجوز أن يكون فارغا",
@@ -25,6 +26,8 @@ $TRANSLATIONS = array(
 "File upload is in progress. Leaving the page now will cancel the upload." => "عملية رفع الملفات قيد التنفيذ. اغلاق الصفحة سوف يلغي عملية رفع الملفات.",
 "{new_name} already exists" => "{new_name} موجود مسبقا",
 "Share" => "شارك",
+"Delete" => "إلغاء",
+"Unshare" => "إلغاء المشاركة",
 "Delete permanently" => "حذف بشكل دائم",
 "Rename" => "إعادة تسميه",
 "Your download is being prepared. This might take some time if the files are big." => "جاري تجهيز عملية التحميل. قد تستغرق بعض الوقت اذا كان حجم الملفات كبير.",
@@ -47,10 +50,6 @@ $TRANSLATIONS = array(
 "File handling" => "التعامل مع الملف",
 "Maximum upload size" => "الحد الأقصى لحجم الملفات التي يمكن رفعها",
 "max. possible: " => "الحد الأقصى المسموح به",
-"Needed for multi-file and folder downloads." => "اجباري للسماح بالتحميل المتعدد للمجلدات والملفات",
-"Enable ZIP-download" => "تفعيل خاصية تحميل ملفات ZIP",
-"0 is unlimited" => "0 = غير محدود",
-"Maximum input size for ZIP files" => "الحد الأقصى المسموح به لملفات ZIP",
 "Save" => "حفظ",
 "WebDAV" => "WebDAV",
 "Use this address to <a href=\"%s\" target=\"_blank\">access your Files via WebDAV</a>" => "استخدم هذا العنوان لـ  <a href=\"%s\" target=\"_blank\">الدخول الى ملفاتك عن طريق WebDAV</a>",
@@ -59,13 +58,10 @@ $TRANSLATIONS = array(
 "New folder" => "مجلد جديد",
 "Folder" => "مجلد",
 "From link" => "من رابط",
-"Cancel upload" => "إلغاء رفع الملفات",
 "Nothing in here. Upload something!" => "لا يوجد شيء هنا. إرفع بعض الملفات!",
 "Download" => "تحميل",
-"Delete" => "إلغاء",
 "Upload too large" => "حجم الترفيع أعلى من المسموح",
 "The files you are trying to upload exceed the maximum size for file uploads on this server." => "حجم الملفات التي تريد ترفيعها أعلى من المسموح على الخادم.",
-"Files are being scanned, please wait." => "يرجى الانتظار , جاري فحص الملفات .",
-"Current scanning" => "الفحص الحالي"
+"Files are being scanned, please wait." => "يرجى الانتظار , جاري فحص الملفات ."
 );
 $PLURAL_FORMS = "nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;";

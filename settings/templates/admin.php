@@ -83,6 +83,35 @@ if (!$_['isWebDavWorking']) {
 <?php
 }
 
+// Are doc blocks accessible?
+if (!$_['isAnnotationsWorking']) {
+	?>
+<div class="section">
+	<h2><?php p($l->t('Setup Warning'));?></h2>
+
+	<span class="securitywarning">
+		<?php p($l->t('PHP is apparently setup to strip inline doc blocks. This will make several core apps inaccessible.')); ?>
+		<?php p($l->t('This is probably caused by a cache/accelerator such as Zend OPcache or eAccelerator.')); ?>
+	</span>
+
+</div>
+<?php
+}
+
+// SQLite database performance issue
+if ($_['databaseOverload']) {
+	?>
+<div class="section">
+	<h2><?php p($l->t('Database Performance Info'));?></h2>
+
+	<p class="securitywarning">
+		<?php p($l->t('SQLite is used as database. For larger installations we recommend to change this. To migrate to another database use the command line tool: \'occ db:convert-type\'')); ?>
+	</p>
+
+</div>
+<?php
+}
+
 // if module fileinfo available?
 if (!$_['has_fileinfo']) {
 	?>
@@ -197,27 +226,24 @@ if (!$_['internetconnectionworking']) {
 					print_unescaped('checked="checked"');
 				} ?>>
 				<label for="backgroundjobs_cron">Cron</label><br/>
-				<em><?php p($l->t("Use systems cron service to call the cron.php file every 15 minutes.")); ?></em>
+				<em><?php p($l->t("Use system's cron service to call the cron.php file every 15 minutes.")); ?></em>
 	</p>
 </div>
 
 <div class="section" id="shareAPI">
 	<h2><?php p($l->t('Sharing'));?></h2>
-	<table class="shareAPI">
-		<tr>
-			<td id="enable">
-				<input type="checkbox" name="shareapi_enabled" id="shareAPIEnabled"
-					   value="1" <?php if ($_['shareAPIEnabled'] === 'yes') print_unescaped('checked="checked"'); ?> />
-				<label for="shareAPIEnabled"><?php p($l->t('Enable Share API'));?></label><br/>
-				<em><?php p($l->t('Allow apps to use the Share API')); ?></em>
-			</td>
-		</tr>
-		<tr>
-			<td <?php if ($_['shareAPIEnabled'] === 'no') print_unescaped('class="hidden"');?>>
-				<input type="checkbox" name="shareapi_allow_links" id="allowLinks"
-					   value="1" <?php if ($_['allowLinks'] === 'yes') print_unescaped('checked="checked"'); ?> />
-				<label for="allowLinks"><?php p($l->t('Allow links'));?></label><br/>
-				<div <?php ($_['allowLinks'] === 'yes') ? print_unescaped('class="indent"') : print_unescaped('class="hidden indent"');?> id="publicLinkSettings">
+		<p id="enable">
+			<input type="checkbox" name="shareapi_enabled" id="shareAPIEnabled"
+				   value="1" <?php if ($_['shareAPIEnabled'] === 'yes') print_unescaped('checked="checked"'); ?> />
+			<label for="shareAPIEnabled"><?php p($l->t('Allow apps to use the Share API'));?></label><br/>
+		</p>
+		<p class="<?php if ($_['shareAPIEnabled'] === 'no') p('hidden');?>">
+			<input type="checkbox" name="shareapi_allow_links" id="allowLinks"
+				   value="1" <?php if ($_['allowLinks'] === 'yes') print_unescaped('checked="checked"'); ?> />
+			<label for="allowLinks"><?php p($l->t('Allow users to share via link'));?></label><br/>
+		</p>
+
+			<p id="publicLinkSettings" class="indent <?php if ($_['allowLinks'] !== 'yes' || $_['shareAPIEnabled'] === 'no') p('hidden'); ?>">
 				<input type="checkbox" name="shareapi_enforce_links_password" id="enforceLinkPassword"
 						   value="1" <?php if ($_['enforceLinkPassword']) print_unescaped('checked="checked"'); ?> />
 				<label for="enforceLinkPassword"><?php p($l->t('Enforce password protection'));?></label><br/>
@@ -228,52 +254,38 @@ if (!$_['internetconnectionworking']) {
 				<input type="checkbox" name="shareapi_default_expire_date" id="shareapiDefaultExpireDate"
 				       value="1" <?php if ($_['shareDefaultExpireDateSet'] === 'yes') print_unescaped('checked="checked"'); ?> />
 				<label for="shareapiDefaultExpireDate"><?php p($l->t('Set default expiration date'));?></label><br/>
-				<div id="setDefaultExpireDate" <?php ($_['shareDefaultExpireDateSet'] === 'no') ? print_unescaped('class="hidden indent"') : print_unescaped('class="indent"');?>>
+
+			</p>
+				<p id="setDefaultExpireDate" class="double-indent <?php if ($_['allowLinks'] !== 'yes' || $_['shareDefaultExpireDateSet'] === 'no' || $_['shareAPIEnabled'] === 'no') p('hidden');?>">
 					<?php p($l->t( 'Expire after ' )); ?>
 					<input type="text" name='shareapi_expire_after_n_days' id="shareapiExpireAfterNDays" placeholder="<?php p('7')?>"
 						   value='<?php p($_['shareExpireAfterNDays']) ?>' />
 					<?php p($l->t( 'days' )); ?>
 					<input type="checkbox" name="shareapi_enforce_expire_date" id="shareapiEnforceExpireDate"
-						   value="1" <?php if ($_['shareEnforceExpireDate'] == 'yes') print_unescaped('checked="checked"'); ?> />
+						   value="1" <?php if ($_['shareEnforceExpireDate'] === 'yes') print_unescaped('checked="checked"'); ?> />
 					<label for="shareapiEnforceExpireDate"><?php p($l->t('Enforce expiration date'));?></label><br/>
-				</div>
-
-				</div>
-				<em><?php p($l->t('Allow users to share items to the public with links')); ?></em>
-			</td>
-		</tr>
-		<tr>
-			<td <?php if ($_['shareAPIEnabled'] === 'no') print_unescaped('class="hidden"');?>>
-				<input type="checkbox" name="shareapi_allow_resharing" id="allowResharing"
-					   value="1" <?php if ($_['allowResharing'] === 'yes') print_unescaped('checked="checked"'); ?> />
-				<label for="allowResharing"><?php p($l->t('Allow resharing'));?></label><br/>
-				<em><?php p($l->t('Allow users to share items shared with them again')); ?></em>
-			</td>
-		</tr>
-		<tr>
-			<td <?php if ($_['shareAPIEnabled'] === 'no') print_unescaped('class="hidden"');?>>
-				<input type="radio" name="shareapi_share_policy" id="sharePolicyGlobal"
-					   value="global" <?php if ($_['sharePolicy'] === 'global') print_unescaped('checked="checked"'); ?> />
-				<label for="sharePolicyGlobal"><?php p($l->t('Allow users to share with anyone')); ?></label><br/>
-				<input type="radio" name="shareapi_share_policy" id="sharePolicyGroupsOnly"
-					   value="groups_only" <?php if ($_['sharePolicy'] === 'groups_only') print_unescaped('checked="checked"'); ?> />
-				<label for="sharePolicyGroupsOnly"><?php p($l->t('Allow users to only share with users in their groups'));?></label><br/>
-			</td>
-		</tr>
-		<tr>
-			<td <?php if ($_['shareAPIEnabled'] === 'no') print_unescaped('class="hidden"');?>>
-				<input type="checkbox" name="shareapi_allow_mail_notification" id="allowMailNotification"
-					   value="1" <?php if ($_['allowMailNotification'] === 'yes') print_unescaped('checked="checked"'); ?> />
-				<label for="allowMailNotification"><?php p($l->t('Allow mail notification'));?></label><br/>
-				<em><?php p($l->t('Allow users to send mail notification for shared files')); ?></em>
-			</td>
-		</tr>
-		<tr>
-			<td <?php if ($_['shareAPIEnabled'] === 'no') print_unescaped('class="hidden"');?>>
-				<input type="checkbox" name="shareapi_exclude_groups" id="shareapiExcludeGroups"
-				       value="1" <?php if ($_['shareExcludeGroups']) print_unescaped('checked="checked"'); ?> />
-				<label for="shareapiExcludeGroups"><?php p($l->t('Exclude groups from sharing'));?></label><br/>
-				<div id="selectExcludedGroups" class="<?php ($_['shareExcludeGroups']) ? p('indent') : p('hidden indent'); ?>">
+				</p>
+		<p class="<?php if ($_['shareAPIEnabled'] === 'no') p('hidden');?>">
+			<input type="checkbox" name="shareapi_allow_resharing" id="allowResharing"
+				   value="1" <?php if ($_['allowResharing'] === 'yes') print_unescaped('checked="checked"'); ?> />
+			<label for="allowResharing"><?php p($l->t('Allow resharing'));?></label><br/>
+		</p>
+		<p class="<?php if ($_['shareAPIEnabled'] === 'no') p('hidden');?>">
+			<input type="checkbox" name="shareapi_only_share_with_group_members" id="onlyShareWithGroupMembers"
+				   value="1" <?php if ($_['onlyShareWithGroupMembers']) print_unescaped('checked="checked"'); ?> />
+			<label for="onlyShareWithGroupMembers"><?php p($l->t('Restrict users to only share with users in their groups'));?></label><br/>
+		</p>
+		<p class="<?php if ($_['shareAPIEnabled'] === 'no') p('hidden');?>">
+			<input type="checkbox" name="shareapi_allow_mail_notification" id="allowMailNotification"
+				   value="1" <?php if ($_['allowMailNotification'] === 'yes') print_unescaped('checked="checked"'); ?> />
+			<label for="allowMailNotification"><?php p($l->t('Allow users to send mail notification for shared files'));?></label><br/>
+		</p>
+		<p class="<?php if ($_['shareAPIEnabled'] === 'no') p('hidden');?>">
+			<input type="checkbox" name="shareapi_exclude_groups" id="shareapiExcludeGroups"
+			       value="1" <?php if ($_['shareExcludeGroups']) print_unescaped('checked="checked"'); ?> />
+			<label for="shareapiExcludeGroups"><?php p($l->t('Exclude groups from sharing'));?></label><br/>
+		</p>
+			<p id="selectExcludedGroups" class="indent <?php if (!$_['shareExcludeGroups'] || $_['shareAPIEnabled'] === 'no') p('hidden'); ?>">
 				<select
 					class="groupsselect"
 					id="excludedGroups" data-placeholder="groups"
@@ -282,50 +294,44 @@ if (!$_['internetconnectionworking']) {
 						<option value="<?php p($group['gid'])?>" <?php if($group['excluded']) { p('selected="selected"'); }?>><?php p($group['gid']);?></option>
 					<?php endforeach;?>
 				</select>
-				</div>
+				<br />
 				<em><?php p($l->t('These groups will still be able to receive shares, but not to initiate them.')); ?></em>
-			</td>
-		</tr>
-	</table>
+			</p>
 </div>
 
 <div class="section" id="security">
 	<h2><?php p($l->t('Security'));?></h2>
-	<table>
-		<tr>
-			<td id="enable">
-				<input type="checkbox" name="forcessl"  id="forcessl"
-					<?php if ($_['enforceHTTPSEnabled']) {
-						print_unescaped('checked="checked" ');
-						print_unescaped('value="false"');
-					}  else {
-						print_unescaped('value="true"');
-					}
-					?>
-					<?php if (!$_['isConnectedViaHTTPS']) p('disabled'); ?> />
-				<label for="forcessl"><?php p($l->t('Enforce HTTPS'));?></label><br/>
-				<em><?php p($l->t(
-					'Forces the clients to connect to %s via an encrypted connection.',
-					$theme->getName()
-				)); ?></em>
-				<?php if (!$_['isConnectedViaHTTPS']) {
-					print_unescaped("<br/><em>");
-					p($l->t(
-						'Please connect to your %s via HTTPS to enable or disable the SSL enforcement.',
-						$theme->getName()
-					));
-					print_unescaped("</em>");
-				}
-				?>
-			</td>
-		</tr>
-	</table>
+	<p>
+		<input type="checkbox" name="forcessl"  id="forcessl"
+			<?php if ($_['enforceHTTPSEnabled']) {
+				print_unescaped('checked="checked" ');
+				print_unescaped('value="false"');
+			}  else {
+				print_unescaped('value="true"');
+			}
+			?>
+			<?php if (!$_['isConnectedViaHTTPS']) p('disabled'); ?> />
+		<label for="forcessl"><?php p($l->t('Enforce HTTPS'));?></label><br/>
+		<em><?php p($l->t(
+			'Forces the clients to connect to %s via an encrypted connection.',
+			$theme->getName()
+		)); ?></em>
+		<?php if (!$_['isConnectedViaHTTPS']) {
+			print_unescaped("<br/><em>");
+			p($l->t(
+				'Please connect to your %s via HTTPS to enable or disable the SSL enforcement.',
+				$theme->getName()
+			));
+			print_unescaped("</em>");
+		}
+		?>
+	</p>
 </div>
 
-<div id="mail_settings" class="section">
-	<h2><?php p($l->t('Email Server'));?> <span id="mail_settings_msg" class="msg"></span></h2>
+<div class="section"><form id="mail_settings">
+	<h2><?php p($l->t('Email Server'));?></h2>
 
-	<p><?php p($l->t('This is used for sending out notifications.')); ?></p>
+	<p><?php p($l->t('This is used for sending out notifications.')); ?> <span id="mail_settings_msg" class="msg"></span></p>
 
 	<p>
 		<label for="mail_smtpmode"><?php p($l->t( 'Send mode' )); ?></label>
@@ -357,10 +363,10 @@ if (!$_['internetconnectionworking']) {
 
 	<p>
 		<label for="mail_from_address"><?php p($l->t( 'From address' )); ?></label>
-		<input type="text" name='mail_from_address' id="mail_from_address" placeholder="<?php p('mail')?>"
+		<input type="text" name='mail_from_address' id="mail_from_address" placeholder="<?php p($l->t('mail'))?>"
 			   value='<?php p($_['mail_from_address']) ?>' />
 		@
-		<input type="text" name='mail_domain' id="mail_domain" placeholder="<?php p('example.com')?>"
+		<input type="text" name='mail_domain' id="mail_domain" placeholder="example.com"
 			   value='<?php p($_['mail_domain']) ?>' />
 	</p>
 
@@ -383,7 +389,7 @@ if (!$_['internetconnectionworking']) {
 
 	<p id="setting_smtphost" <?php if ($_['mail_smtpmode'] != 'smtp') print_unescaped(' class="hidden"'); ?>>
 		<label for="mail_smtphost"><?php p($l->t( 'Server address' )); ?></label>
-		<input type="text" name='mail_smtphost' id="mail_smtphost" placeholder="<?php p('smtp.example.com')?>"
+		<input type="text" name='mail_smtphost' id="mail_smtphost" placeholder="smtp.example.com"
 			   value='<?php p($_['mail_smtphost']) ?>' />
 		:
 		<input type="text" name='mail_smtpport' id="mail_smtpport" placeholder="<?php p($l->t('Port'))?>"
@@ -402,7 +408,7 @@ if (!$_['internetconnectionworking']) {
 	<em><?php p($l->t( 'Test email settings' )); ?></em>
 	<input type="submit" name="sendtestemail" id="sendtestemail" value="<?php p($l->t( 'Send email' )); ?>"/>
 	<span id="sendtestmail_msg" class="msg"></span>
-</div>
+</form></div>
 
 <div class="section">
 	<h2><?php p($l->t('Log'));?></h2>

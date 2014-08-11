@@ -1,5 +1,8 @@
 <?php
 $TRANSLATIONS = array(
+"Storage not available" => "Lagerplads er ikke tilgængeligt",
+"Storage invalid" => "Lagerplads er ugyldig",
+"Unknown error" => "Ukendt fejl",
 "Could not move %s - File with this name already exists" => "Kunne ikke flytte %s - der findes allerede en fil med dette navn",
 "Could not move %s" => "Kunne ikke flytte %s",
 "File name cannot be empty." => "Filnavnet kan ikke stå tomt.",
@@ -28,6 +31,7 @@ $TRANSLATIONS = array(
 "Upload failed. Could not get file info." => "Upload fejlede. Kunne ikke hente filinformation.",
 "Invalid directory." => "Ugyldig mappe.",
 "Files" => "Filer",
+"All files" => "Alle filer",
 "Unable to upload {filename} as it is a directory or has 0 bytes" => "Kan ikke upload {filename} da det er enten en mappe eller indholder 0 bytes.",
 "Total file size {size1} exceeds upload limit {size2}" => "Den totale filstørrelse {size1} er større end uploadgrænsen {size2}",
 "Not enough free space, you are uploading {size1} but only {size2} is left" => "Der er ikke tilstrækkeligt friplads. Du uplaoder {size1} men der er kun {size2} tilbage",
@@ -40,6 +44,9 @@ $TRANSLATIONS = array(
 "Could not create folder" => "Kunne ikke oprette mappe",
 "Error fetching URL" => "Fejl ved URL",
 "Share" => "Del",
+"Delete" => "Slet",
+"Disconnect storage" => "Frakobl lager",
+"Unshare" => "Fjern deling",
 "Delete permanently" => "Slet permanent",
 "Rename" => "Omdøb",
 "Your download is being prepared. This might take some time if the files are big." => "Dit download forberedes. Dette kan tage lidt tid ved større filer.",
@@ -67,10 +74,6 @@ $TRANSLATIONS = array(
 "File handling" => "Filhåndtering",
 "Maximum upload size" => "Maksimal upload-størrelse",
 "max. possible: " => "max. mulige: ",
-"Needed for multi-file and folder downloads." => "Nødvendigt for at kunne downloade mapper og flere filer ad gangen.",
-"Enable ZIP-download" => "Tillad ZIP-download",
-"0 is unlimited" => "0 er ubegrænset",
-"Maximum input size for ZIP files" => "Maksimal størrelse på ZIP filer",
 "Save" => "Gem",
 "WebDAV" => "WebDAV",
 "Use this address to <a href=\"%s\" target=\"_blank\">access your Files via WebDAV</a>" => "Brug denne adresse for at <a href=\"%s\" target=\"_blank\">tilgå dine filer via WebDAV</a>",
@@ -80,14 +83,12 @@ $TRANSLATIONS = array(
 "New folder" => "Ny Mappe",
 "Folder" => "Mappe",
 "From link" => "Fra link",
-"Cancel upload" => "Fortryd upload",
 "You don’t have permission to upload or create files here" => "Du har ikke tilladelse til at uploade eller oprette filer her",
 "Nothing in here. Upload something!" => "Her er tomt. Upload noget!",
 "Download" => "Download",
-"Delete" => "Slet",
 "Upload too large" => "Upload er for stor",
 "The files you are trying to upload exceed the maximum size for file uploads on this server." => "Filerne, du prøver at uploade, er større end den maksimale størrelse for fil-upload på denne server.",
 "Files are being scanned, please wait." => "Filerne bliver indlæst, vent venligst.",
-"Current scanning" => "Indlæser"
+"Currently scanning" => "Indlæser"
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

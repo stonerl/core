@@ -96,7 +96,10 @@ class JobList implements IJobList {
 		$query->execute();
 		$jobs = array();
 		while ($row = $query->fetch()) {
-			$jobs[] = $this->buildJob($row);
+			$job = $this->buildJob($row);
+			if ($job) {
+				$jobs[] = $job;
+			}
 		}
 		return $jobs;
 	}
@@ -149,6 +152,13 @@ class JobList implements IJobList {
 		/**
 		 * @var Job $job
 		 */
+		if ($class === 'OC_Cache_FileGlobalGC') {
+			$class = '\OC\Cache\FileGlobalGC';
+		}
+		if (!class_exists($class)) {
+			// job from disabled app or old version of an app, no need to do anything
+			return null;
+		}
 		$job = new $class();
 		$job->setId($row['id']);
 		$job->setLastRun($row['last_run']);

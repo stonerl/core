@@ -1,5 +1,6 @@
 <?php
 $TRANSLATIONS = array(
+"Unknown error" => "Gabim panjohur",
 "Could not move %s - File with this name already exists" => "E pa mundur zhvendosja e %s - ekziston nje skedar me te njetin emer",
 "Could not move %s" => "Nuk mund të zhvendoset %s",
 "File name cannot be empty." => "Emri i skedarit nuk mund të jetë bosh.",
@@ -23,6 +24,8 @@ $TRANSLATIONS = array(
 "{new_name} already exists" => "{new_name} është ekzistues ",
 "Could not create folder" => "I pamundur krijimi i kartelës",
 "Share" => "Ndaj",
+"Delete" => "Fshi",
+"Unshare" => "Hiq ndarjen",
 "Delete permanently" => "Fshi përfundimisht",
 "Rename" => "Riemëro",
 "Your download is being prepared. This might take some time if the files are big." => "Shkarkimi juaj është duke u përgatitur. Kjo mund të kërkojë kohë nëse skedarët janë të mëdhenj.",
@@ -43,10 +46,6 @@ $TRANSLATIONS = array(
 "File handling" => "Trajtimi i Skedarëve",
 "Maximum upload size" => "Madhësia maksimale e nagarkimit",
 "max. possible: " => "maks i mundshëm",
-"Needed for multi-file and folder downloads." => "Nevojitej shkarkim i shumë skedarëve dhe dosjeve",
-"Enable ZIP-download" => "Mundëso skarkimin e ZIP",
-"0 is unlimited" => "o është pa limit",
-"Maximum input size for ZIP files" => "Maksimumi hyrës i skedarëve ZIP",
 "Save" => "Ruaj",
 "WebDAV" => "WebDAV",
 "New" => "E re",
@@ -54,13 +53,10 @@ $TRANSLATIONS = array(
 "New folder" => "Dosje e're",
 "Folder" => "Dosje",
 "From link" => "Nga lidhja",
-"Cancel upload" => "Anullo ngarkimin",
 "Nothing in here. Upload something!" => "Këtu nuk ka asgje. Ngarko dicka",
 "Download" => "Shkarko",
-"Delete" => "Fshi",
 "Upload too large" => "Ngarkimi shumë i madh",
 "The files you are trying to upload exceed the maximum size for file uploads on this server." => "Skedarët që po mundoheni të ngarkoni e tejkalojnë madhësinë maksimale të lejuar nga serveri.",
-"Files are being scanned, please wait." => "Skanerizimi i skedarit në proces. Ju lutem prisni.",
-"Current scanning" => "Skanimi aktual"
+"Files are being scanned, please wait." => "Skanerizimi i skedarit në proces. Ju lutem prisni."
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

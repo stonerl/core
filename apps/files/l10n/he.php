@@ -1,5 +1,6 @@
 <?php
 $TRANSLATIONS = array(
+"Unknown error" => "שגיאה בלתי ידועה",
 "Could not move %s - File with this name already exists" => "לא ניתן להעביר את %s - קובץ בשם הזה כבר קיים",
 "Could not move %s" => "לא ניתן להעביר את %s",
 "File name cannot be empty." => "שם קובץ אינו יכול להיות ריק",
@@ -21,6 +22,8 @@ $TRANSLATIONS = array(
 "File upload is in progress. Leaving the page now will cancel the upload." => "מתבצעת כעת העלאת קבצים. עזיבה של העמוד תבטל את ההעלאה.",
 "{new_name} already exists" => "{new_name} כבר קיים",
 "Share" => "שתף",
+"Delete" => "מחיקה",
+"Unshare" => "הסר שיתוף",
 "Delete permanently" => "מחק לצמיתות",
 "Rename" => "שינוי שם",
 "Pending" => "ממתין",
@@ -35,23 +38,16 @@ $TRANSLATIONS = array(
 "File handling" => "טיפול בקבצים",
 "Maximum upload size" => "גודל העלאה מקסימלי",
 "max. possible: " => "המרבי האפשרי: ",
-"Needed for multi-file and folder downloads." => "נחוץ להורדה של ריבוי קבצים או תיקיות.",
-"Enable ZIP-download" => "הפעלת הורדת ZIP",
-"0 is unlimited" => "0 - ללא הגבלה",
-"Maximum input size for ZIP files" => "גודל הקלט המרבי לקובצי ZIP",
 "Save" => "שמירה",
 "WebDAV" => "WebDAV",
 "New" => "חדש",
 "Text file" => "קובץ טקסט",
 "Folder" => "תיקייה",
 "From link" => "מקישור",
-"Cancel upload" => "ביטול ההעלאה",
 "Nothing in here. Upload something!" => "אין כאן שום דבר. אולי ברצונך להעלות משהו?",
 "Download" => "הורדה",
-"Delete" => "מחיקה",
 "Upload too large" => "העלאה גדולה מידי",
 "The files you are trying to upload exceed the maximum size for file uploads on this server." => "הקבצים שניסית להעלות חרגו מהגודל המקסימלי להעלאת קבצים על שרת זה.",
-"Files are being scanned, please wait." => "הקבצים נסרקים, נא להמתין.",
-"Current scanning" => "הסריקה הנוכחית"
+"Files are being scanned, please wait." => "הקבצים נסרקים, נא להמתין."
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

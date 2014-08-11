@@ -1,4 +1,9 @@
 <?php /** @var $l OC_L10N */ ?>
+<?php $thumbSize=1024; ?>
+<?php if ( \OC\Preview::isMimeSupported($_['mimetype'])): /* This enables preview images for links (e.g. on Facebook, Google+, ...)*/?>
+	<link rel="image_src" href="<?php p(OCP\Util::linkToRoute( 'core_ajax_public_preview', array('x' => $thumbSize, 'y' => $thumbSize, 'file' => $_['directory_path'], 't' => $_['dirToken']))); ?>" />
+<?php endif; ?>
+
 <div id="notification-container">
 	<div id="notification" style="display: none;"></div>
 </div>
@@ -11,16 +16,25 @@
 <input type="hidden" name="filename" value="<?php p($_['filename']) ?>" id="filename">
 <input type="hidden" name="mimetype" value="<?php p($_['mimetype']) ?>" id="mimetype">
 <header><div id="header" class="<?php p((isset($_['folder']) ? 'share-folder' : 'share-file')) ?>">
-		<a href="<?php print_unescaped(link_to('', 'index.php')); ?>" title="" id="owncloud"><img class="svg"
-		                                                                                          src="<?php print_unescaped(image_path('', 'logo-wide.svg')); ?>" alt="<?php p($theme->getName()); ?>" /></a>
+		<a href="<?php print_unescaped(link_to('', 'index.php')); ?>"
+			title="" id="owncloud">
+			<div class="logo-wide svg"></div>
+		</a>
 		<div id="logo-claim" style="display:none;"><?php p($theme->getLogoClaim()); ?></div>
 		<div class="header-right">
-			<?php if ($_['showDownloadButton']): ?>
-			<a href="<?php p($_['downloadURL']); ?>" id="download" class="button">
-				<img class="svg" alt="" src="<?php print_unescaped(OCP\image_path("core", "actions/download.svg")); ?>"/>
-				<?php p($l->t('Download'))?>
-			</a>
-			<?php endif ?>
+			<span id="details">
+				<span id="save" data-protected="<?php p($_['protected'])?>" data-owner="<?php p($_['displayName'])?>" data-name="<?php p($_['filename'])?>">
+					<button id="save-button"><?php p($l->t('Add to your ownCloud')) ?></button>
+					<form class="save-form hidden" action="#">
+						<input type="text" id="remote_address" placeholder="example.com/owncloud"/>
+						<button id="save-button-confirm" class="icon-confirm svg"></button>
+					</form>
+				</span>
+				<a href="<?php p($_['downloadURL']); ?>" id="download" class="button">
+					<img class="svg" alt="" src="<?php print_unescaped(OCP\image_path("core", "actions/download.svg")); ?>"/>
+					<span id="download-text"><?php p($l->t('Download'))?></span>
+				</a>
+			</span>
 		</div>
 </div></header>
 <div id="content">
@@ -33,7 +47,7 @@
 				</div>
 			<?php elseif (substr($_['mimetype'], 0, strpos($_['mimetype'], '/')) == 'video'): ?>
 				<div id="imgframe">
-					<video tabindex="0" controls="" autoplay="">
+					<video tabindex="0" controls="" preload="none">
 						<source src="<?php p($_['downloadURL']); ?>" type="<?php p($_['mimetype']); ?>" />
 					</video>
 				</div>

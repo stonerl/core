@@ -1,6 +1,9 @@
 <form id="encryption" class="section">
 	<h2><?php p($l->t('Encryption')); ?></h2>
 
+	<?php if($_["initStatus"] === \OCA\Encryption\Session::NOT_INITIALIZED): ?>
+		<?php p($l->t("Encryption App is enabled but your keys are not initialized, please log-out and log-in again")); ?>
+	<?php else: ?>
 	<p>
 		<?php p($l->t("Enable recovery key (allow to recover users files in case of password loss):")); ?>
 		<br/>
@@ -34,20 +37,20 @@
 		<input
 			type="password"
 			name="changeRecoveryPassword"
-			id="oldEncryptionRecoveryPassword"
+			id="oldEncryptionRecoveryPassword" />
 		<label for="oldEncryptionRecoveryPassword"><?php p($l->t("Old Recovery key password")); ?></label>
 		<br/>
 		<br/>
 		<input
 			type="password"
 			name="changeRecoveryPassword"
-			id="newEncryptionRecoveryPassword"
+			id="newEncryptionRecoveryPassword" />
 		<label for="newEncryptionRecoveryPassword"><?php p($l->t("New Recovery key password")); ?></label>
 		<br/>
 		<input
 			type="password"
 			name="changeRecoveryPassword"
-			id="repeatedNewEncryptionRecoveryPassword"
+			id="repeatedNewEncryptionRecoveryPassword" />
 		<label for="repeatEncryptionRecoveryPassword"><?php p($l->t("Repeat New Recovery key password")); ?></label>
 		<br/>
 		<button
@@ -57,4 +60,5 @@
 		</button>
 		<span class="msg"></span>
 	</p>
+	<?php endif; ?>
 </form>

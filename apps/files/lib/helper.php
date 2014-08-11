@@ -31,12 +31,13 @@ class Helper
 	/**
 	 * Determine icon for a given file
 	 *
-	 * @param \OC\Files\FileInfo $file file info
+	 * @param \OCP\Files\FileInfo $file file info
 	 * @return string icon URL
 	 */
 	public static function determineIcon($file) {
 		if($file['type'] === 'dir') {
 			$icon = \OC_Helper::mimetypeIcon('dir');
+			// TODO: move this part to the client side, using mountType
 			if ($file->isShared()) {
 				$icon = \OC_Helper::mimetypeIcon('dir-shared');
 			} elseif ($file->isMounted()) {
@@ -110,10 +111,10 @@ class Helper
 		$entry['mtime'] = $i['mtime'] * 1000;
 		// only pick out the needed attributes
 		$entry['icon'] = \OCA\Files\Helper::determineIcon($i);
-		if (\OC::$server->getPreviewManager()->isMimeSupported($i['mimetype'])) {
+		if (\OC::$server->getPreviewManager()->isAvailable($i)) {
 			$entry['isPreviewAvailable'] = true;
 		}
-		$entry['name'] = $i['name'];
+		$entry['name'] = $i->getName();
 		$entry['permissions'] = $i['permissions'];
 		$entry['mimetype'] = $i['mimetype'];
 		$entry['size'] = $i['size'];
@@ -124,6 +125,18 @@ class Helper
 		}
 		if (isset($i['is_share_mount_point'])) {
 			$entry['isShareMountPoint'] = $i['is_share_mount_point'];
+		}
+		$mountType = null;
+		if ($i->isShared()) {
+			$mountType = 'shared';
+		} else if ($i->isMounted()) {
+			$mountType = 'external';
+		}
+		if ($mountType !== null) {
+			if ($i->getInternalPath() === '') {
+				$mountType .= '-root';
+			}
+			$entry['mountType'] = $mountType;
 		}
 		return $entry;
 	}

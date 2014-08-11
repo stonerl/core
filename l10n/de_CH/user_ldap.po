@@ -3,20 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# a.tangemann <a.tangemann@web.de>, 2013
-# FlorianScholz <work@bgstyle.de>, 2013
-# FlorianScholz <work@bgstyle.de>, 2013
+# Andreas Tangemann <a.tangemann@web.de>, 2013
+# Florian Scholz <work@bgstyle.de>, 2013
+# Florian Scholz <work@bgstyle.de>, 2013
 # JamFX <niko@nik-o-mat.de>, 2013
 # Marcel Kühlhorn <tux93@opensuse.org>, 2013
 # Mario Siegmann <mario_siegmann@web.de>, 2013
-# multimill <multimill@gmail.com>, 2012
+# Christian <multimill@gmail.com>, 2012
 # traductor, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-05-17 01:54-0400\n"
-"PO-Revision-Date: 2014-05-16 06:13+0000\n"
+"POT-Creation-Date: 2014-07-05 01:54-0400\n"
+"PO-Revision-Date: 2014-07-04 15:13+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: German (Switzerland) (http://www.transifex.com/projects/p/owncloud/language/de_CH/)\n"
 "MIME-Version: 1.0\n"
@@ -78,6 +78,10 @@ msgstr "Einstellungen von letzter Konfiguration übernehmen?"
 msgid "Keep settings?"
 msgstr "Einstellungen beibehalten?"
 
+#: js/settings.js:93
+msgid "{nthServer}. Server"
+msgstr ""
+
 #: js/settings.js:99
 msgid "Cannot add server configuration"
 msgstr "Das Hinzufügen der Serverkonfiguration schlug fehl"
@@ -93,6 +97,18 @@ msgstr "Erfolg"
 #: js/settings.js:133
 msgid "Error"
 msgstr "Fehler"
+
+#: js/settings.js:244
+msgid "Please specify a Base DN"
+msgstr ""
+
+#: js/settings.js:245
+msgid "Could not determine Base DN"
+msgstr ""
+
+#: js/settings.js:276
+msgid "Please specify the port"
+msgstr ""
 
 #: js/settings.js:780
 msgid "Configuration OK"
@@ -134,27 +150,43 @@ msgstr "Möchten Sie die aktuelle Serverkonfiguration wirklich löschen?"
 msgid "Confirm Deletion"
 msgstr "Löschung bestätigen"
 
-#: lib/wizard.php:83 lib/wizard.php:97
+#: lib/wizard.php:97 lib/wizard.php:112
 #, php-format
 msgid "%s group found"
 msgid_plural "%s groups found"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/wizard.php:130
+#: lib/wizard.php:126
 #, php-format
 msgid "%s user found"
 msgid_plural "%s users found"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/wizard.php:825 lib/wizard.php:837
+#: lib/wizard.php:317 lib/wizard.php:1051
+msgid "Could not find the desired feature"
+msgstr ""
+
+#: lib/wizard.php:858 lib/wizard.php:870
 msgid "Invalid Host"
 msgstr ""
 
-#: lib/wizard.php:1025
-msgid "Could not find the desired feature"
+#: settings.php:52
+msgid "Server"
 msgstr ""
+
+#: settings.php:53
+msgid "User Filter"
+msgstr ""
+
+#: settings.php:54
+msgid "Login Filter"
+msgstr ""
+
+#: settings.php:55
+msgid "Group Filter"
+msgstr "Gruppen-Filter"
 
 #: templates/part.settingcontrols.php:2
 msgid "Save"
@@ -228,9 +260,22 @@ msgid ""
 "username in the login action. Example: \"uid=%%uid\""
 msgstr "Bestimmt den Filter, welcher bei einer Anmeldung angewandt wird. %%uid ersetzt den Benutzernamen bei der Anmeldung. Beispiel: \"uid=%%uid\""
 
+#: templates/part.wizard-server.php:6
+msgid "1. Server"
+msgstr ""
+
+#: templates/part.wizard-server.php:13
+#, php-format
+msgid "%s. Server:"
+msgstr ""
+
 #: templates/part.wizard-server.php:18
 msgid "Add Server Configuration"
 msgstr "Serverkonfiguration hinzufügen"
+
+#: templates/part.wizard-server.php:21
+msgid "Delete Configuration"
+msgstr ""
 
 #: templates/part.wizard-server.php:30
 msgid "Host"
@@ -294,6 +339,14 @@ msgstr ""
 #: templates/part.wizardcontrols.php:8
 msgid "Continue"
 msgstr ""
+
+#: templates/settings.php:7
+msgid "Expert"
+msgstr ""
+
+#: templates/settings.php:8
+msgid "Advanced"
+msgstr "Erweitert"
 
 #: templates/settings.php:11
 msgid ""

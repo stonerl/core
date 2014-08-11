@@ -9,7 +9,9 @@
 
 namespace OC\Group;
 
-class Group {
+use OCP\IGroup;
+
+class Group implements IGroup {
 	/**
 	 * @var string $id
 	 */
@@ -186,7 +188,7 @@ class Group {
 	 * @param string $search
 	 * @return int|bool
 	 */
-	public function count($search) {
+	public function count($search = '') {
 		$users = false;
 		foreach ($this->backends as $backend) {
 			if($backend->implementsActions(OC_GROUP_BACKEND_COUNT_USERS)) {

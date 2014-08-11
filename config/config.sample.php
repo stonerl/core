@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * This configuration file is only provided to document the different configuration options and their usage.
+ * DO NOT COMPLETELY BASE YOUR CONFIGURATION FILE ON THIS SAMPLE. THIS MAY BREAK YOUR INSTANCE.
+ * Instead, manually copy configurations' switches that you consider important for your instance to your configuration.
+ */
+
 /* Only enable this for local development and not in productive environments */
 /* This will disable the minifier and outputs some additional debug informations */
 define("DEBUG", true);
@@ -20,7 +26,7 @@ $CONFIG = array(
 /* Password to access the ownCloud database */
 "dbpassword" => "",
 
-/* Host running the ownCloud database */
+/* Host running the ownCloud database. To specify a port use "HOSTNAME:####"; to specify a unix sockets use "localhost:/path/to/socket". */
 "dbhost" => "",
 
 /* Prefix for the ownCloud tables in the database */
@@ -35,16 +41,16 @@ $CONFIG = array(
 /* Blacklist a specific file and disallow the upload of files with this name - WARNING: USE THIS ONLY IF YOU KNOW WHAT YOU ARE DOING. */
 "blacklisted_files" => array('.htaccess'),
 
-/* The automatic hostname detection of ownCloud can fail in certain reverse proxy situations. This option allows to manually override the automatic detection. You can also add a port. For example "www.example.com:88" */
+/* The automatic hostname detection of ownCloud can fail in certain reverse proxy and CLI/cron situations. This option allows to manually override the automatic detection. You can also add a port. For example "www.example.com:88" */
 "overwritehost" => "",
 
-/* The automatic protocol detection of ownCloud can fail in certain reverse proxy situations. This option allows to manually override the protocol detection. For example "https" */
+/* The automatic protocol detection of ownCloud can fail in certain reverse proxy and CLI/cron situations. This option allows to manually override the protocol detection. For example "https" */
 "overwriteprotocol" => "",
 
-/* The automatic webroot detection of ownCloud can fail in certain reverse proxy situations. This option allows to manually override the automatic detection. For example "/domain.tld/ownCloud". The value "/" can be used to remove the root. */
+/* The automatic webroot detection of ownCloud can fail in certain reverse proxy and CLI/cron situations. This option allows to manually override the automatic detection. For example "/domain.tld/ownCloud". The value "/" can be used to remove the root. */
 "overwritewebroot" => "",
 
-/* The automatic detection of ownCloud can fail in certain reverse proxy situations. This option allows to define a manually override condition as regular expression for the remote ip address. For example "^10\.0\.0\.[1-3]$" */
+/* The automatic detection of ownCloud can fail in certain reverse proxy and CLI/cron situations. This option allows to define a manually override condition as regular expression for the remote ip address. For example "^10\.0\.0\.[1-3]$" */
 "overwritecondaddr" => "",
 
 /* A proxy to use to connect to the internet. For example "myproxy.org:88" */
@@ -68,7 +74,11 @@ $CONFIG = array(
 /* URL to the parent directory of the 3rdparty directory, as seen by the browser */
 "3rdpartyurl" => "",
 
-/* Default app to load on login */
+/* Default app to open on login.
+ * This can be a comma-separated list of app ids.
+ * If the first app is not enabled for the current user,
+ * it will try with the second one and so on. If no enabled app could be found,
+ * the "files" app will be displayed instead. */
 "defaultapp" => "files",
 
 /* Enable the help menu item in the settings */
@@ -78,7 +88,7 @@ $CONFIG = array(
 "appstoreenabled" => true,
 
 /* URL of the appstore to use, server should understand OCS */
-"appstoreurl" => "http://api.apps.owncloud.com/v1",
+"appstoreurl" => "https://api.owncloud.com/v1",
 
 /* Domain name used by ownCloud for the sender mail address, e.g. no-reply@example.com */
 "mail_domain" => "example.com",
@@ -283,5 +293,47 @@ $CONFIG = array(
  * cache directory and "$user" is the user.
  *
  */
-'cache_path' => ''
+'cache_path' => '',
+
+/* EXPERIMENTAL: option whether to include external storage in quota calculation, defaults to false */
+'quota_include_external_storage' => false,
+
+/*
+ * specifies how often the filesystem is checked for changes made outside owncloud
+ * 0 -> never check the filesystem for outside changes, provides a performance increase when it's certain that no changes are made directly to the filesystem
+ * 1 -> check each file or folder at most once per request, recomended for general use if outside changes might happen
+ * 2 -> check every time the filesystem is used, causes a performance hit when using external storages, not recomended for regular use
+ */
+'filesystem_check_changes' => 1,
+
+/* If true, prevent owncloud from changing the cache due to changes in the filesystem for all storage */
+'filesystem_cache_readonly' => false,
+
+/*
+ * The example below shows how to configure ownCloud to store all files in a swift object storage
+ *
+ * It is important to note that ownCloud in object store mode will expect exclusive access
+ * to the object store container because it only stores the binary data for each file. The
+ * metadata is currently kept in the local database for performance reasons.
+ *
+ * WARNING: The current implementation is incompatible with any app that uses direct file IO and circumvents our
+ * virtual filesystem. That includes Encryption and Gallery. Gallery will store thumbnails directly in the filesystem
+ * and encryption will cause severe overhead because key files need to be fetched in addition to any requested file.
+ *
+ * One way to test is applying for a trystack account at http://trystack.org/
+ */
+'objectstore' => array(
+	'class' => 'OC\\Files\\ObjectStore\\Swift',
+	'arguments' => array(
+		'username' => 'facebook100000123456789', // trystack will user your facebook id as the user name
+		'password' => 'Secr3tPaSSWoRdt7', // in the trystack dashboard go to user -> settings -> API Password to generate a password
+		'container' => 'owncloud', // must already exist in the objectstore, name can be different
+		'autocreate' => true, // create the container if it does not exist. default is false
+		'region' => 'RegionOne', //required, dev-/trystack defaults to 'RegionOne'
+		'url' => 'http://8.21.28.222:5000/v2.0', // The Identity / Keystone endpoint
+		'tenantName' => 'facebook100000123456789', // required on dev-/trystack
+		'serviceName' => 'swift', //dev-/trystack uses swift by default, the lib defaults to 'cloudFiles' if omitted
+	),
+),
+
 );

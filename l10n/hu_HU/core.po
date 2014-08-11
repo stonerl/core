@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# sherlock79 <inactive+sherlock79@transifex.com>, 2013
+# David Szilagyi <inactive+sherlock79@transifex.com>, 2013
 # ebela <bela@dandre.hu>, 2013
-# aries1980 <feher.janos@mindworks.hu>, 2014
-# Laszlo Tornoci <torlasz@gmail.com>, 2013
+# János Fehér <feher.janos@mindworks.hu>, 2014
+# Laszlo Tornoci <torlasz@gmail.com>, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-05-17 01:54-0400\n"
-"PO-Revision-Date: 2014-05-17 05:54+0000\n"
+"POT-Creation-Date: 2014-08-10 01:54-0400\n"
+"PO-Revision-Date: 2014-08-10 05:54+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/owncloud/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
@@ -21,11 +21,7 @@ msgstr ""
 "Language: hu_HU\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ajax/share.php:87
-msgid "Expiration date is in the past."
-msgstr "Múltbéli lejárati idő."
-
-#: ajax/share.php:119 ajax/share.php:161
+#: ajax/share.php:116 ajax/share.php:158
 #, php-format
 msgid "Couldn't send mail to following users: %s "
 msgstr "Nem sikerült e-mailt küldeni a következő felhasználóknak: %s"
@@ -40,485 +36,540 @@ msgstr "A karbantartási mód kikapcsolva"
 
 #: ajax/update.php:16
 msgid "Updated database"
-msgstr "Frissítet adatbázis"
+msgstr "Az adatbázis frissítése megtörtént"
 
-#: avatar/controller.php:62
+#: ajax/update.php:19
+msgid "Checked database schema update"
+msgstr "Az adatbázis séma frissítését ellenőrztük"
+
+#: ajax/update.php:27
+#, php-format
+msgid "Disabled incompatible apps: %s"
+msgstr "Letiltásra került inkompatibilis alkalmazások: %s"
+
+#: avatar/controller.php:69
 msgid "No image or file provided"
 msgstr "Nincs kép vagy file megadva"
 
-#: avatar/controller.php:81
+#: avatar/controller.php:86
 msgid "Unknown filetype"
-msgstr "Ismeretlen file tipús"
+msgstr "Ismeretlen fájltípus"
 
-#: avatar/controller.php:85
+#: avatar/controller.php:90
 msgid "Invalid image"
 msgstr "Hibás kép"
 
-#: avatar/controller.php:115 avatar/controller.php:142
+#: avatar/controller.php:120 avatar/controller.php:147
 msgid "No temporary profile picture available, try again"
-msgstr "Az átmeneti profil kép nem elérhető, próbáld újra"
+msgstr "Az átmeneti profilkép nem elérhető, próbálja újra"
 
-#: avatar/controller.php:135
+#: avatar/controller.php:140
 msgid "No crop data provided"
 msgstr "Vágáshoz nincs adat megadva"
 
-#: js/config.php:43
+#: js/config.php:45
 msgid "Sunday"
 msgstr "vasárnap"
 
-#: js/config.php:44
+#: js/config.php:46
 msgid "Monday"
 msgstr "hétfő"
 
-#: js/config.php:45
+#: js/config.php:47
 msgid "Tuesday"
 msgstr "kedd"
 
-#: js/config.php:46
+#: js/config.php:48
 msgid "Wednesday"
 msgstr "szerda"
 
-#: js/config.php:47
+#: js/config.php:49
 msgid "Thursday"
 msgstr "csütörtök"
 
-#: js/config.php:48
+#: js/config.php:50
 msgid "Friday"
 msgstr "péntek"
 
-#: js/config.php:49
+#: js/config.php:51
 msgid "Saturday"
 msgstr "szombat"
 
-#: js/config.php:54
+#: js/config.php:56
 msgid "January"
 msgstr "január"
 
-#: js/config.php:55
+#: js/config.php:57
 msgid "February"
 msgstr "február"
 
-#: js/config.php:56
+#: js/config.php:58
 msgid "March"
 msgstr "március"
 
-#: js/config.php:57
+#: js/config.php:59
 msgid "April"
 msgstr "április"
 
-#: js/config.php:58
+#: js/config.php:60
 msgid "May"
 msgstr "május"
 
-#: js/config.php:59
+#: js/config.php:61
 msgid "June"
 msgstr "június"
 
-#: js/config.php:60
+#: js/config.php:62
 msgid "July"
 msgstr "július"
 
-#: js/config.php:61
+#: js/config.php:63
 msgid "August"
 msgstr "augusztus"
 
-#: js/config.php:62
+#: js/config.php:64
 msgid "September"
 msgstr "szeptember"
 
-#: js/config.php:63
+#: js/config.php:65
 msgid "October"
 msgstr "október"
 
-#: js/config.php:64
+#: js/config.php:66
 msgid "November"
 msgstr "november"
 
-#: js/config.php:65
+#: js/config.php:67
 msgid "December"
 msgstr "december"
 
-#: js/js.js:483
+#: js/js.js:501
 msgid "Settings"
 msgstr "Beállítások"
 
-#: js/js.js:583
+#: js/js.js:590
+msgid "File"
+msgstr "Fájl"
+
+#: js/js.js:591
+msgid "Folder"
+msgstr "Mappa"
+
+#: js/js.js:592
+msgid "Image"
+msgstr "Kép"
+
+#: js/js.js:593
+msgid "Audio"
+msgstr "Hang"
+
+#: js/js.js:607
 msgid "Saving..."
 msgstr "Mentés..."
 
-#: js/js.js:1240
+#: js/js.js:1278
 msgid "seconds ago"
 msgstr "pár másodperce"
 
-#: js/js.js:1241
+#: js/js.js:1279
 msgid "%n minute ago"
 msgid_plural "%n minutes ago"
 msgstr[0] "%n perccel ezelőtt"
 msgstr[1] "%n perccel ezelőtt"
 
-#: js/js.js:1242
+#: js/js.js:1280
 msgid "%n hour ago"
 msgid_plural "%n hours ago"
 msgstr[0] "%n órával ezelőtt"
 msgstr[1] "%n órával ezelőtt"
 
-#: js/js.js:1243
+#: js/js.js:1281
 msgid "today"
 msgstr "ma"
 
-#: js/js.js:1244
+#: js/js.js:1282
 msgid "yesterday"
 msgstr "tegnap"
 
-#: js/js.js:1245
+#: js/js.js:1283
 msgid "%n day ago"
 msgid_plural "%n days ago"
 msgstr[0] "%n nappal ezelőtt"
 msgstr[1] "%n nappal ezelőtt"
 
-#: js/js.js:1246
+#: js/js.js:1284
 msgid "last month"
 msgstr "múlt hónapban"
 
-#: js/js.js:1247
+#: js/js.js:1285
 msgid "%n month ago"
 msgid_plural "%n months ago"
 msgstr[0] "%n hónappal ezelőtt"
 msgstr[1] "%n hónappal ezelőtt"
 
-#: js/js.js:1248
+#: js/js.js:1286
 msgid "last year"
 msgstr "tavaly"
 
-#: js/js.js:1249
+#: js/js.js:1287
 msgid "years ago"
 msgstr "több éve"
 
-#: js/oc-dialogs.js:95 js/oc-dialogs.js:236
-msgid "Yes"
-msgstr "Igen"
+#: js/lostpassword.js:3 lostpassword/controller/lostcontroller.php:198
+msgid "Couldn't send reset email. Please contact your administrator."
+msgstr ""
 
-#: js/oc-dialogs.js:105 js/oc-dialogs.js:246
+#: js/lostpassword.js:5
+msgid ""
+"The link to reset your password has been sent to your email. If you do not "
+"receive it within a reasonable amount of time, check your spam/junk "
+"folders.<br>If it is not there ask your local administrator."
+msgstr ""
+
+#: js/lostpassword.js:7
+msgid ""
+"Your files are encrypted. If you haven't enabled the recovery key, there "
+"will be no way to get your data back after your password is reset.<br />If "
+"you are not sure what to do, please contact your administrator before you "
+"continue. <br />Do you really want to continue?"
+msgstr ""
+
+#: js/lostpassword.js:10
+msgid "I know what I'm doing"
+msgstr ""
+
+#: js/lostpassword.js:13 lostpassword/templates/resetpassword.php:9
+msgid "Reset password"
+msgstr "Jelszó-visszaállítás"
+
+#: js/lostpassword.js:16
+msgid "Password can not be changed. Please contact your administrator."
+msgstr ""
+
+#: js/oc-dialogs.js:108 js/oc-dialogs.js:255
 msgid "No"
 msgstr "Nem"
 
-#: js/oc-dialogs.js:184
+#: js/oc-dialogs.js:116 js/oc-dialogs.js:264
+msgid "Yes"
+msgstr "Igen"
+
+#: js/oc-dialogs.js:202
 msgid "Choose"
 msgstr "Válasszon"
 
-#: js/oc-dialogs.js:210
+#: js/oc-dialogs.js:229
 msgid "Error loading file picker template: {error}"
 msgstr "Nem sikerült betölteni a fájlkiválasztó sablont: {error}"
 
-#: js/oc-dialogs.js:263
+#: js/oc-dialogs.js:282
 msgid "Ok"
 msgstr "Ok"
 
-#: js/oc-dialogs.js:283
+#: js/oc-dialogs.js:302
 msgid "Error loading message template: {error}"
 msgstr "Nem sikerült betölteni az üzenet sablont: {error}"
 
-#: js/oc-dialogs.js:411
+#: js/oc-dialogs.js:430
 msgid "{count} file conflict"
 msgid_plural "{count} file conflicts"
 msgstr[0] "{count} fájl ütközik"
 msgstr[1] "{count} fájl ütközik"
 
-#: js/oc-dialogs.js:425
+#: js/oc-dialogs.js:444
 msgid "One file conflict"
 msgstr "Egy file ütközik"
 
-#: js/oc-dialogs.js:431
+#: js/oc-dialogs.js:450
 msgid "New Files"
 msgstr "Új fájlok"
 
-#: js/oc-dialogs.js:432
+#: js/oc-dialogs.js:451
 msgid "Already existing files"
-msgstr "A fájlok már láteznek"
+msgstr "A fájlok már léteznek"
 
-#: js/oc-dialogs.js:434
+#: js/oc-dialogs.js:453
 msgid "Which files do you want to keep?"
-msgstr "Melyik file-okat akarod megtartani?"
+msgstr "Melyik fájlokat akarja megtartani?"
 
-#: js/oc-dialogs.js:435
+#: js/oc-dialogs.js:454
 msgid ""
 "If you select both versions, the copied file will have a number added to its"
 " name."
-msgstr "Ha kiválasztod mindazokaz a verziókat, a másolt fileok neve sorszámozva lesz."
+msgstr "Ha mindkét verziót kiválasztja, a másolt fájlok neve sorszámozva lesz."
 
-#: js/oc-dialogs.js:443
+#: js/oc-dialogs.js:462
 msgid "Cancel"
 msgstr "Mégsem"
 
-#: js/oc-dialogs.js:453
+#: js/oc-dialogs.js:472
 msgid "Continue"
 msgstr "Folytatás"
 
-#: js/oc-dialogs.js:500 js/oc-dialogs.js:513
+#: js/oc-dialogs.js:519 js/oc-dialogs.js:532
 msgid "(all selected)"
 msgstr "(az összes ki lett választva)"
 
-#: js/oc-dialogs.js:503 js/oc-dialogs.js:517
+#: js/oc-dialogs.js:522 js/oc-dialogs.js:536
 msgid "({count} selected)"
 msgstr "({count} lett kiválasztva)"
 
-#: js/oc-dialogs.js:525
+#: js/oc-dialogs.js:544
 msgid "Error loading file exists template"
-msgstr "Hiba a létező sablon betöltésekor"
+msgstr "Hiba a létezőfájl-sablon betöltésekor"
 
-#: js/setup.js:84
+#: js/setup.js:96
 msgid "Very weak password"
 msgstr "Nagyon gyenge jelszó"
 
-#: js/setup.js:85
+#: js/setup.js:97
 msgid "Weak password"
 msgstr "Gyenge jelszó"
 
-#: js/setup.js:86
+#: js/setup.js:98
 msgid "So-so password"
 msgstr "Nem túl jó jelszó"
 
-#: js/setup.js:87
+#: js/setup.js:99
 msgid "Good password"
 msgstr "Jó jelszó"
 
-#: js/setup.js:88
+#: js/setup.js:100
 msgid "Strong password"
 msgstr "Erős jelszó"
 
-#: js/share.js:51 js/share.js:66 js/share.js:106
+#: js/share.js:129 js/share.js:251
 msgid "Shared"
 msgstr "Megosztott"
 
-#: js/share.js:109
+#: js/share.js:257
+msgid "Shared with {recipients}"
+msgstr "Megosztva ővelük: {recipients}"
+
+#: js/share.js:266
 msgid "Share"
 msgstr "Megosztás"
 
-#: js/share.js:158 js/share.js:171 js/share.js:178 js/share.js:761
+#: js/share.js:326 js/share.js:340 js/share.js:347 js/share.js:1007
 #: templates/installation.php:10
 msgid "Error"
 msgstr "Hiba"
 
-#: js/share.js:160 js/share.js:824
+#: js/share.js:328 js/share.js:1070
 msgid "Error while sharing"
 msgstr "Nem sikerült létrehozni a megosztást"
 
-#: js/share.js:171
+#: js/share.js:340
 msgid "Error while unsharing"
 msgstr "Nem sikerült visszavonni a megosztást"
 
-#: js/share.js:178
+#: js/share.js:347
 msgid "Error while changing permissions"
 msgstr "Nem sikerült módosítani a jogosultságokat"
 
-#: js/share.js:188
+#: js/share.js:357
 msgid "Shared with you and the group {group} by {owner}"
 msgstr "Megosztotta Önnel és a(z) {group} csoporttal: {owner}"
 
-#: js/share.js:190
+#: js/share.js:359
 msgid "Shared with you by {owner}"
 msgstr "Megosztotta Önnel: {owner}"
 
-#: js/share.js:214
+#: js/share.js:383
 msgid "Share with user or group …"
 msgstr "Megosztani egy felhasználóval vagy csoporttal ..."
 
-#: js/share.js:220
+#: js/share.js:389
 msgid "Share link"
 msgstr "Megosztás hivatkozással"
 
-#: js/share.js:226
+#: js/share.js:394
 msgid ""
 "The public link will expire no later than {days} days after it is created"
-msgstr ""
+msgstr "A nyilvános link érvényessége legkorábban {days} nappal a létrehozása után jár csak le"
 
-#: js/share.js:228
-msgid "By default the public link will expire after {days} days"
-msgstr ""
-
-#: js/share.js:233
+#: js/share.js:398
 msgid "Password protect"
 msgstr "Jelszóval is védem"
 
-#: js/share.js:235
+#: js/share.js:400
 msgid "Choose a password for the public link"
-msgstr ""
+msgstr "Válasszon egy jelszót a nyilvános linkhez"
 
-#: js/share.js:241
+#: js/share.js:406
 msgid "Allow Public Upload"
 msgstr "Feltöltést is engedélyezek"
 
-#: js/share.js:245
+#: js/share.js:410
 msgid "Email link to person"
 msgstr "Email címre küldjük el"
 
-#: js/share.js:246
+#: js/share.js:411
 msgid "Send"
 msgstr "Küldjük el"
 
-#: js/share.js:251
+#: js/share.js:416
 msgid "Set expiration date"
 msgstr "Legyen lejárati idő"
 
-#: js/share.js:252
+#: js/share.js:417
 msgid "Expiration date"
 msgstr "A lejárati idő"
 
-#: js/share.js:289
+#: js/share.js:455
 msgid "Share via email:"
 msgstr "Megosztás emaillel:"
 
-#: js/share.js:292
+#: js/share.js:458
 msgid "No people found"
 msgstr "Nincs találat"
 
-#: js/share.js:336 js/share.js:397
+#: js/share.js:507 js/share.js:575
 msgid "group"
 msgstr "csoport"
 
-#: js/share.js:369
+#: js/share.js:540
 msgid "Resharing is not allowed"
 msgstr "Ezt az állományt csak a tulajdonosa oszthatja meg másokkal"
 
-#: js/share.js:413
+#: js/share.js:591
 msgid "Shared in {item} with {user}"
 msgstr "Megosztva {item}-ben {user}-rel"
 
-#: js/share.js:435
+#: js/share.js:613
 msgid "Unshare"
 msgstr "A megosztás visszavonása"
 
-#: js/share.js:443
+#: js/share.js:621
 msgid "notify by email"
 msgstr "email értesítés"
 
-#: js/share.js:446
+#: js/share.js:624
+msgid "can share"
+msgstr "megosztható"
+
+#: js/share.js:627
 msgid "can edit"
 msgstr "módosíthat"
 
-#: js/share.js:448
+#: js/share.js:629
 msgid "access control"
 msgstr "jogosultság"
 
-#: js/share.js:451
+#: js/share.js:632
 msgid "create"
 msgstr "létrehoz"
 
-#: js/share.js:454
+#: js/share.js:635
 msgid "update"
 msgstr "szerkeszt"
 
-#: js/share.js:457
+#: js/share.js:638
 msgid "delete"
 msgstr "töröl"
 
-#: js/share.js:460
-msgid "share"
-msgstr "megoszt"
-
-#: js/share.js:742
+#: js/share.js:988
 msgid "Password protected"
 msgstr "Jelszóval van védve"
 
-#: js/share.js:761
+#: js/share.js:1007
 msgid "Error unsetting expiration date"
 msgstr "Nem sikerült a lejárati időt törölni"
 
-#: js/share.js:782
+#: js/share.js:1028
 msgid "Error setting expiration date"
 msgstr "Nem sikerült a lejárati időt beállítani"
 
-#: js/share.js:811
+#: js/share.js:1057
 msgid "Sending ..."
 msgstr "Küldés ..."
 
-#: js/share.js:822
+#: js/share.js:1068
 msgid "Email sent"
 msgstr "Az emailt elküldtük"
 
-#: js/share.js:846
+#: js/share.js:1092
 msgid "Warning"
 msgstr "Figyelmeztetés"
 
-#: js/tags.js:4
+#: js/tags.js:8
 msgid "The object type is not specified."
 msgstr "Az objektum típusa nincs megadva."
 
-#: js/tags.js:13
+#: js/tags.js:19
 msgid "Enter new"
 msgstr "Új beírása"
 
-#: js/tags.js:27
+#: js/tags.js:33
 msgid "Delete"
 msgstr "Törlés"
 
-#: js/tags.js:31
+#: js/tags.js:43
 msgid "Add"
 msgstr "Hozzáadás"
 
-#: js/tags.js:39
+#: js/tags.js:57
 msgid "Edit tags"
 msgstr "Címkék szerkesztése"
 
-#: js/tags.js:57
+#: js/tags.js:75
 msgid "Error loading dialog template: {error}"
 msgstr "Hiba a párbeszédpanel-sablon betöltésekor: {error}"
 
-#: js/tags.js:264
+#: js/tags.js:288
 msgid "No tags selected for deletion."
 msgstr "Nincs törlésre kijelölt címke."
 
-#: js/update.js:8
+#: js/update.js:30
+msgid "Updating {productName} to version {version}, this may take a while."
+msgstr " {productName} frissítése zajlik erre a verzióra: {version}. Ez eltarthat egy darabig."
+
+#: js/update.js:43
 msgid "Please reload the page."
-msgstr "Kérlek tölts be újra az oldalt"
+msgstr "Kérjük frissítse az oldalt!"
 
-#: js/update.js:17
-msgid ""
-"The update was unsuccessful. Please report this issue to the <a "
-"href=\"https://github.com/owncloud/core/issues\" target=\"_blank\">ownCloud "
-"community</a>."
-msgstr "A frissítés nem sikerült. Kérem értesítse erről a problémáról az <a href=\"https://github.com/owncloud/core/issues\" target=\"_blank\">ownCloud közösséget</a>."
+#: js/update.js:52
+msgid "The update was unsuccessful."
+msgstr "A frissítés nem sikerült."
 
-#: js/update.js:21
+#: js/update.js:61
 msgid "The update was successful. Redirecting you to ownCloud now."
 msgstr "A frissítés sikeres volt. Visszairányítjuk az ownCloud szolgáltatáshoz."
 
-#: lostpassword/controller.php:70
+#: lostpassword/controller/lostcontroller.php:133
+msgid "Couldn't reset password because the token is invalid"
+msgstr ""
+
+#: lostpassword/controller/lostcontroller.php:159
+msgid "Couldn't send reset email. Please make sure your username is correct."
+msgstr ""
+
+#: lostpassword/controller/lostcontroller.php:174
+msgid ""
+"Couldn't send reset email because there is no email address for this "
+"username. Please contact your administrator."
+msgstr ""
+
+#: lostpassword/controller/lostcontroller.php:191
 #, php-format
 msgid "%s password reset"
 msgstr "%s jelszó visszaállítás"
-
-#: lostpassword/controller.php:72
-msgid ""
-"A problem has occurred whilst sending the email, please contact your "
-"administrator."
-msgstr "Hiba történt e-mail küldése közben. Érdemes az adminisztrátort értesíteni."
 
 #: lostpassword/templates/email.php:2
 msgid "Use the following link to reset your password: {link}"
 msgstr "Használja ezt a linket a jelszó ismételt beállításához: {link}"
 
-#: lostpassword/templates/lostpassword.php:7
-msgid ""
-"The link to reset your password has been sent to your email.<br>If you do "
-"not receive it within a reasonable amount of time, check your spam/junk "
-"folders.<br>If it is not there ask your local administrator ."
-msgstr "Emailben fog kapni egy linket, amivel új jelszót tud majd beállítani magának. <br>Ha a levél nem jött meg, holott úgy érzi, hogy már meg kellett volna érkeznie, akkor ellenőrizze a spam/levélszemét mappáját. <br>Ha ott sincsen, akkor érdeklődjön a rendszergazdánál."
-
-#: lostpassword/templates/lostpassword.php:15
-msgid "Request failed!<br>Did you make sure your email/username was right?"
-msgstr "A kérést nem sikerült teljesíteni! <br>Biztos, hogy jó emailcímet/felhasználónevet adott meg?"
-
-#: lostpassword/templates/lostpassword.php:18
+#: lostpassword/templates/lostpassword.php:6
 msgid "You will receive a link to reset your password via Email."
 msgstr "Egy emailben fog értesítést kapni a jelszóbeállítás módjáról."
 
-#: lostpassword/templates/lostpassword.php:21 templates/installation.php:53
-#: templates/login.php:32
+#: lostpassword/templates/lostpassword.php:8
+#: lostpassword/templates/lostpassword.php:9 templates/installation.php:51
+#: templates/installation.php:54 templates/login.php:23 templates/login.php:27
 msgid "Username"
 msgstr "Felhasználónév"
 
-#: lostpassword/templates/lostpassword.php:25
+#: lostpassword/templates/lostpassword.php:13
 msgid ""
 "Your files are encrypted. If you haven't enabled the recovery key, there "
 "will be no way to get your data back after your password is reset. If you "
@@ -526,29 +577,21 @@ msgid ""
 "continue. Do you really want to continue?"
 msgstr "Az Ön állományai titkosítva vannak. Ha nem engedélyezte korábban az adatok visszanyeréséhez szükséges kulcs használatát, akkor a jelszó megváltoztatását követően nem fog hozzáférni az adataihoz. Ha nem biztos abban, hogy mit kellene tennie, akkor kérdezze meg a rendszergazdát, mielőtt továbbmenne. Biztos, hogy folytatni kívánja?"
 
-#: lostpassword/templates/lostpassword.php:27
+#: lostpassword/templates/lostpassword.php:15
 msgid "Yes, I really want to reset my password now"
 msgstr "Igen, tényleg meg akarom változtatni a jelszavam"
 
-#: lostpassword/templates/lostpassword.php:30
+#: lostpassword/templates/lostpassword.php:18
 msgid "Reset"
 msgstr "Visszaállítás"
 
-#: lostpassword/templates/resetpassword.php:4
-msgid "Your password was reset"
-msgstr "Jelszó megváltoztatva"
-
 #: lostpassword/templates/resetpassword.php:5
-msgid "To login page"
-msgstr "A bejelentkező ablakhoz"
-
-#: lostpassword/templates/resetpassword.php:8
 msgid "New password"
 msgstr "Az új jelszó"
 
-#: lostpassword/templates/resetpassword.php:11
-msgid "Reset password"
-msgstr "Jelszó-visszaállítás"
+#: lostpassword/templates/resetpassword.php:6
+msgid "New Password"
+msgstr ""
 
 #: setup/controller.php:140
 #, php-format
@@ -570,7 +613,7 @@ msgstr "Személyes"
 msgid "Users"
 msgstr "Felhasználók"
 
-#: strings.php:7 templates/layout.user.php:116
+#: strings.php:7 templates/layout.user.php:56 templates/layout.user.php:121
 msgid "Apps"
 msgstr "Alkalmazások"
 
@@ -626,7 +669,7 @@ msgid ""
 "just letting you know that %s shared %s with you.\n"
 "View it: %s\n"
 "\n"
-msgstr "Szia!\\n\n\\n\nÉrtesítünk, hogy %s megosztotta veled a következőt: %s.\\n\nItt tudod megnézni: %s\\n\n\\n"
+msgstr "Üdv!\\n\n\\n\nÉrtesítjük, hogy %s megosztotta Önnel a következőt: %s.\\n\nItt lehet megnézni: %s\\n\n\\n"
 
 #: templates/altmail.php:4 templates/mail.php:17
 #, php-format
@@ -680,105 +723,99 @@ msgstr "A kiszolgáló megfelelő beállításához kérjük olvassa el a <a hre
 msgid "Create an <strong>admin account</strong>"
 msgstr "<strong>Rendszergazdai belépés</strong> létrehozása"
 
-#: templates/installation.php:60 templates/login.php:40
+#: templates/installation.php:59 templates/installation.php:62
+#: templates/login.php:33 templates/login.php:36
 msgid "Password"
 msgstr "Jelszó"
 
-#: templates/installation.php:70
+#: templates/installation.php:72
 msgid "Storage & database"
-msgstr "Tárolás & adatbázis"
+msgstr "Tárolás és adatbázis"
 
-#: templates/installation.php:77
+#: templates/installation.php:79
 msgid "Data folder"
 msgstr "Adatkönyvtár"
 
-#: templates/installation.php:90
+#: templates/installation.php:92
 msgid "Configure the database"
 msgstr "Adatbázis konfigurálása"
 
-#: templates/installation.php:94
-msgid "will be used"
-msgstr "adatbázist fogunk használni"
+#: templates/installation.php:96
+#, php-format
+msgid "Only %s is available."
+msgstr "Csak %s érhető el."
 
-#: templates/installation.php:109
+#: templates/installation.php:111 templates/installation.php:113
 msgid "Database user"
 msgstr "Adatbázis felhasználónév"
 
-#: templates/installation.php:118
+#: templates/installation.php:119 templates/installation.php:122
 msgid "Database password"
 msgstr "Adatbázis jelszó"
 
-#: templates/installation.php:123
+#: templates/installation.php:127 templates/installation.php:129
 msgid "Database name"
 msgstr "Az adatbázis neve"
 
-#: templates/installation.php:132
+#: templates/installation.php:137 templates/installation.php:139
 msgid "Database tablespace"
 msgstr "Az adatbázis táblázattér (tablespace)"
 
-#: templates/installation.php:140
+#: templates/installation.php:146 templates/installation.php:148
 msgid "Database host"
 msgstr "Adatbázis szerver"
 
-#: templates/installation.php:150
+#: templates/installation.php:157
+msgid ""
+"SQLite will be used as database. For larger installations we recommend to "
+"change this."
+msgstr "Adatbázisként az SQLite-ot fogjuk használni. Nagyobb telepítések esetén javasoljuk, hogy változtassa meg ezt a beállítást."
+
+#: templates/installation.php:159
 msgid "Finish setup"
 msgstr "A beállítások befejezése"
 
-#: templates/installation.php:150
+#: templates/installation.php:159
 msgid "Finishing …"
 msgstr "Befejezés ..."
 
-#: templates/layout.user.php:40
+#: templates/layout.user.php:43
 msgid ""
 "This application requires JavaScript to be enabled for correct operation.  "
 "Please <a href=\"http://enable-javascript.com/\" target=\"_blank\">enable "
 "JavaScript</a> and re-load this interface."
-msgstr "Az alkalmazás megfelelő működéséhez szükség van JavaScript-re. <a href=\"http://enable-javascript.com/\" target=\"_blank\">Engedélyezd a JavaScript-et</a> és töltsd újra az interfészt."
+msgstr "Az alkalmazás megfelelő működéséhez szükség van JavaScriptre. <a href=\"http://enable-javascript.com/\" target=\"_blank\">Engedélyezze a JavaScriptet</a> és frissítse az oldalt!"
 
-#: templates/layout.user.php:44
+#: templates/layout.user.php:47
 #, php-format
 msgid "%s is available. Get more information on how to update."
 msgstr "%s rendelkezésre áll. További információ a frissítéshez."
 
-#: templates/layout.user.php:74 templates/singleuser.user.php:8
+#: templates/layout.user.php:83 templates/singleuser.user.php:8
 msgid "Log out"
 msgstr "Kilépés"
 
-#: templates/login.php:9
-msgid "Automatic logon rejected!"
-msgstr "Az automatikus bejelentkezés sikertelen!"
-
-#: templates/login.php:10
-msgid ""
-"If you did not change your password recently, your account may be "
-"compromised!"
-msgstr "Ha mostanában nem módosította a jelszavát, akkor lehetséges, hogy idegenek jutottak be a rendszerbe az Ön nevében!"
-
-#: templates/login.php:12
-msgid "Please change your password to secure your account again."
-msgstr "A biztonsága érdekében változtassa meg a jelszavát!"
-
-#: templates/login.php:17
+#: templates/login.php:11
 msgid "Server side authentication failed!"
 msgstr "A szerveroldali hitelesítés sikertelen!"
 
-#: templates/login.php:18
+#: templates/login.php:12
 msgid "Please contact your administrator."
 msgstr "Kérjük, lépjen kapcsolatba a rendszergazdával."
 
-#: templates/login.php:46
-msgid "Lost your password?"
-msgstr "Elfelejtette a jelszavát?"
+#: templates/login.php:42
+msgid "Forgot your password? Reset it!"
+msgstr ""
 
-#: templates/login.php:51
+#: templates/login.php:47
 msgid "remember"
 msgstr "emlékezzen"
 
-#: templates/login.php:54
+#: templates/login.php:51
 msgid "Log in"
 msgstr "Bejelentkezés"
 
-#: templates/login.php:60
+#: templates/login.php:57
 msgid "Alternative Logins"
 msgstr "Alternatív bejelentkezés"
 
@@ -787,11 +824,11 @@ msgstr "Alternatív bejelentkezés"
 msgid ""
 "Hey there,<br><br>just letting you know that %s shared <strong>%s</strong> "
 "with you.<br><a href=\"%s\">View it!</a><br><br>"
-msgstr ""
+msgstr "Üdvözöljük!<br><br>\n\nÉrtesítjük, hogy %s megosztotta Önnel ezt az állományt: <strong>%s</strong><br>\n<a href=\"%s\">Itt lehet megnézni!</a><br><br>"
 
 #: templates/singleuser.user.php:3
 msgid "This ownCloud instance is currently in single user mode."
-msgstr "Az Owncloud frissítés elezdődött egy felhasználós módban."
+msgstr "Ez az ownCloud szolgáltatás jelenleg egyfelhasználós üzemmódban működik."
 
 #: templates/singleuser.user.php:4
 msgid "This means only administrators can use the instance."
@@ -801,7 +838,7 @@ msgstr "Ez azt jelenti, hogy csak az adminisztrátor használhatja ezt a példá
 msgid ""
 "Contact your system administrator if this message persists or appeared "
 "unexpectedly."
-msgstr "Ha ezt az üzenetet már többször látod akkor keresd meg a rendszer adminját."
+msgstr "Ha ez az üzenet ismételten vagy indokolatlanul megjelenik, akkor keresse a rendszergazda segítségét!"
 
 #: templates/singleuser.user.php:7 templates/update.user.php:6
 msgid "Thank you for your patience."
@@ -809,14 +846,33 @@ msgstr "Köszönjük a türelmét."
 
 #: templates/update.admin.php:3
 #, php-format
-msgid "Updating ownCloud to version %s, this may take a while."
-msgstr "Owncloud frissítés a %s verzióra folyamatban. Kis türelmet."
+msgid "%s will be updated to version %s."
+msgstr "%s frissítődni fog erre a verzióra: %s."
+
+#: templates/update.admin.php:7
+msgid "The following apps will be disabled:"
+msgstr "A következő alkalmazások lesznek letiltva:"
+
+#: templates/update.admin.php:17
+#, php-format
+msgid "The theme %s has been disabled."
+msgstr "Ez a smink: %s letiltásra került."
+
+#: templates/update.admin.php:21
+msgid ""
+"Please make sure that the database, the config folder and the data folder "
+"have been backed up before proceeding."
+msgstr "Kérjük gondoskodjon róla, hogy elmentse az adatbázist, a konfigurációs mappa és az adatamappa tartalmát, mielőtt folytatja."
+
+#: templates/update.admin.php:23
+msgid "Start update"
+msgstr "A frissítés megkezdése"
 
 #: templates/update.user.php:3
 msgid ""
 "This ownCloud instance is currently being updated, which may take a while."
-msgstr "Az Owncloud frissítés elezdődött, eltarthat egy ideig."
+msgstr "Az ownCloud frissítés elkezdődött, ez eltarthat egy ideig."
 
 #: templates/update.user.php:4
 msgid "Please reload this page after a short time to continue using ownCloud."
-msgstr "Frissitsd az oldalt ha \"Please reload this page after a short time to continue using ownCloud. \""
+msgstr "Frissitse az oldalt egy kis idő múlva, ha folytatni kívánja az ownCloud használatát."

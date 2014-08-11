@@ -7,6 +7,20 @@ use PasswordHash;
 
 class Helper {
 
+	public static function registerHooks() {
+		\OCP\Util::connectHook('OC_Filesystem', 'setup', '\OC\Files\Storage\Shared', 'setup');
+		\OCP\Util::connectHook('OC_Filesystem', 'setup', '\OCA\Files_Sharing\External\Manager', 'setup');
+		\OCP\Util::connectHook('OC_Filesystem', 'post_write', '\OC\Files\Cache\Shared_Updater', 'writeHook');
+		\OCP\Util::connectHook('OC_Filesystem', 'post_delete', '\OC\Files\Cache\Shared_Updater', 'postDeleteHook');
+		\OCP\Util::connectHook('OC_Filesystem', 'delete', '\OC\Files\Cache\Shared_Updater', 'deleteHook');
+		\OCP\Util::connectHook('OC_Filesystem', 'post_rename', '\OC\Files\Cache\Shared_Updater', 'renameHook');
+		\OCP\Util::connectHook('OC_Appconfig', 'post_set_value', '\OCA\Files\Share\Maintainer', 'configChangeHook');
+
+		\OCP\Util::connectHook('OCP\Share', 'post_shared', '\OC\Files\Cache\Shared_Updater', 'postShareHook');
+		\OCP\Util::connectHook('OCP\Share', 'post_unshare', '\OC\Files\Cache\Shared_Updater', 'postUnshareHook');
+		\OCP\Util::connectHook('OCP\Share', 'post_unshareFromSelf', '\OC\Files\Cache\Shared_Updater', 'postUnshareFromSelfHook');
+	}
+
 	/**
 	 * Sets up the filesystem and user for public sharing
 	 * @param string $token string share token
@@ -16,7 +30,7 @@ class Helper {
 	public static function setupFromToken($token, $relativePath = null, $password = null) {
 		\OC_User::setIncognitoMode(true);
 
-		$linkItem = \OCP\Share::getShareByToken($token);
+		$linkItem = \OCP\Share::getShareByToken($token, !$password);
 		if($linkItem === false || ($linkItem['item_type'] !== 'file' && $linkItem['item_type'] !== 'folder')) {
 			\OC_Response::setStatus(404);
 			\OC_Log::write('core-preview', 'Passed token parameter is not valid', \OC_Log::DEBUG);
@@ -202,4 +216,25 @@ class Helper {
 
 		return $path;
 	}
+
+	/**
+	 * allow users from other ownCloud instances to mount public links share by this instance
+	 * @return bool
+	 */
+	public static function isOutgoingServer2serverShareEnabled() {
+		$appConfig = \OC::$server->getAppConfig();
+		$result = $appConfig->getValue('files_sharing', 'outgoing_server2server_share_enabled', 'yes');
+		return ($result === 'yes') ? true : false;
+	}
+
+	/**
+	 * allow user to mount public links from onther ownClouds
+	 * @return bool
+	 */
+	public static function isIncomingServer2serverShareEnabled() {
+		$appConfig = \OC::$server->getAppConfig();
+		$result = $appConfig->getValue('files_sharing', 'incoming_server2server_share_enabled', 'yes');
+		return ($result === 'yes') ? true : false;
+	}
+
 }

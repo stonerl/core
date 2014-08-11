@@ -10,6 +10,7 @@
 namespace OC\User;
 
 use OC\Hooks\PublicEmitter;
+use OCP\IUserManager;
 
 /**
  * Class Manager
@@ -24,7 +25,7 @@ use OC\Hooks\PublicEmitter;
  *
  * @package OC\User
  */
-class Manager extends PublicEmitter {
+class Manager extends PublicEmitter implements IUserManager {
 	/**
 	 * @var \OC_User_Interface[] $backends
 	 */
@@ -51,6 +52,12 @@ class Manager extends PublicEmitter {
 			if ($i !== false) {
 				unset($cachedUsers[$i]);
 			}
+		});
+		$this->listen('\OC\User', 'postLogin', function ($user) {
+			$user->updateLastLoginTimestamp();
+		});
+		$this->listen('\OC\User', 'postRememberedLogin', function ($user) {
+			$user->updateLastLoginTimestamp();
 		});
 	}
 

@@ -194,22 +194,6 @@ class Util {
 			}
 		}
 
-		// If there's no record for this user's encryption preferences
-		if (false === $this->recoveryEnabledForUser()) {
-
-			// create database configuration
-			$sql = 'INSERT INTO `*PREFIX*encryption` (`uid`,`mode`,`recovery_enabled`,`migration_status`) VALUES (?,?,?,?)';
-			$args = array(
-				$this->userId,
-				'server-side',
-				0,
-				self::MIGRATION_OPEN
-			);
-			$query = \OCP\DB::prepare($sql);
-			$query->execute($args);
-
-		}
-
 		return true;
 
 	}
@@ -230,36 +214,9 @@ class Util {
 	 */
 	public function recoveryEnabledForUser() {
 
-		$sql = 'SELECT `recovery_enabled` FROM `*PREFIX*encryption` WHERE `uid` = ?';
+		$recoveryMode = \OC_Preferences::getValue($this->userId, 'files_encryption', 'recovery_enabled', '0');
 
-		$args = array($this->userId);
-
-		$query = \OCP\DB::prepare($sql);
-
-		$result = $query->execute($args);
-
-		$recoveryEnabled = array();
-
-		if (\OCP\DB::isError($result)) {
-			\OCP\Util::writeLog('Encryption library', \OC_DB::getErrorMessage($result), \OCP\Util::ERROR);
-		} else {
-			$row = $result->fetchRow();
-			if ($row && isset($row['recovery_enabled'])) {
-				$recoveryEnabled[] = $row['recovery_enabled'];
-			}
-		}
-
-		// If no record is found
-		if (empty($recoveryEnabled)) {
-
-			return false;
-
-			// If a record is found
-		} else {
-
-			return $recoveryEnabled[0];
-
-		}
+		return ($recoveryMode === '1') ? true : false;
 
 	}
 
@@ -270,32 +227,8 @@ class Util {
 	 */
 	public function setRecoveryForUser($enabled) {
 
-		$recoveryStatus = $this->recoveryEnabledForUser();
-
-		// If a record for this user already exists, update it
-		if (false === $recoveryStatus) {
-
-			$sql = 'INSERT INTO `*PREFIX*encryption` (`uid`,`mode`,`recovery_enabled`) VALUES (?,?,?)';
-
-			$args = array(
-				$this->userId,
-				'server-side',
-				$enabled
-			);
-
-			// Create a new record instead
-		} else {
-
-			$sql = 'UPDATE `*PREFIX*encryption` SET `recovery_enabled` = ? WHERE `uid` = ?';
-
-			$args = array(
-				$enabled ? '1' : '0',
-				$this->userId
-			);
-
-		}
-
-		return is_numeric(\OC_DB::executeAudited($sql, $args));
+		$value = $enabled ? '1' : '0';
+		return \OC_Preferences::setValue($this->userId, 'files_encryption', 'recovery_enabled', $value);
 
 	}
 
@@ -303,7 +236,7 @@ class Util {
 	 * Find all files and their encryption status within a directory
 	 * @param string $directory The path of the parent directory to search
 	 * @param bool $found the founded files if called again
-	 * @return mixed false if 0 found, array on success. Keys: name, path
+	 * @return array keys: plain, encrypted, broken
 	 * @note $directory needs to be a path relative to OC data dir. e.g.
 	 *       /admin/files NOT /backup OR /home/www/oc/data/admin/files
 	 */
@@ -317,16 +250,12 @@ class Util {
 			$found = array(
 				'plain' => array(),
 				'encrypted' => array(),
-				'legacy' => array(),
 				'broken' => array(),
 			);
 		}
 
-		if (
-			$this->view->is_dir($directory)
-			&& $handle = $this->view->opendir($directory)
-		) {
-			if(is_resource($handle)) {
+		if ($this->view->is_dir($directory) && $handle = $this->view->opendir($directory)){
+			if (is_resource($handle)) {
 				while (false !== ($file = readdir($handle))) {
 
 					if ($file !== "." && $file !== "..") {
@@ -374,15 +303,6 @@ class Util {
 									);
 								}
 
-								// If the file uses old
-								// encryption system
-							} elseif (Crypt::isLegacyEncryptedContent($isEncryptedPath, $relPath)) {
-
-								$found['legacy'][] = array(
-									'name' => $file,
-									'path' => $filePath
-								);
-
 								// If the file is not encrypted
 							} else {
 
@@ -390,34 +310,16 @@ class Util {
 									'name' => $file,
 									'path' => $relPath
 								);
-
 							}
-
 						}
-
 					}
-
 				}
 			}
-
-			\OC_FileProxy::$enabled = true;
-
-			if (empty($found)) {
-
-				return false;
-
-			} else {
-
-				return $found;
-
-			}
-
 		}
 
 		\OC_FileProxy::$enabled = true;
 
-		return false;
-
+		return $found;
 	}
 
 	/**
@@ -569,28 +471,6 @@ class Util {
 		\OC_FileProxy::$enabled = $proxyStatus;
 
 		return $result;
-	}
-
-
-	/**
-	 * @param string $path
-	 * @return bool
-	 */
-	public function isSharedPath($path) {
-
-		$trimmed = ltrim($path, '/');
-		$split = explode('/', $trimmed);
-
-		if (isset($split[2]) && $split[2] === 'Shared') {
-
-			return true;
-
-		} else {
-
-			return false;
-
-		}
-
 	}
 
 	/**
@@ -801,128 +681,88 @@ class Util {
 	/**
 	 * Encrypt all files in a directory
 	 * @param string $dirPath the directory whose files will be encrypted
-	 * @param null $legacyPassphrase
-	 * @param null $newPassphrase
 	 * @return bool
 	 * @note Encryption is recursive
 	 */
-	public function encryptAll($dirPath, $legacyPassphrase = null, $newPassphrase = null) {
+	public function encryptAll($dirPath) {
+
+		$result = true;
 
 		$found = $this->findEncFiles($dirPath);
 
-		if ($found) {
+		// Disable proxy to prevent file being encrypted twice
+		\OC_FileProxy::$enabled = false;
 
-			// Disable proxy to prevent file being encrypted twice
-			\OC_FileProxy::$enabled = false;
+		$versionStatus = \OCP\App::isEnabled('files_versions');
+		\OC_App::disable('files_versions');
 
-			$versionStatus = \OCP\App::isEnabled('files_versions');
-			\OC_App::disable('files_versions');
+		$encryptedFiles = array();
 
-			$encryptedFiles = array();
+		// Encrypt unencrypted files
+		foreach ($found['plain'] as $plainFile) {
 
-			// Encrypt unencrypted files
-			foreach ($found['plain'] as $plainFile) {
+			//get file info
+			$fileInfo = \OC\Files\Filesystem::getFileInfo($plainFile['path']);
 
-				//get file info
-				$fileInfo = \OC\Files\Filesystem::getFileInfo($plainFile['path']);
+			//relative to data/<user>/file
+			$relPath = $plainFile['path'];
 
-				//relative to data/<user>/file
-				$relPath = $plainFile['path'];
+			//relative to /data
+			$rawPath = '/' . $this->userId . '/files/' . $plainFile['path'];
 
-				//relative to /data
-				$rawPath = '/' . $this->userId . '/files/' . $plainFile['path'];
+			// keep timestamp
+			$timestamp = $fileInfo['mtime'];
 
-				// keep timestamp
-				$timestamp = $fileInfo['mtime'];
+			// Open plain file handle for binary reading
+			$plainHandle = $this->view->fopen($rawPath, 'rb');
 
-				// Open plain file handle for binary reading
-				$plainHandle = $this->view->fopen($rawPath, 'rb');
+			// Open enc file handle for binary writing, with same filename as original plain file
+			$encHandle = fopen('crypt://' . $rawPath . '.part', 'wb');
 
-				// Open enc file handle for binary writing, with same filename as original plain file
-				$encHandle = fopen('crypt://' . $rawPath . '.part', 'wb');
+			if (is_resource($encHandle) && is_resource($plainHandle)) {
+				// Move plain file to a temporary location
+				$size = stream_copy_to_stream($plainHandle, $encHandle);
 
-				if (is_resource($encHandle)) {
-					// Move plain file to a temporary location
-					$size = stream_copy_to_stream($plainHandle, $encHandle);
+				fclose($encHandle);
+				fclose($plainHandle);
 
-					fclose($encHandle);
-					fclose($plainHandle);
+				$fakeRoot = $this->view->getRoot();
+				$this->view->chroot('/' . $this->userId . '/files');
 
-					$fakeRoot = $this->view->getRoot();
-					$this->view->chroot('/' . $this->userId . '/files');
+				$this->view->rename($relPath . '.part', $relPath);
 
-					$this->view->rename($relPath . '.part', $relPath);
+				// set timestamp
+				$this->view->touch($relPath, $timestamp);
 
-					// set timestamp
-					$this->view->touch($relPath, $timestamp);
+				$encSize = $this->view->filesize($relPath);
 
-					$encSize = $this->view->filesize($relPath);
+				$this->view->chroot($fakeRoot);
 
-					$this->view->chroot($fakeRoot);
+				// Add the file to the cache
+				\OC\Files\Filesystem::putFileInfo($relPath, array(
+					'encrypted' => true,
+					'size' => $encSize,
+					'unencrypted_size' => $size,
+					'etag' => $fileInfo['etag']
+				));
 
-					// Add the file to the cache
-					\OC\Files\Filesystem::putFileInfo($relPath, array(
-						'encrypted' => true,
-						'size' => $encSize,
-						'unencrypted_size' => $size,
-						'etag' => $fileInfo['etag']
-					));
-
-					$encryptedFiles[] = $relPath;
-				}
+				$encryptedFiles[] = $relPath;
+			} else {
+				\OCP\Util::writeLog('files_encryption', 'initial encryption: could not encrypt ' . $rawPath, \OCP\Util::FATAL);
+				$result = false;
 			}
-
-			// Encrypt legacy encrypted files
-			if (
-				!empty($legacyPassphrase)
-				&& !empty($newPassphrase)
-			) {
-
-				foreach ($found['legacy'] as $legacyFile) {
-
-					// Fetch data from file
-					$legacyData = $this->view->file_get_contents($legacyFile['path']);
-
-					// decrypt data, generate catfile
-					$decrypted = Crypt::legacyBlockDecrypt($legacyData, $legacyPassphrase);
-
-					$rawPath = $legacyFile['path'];
-
-					// enable proxy the ensure encryption is handled
-					\OC_FileProxy::$enabled = true;
-
-					// Open enc file handle for binary writing, with same filename as original plain file
-					$encHandle = $this->view->fopen( $rawPath, 'wb' );
-
-					if (is_resource($encHandle)) {
-
-						// write data to stream
-						fwrite($encHandle, $decrypted);
-
-						// close stream
-						fclose($encHandle);
-					}
-
-					// disable proxy to prevent file being encrypted twice
-					\OC_FileProxy::$enabled = false;
-				}
-			}
-
-			\OC_FileProxy::$enabled = true;
-
-			if ($versionStatus) {
-				\OC_App::enable('files_versions');
-			}
-
-			$this->encryptVersions($encryptedFiles);
-
-			// If files were found, return true
-			return true;
-		} else {
-
-			// If no files were found, return false
-			return false;
 		}
+
+		\OC_FileProxy::$enabled = true;
+
+		if ($versionStatus) {
+			\OC_App::enable('files_versions');
+		}
+
+		$result = $result && $this->encryptVersions($encryptedFiles);
+
+		return $result;
+
 	}
 
 	/**
@@ -1068,19 +908,26 @@ class Util {
 		// Get the current users's private key for decrypting existing keyfile
 		$privateKey = $session->getPrivateKey();
 
-		$fileOwner = \OC\Files\Filesystem::getOwner($filePath);
-
-		// Decrypt keyfile
-		$plainKeyfile = $this->decryptKeyfile($filePath, $privateKey);
-
-		// Re-enc keyfile to (additional) sharekeys
-		$multiEncKey = Crypt::multiKeyEncrypt($plainKeyfile, $userPubKeys);
+		try {
+			// Decrypt keyfile
+			$plainKeyfile = $this->decryptKeyfile($filePath, $privateKey);
+			// Re-enc keyfile to (additional) sharekeys
+			$multiEncKey = Crypt::multiKeyEncrypt($plainKeyfile, $userPubKeys);
+		} catch (Exceptions\EncryptionException $e) {
+			$msg = 'set shareFileKeyFailed (code: ' . $e->getCode() . '): ' . $e->getMessage();
+			\OCP\Util::writeLog('files_encryption', $msg, \OCP\Util::FATAL);
+			return false;
+		} catch (\Exception $e) {
+			$msg = 'set shareFileKeyFailed (unknown error): ' . $e->getMessage();
+			\OCP\Util::writeLog('files_encryption', $msg, \OCP\Util::FATAL);
+			return false;
+		}
 
 		// Save the recrypted key to it's owner's keyfiles directory
 		// Save new sharekeys to all necessary user directory
 		if (
-			!Keymanager::setFileKey($this->view, $this, $filePath, $multiEncKey['data'])
-			|| !Keymanager::setShareKeys($this->view, $this, $filePath, $multiEncKey['keys'])
+				!Keymanager::setFileKey($this->view, $this, $filePath, $multiEncKey['data'])
+				|| !Keymanager::setShareKeys($this->view, $this, $filePath, $multiEncKey['keys'])
 		) {
 
 			\OCP\Util::writeLog('Encryption library',
@@ -1178,24 +1025,16 @@ class Util {
 	/**
 	 * set migration status
 	 * @param int $status
+	 * @param int $preCondition only update migration status if the previous value equals $preCondition
 	 * @return boolean
 	 */
-	private function setMigrationStatus($status) {
+	private function setMigrationStatus($status, $preCondition = null) {
 
-		$sql = 'UPDATE `*PREFIX*encryption` SET `migration_status` = ? WHERE `uid` = ?';
-		$args = array($status, $this->userId);
-		$query = \OCP\DB::prepare($sql);
-		$manipulatedRows = $query->execute($args);
+		// convert to string if preCondition is set
+		$preCondition = ($preCondition === null) ? null : (string)$preCondition;
 
-		if ($manipulatedRows === 1) {
-			$result = true;
-			\OCP\Util::writeLog('Encryption library', "Migration status set to " . self::MIGRATION_OPEN, \OCP\Util::INFO);
-		} else {
-			$result = false;
-			\OCP\Util::writeLog('Encryption library', "Could not set migration status to " . self::MIGRATION_OPEN, \OCP\Util::WARN);
-		}
+		return \OC_Preferences::setValue($this->userId, 'files_encryption', 'migration_status', (string)$status, $preCondition);
 
-		return $result;
 	}
 
 	/**
@@ -1204,7 +1043,7 @@ class Util {
 	 */
 	public function beginMigration() {
 
-		$result = $this->setMigrationStatus(self::MIGRATION_IN_PROGRESS);
+		$result = $this->setMigrationStatus(self::MIGRATION_IN_PROGRESS, self::MIGRATION_OPEN);
 
 		if ($result) {
 			\OCP\Util::writeLog('Encryption library', "Start migration to encryption mode for " . $this->userId, \OCP\Util::INFO);
@@ -1244,46 +1083,16 @@ class Util {
 	 */
 	public function getMigrationStatus() {
 
-		$sql = 'SELECT `migration_status` FROM `*PREFIX*encryption` WHERE `uid` = ?';
-
-		$args = array($this->userId);
-		$query = \OCP\DB::prepare($sql);
-
-		$result = $query->execute($args);
-
-		$migrationStatus = array();
-
-		if (\OCP\DB::isError($result)) {
-			\OCP\Util::writeLog('Encryption library', \OC_DB::getErrorMessage($result), \OCP\Util::ERROR);
-		} else {
-			$row = $result->fetchRow();
-			if ($row && isset($row['migration_status'])) {
-				$migrationStatus[] = $row['migration_status'];
+		$migrationStatus = false;
+		if (\OCP\User::userExists($this->userId)) {
+			$migrationStatus = \OC_Preferences::getValue($this->userId, 'files_encryption', 'migration_status');
+			if ($migrationStatus === null) {
+				\OC_Preferences::setValue($this->userId, 'files_encryption', 'migration_status', (string)self::MIGRATION_OPEN);
+				$migrationStatus = self::MIGRATION_OPEN;
 			}
 		}
 
-		// If no record is found
-		if (empty($migrationStatus)) {
-			\OCP\Util::writeLog('Encryption library', "Could not get migration status for " . $this->userId . ", no record found", \OCP\Util::ERROR);
-			// insert missing entry in DB with status open if the user exists
-			if (\OCP\User::userExists($this->userId)) {
-				$sql = 'INSERT INTO `*PREFIX*encryption` (`uid`,`mode`,`recovery_enabled`,`migration_status`) VALUES (?,?,?,?)';
-				$args = array(
-					$this->userId,
-					'server-side',
-					0,
-					self::MIGRATION_OPEN
-				);
-				$query = \OCP\DB::prepare($sql);
-				$query->execute($args);
-
-				return self::MIGRATION_OPEN;
-			} else {
-				return false;
-			}
-		} else { // If a record is found
-			return (int)$migrationStatus[0];
-		}
+		return (int)$migrationStatus;
 
 	}
 
@@ -1384,10 +1193,11 @@ class Util {
 				// getDirectoryContent() returns the paths relative to the mount points, so we need
 				// to re-construct the complete path
 				$path = ($mountPoint !== '') ? $mountPoint . '/' .  $c['path'] : $c['path'];
+				$path = \OC\Files\Filesystem::normalizePath($path);
 				if ($c['type'] === 'dir') {
-					$dirList[] = substr($path, strlen("files"));
+					$dirList[] = substr($path, strlen('/' . \OCP\User::getUser() . "/files"));
 				} else {
-					$result[] = substr($path, strlen("files"));
+					$result[] = substr($path, strlen('/' . \OCP\User::getUser() . "/files"));
 				}
 			}
 
@@ -1642,10 +1452,11 @@ class Util {
 	 * @return boolean
 	 */
 	public function isSystemWideMountPoint($path) {
+		$normalizedPath = ltrim($path, '/');
 		if (\OCP\App::isEnabled("files_external")) {
 			$mount = \OC_Mount_Config::getSystemMountPoints();
 			foreach ($mount as $mountPoint => $data) {
-				if ($mountPoint == substr($path, 1, strlen($mountPoint))) {
+				if ($mountPoint == substr($normalizedPath, 0, strlen($mountPoint))) {
 					return true;
 				}
 			}

@@ -18,6 +18,15 @@ table td.date {
 	display: none;
 }
 
+/* remove padding to let border bottom fill the whole width*/
+table td {
+	padding: 0;
+}
+/* and accordingly fix left margin of file list summary on mobile */
+.summary .info {
+	margin-left: 55px;
+}
+
 /* remove shift for multiselect bar to account for missing navigation */
 table.multiselect thead {
 	padding-left: 0;
@@ -25,7 +34,7 @@ table.multiselect thead {
 
 /* restrict length of displayed filename to prevent overflow */
 table td.filename .nametext {
-	max-width: 75% !important;
+	width: 100%;
 }
 
 /* always show actions on mobile, not only on hover */
@@ -34,6 +43,12 @@ table td.filename .nametext {
 	filter: alpha(opacity=20) !important;
 	opacity: .2 !important;
 	display: inline !important;
+}
+/* show share action of shared items darker to distinguish from non-shared */
+#fileList a.action.permanent {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)" !important;
+	filter: alpha(opacity=70) !important;
+	opacity: .7 !important;
 }
 /* do not show Rename or Versions on mobile */
 #fileList .action.action-rename,
@@ -50,11 +65,8 @@ table td.filename .nametext {
 }
 
 /* ellipsis on file names */
-.nametext {
-	width: 60%;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+table td.filename .nametext .innernametext {
+	max-width: 50%;
 }
 
 /* proper notification area for multi line messages */
@@ -64,5 +76,10 @@ table td.filename .nametext {
 	display: -ms-flexbox;
 	display: -webkit-flex;
 	display: flex;
+}
+
+/* shorten elements for mobile */
+#uploadprogressbar {
+	width: 50px;
 }
 }

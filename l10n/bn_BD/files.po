@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-05-18 01:54-0400\n"
-"PO-Revision-Date: 2014-05-17 14:36+0000\n"
+"POT-Creation-Date: 2014-08-09 01:54-0400\n"
+"PO-Revision-Date: 2014-08-09 05:54+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: Bengali (Bangladesh) (http://www.transifex.com/projects/p/owncloud/language/bn_BD/)\n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: bn_BD\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ajax/list.php:38
+msgid "Storage not available"
+msgstr ""
+
+#: ajax/list.php:45
+msgid "Storage invalid"
+msgstr ""
+
+#: ajax/list.php:52
+msgid "Unknown error"
+msgstr ""
 
 #: ajax/move.php:15
 #, php-format
@@ -42,7 +54,7 @@ msgid ""
 "allowed."
 msgstr "নামটি সঠিক নয়,  '\\', '/', '<', '>', ':', '\"', '|', '?' এবং  '*'  অনুমোদিত নয়।"
 
-#: ajax/newfile.php:76 ajax/newfolder.php:35 ajax/upload.php:155
+#: ajax/newfile.php:76 ajax/newfolder.php:35 ajax/upload.php:159
 #: lib/app.php:77
 msgid "The target folder has been moved or deleted."
 msgstr ""
@@ -63,12 +75,17 @@ msgid ""
 "Server is not allowed to open URLs, please check the server configuration"
 msgstr ""
 
-#: ajax/newfile.php:118
+#: ajax/newfile.php:126
+#, php-format
+msgid "The file exceeds your quota by %s"
+msgstr ""
+
+#: ajax/newfile.php:141
 #, php-format
 msgid "Error while downloading %s to %s"
 msgstr ""
 
-#: ajax/newfile.php:146
+#: ajax/newfile.php:169
 msgid "Error when creating the file"
 msgstr ""
 
@@ -88,54 +105,54 @@ msgstr ""
 msgid "Invalid Token"
 msgstr ""
 
-#: ajax/upload.php:75
+#: ajax/upload.php:77
 msgid "No file was uploaded. Unknown error"
 msgstr "কোন ফাইল আপলোড করা হয় নি। সমস্যার কারণটি অজ্ঞাত।"
 
-#: ajax/upload.php:82
+#: ajax/upload.php:84
 msgid "There is no error, the file uploaded with success"
 msgstr "কোন সমস্যা হয় নি, ফাইল আপলোড সুসম্পন্ন হয়েছে।"
 
-#: ajax/upload.php:83
+#: ajax/upload.php:85
 msgid ""
 "The uploaded file exceeds the upload_max_filesize directive in php.ini: "
 msgstr "আপলোড করা  ফাইলটি php.ini তে বর্ণিত  upload_max_filesize নির্দেশিত আয়তন অতিক্রম করছেঃ"
 
-#: ajax/upload.php:85
+#: ajax/upload.php:87
 msgid ""
 "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
 "the HTML form"
 msgstr "আপলোড করা ফাইলটি  HTML  ফর্মে উল্লিখিত MAX_FILE_SIZE নির্ধারিত ফাইলের সর্বোচ্চ আকার  অতিক্রম করতে চলেছে "
 
-#: ajax/upload.php:86
+#: ajax/upload.php:88
 msgid "The uploaded file was only partially uploaded"
 msgstr "আপলোড করা ফাইলটি আংশিক আপলোড করা হয়েছে"
 
-#: ajax/upload.php:87
+#: ajax/upload.php:89
 msgid "No file was uploaded"
 msgstr "কোন ফাইল আপলোড করা হয় নি"
 
-#: ajax/upload.php:88
+#: ajax/upload.php:90
 msgid "Missing a temporary folder"
 msgstr "অস্থায়ী ফোল্ডারটি হারানো গিয়েছে"
 
-#: ajax/upload.php:89
+#: ajax/upload.php:91
 msgid "Failed to write to disk"
 msgstr "ডিস্কে লিখতে ব্যর্থ"
 
-#: ajax/upload.php:107
+#: ajax/upload.php:111
 msgid "Not enough storage available"
 msgstr ""
 
-#: ajax/upload.php:169
+#: ajax/upload.php:173
 msgid "Upload failed. Could not find uploaded file"
 msgstr ""
 
-#: ajax/upload.php:179
+#: ajax/upload.php:183
 msgid "Upload failed. Could not get file info."
 msgstr ""
 
-#: ajax/upload.php:194
+#: ajax/upload.php:198
 msgid "Invalid directory."
 msgstr "ভুল ডিরেক্টরি"
 
@@ -143,123 +160,135 @@ msgstr "ভুল ডিরেক্টরি"
 msgid "Files"
 msgstr "ফাইল"
 
-#: appinfo/app.php:29
+#: appinfo/app.php:27
 msgid "All files"
 msgstr ""
 
-#: js/file-upload.js:257
+#: js/file-upload.js:268
 msgid "Unable to upload {filename} as it is a directory or has 0 bytes"
 msgstr ""
 
-#: js/file-upload.js:270
+#: js/file-upload.js:281
 msgid "Total file size {size1} exceeds upload limit {size2}"
 msgstr ""
 
-#: js/file-upload.js:281
+#: js/file-upload.js:292
 msgid ""
 "Not enough free space, you are uploading {size1} but only {size2} is left"
 msgstr ""
 
-#: js/file-upload.js:358
+#: js/file-upload.js:369
 msgid "Upload cancelled."
 msgstr "আপলোড বাতিল করা হয়েছে।"
 
-#: js/file-upload.js:404
+#: js/file-upload.js:415
 msgid "Could not get result from server."
 msgstr ""
 
-#: js/file-upload.js:490
+#: js/file-upload.js:499
 msgid ""
 "File upload is in progress. Leaving the page now will cancel the upload."
 msgstr "ফাইল আপলোড চলমান। এই পৃষ্ঠা পরিত্যাগ করলে আপলোড বাতিল করা হবে।"
 
-#: js/file-upload.js:555
+#: js/file-upload.js:564
 msgid "URL cannot be empty"
 msgstr ""
 
-#: js/file-upload.js:559 js/filelist.js:1176
+#: js/file-upload.js:568 js/filelist.js:1275
 msgid "{new_name} already exists"
 msgstr "{new_name} টি বিদ্যমান"
 
-#: js/file-upload.js:614
+#: js/file-upload.js:623
 msgid "Could not create file"
 msgstr ""
 
-#: js/file-upload.js:630
+#: js/file-upload.js:639
 msgid "Could not create folder"
 msgstr ""
 
-#: js/file-upload.js:677
+#: js/file-upload.js:686
 msgid "Error fetching URL"
 msgstr ""
 
-#: js/fileactions.js:168
+#: js/fileactions.js:285
 msgid "Share"
 msgstr "ভাগাভাগি কর"
 
-#: js/fileactions.js:181
+#: js/fileactions.js:295 templates/list.php:77 templates/list.php:78
+msgid "Delete"
+msgstr "মুছে"
+
+#: js/fileactions.js:297
+msgid "Disconnect storage"
+msgstr ""
+
+#: js/fileactions.js:299
+msgid "Unshare"
+msgstr "ভাগাভাগি বাতিল "
+
+#: js/fileactions.js:301
 msgid "Delete permanently"
 msgstr ""
 
-#: js/fileactions.js:221
+#: js/fileactions.js:342
 msgid "Rename"
 msgstr "পূনঃনামকরণ"
 
-#: js/filelist.js:299
+#: js/filelist.js:341
 msgid ""
 "Your download is being prepared. This might take some time if the files are "
 "big."
 msgstr ""
 
-#: js/filelist.js:602 js/filelist.js:1672
+#: js/filelist.js:680 js/filelist.js:1799
 msgid "Pending"
 msgstr "মুলতুবি"
 
-#: js/filelist.js:1127
+#: js/filelist.js:1226
 msgid "Error moving file."
 msgstr ""
 
-#: js/filelist.js:1135
+#: js/filelist.js:1234
 msgid "Error moving file"
 msgstr ""
 
-#: js/filelist.js:1135
+#: js/filelist.js:1234
 msgid "Error"
 msgstr "সমস্যা"
 
-#: js/filelist.js:1201
+#: js/filelist.js:1323
 msgid "Could not rename file"
 msgstr ""
 
-#: js/filelist.js:1335
+#: js/filelist.js:1441
 msgid "Error deleting file."
 msgstr ""
 
-#: js/filelist.js:1438 templates/list.php:62
+#: js/filelist.js:1544 templates/list.php:61
 msgid "Name"
 msgstr "রাম"
 
-#: js/filelist.js:1439 templates/list.php:75
+#: js/filelist.js:1545 templates/list.php:72
 msgid "Size"
 msgstr "আকার"
 
-#: js/filelist.js:1440 templates/list.php:78
+#: js/filelist.js:1546 templates/list.php:75
 msgid "Modified"
 msgstr "পরিবর্তিত"
 
-#: js/filelist.js:1450 js/filesummary.js:141 js/filesummary.js:168
+#: js/filelist.js:1556 js/filesummary.js:141 js/filesummary.js:168
 msgid "%n folder"
 msgid_plural "%n folders"
 msgstr[0] ""
 msgstr[1] ""
 
-#: js/filelist.js:1456 js/filesummary.js:142 js/filesummary.js:169
+#: js/filelist.js:1562 js/filesummary.js:142 js/filesummary.js:169
 msgid "%n file"
 msgid_plural "%n files"
 msgstr[0] ""
 msgstr[1] ""
 
-#: js/filelist.js:1580 js/filelist.js:1619
+#: js/filelist.js:1692 js/filelist.js:1731
 msgid "Uploading %n file"
 msgid_plural "Uploading %n files"
 msgstr[0] ""
@@ -310,35 +339,19 @@ msgstr ""
 msgid "Upload (max. %s)"
 msgstr ""
 
-#: templates/admin.php:4
+#: templates/admin.php:6
 msgid "File handling"
 msgstr "ফাইল হ্যার্ডলিং"
 
-#: templates/admin.php:6
+#: templates/admin.php:7
 msgid "Maximum upload size"
 msgstr "আপলোডের সর্বোচ্চ আকার"
 
-#: templates/admin.php:9
+#: templates/admin.php:10
 msgid "max. possible: "
 msgstr "অনুমোদিত  সর্বোচ্চ  আকার"
 
-#: templates/admin.php:14
-msgid "Needed for multi-file and folder downloads."
-msgstr "একাধিক ফাইল এবং ফোল্ডার  ডাউনলোড করার জন্য আবশ্যক।"
-
-#: templates/admin.php:16
-msgid "Enable ZIP-download"
-msgstr "ZIP ডাউনলোড সক্রিয় কর"
-
-#: templates/admin.php:19
-msgid "0 is unlimited"
-msgstr "০ এর অর্থ অসীম"
-
-#: templates/admin.php:21
-msgid "Maximum input size for ZIP files"
-msgstr "ZIP ফাইলের ইনপুটের সর্বোচ্চ আকার"
-
-#: templates/admin.php:25
+#: templates/admin.php:15
 msgid "Save"
 msgstr "সংরক্ষণ"
 
@@ -377,40 +390,32 @@ msgstr "ফোল্ডার"
 msgid "From link"
 msgstr " লিংক থেকে"
 
-#: templates/list.php:42
-msgid "Cancel upload"
-msgstr "আপলোড বাতিল কর"
-
-#: templates/list.php:48
+#: templates/list.php:47
 msgid "You don’t have permission to upload or create files here"
 msgstr ""
 
-#: templates/list.php:53
+#: templates/list.php:52
 msgid "Nothing in here. Upload something!"
 msgstr "এখানে কিছুই নেই। কিছু আপলোড করুন !"
 
-#: templates/list.php:68
+#: templates/list.php:66
 msgid "Download"
 msgstr "ডাউনলোড"
 
-#: templates/list.php:80 templates/list.php:81
-msgid "Delete"
-msgstr "মুছে"
-
-#: templates/list.php:95
+#: templates/list.php:91
 msgid "Upload too large"
 msgstr "আপলোডের আকারটি অনেক বড়"
 
-#: templates/list.php:97
+#: templates/list.php:93
 msgid ""
 "The files you are trying to upload exceed the maximum size for file uploads "
 "on this server."
 msgstr "আপনি এই সার্ভারে আপলোড করার জন্য অনুমোদিত ফাইলের সর্বোচ্চ আকারের চেয়ে বৃহদাকার ফাইল আপলোড করার চেষ্টা করছেন "
 
-#: templates/list.php:102
+#: templates/list.php:98
 msgid "Files are being scanned, please wait."
 msgstr "ফাইলগুলো স্ক্যান করা হচ্ছে, দয়া করে অপেক্ষা করুন।"
 
-#: templates/list.php:105
-msgid "Current scanning"
-msgstr "বর্তমান স্ক্যানিং"
+#: templates/list.php:101
+msgid "Currently scanning"
+msgstr ""

@@ -1,5 +1,6 @@
 <?php
 $TRANSLATIONS = array(
+"Unknown error" => "Error desconocido",
 "Could not move %s - File with this name already exists" => "No se pudo mover %s - Ya existe un archivo con ese nombre.",
 "Could not move %s" => "No se pudo mover %s",
 "File name cannot be empty." => "El nombre de archivo no puede estar vacío.",
@@ -36,6 +37,8 @@ $TRANSLATIONS = array(
 "Could not create folder" => "No se pudo crear la carpeta",
 "Error fetching URL" => "Error al descargar URL.",
 "Share" => "Compartir",
+"Delete" => "Eliminar",
+"Unshare" => "Dejar de compartir",
 "Delete permanently" => "Eliminar permanentemente",
 "Rename" => "Renombrar",
 "Your download is being prepared. This might take some time if the files are big." => "Su descarga está siendo preparada. Esto podría tardar algo de tiempo si los archivos son grandes.",
@@ -60,10 +63,6 @@ $TRANSLATIONS = array(
 "File handling" => "Administración de archivos",
 "Maximum upload size" => "Tamaño máximo de subida",
 "max. possible: " => "máx. posible:",
-"Needed for multi-file and folder downloads." => "Necesario para multi-archivo y descarga de carpetas",
-"Enable ZIP-download" => "Habilitar descarga en ZIP",
-"0 is unlimited" => "0 significa ilimitado",
-"Maximum input size for ZIP files" => "Tamaño máximo para archivos ZIP de entrada",
 "Save" => "Guardar",
 "WebDAV" => "WebDAV",
 "Use this address to <a href=\"%s\" target=\"_blank\">access your Files via WebDAV</a>" => "Utilice esta dirección para <a href=\"%s\" target=\"_blank\">acceder a sus archivos vía WebDAV</a>",
@@ -73,14 +72,11 @@ $TRANSLATIONS = array(
 "New folder" => "Nueva carpeta",
 "Folder" => "Carpeta",
 "From link" => "Desde enlace",
-"Cancel upload" => "Cancelar subida",
 "You don’t have permission to upload or create files here" => "No tienes permisos para subir o crear archivos aquí.",
 "Nothing in here. Upload something!" => "No hay nada aquí. ¡Suba algo!",
 "Download" => "Descargar",
-"Delete" => "Eliminar",
 "Upload too large" => "Subida demasido grande",
 "The files you are trying to upload exceed the maximum size for file uploads on this server." => "Los archivos que estás intentando subir sobrepasan el tamaño máximo permitido en este servidor.",
-"Files are being scanned, please wait." => "Los archivos están siendo escaneados,  por favor espere.",
-"Current scanning" => "Escaneo actual"
+"Files are being scanned, please wait." => "Los archivos están siendo escaneados,  por favor espere."
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

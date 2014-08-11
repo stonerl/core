@@ -74,7 +74,12 @@ if (OC_App::isEnabled('files_encryption')) {
 
 $nav = new OCP\Template('files', 'appnavigation', '');
 
+function sortNavigationItems($item1, $item2) {
+	return $item1['order'] - $item2['order'];
+}
+
 $navItems = \OCA\Files\App::getNavigationManager()->getAll();
+usort($navItems, 'sortNavigationItems');
 $nav->assign('navigationItems', $navItems);
 
 $contentItems = array();
@@ -113,11 +118,10 @@ $tmpl = new OCP\Template('files', 'index', 'user');
 $tmpl->assign('usedSpacePercent', (int)$storageInfo['relative']);
 $tmpl->assign('isPublic', false);
 $tmpl->assign("encryptedFiles", \OCP\Util::encryptedFiles());
-$tmpl->assign("mailNotificationEnabled", $config->getAppValue('core', 'shareapi_allow_mail_notification', 'yes'));
+$tmpl->assign("mailNotificationEnabled", $config->getAppValue('core', 'shareapi_allow_mail_notification', 'no'));
 $tmpl->assign("allowShareWithLink", $config->getAppValue('core', 'shareapi_allow_links', 'yes'));
 $tmpl->assign("encryptionInitStatus", $encryptionInitStatus);
 $tmpl->assign('appNavigation', $nav);
 $tmpl->assign('appContents', $contentItems);
-$tmpl->assign('allowZipDownload', intval(OCP\Config::getSystemValue('allowZipDownload', true)));
 
 $tmpl->printPage();

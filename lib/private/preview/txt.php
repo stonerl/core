@@ -14,6 +14,16 @@ class TXT extends Provider {
 	}
 
 	/**
+	 * Check if a preview can be generated for $path
+	 *
+	 * @param \OC\Files\FileInfo $file
+	 * @return bool
+	 */
+	public function isAvailable($file) {
+		return $file->getSize() > 5;
+	}
+
+	/**
 	 * @param string $path
 	 * @param int $maxX
 	 * @param int $maxY
@@ -40,13 +50,24 @@ class TXT extends Provider {
 		imagecolorallocate($image, 255, 255, 255);
 		$textColor = imagecolorallocate($image, 0, 0, 0);
 
+		$fontFile  = __DIR__;
+		$fontFile .= '/../../../core';
+		$fontFile .= '/fonts/OpenSans-Regular.ttf';
+
+		$canUseTTF = function_exists('imagettftext');
+
 		foreach($lines as $index => $line) {
 			$index = $index + 1;
 
 			$x = (int) 1;
-			$y = (int) ($index * $lineSize) - $fontSize;
+			$y = (int) ($index * $lineSize);
 
-			imagestring($image, 1, $x, $y, $line, $textColor);
+			if ($canUseTTF === true) {
+				imagettftext($image, $fontSize, 0, $x, $y, $textColor, $fontFile, $line);
+			} else {
+				$y -= $fontSize;
+				imagestring($image, 1, $x, $y, $line, $textColor);
+			}
 
 			if(($index * $lineSize) >= $maxY) {
 				break;

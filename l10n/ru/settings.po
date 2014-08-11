@@ -4,30 +4,36 @@
 # 
 # Translators:
 # Aleksey Grigoriev <alexvamp@gmail.com>, 2013
+# Alexander Savchenko, 2014
 # Alexander Shashkevych <alex@stunpix.com>, 2013
-# alfsoft <alfsoft@gmail.com>, 2013
-# lord93 <lordakryl@gmail.com>, 2013
-# Denis Plastinin <denispal@gmail.com>, 2014
-# Denis Plastinin <denispal@gmail.com>, 2014
-# Evgeniy Spitsyn <evgeniy@spitsyn.net>, 2013
-# jekader <jekader@gmail.com>, 2013
-# eurekafag <rkfg@rkfg.me>, 2013
+# Alf <alfsoft@gmail.com>, 2013
+# Almaz Mannanov <AlmazWorks@gmail.com>, 2014
+# Andrew Batchmauga <lordakryl@gmail.com>, 2013
+# Denis <denispal@gmail.com>, 2014
+# Denis <denispal@gmail.com>, 2014
+# Evgenij Spitsyn <evgeniy@spitsyn.net>, 2013
+# jekader <jekader@gmail.com>, 2013-2014
+# Михаил Маслиёв <misha.masliev@yandex.ru>, 2014
+# Glosshead <o44ehb@gmail.com>, 2014
+# Serge Shpikin <rkfg@rkfg.me>, 2013
 # anshibanov <shibanovan@yandex.ru>, 2014
-# stushev, 2014
-# unixoid <victor.ashirov@gmail.com>, 2013
-# vsapronov <vladimir.sapronov@gmail.com>, 2013
-# not_your_conscience <hex.void@gmail.com>, 2013
-# navigator666 <yuriy.malyovaniy@gmail.com>, 2013
-# hackproof <hackproof.ai@gmail.com>, 2013
-# Friktor <antonshramko@yandex.ru>, 2013
-# Иван Тюрин <wen89@inbox.ru>, 2013
+# Simon Tushev, 2014
+# Victor Ashirov <victor.ashirov@gmail.com>, 2013
+# Vladimir Sapronov <vladimir.sapronov@gmail.com>, 2013
+# Void Ayanami <hex.void@gmail.com>, 2013
+# wiracle, 2014
+# Yuriy Malyovaniy <yuriy.malyovaniy@gmail.com>, 2013
+# Алексей <hackproof.ai@gmail.com>, 2013
+# Антон <antonshramko@yandex.ru>, 2013
+# Иван <wen89@inbox.ru>, 2013
+# Михаил Маслиёв <misha.masliev@yandex.ru>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-05-24 01:54-0400\n"
-"PO-Revision-Date: 2014-05-24 05:54+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-08-07 01:54-0400\n"
+"PO-Revision-Date: 2014-08-06 06:50+0000\n"
+"Last-Translator: jekader <jekader@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/projects/p/owncloud/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -46,7 +52,7 @@ msgstr "Сохранено"
 
 #: admin/controller.php:90
 msgid "test email settings"
-msgstr "тест настроек почты"
+msgstr "проверить настройки почты"
 
 #: admin/controller.php:91
 msgid "If you received this email, the settings seem to be correct."
@@ -65,15 +71,15 @@ msgstr "Письмо отправлено"
 msgid "You need to set your user email before being able to send test emails."
 msgstr "Вы должны настроить свой e-mail пользователя прежде чем отправлять тестовые сообщения."
 
-#: admin/controller.php:116 templates/admin.php:331
+#: admin/controller.php:116 templates/admin.php:337
 msgid "Send mode"
 msgstr "Отправить сообщение"
 
-#: admin/controller.php:118 templates/admin.php:344 templates/personal.php:144
+#: admin/controller.php:118 templates/admin.php:350 templates/personal.php:156
 msgid "Encryption"
 msgstr "Шифрование"
 
-#: admin/controller.php:120 templates/admin.php:368
+#: admin/controller.php:120 templates/admin.php:374
 msgid "Authentication method"
 msgstr "Метод проверки подлинности"
 
@@ -94,11 +100,11 @@ msgstr "Ваше полное имя было изменено."
 msgid "Unable to change full name"
 msgstr "Невозможно изменить полное имя"
 
-#: ajax/creategroup.php:10
+#: ajax/creategroup.php:11
 msgid "Group already exists"
 msgstr "Группа уже существует"
 
-#: ajax/creategroup.php:19
+#: ajax/creategroup.php:20
 msgid "Unable to add group"
 msgstr "Невозможно добавить группу"
 
@@ -118,13 +124,17 @@ msgstr "Ошибка при дешифровании файлов. Провер�
 
 #: ajax/deletekeys.php:14
 msgid "Encryption keys deleted permanently"
-msgstr ""
+msgstr "Ключи шифрования перманентно удалены"
 
 #: ajax/deletekeys.php:16
 msgid ""
 "Couldn't permanently delete your encryption keys, please check your "
 "owncloud.log or ask your administrator"
-msgstr ""
+msgstr "Не получается удалить ваши ключи шифрования, пожалуйста проверьте файл owncloud.log или обратитесь к Администратору"
+
+#: ajax/installapp.php:18 ajax/uninstallapp.php:18
+msgid "Couldn't remove app."
+msgstr "Невозможно удалить приложение."
 
 #: ajax/lostpassword.php:12
 msgid "Email saved"
@@ -150,7 +160,7 @@ msgstr "Резервная копия успешно восстановлена"
 msgid ""
 "Couldn't restore your encryption keys, please check your owncloud.log or ask"
 " your administrator"
-msgstr ""
+msgstr "Не получается восстановить ваши ключи шифрования, пожалуйста проверьте файл owncloud.log или обратитесь к Администратору."
 
 #: ajax/setlanguage.php:15
 msgid "Language changed"
@@ -174,7 +184,7 @@ msgstr "Невозможно добавить пользователя в гру
 msgid "Unable to remove user from group %s"
 msgstr "Невозможно удалить пользователя из группы %s"
 
-#: ajax/updateapp.php:14
+#: ajax/updateapp.php:41
 msgid "Couldn't update app."
 msgstr "Невозможно обновить приложение"
 
@@ -207,65 +217,81 @@ msgstr "Используемый механизм не поддерживает 
 msgid "Unable to change password"
 msgstr "Невозможно изменить пароль"
 
-#: js/admin.js:126
+#: js/admin.js:128
 msgid "Sending..."
 msgstr "Отправляется ..."
 
-#: js/apps.js:45 templates/help.php:4
+#: js/apps.js:45 templates/help.php:7
 msgid "User Documentation"
 msgstr "Пользовательская документация"
 
-#: js/apps.js:50
+#: js/apps.js:54
 msgid "Admin Documentation"
 msgstr "Документация администратора"
 
-#: js/apps.js:67
+#: js/apps.js:82
 msgid "Update to {appversion}"
 msgstr "Обновить до {версия приложения}"
 
-#: js/apps.js:73 js/apps.js:106 js/apps.js:134
+#: js/apps.js:90
+msgid "Uninstall App"
+msgstr "Удалить приложение"
+
+#: js/apps.js:96 js/apps.js:158 js/apps.js:191
 msgid "Disable"
 msgstr "Выключить"
 
-#: js/apps.js:73 js/apps.js:114 js/apps.js:127 js/apps.js:143
+#: js/apps.js:96 js/apps.js:167 js/apps.js:184 js/apps.js:215
 msgid "Enable"
 msgstr "Включить"
 
-#: js/apps.js:95
+#: js/apps.js:147
 msgid "Please wait...."
 msgstr "Подождите..."
 
-#: js/apps.js:103 js/apps.js:104 js/apps.js:125
+#: js/apps.js:155 js/apps.js:156 js/apps.js:182
 msgid "Error while disabling app"
 msgstr "Ошибка отключения приложения"
 
-#: js/apps.js:124 js/apps.js:138 js/apps.js:139
+#: js/apps.js:181 js/apps.js:210 js/apps.js:211
 msgid "Error while enabling app"
 msgstr "Ошибка включения приложения"
 
-#: js/apps.js:149
+#: js/apps.js:220
 msgid "Updating...."
 msgstr "Обновление..."
 
-#: js/apps.js:152
+#: js/apps.js:223
 msgid "Error while updating app"
 msgstr "Ошибка при обновлении приложения"
 
-#: js/apps.js:152
+#: js/apps.js:223 js/apps.js:236
 msgid "Error"
 msgstr "Ошибка"
 
-#: js/apps.js:153 templates/apps.php:55
+#: js/apps.js:224 templates/apps.php:55
 msgid "Update"
 msgstr "Обновить"
 
-#: js/apps.js:156
+#: js/apps.js:227
 msgid "Updated"
 msgstr "Обновлено"
 
+#: js/apps.js:233
+msgid "Uninstalling ...."
+msgstr "Удаление ..."
+
+#: js/apps.js:236
+msgid "Error while uninstalling app"
+msgstr "Ошибка при удалении приложения."
+
+#: js/apps.js:237 templates/apps.php:56
+msgid "Uninstall"
+msgstr "Удалить"
+
 #: js/personal.js:256
 msgid "Select a profile picture"
-msgstr "Выберите картинку профиля"
+msgstr "Выберите аватар"
 
 #: js/personal.js:287
 msgid "Very weak password"
@@ -293,54 +319,73 @@ msgstr "Расшифровка файлов... Пожалуйста, подож�
 
 #: js/personal.js:324
 msgid "Delete encryption keys permanently."
-msgstr ""
+msgstr "Перманентно удалить ключи шифрования. "
 
 #: js/personal.js:338
 msgid "Restore encryption keys."
-msgstr ""
+msgstr "Восстановить ключи шифрования."
 
-#: js/users.js:47
-msgid "deleted"
-msgstr "удален"
+#: js/users/deleteHandler.js:166
+msgid "Unable to delete {objName}"
+msgstr "Невозможно удалить {objName}"
 
-#: js/users.js:47
+#: js/users/groups.js:94 js/users/groups.js:202
+msgid "Error creating group"
+msgstr "Ошибка создания группы"
+
+#: js/users/groups.js:201
+msgid "A valid group name must be provided"
+msgstr "Введите правильное имя группы"
+
+#: js/users/groups.js:229
+msgid "deleted {groupName}"
+msgstr "удалено {groupName}"
+
+#: js/users/groups.js:230 js/users/users.js:296
 msgid "undo"
 msgstr "отмена"
 
-#: js/users.js:79
-msgid "Unable to remove user"
-msgstr "Невозможно удалить пользователя"
-
-#: js/users.js:101 templates/admin.php:280 templates/users.php:24
-#: templates/users.php:88 templates/users.php:116
+#: js/users/users.js:37 templates/admin.php:292
+#: templates/users/part.createuser.php:12 templates/users/part.userlist.php:10
+#: templates/users/part.userlist.php:41
 msgid "Groups"
 msgstr "Группы"
 
-#: js/users.js:105 templates/users.php:90 templates/users.php:128
+#: js/users/users.js:41 templates/users/part.userlist.php:12
+#: templates/users/part.userlist.php:57
 msgid "Group Admin"
 msgstr "Администратор группы"
 
-#: js/users.js:127 templates/users.php:168
+#: js/users/users.js:63 templates/users/part.grouplist.php:46
+#: templates/users/part.userlist.php:108
 msgid "Delete"
 msgstr "Удалить"
 
-#: js/users.js:310
+#: js/users/users.js:84 templates/users/part.userlist.php:98
+msgid "never"
+msgstr "никогда"
+
+#: js/users/users.js:295
+msgid "deleted {userName}"
+msgstr "удалён {userName}"
+
+#: js/users/users.js:431
 msgid "add group"
 msgstr "добавить группу"
 
-#: js/users.js:486
+#: js/users/users.js:631
 msgid "A valid username must be provided"
 msgstr "Укажите правильное имя пользователя"
 
-#: js/users.js:487 js/users.js:493 js/users.js:508
+#: js/users/users.js:632 js/users/users.js:638 js/users/users.js:653
 msgid "Error creating user"
 msgstr "Ошибка создания пользователя"
 
-#: js/users.js:492
+#: js/users/users.js:637
 msgid "A valid password must be provided"
 msgstr "Укажите валидный пароль"
 
-#: js/users.js:516
+#: js/users/users.js:669
 msgid "Warning: Home directory for user \"{user}\" already exists"
 msgstr "Предупреждение: домашняя папка пользователя \"{user}\" уже существует"
 
@@ -370,7 +415,7 @@ msgstr "Только критические проблемы"
 
 #: templates/admin.php:16 templates/admin.php:23
 msgid "None"
-msgstr "Нет новостей"
+msgstr "Отсутствует"
 
 #: templates/admin.php:17
 msgid "Login"
@@ -378,11 +423,11 @@ msgstr "Логин"
 
 #: templates/admin.php:18
 msgid "Plain"
-msgstr ""
+msgstr "Простой"
 
 #: templates/admin.php:19
 msgid "NT LAN Manager"
-msgstr ""
+msgstr "Мендеджер NT LAN"
 
 #: templates/admin.php:24
 msgid "SSL"
@@ -412,7 +457,7 @@ msgid ""
 "root."
 msgstr "Похоже, что папка с Вашими данными и Ваши файлы доступны из интернета. Файл .htaccess не работает. Мы настойчиво предлагаем Вам сконфигурировать вебсервер таким образом, чтобы папка с Вашими данными более не была доступна или переместите папку с данными куда-нибудь в другое место вне основной папки документов вебсервера."
 
-#: templates/admin.php:75
+#: templates/admin.php:75 templates/admin.php:90
 msgid "Setup Warning"
 msgstr "Предупреждение установки"
 
@@ -427,53 +472,76 @@ msgstr "Веб-сервер до сих пор не настроен для во
 msgid "Please double check the <a href=\"%s\">installation guides</a>."
 msgstr "Пожалуйста, дважды просмотрите <a href='%s'>инструкции по установке</a>."
 
-#: templates/admin.php:90
+#: templates/admin.php:93
+msgid ""
+"PHP is apparently setup to strip inline doc blocks. This will make several "
+"core apps inaccessible."
+msgstr "Очевидно, PHP настроен на вычищение блоков встроенной документации. Это сделает несколько центральных приложений недоступными."
+
+#: templates/admin.php:94
+msgid ""
+"This is probably caused by a cache/accelerator such as Zend OPcache or "
+"eAccelerator."
+msgstr "Возможно это вызвано кешем/ускорителем вроде Zend OPcache или eAccelerator."
+
+#: templates/admin.php:105
+msgid "Database Performance Info"
+msgstr "Информация о производительности Базы Данных"
+
+#: templates/admin.php:108
+msgid ""
+"SQLite is used as database. For larger installations we recommend to change "
+"this. To migrate to another database use the command line tool: 'occ db"
+":convert-type'"
+msgstr "В качестве Базы Данных используется SQLite. Для больших установок рекомендуется использовать другие типы Баз Данных. Чтобы переехать на другую Базу Данных используйте инструмент командной строки: 'ooc: db:conver-type'"
+
+#: templates/admin.php:119
 msgid "Module 'fileinfo' missing"
 msgstr "Модуль 'fileinfo' отсутствует"
 
-#: templates/admin.php:93
+#: templates/admin.php:122
 msgid ""
 "The PHP module 'fileinfo' is missing. We strongly recommend to enable this "
 "module to get best results with mime-type detection."
 msgstr "PHP-модуль 'fileinfo' отсутствует. Мы настоятельно рекомендуем включить этот модуль для улучшения определения типов (mime-type) файлов."
 
-#: templates/admin.php:104
+#: templates/admin.php:133
 msgid "Your PHP version is outdated"
 msgstr "Ваша версия PHP устарела"
 
-#: templates/admin.php:107
+#: templates/admin.php:136
 msgid ""
 "Your PHP version is outdated. We strongly recommend to update to 5.3.8 or "
 "newer because older versions are known to be broken. It is possible that "
 "this installation is not working correctly."
 msgstr "Ваша версия PHP устарела. Мы настоятельно рекомендуем  обновиться до 5.3.8 или новее,  так как старые версии работают не корректно. Вполне возможно, что эта установка не работает должным образом."
 
-#: templates/admin.php:118
+#: templates/admin.php:147
 msgid "Locale not working"
 msgstr "Локализация не работает"
 
-#: templates/admin.php:123
+#: templates/admin.php:152
 msgid "System locale can not be set to a one which supports UTF-8."
 msgstr "Невозможно установить системную локаль, поддерживающую UTF-8"
 
-#: templates/admin.php:127
+#: templates/admin.php:156
 msgid ""
 "This means that there might be problems with certain characters in file "
 "names."
 msgstr "Это значит, что могут быть проблемы с некоторыми символами в именах файлов."
 
-#: templates/admin.php:131
+#: templates/admin.php:160
 #, php-format
 msgid ""
 "We strongly suggest to install the required packages on your system to "
 "support one of the following locales: %s."
 msgstr "Мы настоятельно рекомендуем установить требуемые пакеты в систему, для поддержки одной из следующих локалей: %s."
 
-#: templates/admin.php:143
+#: templates/admin.php:172
 msgid "Internet connection not working"
 msgstr "Интернет-соединение не работает"
 
-#: templates/admin.php:146
+#: templates/admin.php:175
 msgid ""
 "This server has no working internet connection. This means that some of the "
 "features like mounting of external storage, notifications about updates or "
@@ -482,202 +550,186 @@ msgid ""
 "internet connection for this server if you want to have all features."
 msgstr "Этот сервер не имеет подключения к сети интернет. Это значит, что некоторые возможности, такие как подключение внешних дисков, уведомления об обновлениях или установка сторонних приложений – не работают. Удалённый доступ к файлам и отправка уведомлений по электронной почте вероятнее всего тоже не будут работать. Предлагаем включить соединение с интернетом для этого сервера, если Вы хотите иметь все возможности."
 
-#: templates/admin.php:160
+#: templates/admin.php:189
 msgid "Cron"
 msgstr "Планировщик задач по расписанию"
 
-#: templates/admin.php:167
+#: templates/admin.php:196
 #, php-format
 msgid "Last cron was executed at %s."
-msgstr ""
+msgstr "Последняя cron-задача была запущена: %s."
 
-#: templates/admin.php:170
+#: templates/admin.php:199
 #, php-format
 msgid ""
 "Last cron was executed at %s. This is more than an hour ago, something seems"
 " wrong."
-msgstr ""
+msgstr "Последняя cron-задача была запущена: %s. Это было больше часа назад, кажется что-то не так."
 
-#: templates/admin.php:174
+#: templates/admin.php:203
 msgid "Cron was not executed yet!"
-msgstr ""
+msgstr "Cron-задачи ещё не запускались!"
 
-#: templates/admin.php:184
+#: templates/admin.php:213
 msgid "Execute one task with each page loaded"
 msgstr "Выполнять одно задание с каждой загруженной страницей"
 
-#: templates/admin.php:192
+#: templates/admin.php:221
 msgid ""
 "cron.php is registered at a webcron service to call cron.php every 15 "
 "minutes over http."
 msgstr "cron.php зарегестрирован в webcron и будет вызываться каждые 15 минут по http."
 
-#: templates/admin.php:200
-msgid "Use systems cron service to call the cron.php file every 15 minutes."
+#: templates/admin.php:229
+msgid "Use system's cron service to call the cron.php file every 15 minutes."
 msgstr "Использовать системный cron для вызова cron.php каждые 15 минут."
 
-#: templates/admin.php:205
+#: templates/admin.php:234
 msgid "Sharing"
 msgstr "Общий доступ"
 
-#: templates/admin.php:211
-msgid "Enable Share API"
-msgstr "Включить API общего доступа"
-
-#: templates/admin.php:212
+#: templates/admin.php:238
 msgid "Allow apps to use the Share API"
 msgstr "Позволить приложениям использовать API общего доступа"
 
-#: templates/admin.php:219
-msgid "Allow links"
-msgstr "Разрешить ссылки"
+#: templates/admin.php:243
+msgid "Allow users to share via link"
+msgstr "Разрешить пользователям публикации через ссылки"
 
-#: templates/admin.php:223
+#: templates/admin.php:249
 msgid "Enforce password protection"
-msgstr ""
+msgstr "Защита паролем обязательна"
 
-#: templates/admin.php:226
+#: templates/admin.php:252
 msgid "Allow public uploads"
 msgstr "Разрешить открытые загрузки"
 
-#: templates/admin.php:230
+#: templates/admin.php:256
 msgid "Set default expiration date"
-msgstr ""
+msgstr "Установить срок действия по-умолчанию"
 
-#: templates/admin.php:232
+#: templates/admin.php:260
 msgid "Expire after "
-msgstr ""
+msgstr "Заканчивается через"
 
-#: templates/admin.php:235
+#: templates/admin.php:263
 msgid "days"
-msgstr ""
+msgstr "дней"
 
-#: templates/admin.php:238
+#: templates/admin.php:266
 msgid "Enforce expiration date"
-msgstr ""
+msgstr "Срок действия обязателен"
 
-#: templates/admin.php:242
-msgid "Allow users to share items to the public with links"
-msgstr "Разрешить пользователям открывать в общий доступ элементы с публичной ссылкой"
-
-#: templates/admin.php:249
+#: templates/admin.php:271
 msgid "Allow resharing"
 msgstr "Разрешить переоткрытие общего доступа"
 
-#: templates/admin.php:250
-msgid "Allow users to share items shared with them again"
-msgstr "Позволить пользователям открывать общий доступ к эллементам уже открытым в общий доступ"
+#: templates/admin.php:276
+msgid "Restrict users to only share with users in their groups"
+msgstr "Разрешить пользователям публикации только внутри их групп"
 
-#: templates/admin.php:257
-msgid "Allow users to share with anyone"
-msgstr "Разрешить пользователя делать общий доступ любому"
-
-#: templates/admin.php:260
-msgid "Allow users to only share with users in their groups"
-msgstr "Разрешить пользователям делать общий доступ только для пользователей их групп"
-
-#: templates/admin.php:267
-msgid "Allow mail notification"
-msgstr "Разрешить уведомление по почте"
-
-#: templates/admin.php:268
+#: templates/admin.php:281
 msgid "Allow users to send mail notification for shared files"
 msgstr "Разрешить пользователю оповещать почтой о расшаренных файлах"
 
-#: templates/admin.php:275
-msgid "Exclude groups from sharing"
-msgstr ""
-
 #: templates/admin.php:286
+msgid "Exclude groups from sharing"
+msgstr "Исключить группы из общего доступа"
+
+#: templates/admin.php:298
 msgid ""
 "These groups will still be able to receive shares, but not to initiate them."
-msgstr ""
+msgstr "Эти группы смогут получать общие файлы, но не смогут отправлять их."
 
-#: templates/admin.php:293
+#: templates/admin.php:303
 msgid "Security"
 msgstr "Безопасность"
 
-#: templates/admin.php:306
+#: templates/admin.php:314
 msgid "Enforce HTTPS"
-msgstr "Принудить к HTTPS"
+msgstr "HTTPS соединение обязательно"
 
-#: templates/admin.php:308
+#: templates/admin.php:316
 #, php-format
 msgid "Forces the clients to connect to %s via an encrypted connection."
 msgstr "Принудить клиентов подключаться к %s через шифрованное соединение."
 
-#: templates/admin.php:314
+#: templates/admin.php:322
 #, php-format
 msgid ""
 "Please connect to your %s via HTTPS to enable or disable the SSL "
 "enforcement."
-msgstr "Пожалуйста, подключитесь к %s используя HTTPS чтобы включить или отключить принудительное SSL."
+msgstr "Пожалуйста, подключитесь к %s используя HTTPS чтобы включить или отключить обязательные SSL подключения."
 
-#: templates/admin.php:326
+#: templates/admin.php:332
 msgid "Email Server"
-msgstr "Сервер почты"
+msgstr "Почтовый сервер"
 
-#: templates/admin.php:328
+#: templates/admin.php:334
 msgid "This is used for sending out notifications."
 msgstr "Используется для отправки уведомлений."
 
-#: templates/admin.php:359
+#: templates/admin.php:365
 msgid "From address"
 msgstr "Адрес отправителя"
 
-#: templates/admin.php:381
+#: templates/admin.php:366
+msgid "mail"
+msgstr "почта"
+
+#: templates/admin.php:387
 msgid "Authentication required"
 msgstr "Требуется аутентификация "
 
-#: templates/admin.php:385
+#: templates/admin.php:391
 msgid "Server address"
 msgstr "Адрес сервера"
 
-#: templates/admin.php:389
+#: templates/admin.php:395
 msgid "Port"
 msgstr "Порт"
 
-#: templates/admin.php:394
+#: templates/admin.php:400
 msgid "Credentials"
-msgstr "Полномочия"
+msgstr "Учётные данные"
 
-#: templates/admin.php:395
+#: templates/admin.php:401
 msgid "SMTP Username"
-msgstr "Имя пользователя"
+msgstr "Пользователь SMTP"
 
-#: templates/admin.php:398
+#: templates/admin.php:404
 msgid "SMTP Password"
-msgstr "Пароль"
+msgstr "Пароль SMTP"
 
-#: templates/admin.php:402
+#: templates/admin.php:408
 msgid "Test email settings"
-msgstr "Тест настроек"
+msgstr "Проверить настройки почты"
 
-#: templates/admin.php:403
+#: templates/admin.php:409
 msgid "Send email"
 msgstr "Отправить сообщение"
 
-#: templates/admin.php:408
+#: templates/admin.php:414
 msgid "Log"
 msgstr "Журнал"
 
-#: templates/admin.php:409
+#: templates/admin.php:415
 msgid "Log level"
 msgstr "Уровень детализации журнала"
 
-#: templates/admin.php:441
+#: templates/admin.php:447
 msgid "More"
 msgstr "Больше"
 
-#: templates/admin.php:442
+#: templates/admin.php:448
 msgid "Less"
 msgstr "Меньше"
 
-#: templates/admin.php:448 templates/personal.php:196
+#: templates/admin.php:454 templates/personal.php:208
 msgid "Version"
 msgstr "Версия"
 
-#: templates/admin.php:452 templates/personal.php:199
+#: templates/admin.php:458 templates/personal.php:211
 msgid ""
 "Developed by the <a href=\"http://ownCloud.org/contact\" "
 "target=\"_blank\">ownCloud community</a>, the <a "
@@ -701,7 +753,7 @@ msgstr "Выберите приложение"
 
 #: templates/apps.php:43
 msgid "Documentation:"
-msgstr "Документация"
+msgstr "Документация:"
 
 #: templates/apps.php:49
 msgid "See application page at apps.owncloud.com"
@@ -715,23 +767,31 @@ msgstr "См. сайт приложений"
 msgid "<span class=\"licence\"></span>-licensed by <span class=\"author\"></span>"
 msgstr "<span class=\"licence\"></span> лицензия. Автор <span class=\"author\"></span>"
 
-#: templates/help.php:6
+#: templates/apps.php:59
+msgid "Enable only for specific groups"
+msgstr "Включить только для этих групп"
+
+#: templates/apps.php:61
+msgid "All"
+msgstr "Все"
+
+#: templates/help.php:13
 msgid "Administrator Documentation"
 msgstr "Документация администратора"
 
-#: templates/help.php:9
+#: templates/help.php:20
 msgid "Online Documentation"
 msgstr "Online документация"
 
-#: templates/help.php:11
+#: templates/help.php:25
 msgid "Forum"
 msgstr "Форум"
 
-#: templates/help.php:14
+#: templates/help.php:33
 msgid "Bugtracker"
-msgstr "Bugtracker"
+msgstr "Багтрекер"
 
-#: templates/help.php:17
+#: templates/help.php:40
 msgid "Commercial Support"
 msgstr "Коммерческая поддержка"
 
@@ -739,174 +799,214 @@ msgstr "Коммерческая поддержка"
 msgid "Get the apps to sync your files"
 msgstr "Получить приложения для синхронизации ваших файлов"
 
-#: templates/personal.php:19
+#: templates/personal.php:21
+msgid ""
+"If you want to support the project\n"
+"\t\t<a href=\"https://owncloud.org/contribute\"\n"
+"\t\t\ttarget=\"_blank\">join development</a>\n"
+"\t\tor\n"
+"\t\t<a href=\"https://owncloud.org/promote\"\n"
+"\t\t\ttarget=\"_blank\">spread the word</a>!"
+msgstr "Если вы хотите поддержать проект,\n\t\t<a href=\"https://owncloud.org/contribute\"\n\t\t\ttarget=\"_blank\">присоединяйтесь к разработке</a>\n\t\tиди\n\t\t<a href=\"https://owncloud.org/promote\"\n\t\t\ttarget=\"_blank\">содействуйте распространению</a>!"
+
+#: templates/personal.php:31
 msgid "Show First Run Wizard again"
 msgstr "Показать помощник настройки"
 
-#: templates/personal.php:27
+#: templates/personal.php:39
 #, php-format
 msgid "You have used <strong>%s</strong> of the available <strong>%s</strong>"
 msgstr "Вы использовали <strong>%s</strong> из доступных <strong>%s</strong>"
 
-#: templates/personal.php:38 templates/users.php:21 templates/users.php:87
+#: templates/personal.php:50 templates/users/part.createuser.php:8
+#: templates/users/part.userlist.php:9
 msgid "Password"
 msgstr "Пароль"
 
-#: templates/personal.php:39
+#: templates/personal.php:51
 msgid "Your password was changed"
 msgstr "Ваш пароль изменён"
 
-#: templates/personal.php:40
+#: templates/personal.php:52
 msgid "Unable to change your password"
 msgstr "Невозможно сменить пароль"
 
-#: templates/personal.php:42
+#: templates/personal.php:54
 msgid "Current password"
 msgstr "Текущий пароль"
 
-#: templates/personal.php:45
+#: templates/personal.php:57
 msgid "New password"
 msgstr "Новый пароль"
 
-#: templates/personal.php:49
+#: templates/personal.php:61
 msgid "Change password"
 msgstr "Сменить пароль"
 
-#: templates/personal.php:61 templates/users.php:86
+#: templates/personal.php:73 templates/users/part.userlist.php:8
 msgid "Full Name"
 msgstr "Полное имя"
 
-#: templates/personal.php:76
+#: templates/personal.php:88
 msgid "Email"
 msgstr "E-mail"
 
-#: templates/personal.php:78
+#: templates/personal.php:90
 msgid "Your email address"
 msgstr "Ваш адрес электронной почты"
 
-#: templates/personal.php:81
+#: templates/personal.php:93
 msgid ""
 "Fill in an email address to enable password recovery and receive "
 "notifications"
-msgstr ""
+msgstr "Введите свой email-адрес для того, чтобы включить возможность восстановления пароля и получения уведомлений"
 
-#: templates/personal.php:89
+#: templates/personal.php:101
 msgid "Profile picture"
-msgstr "Фото профиля"
+msgstr "Аватар"
 
-#: templates/personal.php:94
+#: templates/personal.php:106
 msgid "Upload new"
-msgstr "Загрузить новую"
+msgstr "Загрузить новый"
 
-#: templates/personal.php:96
+#: templates/personal.php:108
 msgid "Select new from Files"
 msgstr "Выберите новый из файлов"
 
-#: templates/personal.php:97
+#: templates/personal.php:109
 msgid "Remove image"
-msgstr "Удалить изображение"
+msgstr "Удалить аватар"
 
-#: templates/personal.php:98
+#: templates/personal.php:110
 msgid "Either png or jpg. Ideally square but you will be able to crop it."
-msgstr "Либо png, либо jpg. Изображение должно быть квадратным, но вы сможете обрезать его позже."
+msgstr "Допустимые форматы: png и jpg. Если изображение не квадратное, то вам будет предложено обрезать его."
 
-#: templates/personal.php:100
+#: templates/personal.php:112
 msgid "Your avatar is provided by your original account."
 msgstr "Будет использован аватар вашей оригинальной учетной записи."
 
-#: templates/personal.php:104
+#: templates/personal.php:116
 msgid "Cancel"
 msgstr "Отменить"
 
-#: templates/personal.php:105
+#: templates/personal.php:117
 msgid "Choose as profile image"
-msgstr "Выберите изображение профиля"
+msgstr "Установить как аватар"
 
-#: templates/personal.php:111 templates/personal.php:112
+#: templates/personal.php:123 templates/personal.php:124
 msgid "Language"
 msgstr "Язык"
 
-#: templates/personal.php:131
+#: templates/personal.php:143
 msgid "Help translate"
 msgstr "Помочь с переводом"
 
-#: templates/personal.php:150
+#: templates/personal.php:162
 msgid "The encryption app is no longer enabled, please decrypt all your files"
 msgstr "Приложение для шифрования выключено, пожалуйста, расшифруйте ваши файлы"
 
-#: templates/personal.php:156
+#: templates/personal.php:168
 msgid "Log-in password"
 msgstr "Пароль входа"
 
-#: templates/personal.php:161
+#: templates/personal.php:173
 msgid "Decrypt all Files"
 msgstr "Снять шифрование со всех файлов"
 
-#: templates/personal.php:174
+#: templates/personal.php:186
 msgid ""
 "Your encryption keys are moved to a backup location. If something went wrong"
 " you can restore the keys. Only delete them permanently if you are sure that"
 " all files are decrypted correctly."
-msgstr ""
+msgstr "Ваши ключи шифрования были архивированы. Если что-то пойдёт не так, вы сможете восстановить ключи. Удаляйте ключи из архива только тогда, когда вы будете уверены, что все файлы были успешно расшифрованы."
 
-#: templates/personal.php:178
+#: templates/personal.php:190
 msgid "Restore Encryption Keys"
-msgstr ""
+msgstr "Восстановить Ключи Шифрования"
 
-#: templates/personal.php:182
+#: templates/personal.php:194
 msgid "Delete Encryption Keys"
-msgstr ""
+msgstr "Удалить Ключи Шифрования"
 
-#: templates/users.php:19
+#: templates/users/part.createuser.php:4
 msgid "Login Name"
 msgstr "Имя пользователя"
 
-#: templates/users.php:28
+#: templates/users/part.createuser.php:20
 msgid "Create"
 msgstr "Создать"
 
-#: templates/users.php:34
+#: templates/users/part.createuser.php:26
 msgid "Admin Recovery Password"
 msgstr "Восстановление пароля администратора"
 
-#: templates/users.php:35 templates/users.php:36
+#: templates/users/part.createuser.php:27
+#: templates/users/part.createuser.php:28
 msgid ""
 "Enter the recovery password in order to recover the users files during "
 "password change"
 msgstr "Введите пароль для того, чтобы восстановить файлы пользователей при смене пароля"
 
-#: templates/users.php:40
-msgid "Default Storage"
-msgstr "Хранилище по умолчанию"
+#: templates/users/part.createuser.php:32
+msgid "Search Users and Groups"
+msgstr "Искать пользователей и групп"
 
-#: templates/users.php:42 templates/users.php:137
+#: templates/users/part.grouplist.php:5
+msgid "Add Group"
+msgstr "Добавить группу"
+
+#: templates/users/part.grouplist.php:10
+msgid "Group"
+msgstr "Группа"
+
+#: templates/users/part.grouplist.php:18
+msgid "Everyone"
+msgstr "Все"
+
+#: templates/users/part.grouplist.php:31
+msgid "Admins"
+msgstr "Администраторы"
+
+#: templates/users/part.setquota.php:7
+msgid "Default Quota"
+msgstr "Квота по умолчанию"
+
+#: templates/users/part.setquota.php:9 templates/users/part.userlist.php:66
 msgid "Please enter storage quota (ex: \"512 MB\" or \"12 GB\")"
 msgstr "Пожалуйста, введите квоту на хранилище (например: \"512 MB\" или \"12 GB\")"
 
-#: templates/users.php:46 templates/users.php:146
+#: templates/users/part.setquota.php:11 templates/users/part.userlist.php:75
 msgid "Unlimited"
 msgstr "Неограниченно"
 
-#: templates/users.php:64 templates/users.php:161
+#: templates/users/part.setquota.php:26 templates/users/part.userlist.php:90
 msgid "Other"
 msgstr "Другое"
 
-#: templates/users.php:85
+#: templates/users/part.userlist.php:7
 msgid "Username"
 msgstr "Имя пользователя"
 
-#: templates/users.php:92
-msgid "Storage"
-msgstr "Хранилище"
+#: templates/users/part.userlist.php:14
+msgid "Quota"
+msgstr "Квота"
 
-#: templates/users.php:106
+#: templates/users/part.userlist.php:15
+msgid "Storage Location"
+msgstr "Место хранилища"
+
+#: templates/users/part.userlist.php:16
+msgid "Last Login"
+msgstr "Последний вход"
+
+#: templates/users/part.userlist.php:30
 msgid "change full name"
 msgstr "изменить полное имя"
 
-#: templates/users.php:110
+#: templates/users/part.userlist.php:34
 msgid "set new password"
 msgstr "установить новый пароль"
 
-#: templates/users.php:141
+#: templates/users/part.userlist.php:70
 msgid "Default"
 msgstr "По умолчанию"

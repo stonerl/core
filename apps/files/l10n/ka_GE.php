@@ -1,5 +1,6 @@
 <?php
 $TRANSLATIONS = array(
+"Unknown error" => "უცნობი შეცდომა",
 "Could not move %s - File with this name already exists" => "%s –ის გადატანა ვერ მოხერხდა – ფაილი ამ სახელით უკვე არსებობს",
 "Could not move %s" => "%s –ის გადატანა ვერ მოხერხდა",
 "File name cannot be empty." => "ფაილის სახელი არ შეიძლება იყოს ცარიელი.",
@@ -19,6 +20,8 @@ $TRANSLATIONS = array(
 "File upload is in progress. Leaving the page now will cancel the upload." => "მიმდინარეობს ფაილის ატვირთვა. სხვა გვერდზე გადასვლა გამოიწვევს ატვირთვის შეჩერებას",
 "{new_name} already exists" => "{new_name} უკვე არსებობს",
 "Share" => "გაზიარება",
+"Delete" => "წაშლა",
+"Unshare" => "გაუზიარებადი",
 "Delete permanently" => "სრულად წაშლა",
 "Rename" => "გადარქმევა",
 "Your download is being prepared. This might take some time if the files are big." => "გადმოწერის მოთხოვნა მუშავდება. ის მოითხოვს გარკვეულ დროს რაგდან ფაილები არის დიდი ზომის.",
@@ -35,10 +38,6 @@ $TRANSLATIONS = array(
 "File handling" => "ფაილის დამუშავება",
 "Maximum upload size" => "მაქსიმუმ ატვირთის ზომა",
 "max. possible: " => "მაქს. შესაძლებელი:",
-"Needed for multi-file and folder downloads." => "საჭიროა მულტი ფაილ ან საქაღალდის ჩამოტვირთვა.",
-"Enable ZIP-download" => "ZIP-Download–ის ჩართვა",
-"0 is unlimited" => "0 is unlimited",
-"Maximum input size for ZIP files" => "ZIP ფაილების მაქსიმუმ დასაშვები ზომა",
 "Save" => "შენახვა",
 "WebDAV" => "WebDAV",
 "New" => "ახალი",
@@ -46,13 +45,10 @@ $TRANSLATIONS = array(
 "New folder" => "ახალი ფოლდერი",
 "Folder" => "საქაღალდე",
 "From link" => "მისამართიდან",
-"Cancel upload" => "ატვირთვის გაუქმება",
 "Nothing in here. Upload something!" => "აქ არაფერი არ არის. ატვირთე რამე!",
 "Download" => "ჩამოტვირთვა",
-"Delete" => "წაშლა",
 "Upload too large" => "ასატვირთი ფაილი ძალიან დიდია",
 "The files you are trying to upload exceed the maximum size for file uploads on this server." => "ფაილის ზომა რომლის ატვირთვასაც თქვენ აპირებთ, აჭარბებს სერვერზე დაშვებულ მაქსიმუმს.",
-"Files are being scanned, please wait." => "მიმდინარეობს ფაილების სკანირება, გთხოვთ დაელოდოთ.",
-"Current scanning" => "მიმდინარე სკანირება"
+"Files are being scanned, please wait." => "მიმდინარეობს ფაილების სკანირება, გთხოვთ დაელოდოთ."
 );
 $PLURAL_FORMS = "nplurals=1; plural=0;";

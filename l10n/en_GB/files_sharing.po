@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# mnestis <transifex@mnestis.net>, 2013-2014
+# Darren Richardson <transifex@mnestis.net>, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-05-13 01:55-0400\n"
-"PO-Revision-Date: 2014-05-12 11:15+0000\n"
-"Last-Translator: mnestis <transifex@mnestis.net>\n"
+"POT-Creation-Date: 2014-07-16 01:54-0400\n"
+"PO-Revision-Date: 2014-07-16 05:54+0000\n"
+"Last-Translator: I Robot\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/owncloud/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,9 +18,69 @@ msgstr ""
 "Language: en_GB\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: js/share.js:33
-msgid "Shared by {owner}"
-msgstr "Shared by {owner}"
+#: ajax/external.php:17
+msgid "Server to server sharing is not enabled on this server"
+msgstr "Server to server sharing is not enabled on this server"
+
+#: ajax/external.php:47
+msgid "Couldn't add remote share"
+msgstr "Couldn't add remote share"
+
+#: appinfo/app.php:33 js/app.js:34
+msgid "Shared with you"
+msgstr "Shared with you"
+
+#: appinfo/app.php:42 js/app.js:53
+msgid "Shared with others"
+msgstr "Shared with others"
+
+#: appinfo/app.php:51 js/app.js:72
+msgid "Shared by link"
+msgstr "Shared by link"
+
+#: js/app.js:35
+msgid "No files have been shared with you yet."
+msgstr "No files have been shared with you yet."
+
+#: js/app.js:54
+msgid "You haven't shared any files yet."
+msgstr "You haven't shared any files yet."
+
+#: js/app.js:73
+msgid "You haven't shared any files by link yet."
+msgstr "You haven't shared any files by link yet."
+
+#: js/external.js:48 js/external.js:59
+msgid "Do you want to add the remote share {name} from {owner}@{remote}?"
+msgstr "Do you want to add the remote share {name} from {owner}@{remote}?"
+
+#: js/external.js:51 js/external.js:62
+msgid "Remote share"
+msgstr "Remote share"
+
+#: js/external.js:65
+msgid "Remote share password"
+msgstr "Remote share password"
+
+#: js/external.js:76
+msgid "Cancel"
+msgstr "Cancel"
+
+#: js/external.js:77
+msgid "Add remote share"
+msgstr "Add remote share"
+
+#: js/public.js:203
+msgid "No ownCloud installation found at {remote}"
+msgstr "No ownCloud installation found at {remote}"
+
+#: js/public.js:204
+msgid "Invalid ownCloud url"
+msgstr "Invalid ownCloud URL"
+
+#: js/sharedfilelist.js:123
+msgid "Shared by"
+msgstr "Shared by"
 
 #: templates/authenticate.php:4
 msgid "This share is password-protected"
@@ -30,9 +90,17 @@ msgstr "This share is password-protected"
 msgid "The password is wrong. Try again."
 msgstr "The password is wrong. Try again."
 
-#: templates/authenticate.php:10
+#: templates/authenticate.php:10 templates/authenticate.php:12
 msgid "Password"
 msgstr "Password"
+
+#: templates/list.php:16
+msgid "Name"
+msgstr "Name"
+
+#: templates/list.php:20
+msgid "Share time"
+msgstr "Share time"
 
 #: templates/part.404.php:3
 msgid "Sorry, this link doesn’t seem to work anymore."
@@ -58,15 +126,31 @@ msgstr "sharing is disabled"
 msgid "For more info, please ask the person who sent this link."
 msgstr "For more info, please ask the person who sent this link."
 
-#: templates/public.php:21
+#: templates/public.php:22
+msgid "Add to your ownCloud"
+msgstr "Add to your ownCloud"
+
+#: templates/public.php:30
 msgid "Download"
 msgstr "Download"
 
-#: templates/public.php:52
+#: templates/public.php:61
 #, php-format
 msgid "Download %s"
 msgstr "Download %s"
 
-#: templates/public.php:56
+#: templates/public.php:65
 msgid "Direct link"
 msgstr "Direct link"
+
+#: templates/settings-admin.php:3
+msgid "Remote Shares"
+msgstr "Remote Shares"
+
+#: templates/settings-admin.php:7
+msgid "Allow other instances to mount public links shared from this server"
+msgstr "Allow other instances to mount public links shared from this server"
+
+#: templates/settings-admin.php:11
+msgid "Allow users to mount public link shares"
+msgstr "Allow users to mount public link shares"

@@ -12,6 +12,45 @@ class OC_Util {
 	private static $rootMounted=false;
 	private static $fsSetup=false;
 
+	private static function initLocalStorageRootFS() {
+		// mount local file backend as root
+		$configDataDirectory = OC_Config::getValue( "datadirectory", OC::$SERVERROOT."/data" );
+		//first set up the local "root" storage
+		\OC\Files\Filesystem::initMounts();
+		if(!self::$rootMounted) {
+			\OC\Files\Filesystem::mount('\OC\Files\Storage\Local', array('datadir'=>$configDataDirectory), '/');
+			self::$rootMounted = true;
+		}
+	}
+
+	/**
+	 * mounting an object storage as the root fs will in essence remove the
+	 * necessity of a data folder being present.
+	 * TODO make home storage aware of this and use the object storage instead of local disk access
+	 * @param array $config containing 'class' and optional 'arguments'
+	 */
+	private static function initObjectStoreRootFS($config) {
+		// check misconfiguration
+		if (empty($config['class'])) {
+			\OCP\Util::writeLog('files', 'No class given for objectstore', \OCP\Util::ERROR);
+		}
+		if (!isset($config['arguments'])) {
+			$config['arguments'] = array();
+		}
+
+		// instantiate object store implementation
+		$config['arguments']['objectstore'] = new $config['class']($config['arguments']);
+		// mount with plain / root object store implementation
+		$config['class'] = '\OC\Files\ObjectStore\ObjectStoreStorage';
+
+		// mount object storage as root
+		\OC\Files\Filesystem::initMounts();
+		if(!self::$rootMounted) {
+			\OC\Files\Filesystem::mount($config['class'], $config['arguments'], '/');
+			self::$rootMounted = true;
+		}
+	}
+
 	/**
 	 * Can be set up
 	 * @param string $user
@@ -39,12 +78,12 @@ class OC_Util {
 			self::$fsSetup=true;
 		}
 
-		$configDataDirectory = OC_Config::getValue( "datadirectory", OC::$SERVERROOT."/data" );
-		//first set up the local "root" storage
-		\OC\Files\Filesystem::initMounts();
-		if(!self::$rootMounted) {
-			\OC\Files\Filesystem::mount('\OC\Files\Storage\Local', array('datadir'=>$configDataDirectory), '/');
-			self::$rootMounted = true;
+		//check if we are using an object storage
+		$objectStore = OC_Config::getValue( 'objectstore' );
+		if ( isset( $objectStore ) ) {
+			self::initObjectStoreRootFS($objectStore);
+		} else {
+			self::initLocalStorageRootFS();
 		}
 
 		if ($user != '' && !OCP\User::userExists($user)) {
@@ -53,28 +92,40 @@ class OC_Util {
 
 		//if we aren't logged in, there is no use to set up the filesystem
 		if( $user != "" ) {
-			\OC\Files\Filesystem::addStorageWrapper(function($mountPoint, $storage){
+			\OC\Files\Filesystem::addStorageWrapper('oc_quota', function($mountPoint, $storage){
 				// set up quota for home storages, even for other users
 				// which can happen when using sharing
 
-				if ($storage instanceof \OC\Files\Storage\Home) {
-					$user = $storage->getUser()->getUID();
-					$quota = OC_Util::getUserQuota($user);
-					if ($quota !== \OC\Files\SPACE_UNLIMITED) {
-						return new \OC\Files\Storage\Wrapper\Quota(array('storage' => $storage, 'quota' => $quota, 'root' => 'files'));
+				/**
+				 * @var \OC\Files\Storage\Storage $storage
+				 */
+				if ($storage->instanceOfStorage('\OC\Files\Storage\Home')
+					|| $storage->instanceOfStorage('\OC\Files\ObjectStore\HomeObjectStoreStorage')
+				) {
+					if (is_object($storage->getUser())) {
+						$user = $storage->getUser()->getUID();
+						$quota = OC_Util::getUserQuota($user);
+						if ($quota !== \OC\Files\SPACE_UNLIMITED) {
+							return new \OC\Files\Storage\Wrapper\Quota(array('storage' => $storage, 'quota' => $quota, 'root' => 'files'));
+						}
 					}
 				}
 
 				return $storage;
 			});
 
-			$userDir = '/'.$user.'/files';
-			$userRoot = OC_User::getHome($user);
-			$userDirectory = $userRoot . '/files';
-			if( !is_dir( $userDirectory )) {
-				mkdir( $userDirectory, 0755, true );
-				OC_Util::copySkeleton($userDirectory);
+			// copy skeleton for local storage only
+			if ( ! isset( $objectStore ) ) {
+				$userRoot = OC_User::getHome($user);
+				$userDirectory = $userRoot . '/files';
+				if( !is_dir( $userDirectory )) {
+					mkdir( $userDirectory, 0755, true );
+					OC_Util::copySkeleton($userDirectory);
+				}
 			}
+
+			$userDir = '/'.$user.'/files';
+
 			//jail the user into his "home" directory
 			\OC\Files\Filesystem::init($user, $userDir);
 
@@ -117,6 +168,21 @@ class OC_Util {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * check if share API enforces a default expire date
+	 * @return boolean
+	 */
+	public static function isDefaultExpireDateEnforced() {
+		$isDefaultExpireDateEnabled = \OCP\Config::getAppValue('core', 'shareapi_default_expire_date', 'no');
+		$enforceDefaultExpireDate = false;
+		if ($isDefaultExpireDateEnabled === 'yes') {
+			$value = \OCP\Config::getAppValue('core', 'shareapi_enforce_expire_date', 'no');
+			$enforceDefaultExpireDate = ($value === 'yes') ? true : false;
+		}
+
+		return $enforceDefaultExpireDate;
 	}
 
 	/**
@@ -323,10 +389,11 @@ class OC_Util {
 	 * @return array arrays with error messages and hints
 	 */
 	public static function checkServer() {
+		$l = OC_L10N::get('lib');
 		$errors = array();
 		$CONFIG_DATADIRECTORY = OC_Config::getValue('datadirectory', OC::$SERVERROOT . '/data');
 
-		if (!\OC::needUpgrade() && OC_Config::getValue('installed', false)) {
+		if (!self::needUpgrade() && OC_Config::getValue('installed', false)) {
 			// this check needs to be done every time
 			$errors = self::checkDataDirectoryValidity($CONFIG_DATADIRECTORY);
 		}
@@ -343,24 +410,24 @@ class OC_Util {
 			and !is_callable('pg_connect')
 			and !is_callable('oci_connect')) {
 			$errors[] = array(
-				'error'=>'No database drivers (sqlite, mysql, or postgresql) installed.',
+				'error'=> $l->t('No database drivers (sqlite, mysql, or postgresql) installed.'),
 				'hint'=>'' //TODO: sane hint
 			);
 			$webServerRestart = true;
 		}
 
 		//common hint for all file permissions error messages
-		$permissionsHint = 'Permissions can usually be fixed by '
-			.'<a href="' . OC_Helper::linkToDocs('admin-dir_permissions')
-			.'" target="_blank">giving the webserver write access to the root directory</a>.';
+		$permissionsHint = $l->t('Permissions can usually be fixed by '
+			.'%sgiving the webserver write access to the root directory%s.',
+			array('<a href="'.\OC_Helper::linkToDocs('admin-dir_permissions').'" target="_blank">', '</a>'));
 
 		// Check if config folder is writable.
 		if(!is_writable(OC::$configDir) or !is_readable(OC::$configDir)) {
 			$errors[] = array(
-				'error' => "Can't write into config directory",
-				'hint' => 'This can usually be fixed by '
-					.'<a href="' . OC_Helper::linkToDocs('admin-dir_permissions')
-					.'" target="_blank">giving the webserver write access to the config directory</a>.'
+				'error' => $l->t('Cannot write into "config" directory'),
+				'hint' => $l->t('This can usually be fixed by '
+					  .'%sgiving the webserver write access to the config directory%s.',
+					  array('<a href="'.\OC_Helper::linkToDocs('admin-dir_permissions').'" target="_blank">', '</a>'))
 				);
 		}
 
@@ -370,11 +437,11 @@ class OC_Util {
 				|| !is_writable(OC_App::getInstallPath())
 				|| !is_readable(OC_App::getInstallPath()) ) {
 				$errors[] = array(
-					'error' => "Can't write into apps directory",
-					'hint' => 'This can usually be fixed by '
-						.'<a href="' . OC_Helper::linkToDocs('admin-dir_permissions')
-						.'" target="_blank">giving the webserver write access to the apps directory</a> '
-						.'or disabling the appstore in the config file.'
+					'error' => $l->t('Cannot write into "apps" directory'),
+					'hint' => $l->t('This can usually be fixed by '
+						  .'%sgiving the webserver write access to the apps directory%s'
+						  .' or disabling the appstore in the config file.',
+						  array('<a href="'.\OC_Helper::linkToDocs('admin-dir_permissions').'" target="_blank">', '</a>'))
 					);
 			}
 		}
@@ -385,11 +452,11 @@ class OC_Util {
 				$errors = array_merge($errors, self::checkDataDirectoryPermissions($CONFIG_DATADIRECTORY));
 			} else {
 				$errors[] = array(
-					'error' => "Can't create data directory (".$CONFIG_DATADIRECTORY.")",
-					'hint' => 'This can usually be fixed by '
-					.'<a href="' . OC_Helper::linkToDocs('admin-dir_permissions')
-					.'" target="_blank">giving the webserver write access to the root directory</a>.'
-				);
+					'error' => $l->t('Cannot create "data" directory (%s)', array($CONFIG_DATADIRECTORY)),
+					'hint' => $l->t('This can usually be fixed by '
+						  .'<a href="%s" target="_blank">giving the webserver write access to the root directory</a>.',
+						  array(OC_Helper::linkToDocs('admin-dir_permissions')))
+					);
 			}
 		} else if(!is_writable($CONFIG_DATADIRECTORY) or !is_readable($CONFIG_DATADIRECTORY)) {
 			$errors[] = array(
@@ -402,30 +469,32 @@ class OC_Util {
 
 		if(!OC_Util::isSetLocaleWorking()) {
 			$errors[] = array(
-				'error' => 'Setting locale to en_US.UTF-8/fr_FR.UTF-8/es_ES.UTF-8/de_DE.UTF-8/ru_RU.UTF-8/pt_BR.UTF-8/it_IT.UTF-8/ja_JP.UTF-8/zh_CN.UTF-8 failed',
-				'hint' => 'Please install one of theses locales on your system and restart your webserver.'
+				'error' => $l->t('Setting locale to %s failed',
+				array('en_US.UTF-8/fr_FR.UTF-8/es_ES.UTF-8/de_DE.UTF-8/ru_RU.UTF-8/'
+				     .'pt_BR.UTF-8/it_IT.UTF-8/ja_JP.UTF-8/zh_CN.UTF-8')),
+				'hint' => $l->t('Please install one of theses locales on your system and restart your webserver.')
 			);
 		}
 
-		$moduleHint = "Please ask your server administrator to install the module.";
+		$moduleHint = $l->t('Please ask your server administrator to install the module.');
 		// check if all required php modules are present
 		if(!class_exists('ZipArchive')) {
 			$errors[] = array(
-				'error'=>'PHP module zip not installed.',
+				'error'=> $l->t('PHP module %s not installed.', array('zip')),
 				'hint'=>$moduleHint
 			);
 			$webServerRestart = true;
 		}
 		if(!class_exists('DOMDocument')) {
 			$errors[] = array(
-				'error' => 'PHP module dom not installed.',
+				'error'=> $l->t('PHP module %s not installed.', array('dom')),
 				'hint' => $moduleHint
 			);
 			$webServerRestart =true;
 		}
 		if(!function_exists('xml_parser_create')) {
 			$errors[] = array(
-				'error' => 'PHP module libxml not installed.',
+				'error'=> $l->t('PHP module %s not installed.', array('libxml')),
 				'hint' => $moduleHint
 			);
 			$webServerRestart = true;
@@ -439,57 +508,57 @@ class OC_Util {
 		}
 		if(!function_exists('ctype_digit')) {
 			$errors[] = array(
-				'error'=>'PHP module ctype is not installed.',
+				'error'=> $l->t('PHP module %s not installed.', array('ctype')),
 				'hint'=>$moduleHint
 			);
 			$webServerRestart = true;
 		}
 		if(!function_exists('json_encode')) {
 			$errors[] = array(
-				'error'=>'PHP module JSON is not installed.',
+				'error'=> $l->t('PHP module %s not installed.', array('JSON')),
 				'hint'=>$moduleHint
 			);
 			$webServerRestart = true;
 		}
 		if(!extension_loaded('gd') || !function_exists('gd_info')) {
 			$errors[] = array(
-				'error'=>'PHP module GD is not installed.',
+				'error'=> $l->t('PHP module %s not installed.', array('GD')),
 				'hint'=>$moduleHint
 			);
 			$webServerRestart = true;
 		}
 		if(!function_exists('gzencode')) {
 			$errors[] = array(
-				'error'=>'PHP module zlib is not installed.',
+				'error'=> $l->t('PHP module %s not installed.', array('zlib')),
 				'hint'=>$moduleHint
 			);
 			$webServerRestart = true;
 		}
 		if(!function_exists('iconv')) {
 			$errors[] = array(
-				'error'=>'PHP module iconv is not installed.',
+				'error'=> $l->t('PHP module %s not installed.', array('iconv')),
 				'hint'=>$moduleHint
 			);
 			$webServerRestart = true;
 		}
 		if(!function_exists('simplexml_load_string')) {
 			$errors[] = array(
-				'error'=>'PHP module SimpleXML is not installed.',
+				'error'=> $l->t('PHP module %s not installed.', array('SimpleXML')),
 				'hint'=>$moduleHint
 			);
 			$webServerRestart = true;
 		}
 		if(version_compare(phpversion(), '5.3.3', '<')) {
 			$errors[] = array(
-				'error'=>'PHP 5.3.3 or higher is required.',
-				'hint'=>'Please ask your server administrator to update PHP to the latest version.'
-					.' Your PHP version is no longer supported by ownCloud and the PHP community.'
+				'error'=> $l->t('PHP %s or higher is required.', '5.3.3'),
+				'hint'=> $l->t('Please ask your server administrator to update PHP to the latest version.'
+					.' Your PHP version is no longer supported by ownCloud and the PHP community.')
 			);
 			$webServerRestart = true;
 		}
 		if(!defined('PDO::ATTR_DRIVER_NAME')) {
 			$errors[] = array(
-				'error'=>'PHP PDO module is not installed.',
+				'error'=> $l->t('PHP module %s not installed.', array('PDO')),
 				'hint'=>$moduleHint
 			);
 			$webServerRestart = true;
@@ -499,25 +568,31 @@ class OC_Util {
 			|| (strtolower(@ini_get('safe_mode')) == 'true')
 			|| (ini_get("safe_mode") == 1 ))) {
 			$errors[] = array(
-				'error'=>'PHP Safe Mode is enabled. ownCloud requires that it is disabled to work properly.',
-				'hint'=>'PHP Safe Mode is a deprecated and mostly useless setting that should be disabled. '
-					.'Please ask your server administrator to disable it in php.ini or in your webserver config.'
+				'error'=> $l->t('PHP Safe Mode is enabled. ownCloud requires that it is disabled to work properly.'),
+				'hint'=> $l->t('PHP Safe Mode is a deprecated and mostly useless setting that should be disabled. '
+					.'Please ask your server administrator to disable it in php.ini or in your webserver config.')
 			);
 			$webServerRestart = true;
 		}
 		if (get_magic_quotes_gpc() == 1 ) {
 			$errors[] = array(
-				'error'=>'Magic Quotes is enabled. ownCloud requires that it is disabled to work properly.',
-				'hint'=>'Magic Quotes is a deprecated and mostly useless setting that should be disabled. '
-					.'Please ask your server administrator to disable it in php.ini or in your webserver config.'
+				'error'=> $l->t('Magic Quotes is enabled. ownCloud requires that it is disabled to work properly.'),
+				'hint'=> $l->t('Magic Quotes is a deprecated and mostly useless setting that should be disabled. '
+					.'Please ask your server administrator to disable it in php.ini or in your webserver config.')
 			);
 			$webServerRestart = true;
+		}
+		if (!self::isAnnotationsWorking()) {
+			$errors[] = array(
+				'error'=>'PHP is apparently setup to strip inline doc blocks. This will make several core apps inaccessible.',
+				'hint'=>'This is probably caused by a cache/accelerator such as Zend OPcache or eAccelerator.'
+			);
 		}
 
 		if($webServerRestart) {
 			$errors[] = array(
-				'error'=>'PHP modules have been installed, but they are still listed as missing?',
-				'hint'=>'Please ask your server administrator to restart the web server.'
+				'error'=> $l->t('PHP modules have been installed, but they are still listed as missing?'),
+				'hint'=> $l->t('Please ask your server administrator to restart the web server.')
 			);
 		}
 
@@ -534,6 +609,7 @@ class OC_Util {
 	 * @return array errors array
 	 */
 	public static function checkDatabaseVersion() {
+		$l = OC_L10N::get('lib');
 		$errors = array();
 		$dbType = \OC_Config::getValue('dbtype', 'sqlite');
 		if ($dbType === 'pgsql') {
@@ -545,16 +621,17 @@ class OC_Util {
 					$version = $data['server_version'];
 					if (version_compare($version, '9.0.0', '<')) {
 						$errors[] = array(
-							'error' => 'PostgreSQL >= 9 required',
-							'hint' => 'Please upgrade your database version'
+							'error' => $l->t('PostgreSQL >= 9 required'),
+							'hint' => $l->t('Please upgrade your database version')
 						);
 					}
 				}
 			} catch (\Doctrine\DBAL\DBALException $e) {
 				\OCP\Util::logException('core', $e);
 				$errors[] = array(
-					'error' => 'Error occurred while checking PostgreSQL version',
-					'hint' => 'Please make sure you have PostgreSQL >= 9 or check the logs for more information about the error'
+					'error' => $l->t('Error occurred while checking PostgreSQL version'),
+					'hint' => $l->t('Please make sure you have PostgreSQL >= 9 or'
+							.' check the logs for more information about the error')
 				);
 			}
 		}
@@ -610,12 +687,13 @@ class OC_Util {
 	 * @return array arrays with error messages and hints
 	 */
 	public static function checkDataDirectoryPermissions($dataDirectory) {
+		$l = OC_L10N::get('lib');
 		$errors = array();
 		if (self::runningOnWindows()) {
 			//TODO: permissions checks for windows hosts
 		} else {
-			$permissionsModHint = 'Please change the permissions to 0770 so that the directory'
-				.' cannot be listed by other users.';
+			$permissionsModHint = $l->t('Please change the permissions to 0770 so that the directory'
+				.' cannot be listed by other users.');
 			$perms = substr(decoct(@fileperms($dataDirectory)), -3);
 			if (substr($perms, -1) != '0') {
 				chmod($dataDirectory, 0770);
@@ -623,7 +701,7 @@ class OC_Util {
 				$perms = substr(decoct(@fileperms($dataDirectory)), -3);
 				if (substr($perms, 2, 1) != '0') {
 					$errors[] = array(
-						'error' => 'Data directory ('.$dataDirectory.') is readable for other users',
+						'error' => $l->t('Data directory (%s) is readable by other users', array($dataDirectory)),
 						'hint' => $permissionsModHint
 					);
 				}
@@ -640,12 +718,13 @@ class OC_Util {
 	 * @return bool true if the data directory is valid, false otherwise
 	 */
 	public static function checkDataDirectoryValidity($dataDirectory) {
+		$l = OC_L10N::get('lib');
 		$errors = array();
 		if (!file_exists($dataDirectory.'/.ocdata')) {
 			$errors[] = array(
-				'error' => 'Data directory (' . $dataDirectory . ') is invalid',
-				'hint' => 'Please check that the data directory contains a file' .
-					' ".ocdata" in its root.'
+				'error' => $l->t('Data directory (%s) is invalid', array($dataDirectory)),
+				'hint' => $l->t('Please check that the data directory contains a file' .
+					' ".ocdata" in its root.')
 			);
 		}
 		return $errors;
@@ -751,26 +830,44 @@ class OC_Util {
 	}
 
 	/**
-	 * Redirect to the user default page
-	 * @return void
+	 * Returns the URL of the default page
+	 * based on the system configuration and
+	 * the apps visible for the current user
+	 *
+	 * @return string URL
 	 */
-	public static function redirectToDefaultPage() {
+	public static function getDefaultPageUrl() {
 		$urlGenerator = \OC::$server->getURLGenerator();
 		if(isset($_REQUEST['redirect_url'])) {
 			$location = urldecode($_REQUEST['redirect_url']);
-		}
-		else if (isset(OC::$REQUESTEDAPP) && !empty(OC::$REQUESTEDAPP)) {
-			$location = $urlGenerator->getAbsoluteURL('/index.php/apps/'.OC::$REQUESTEDAPP.'/index.php');
 		} else {
 			$defaultPage = OC_Appconfig::getValue('core', 'defaultpage');
 			if ($defaultPage) {
 				$location = $urlGenerator->getAbsoluteURL($defaultPage);
 			} else {
-				$location = $urlGenerator->getAbsoluteURL('/index.php/files/index.php');
+				$appId = 'files';
+				$defaultApps = explode(',', \OCP\Config::getSystemValue('defaultapp', 'files'));
+				// find the first app that is enabled for the current user
+				foreach ($defaultApps as $defaultApp) {
+					$defaultApp = OC_App::cleanAppId(strip_tags($defaultApp));
+					if (OC_App::isEnabled($defaultApp)) {
+						$appId = $defaultApp;
+						break;
+					}
+				}
+				$location = $urlGenerator->getAbsoluteURL('/index.php/apps/' . $appId . '/');
 			}
 		}
-		OC_Log::write('core', 'redirectToDefaultPage: '.$location, OC_Log::DEBUG);
-		header( 'Location: '.$location );
+		return $location;
+	}
+
+	/**
+	 * Redirect to the user default page
+	 * @return void
+	 */
+	public static function redirectToDefaultPage() {
+		$location = self::getDefaultPageUrl();
+		header('Location: '.$location);
 		exit();
 	}
 
@@ -964,7 +1061,7 @@ class OC_Util {
 		try {
 			// test PROPFIND
 			$client->propfind('', array('{DAV:}resourcetype'));
-		} catch (\Sabre_DAV_Exception_NotAuthenticated $e) {
+		} catch (\Sabre\DAV\Exception\NotAuthenticated $e) {
 			$return = true;
 		} catch (\Exception $e) {
 			OC_Log::write('core', 'isWebDAVWorking: NO - Reason: '.$e->getMessage(). ' ('.get_class($e).')', OC_Log::WARN);
@@ -990,6 +1087,18 @@ class OC_Util {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Check if it's possible to get the inline annotations
+	 *
+	 * @return bool
+	 */
+	public static function isAnnotationsWorking() {
+		$reflection = new \ReflectionMethod(__METHOD__);
+		$docs = $reflection->getDocComment();
+
+		return (is_string($docs) && strlen($docs) > 50);
 	}
 
 	/**
@@ -1123,11 +1232,16 @@ class OC_Util {
 	/**
 	 * @Brief Get file content via curl.
 	 * @param string $url Url to get content
+	 * @throws Exception If the URL does not start with http:// or https://
 	 * @return string of the response or false on error
 	 * This function get the content of a page via curl, if curl is enabled.
 	 * If not, file_get_contents is used.
 	 */
 	public static function getUrlContent($url) {
+		if (strpos($url, 'http://') !== 0 && strpos($url, 'https://') !== 0) {
+			throw new Exception('$url must start with https:// or http://', 1);
+		}
+		
 		if (function_exists('curl_init')) {
 			$curl = curl_init();
 			$max_redirects = 10;
@@ -1337,5 +1451,20 @@ class OC_Util {
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * Check whether the instance needs to preform an upgrade
+	 *
+	 * @return bool
+	 */
+	public static function needUpgrade() {
+		if (OC_Config::getValue('installed', false)) {
+			$installedVersion = OC_Config::getValue('version', '0.0.0');
+			$currentVersion = implode('.', OC_Util::getVersion());
+			return version_compare($currentVersion, $installedVersion, '>');
+		} else {
+			return false;
+		}
 	}
 }

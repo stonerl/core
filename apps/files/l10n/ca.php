@@ -1,5 +1,8 @@
 <?php
 $TRANSLATIONS = array(
+"Storage not available" => "Emmagatzemament no disponible",
+"Storage invalid" => "Emmagatzemament no vàlid",
+"Unknown error" => "Error desconegut",
 "Could not move %s - File with this name already exists" => "No s'ha pogut moure %s - Ja hi ha un fitxer amb aquest nom",
 "Could not move %s" => " No s'ha pogut moure %s",
 "File name cannot be empty." => "El nom del fitxer no pot ser buit.",
@@ -28,6 +31,7 @@ $TRANSLATIONS = array(
 "Upload failed. Could not get file info." => "La pujada ha fallat. No s'ha pogut obtenir informació del fitxer.",
 "Invalid directory." => "Directori no vàlid.",
 "Files" => "Fitxers",
+"All files" => "Tots els fitxers",
 "Unable to upload {filename} as it is a directory or has 0 bytes" => "No es pot pujar {filename} perquè és una carpeta o té 0 bytes",
 "Total file size {size1} exceeds upload limit {size2}" => "Mida total del fitxer {size1} excedeix el límit de pujada {size2}",
 "Not enough free space, you are uploading {size1} but only {size2} is left" => "No hi ha prou espai lliure, està carregant {size1} però només pot {size2}",
@@ -40,6 +44,8 @@ $TRANSLATIONS = array(
 "Could not create folder" => "No s'ha pogut crear la carpeta",
 "Error fetching URL" => "Error en obtenir la URL",
 "Share" => "Comparteix",
+"Delete" => "Esborra",
+"Unshare" => "Deixa de compartir",
 "Delete permanently" => "Esborra permanentment",
 "Rename" => "Reanomena",
 "Your download is being prepared. This might take some time if the files are big." => "S'està preparant la baixada. Pot trigar una estona si els fitxers són grans.",
@@ -63,13 +69,10 @@ $TRANSLATIONS = array(
 "Encryption was disabled but your files are still encrypted. Please go to your personal settings to decrypt your files." => "L'encriptació s'ha desactivat però els vostres fitxers segueixen encriptats. Aneu a la vostra configuració personal per desencriptar els vostres fitxers.",
 "{dirs} and {files}" => "{dirs} i {files}",
 "%s could not be renamed" => "%s no es pot canviar el nom",
+"Upload (max. %s)" => "Pujada (màx. %s)",
 "File handling" => "Gestió de fitxers",
 "Maximum upload size" => "Mida màxima de pujada",
 "max. possible: " => "màxim possible:",
-"Needed for multi-file and folder downloads." => "Necessari per fitxers múltiples i baixada de carpetes",
-"Enable ZIP-download" => "Activa la baixada ZIP",
-"0 is unlimited" => "0 és sense límit",
-"Maximum input size for ZIP files" => "Mida màxima d'entrada per fitxers ZIP",
 "Save" => "Desa",
 "WebDAV" => "WebDAV",
 "Use this address to <a href=\"%s\" target=\"_blank\">access your Files via WebDAV</a>" => "Useu aquesta adreça per <a href=\"%s\" target=\"_blank\">accedir als fitxers via WebDAV</a>",
@@ -79,14 +82,12 @@ $TRANSLATIONS = array(
 "New folder" => "Carpeta nova",
 "Folder" => "Carpeta",
 "From link" => "Des d'enllaç",
-"Cancel upload" => "Cancel·la la pujada",
 "You don’t have permission to upload or create files here" => "No teniu permisos per a pujar o crear els fitxers aquí",
 "Nothing in here. Upload something!" => "Res per aquí. Pugeu alguna cosa!",
 "Download" => "Baixa",
-"Delete" => "Esborra",
 "Upload too large" => "La pujada és massa gran",
 "The files you are trying to upload exceed the maximum size for file uploads on this server." => "Els fitxers que esteu intentant pujar excedeixen la mida màxima de pujada del servidor",
 "Files are being scanned, please wait." => "S'estan escanejant els fitxers, espereu",
-"Current scanning" => "Actualment escanejant"
+"Currently scanning" => "Actualment escanejant"
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

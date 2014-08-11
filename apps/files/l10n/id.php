@@ -1,5 +1,6 @@
 <?php
 $TRANSLATIONS = array(
+"Unknown error" => "Galat tidak diketahui",
 "Could not move %s - File with this name already exists" => "Tidak dapat memindahkan %s - Berkas dengan nama ini sudah ada",
 "Could not move %s" => "Tidak dapat memindahkan %s",
 "File name cannot be empty." => "Nama berkas tidak boleh kosong.",
@@ -34,6 +35,8 @@ $TRANSLATIONS = array(
 "Could not create file" => "Tidak dapat membuat berkas",
 "Could not create folder" => "Tidak dapat membuat folder",
 "Share" => "Bagikan",
+"Delete" => "Hapus",
+"Unshare" => "Batalkan berbagi",
 "Delete permanently" => "Hapus secara permanen",
 "Rename" => "Ubah nama",
 "Your download is being prepared. This might take some time if the files are big." => "Unduhan Anda sedang disiapkan. Prosesnya dapat berlangsung agak lama jika ukuran berkasnya besar.",
@@ -58,10 +61,6 @@ $TRANSLATIONS = array(
 "File handling" => "Penanganan berkas",
 "Maximum upload size" => "Ukuran pengunggahan maksimum",
 "max. possible: " => "Kemungkinan maks.:",
-"Needed for multi-file and folder downloads." => "Dibutuhkan untuk pengunduhan multi-berkas dan multi-folder",
-"Enable ZIP-download" => "Aktifkan unduhan ZIP",
-"0 is unlimited" => "0 berarti tidak terbatas",
-"Maximum input size for ZIP files" => "Ukuran masukan maksimum untuk berkas ZIP",
 "Save" => "Simpan",
 "WebDAV" => "WebDAV",
 "Use this address to <a href=\"%s\" target=\"_blank\">access your Files via WebDAV</a>" => "Gunakan alamat ini untuk <a href=\"%s\" target=\"_blank\">mengakses Berkas via WebDAV</a>",
@@ -71,14 +70,11 @@ $TRANSLATIONS = array(
 "New folder" => "Map baru",
 "Folder" => "Folder",
 "From link" => "Dari tautan",
-"Cancel upload" => "Batal pengunggahan",
 "You don’t have permission to upload or create files here" => "Anda tidak memiliki akses untuk mengunggah atau membuat berkas disini",
 "Nothing in here. Upload something!" => "Tidak ada apa-apa di sini. Unggah sesuatu!",
 "Download" => "Unduh",
-"Delete" => "Hapus",
 "Upload too large" => "Yang diunggah terlalu besar",
 "The files you are trying to upload exceed the maximum size for file uploads on this server." => "Berkas yang dicoba untuk diunggah melebihi ukuran maksimum pengunggahan berkas di server ini.",
-"Files are being scanned, please wait." => "Berkas sedang dipindai, silakan tunggu.",
-"Current scanning" => "Yang sedang dipindai"
+"Files are being scanned, please wait." => "Berkas sedang dipindai, silakan tunggu."
 );
 $PLURAL_FORMS = "nplurals=1; plural=0;";

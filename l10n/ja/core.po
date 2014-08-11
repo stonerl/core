@@ -4,18 +4,18 @@
 # 
 # Translators:
 # Daisuke Deguchi <ddeguchi@nagoya-u.jp>, 2013-2014
-# plazmism <gomidori@live.jp>, 2013-2014
-# iLikeIT <dj_dark_junglist@yahoo.com>, 2013
+# タカハシ <gomidori@live.jp>, 2013-2014
+# Jake G. <dj_dark_junglist@yahoo.com>, 2013
 # Koichi MATSUMOTO <mzch@me.com>, 2013
 # kuromabo <md81bird@hitaki.net>, 2014
-# mikako, 2014
-# tt yn <tetuyano+transi@gmail.com>, 2013-2014
+# Mika Kobayashi, 2014
+# YANO Tetsu <tetuyano+transi@gmail.com>, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-05-17 01:54-0400\n"
-"PO-Revision-Date: 2014-05-17 05:54+0000\n"
+"POT-Creation-Date: 2014-08-10 01:54-0400\n"
+"PO-Revision-Date: 2014-08-10 05:54+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: Japanese (Japan) (http://www.transifex.com/projects/p/owncloud/language/ja_JP/)\n"
 "MIME-Version: 1.0\n"
@@ -24,11 +24,7 @@ msgstr ""
 "Language: ja_JP\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ajax/share.php:87
-msgid "Expiration date is in the past."
-msgstr "有効期限が切れています。"
-
-#: ajax/share.php:119 ajax/share.php:161
+#: ajax/share.php:116 ajax/share.php:158
 #, php-format
 msgid "Couldn't send mail to following users: %s "
 msgstr "次のユーザーにメールを送信できませんでした: %s"
@@ -45,478 +41,533 @@ msgstr "メンテナンスモードがオフになりました"
 msgid "Updated database"
 msgstr "データベース更新完了"
 
-#: avatar/controller.php:62
+#: ajax/update.php:19
+msgid "Checked database schema update"
+msgstr "指定データベースのスキーマを更新"
+
+#: ajax/update.php:27
+#, php-format
+msgid "Disabled incompatible apps: %s"
+msgstr "無効化された非互換アプリ：%s"
+
+#: avatar/controller.php:69
 msgid "No image or file provided"
 msgstr "画像もしくはファイルが提供されていません"
 
-#: avatar/controller.php:81
+#: avatar/controller.php:86
 msgid "Unknown filetype"
 msgstr "不明なファイルタイプ"
 
-#: avatar/controller.php:85
+#: avatar/controller.php:90
 msgid "Invalid image"
 msgstr "無効な画像"
 
-#: avatar/controller.php:115 avatar/controller.php:142
+#: avatar/controller.php:120 avatar/controller.php:147
 msgid "No temporary profile picture available, try again"
 msgstr "一時的なプロファイル用画像が利用できません。もう一度試してください"
 
-#: avatar/controller.php:135
+#: avatar/controller.php:140
 msgid "No crop data provided"
 msgstr "クロップデータは提供されません"
 
-#: js/config.php:43
+#: js/config.php:45
 msgid "Sunday"
 msgstr "日"
 
-#: js/config.php:44
+#: js/config.php:46
 msgid "Monday"
 msgstr "月"
 
-#: js/config.php:45
+#: js/config.php:47
 msgid "Tuesday"
 msgstr "火"
 
-#: js/config.php:46
+#: js/config.php:48
 msgid "Wednesday"
 msgstr "水"
 
-#: js/config.php:47
+#: js/config.php:49
 msgid "Thursday"
 msgstr "木"
 
-#: js/config.php:48
+#: js/config.php:50
 msgid "Friday"
 msgstr "金"
 
-#: js/config.php:49
+#: js/config.php:51
 msgid "Saturday"
 msgstr "土"
 
-#: js/config.php:54
+#: js/config.php:56
 msgid "January"
 msgstr "1月"
 
-#: js/config.php:55
+#: js/config.php:57
 msgid "February"
 msgstr "2月"
 
-#: js/config.php:56
+#: js/config.php:58
 msgid "March"
 msgstr "3月"
 
-#: js/config.php:57
+#: js/config.php:59
 msgid "April"
 msgstr "4月"
 
-#: js/config.php:58
+#: js/config.php:60
 msgid "May"
 msgstr "5月"
 
-#: js/config.php:59
+#: js/config.php:61
 msgid "June"
 msgstr "6月"
 
-#: js/config.php:60
+#: js/config.php:62
 msgid "July"
 msgstr "7月"
 
-#: js/config.php:61
+#: js/config.php:63
 msgid "August"
 msgstr "8月"
 
-#: js/config.php:62
+#: js/config.php:64
 msgid "September"
 msgstr "9月"
 
-#: js/config.php:63
+#: js/config.php:65
 msgid "October"
 msgstr "10月"
 
-#: js/config.php:64
+#: js/config.php:66
 msgid "November"
 msgstr "11月"
 
-#: js/config.php:65
+#: js/config.php:67
 msgid "December"
 msgstr "12月"
 
-#: js/js.js:483
+#: js/js.js:501
 msgid "Settings"
 msgstr "設定"
 
-#: js/js.js:583
+#: js/js.js:590
+msgid "File"
+msgstr "ファイル"
+
+#: js/js.js:591
+msgid "Folder"
+msgstr "フォルダー"
+
+#: js/js.js:592
+msgid "Image"
+msgstr "画像"
+
+#: js/js.js:593
+msgid "Audio"
+msgstr "オーディオ"
+
+#: js/js.js:607
 msgid "Saving..."
 msgstr "保存中..."
 
-#: js/js.js:1240
+#: js/js.js:1278
 msgid "seconds ago"
 msgstr "数秒前"
 
-#: js/js.js:1241
+#: js/js.js:1279
 msgid "%n minute ago"
 msgid_plural "%n minutes ago"
 msgstr[0] "%n 分前"
 
-#: js/js.js:1242
+#: js/js.js:1280
 msgid "%n hour ago"
 msgid_plural "%n hours ago"
 msgstr[0] "%n 時間前"
 
-#: js/js.js:1243
+#: js/js.js:1281
 msgid "today"
 msgstr "今日"
 
-#: js/js.js:1244
+#: js/js.js:1282
 msgid "yesterday"
 msgstr "昨日"
 
-#: js/js.js:1245
+#: js/js.js:1283
 msgid "%n day ago"
 msgid_plural "%n days ago"
 msgstr[0] "%n日前"
 
-#: js/js.js:1246
+#: js/js.js:1284
 msgid "last month"
 msgstr "1ヶ月前"
 
-#: js/js.js:1247
+#: js/js.js:1285
 msgid "%n month ago"
 msgid_plural "%n months ago"
 msgstr[0] "%nヶ月前"
 
-#: js/js.js:1248
+#: js/js.js:1286
 msgid "last year"
 msgstr "1年前"
 
-#: js/js.js:1249
+#: js/js.js:1287
 msgid "years ago"
 msgstr "数年前"
 
-#: js/oc-dialogs.js:95 js/oc-dialogs.js:236
-msgid "Yes"
-msgstr "はい"
+#: js/lostpassword.js:3 lostpassword/controller/lostcontroller.php:198
+msgid "Couldn't send reset email. Please contact your administrator."
+msgstr "リセットメールを送信できませんでした。管理者に問い合わせてください。"
 
-#: js/oc-dialogs.js:105 js/oc-dialogs.js:246
+#: js/lostpassword.js:5
+msgid ""
+"The link to reset your password has been sent to your email. If you do not "
+"receive it within a reasonable amount of time, check your spam/junk "
+"folders.<br>If it is not there ask your local administrator."
+msgstr "パスワードをリセットする、このリンクをクリックするとメールを送信します。しばらく経ってもメールが届かなかった場合は、スパム/ジャンクフォルダを確認してください。<br>それでも見つからなかった場合は、管理者に問合せてください。"
+
+#: js/lostpassword.js:7
+msgid ""
+"Your files are encrypted. If you haven't enabled the recovery key, there "
+"will be no way to get your data back after your password is reset.<br />If "
+"you are not sure what to do, please contact your administrator before you "
+"continue. <br />Do you really want to continue?"
+msgstr "ファイルが暗号化されています。リカバリーキーが有効でない場合は、パスワードをリセットした後にあなたのデータを元に戻す方法はありません。<br />どういうことか分からない場合は、操作を継続する前に管理者に連絡してください。<br />続けてよろしいでしょうか?"
+
+#: js/lostpassword.js:10
+msgid "I know what I'm doing"
+msgstr "どういう操作をしているか理解しています"
+
+#: js/lostpassword.js:13 lostpassword/templates/resetpassword.php:9
+msgid "Reset password"
+msgstr "パスワードをリセット"
+
+#: js/lostpassword.js:16
+msgid "Password can not be changed. Please contact your administrator."
+msgstr "パスワードは変更できません。管理者に問い合わせてください。"
+
+#: js/oc-dialogs.js:108 js/oc-dialogs.js:255
 msgid "No"
 msgstr "いいえ"
 
-#: js/oc-dialogs.js:184
+#: js/oc-dialogs.js:116 js/oc-dialogs.js:264
+msgid "Yes"
+msgstr "はい"
+
+#: js/oc-dialogs.js:202
 msgid "Choose"
 msgstr "選択"
 
-#: js/oc-dialogs.js:210
+#: js/oc-dialogs.js:229
 msgid "Error loading file picker template: {error}"
 msgstr "ファイル選択テンプレートの読み込みエラー: {error}"
 
-#: js/oc-dialogs.js:263
+#: js/oc-dialogs.js:282
 msgid "Ok"
 msgstr "OK"
 
-#: js/oc-dialogs.js:283
+#: js/oc-dialogs.js:302
 msgid "Error loading message template: {error}"
 msgstr "メッセージテンプレートの読み込みエラー: {error}"
 
-#: js/oc-dialogs.js:411
+#: js/oc-dialogs.js:430
 msgid "{count} file conflict"
 msgid_plural "{count} file conflicts"
 msgstr[0] "{count} ファイルが競合"
 
-#: js/oc-dialogs.js:425
+#: js/oc-dialogs.js:444
 msgid "One file conflict"
 msgstr "1ファイルが競合"
 
-#: js/oc-dialogs.js:431
+#: js/oc-dialogs.js:450
 msgid "New Files"
 msgstr "新しいファイル"
 
-#: js/oc-dialogs.js:432
+#: js/oc-dialogs.js:451
 msgid "Already existing files"
-msgstr "ファイルがすでに存在します"
+msgstr "既存のファイル"
 
-#: js/oc-dialogs.js:434
+#: js/oc-dialogs.js:453
 msgid "Which files do you want to keep?"
-msgstr "どちらのファイルを保持したいですか？"
+msgstr "どちらのファイルを保持しますか？"
 
-#: js/oc-dialogs.js:435
+#: js/oc-dialogs.js:454
 msgid ""
 "If you select both versions, the copied file will have a number added to its"
 " name."
 msgstr "両方のバージョンを選択した場合は、ファイル名の後ろに数字を追加したファイルのコピーを作成します。"
 
-#: js/oc-dialogs.js:443
+#: js/oc-dialogs.js:462
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: js/oc-dialogs.js:453
+#: js/oc-dialogs.js:472
 msgid "Continue"
 msgstr "続ける"
 
-#: js/oc-dialogs.js:500 js/oc-dialogs.js:513
+#: js/oc-dialogs.js:519 js/oc-dialogs.js:532
 msgid "(all selected)"
-msgstr "(全て選択)"
+msgstr "(すべて選択)"
 
-#: js/oc-dialogs.js:503 js/oc-dialogs.js:517
+#: js/oc-dialogs.js:522 js/oc-dialogs.js:536
 msgid "({count} selected)"
 msgstr "({count} 選択)"
 
-#: js/oc-dialogs.js:525
+#: js/oc-dialogs.js:544
 msgid "Error loading file exists template"
 msgstr "既存ファイルのテンプレートの読み込みエラー"
 
-#: js/setup.js:84
+#: js/setup.js:96
 msgid "Very weak password"
 msgstr "非常に弱いパスワード"
 
-#: js/setup.js:85
+#: js/setup.js:97
 msgid "Weak password"
 msgstr "弱いパスワード"
 
-#: js/setup.js:86
+#: js/setup.js:98
 msgid "So-so password"
 msgstr "まずまずのパスワード"
 
-#: js/setup.js:87
+#: js/setup.js:99
 msgid "Good password"
 msgstr "良好なパスワード"
 
-#: js/setup.js:88
+#: js/setup.js:100
 msgid "Strong password"
 msgstr "強いパスワード"
 
-#: js/share.js:51 js/share.js:66 js/share.js:106
+#: js/share.js:129 js/share.js:251
 msgid "Shared"
 msgstr "共有中"
 
-#: js/share.js:109
+#: js/share.js:257
+msgid "Shared with {recipients}"
+msgstr "{recipients} と共有"
+
+#: js/share.js:266
 msgid "Share"
 msgstr "共有"
 
-#: js/share.js:158 js/share.js:171 js/share.js:178 js/share.js:761
+#: js/share.js:326 js/share.js:340 js/share.js:347 js/share.js:1007
 #: templates/installation.php:10
 msgid "Error"
 msgstr "エラー"
 
-#: js/share.js:160 js/share.js:824
+#: js/share.js:328 js/share.js:1070
 msgid "Error while sharing"
 msgstr "共有でエラー発生"
 
-#: js/share.js:171
+#: js/share.js:340
 msgid "Error while unsharing"
 msgstr "共有解除でエラー発生"
 
-#: js/share.js:178
+#: js/share.js:347
 msgid "Error while changing permissions"
 msgstr "権限変更でエラー発生"
 
-#: js/share.js:188
+#: js/share.js:357
 msgid "Shared with you and the group {group} by {owner}"
 msgstr "あなたと {owner} のグループ {group} で共有中"
 
-#: js/share.js:190
+#: js/share.js:359
 msgid "Shared with you by {owner}"
 msgstr "{owner} と共有中"
 
-#: js/share.js:214
+#: js/share.js:383
 msgid "Share with user or group …"
 msgstr "ユーザーもしくはグループと共有 ..."
 
-#: js/share.js:220
+#: js/share.js:389
 msgid "Share link"
 msgstr "URLで共有"
 
-#: js/share.js:226
+#: js/share.js:394
 msgid ""
 "The public link will expire no later than {days} days after it is created"
-msgstr ""
+msgstr "URLによる共有は、作成してから {days} 日以内に有効期限切れになります"
 
-#: js/share.js:228
-msgid "By default the public link will expire after {days} days"
-msgstr ""
-
-#: js/share.js:233
+#: js/share.js:398
 msgid "Password protect"
-msgstr "パスワード保護"
+msgstr "パスワード保護を有効化"
 
-#: js/share.js:235
+#: js/share.js:400
 msgid "Choose a password for the public link"
-msgstr ""
+msgstr "URLによる共有のパスワードを入力"
 
-#: js/share.js:241
+#: js/share.js:406
 msgid "Allow Public Upload"
 msgstr "アップロードを許可"
 
-#: js/share.js:245
+#: js/share.js:410
 msgid "Email link to person"
 msgstr "メールリンク"
 
-#: js/share.js:246
+#: js/share.js:411
 msgid "Send"
 msgstr "送信"
 
-#: js/share.js:251
+#: js/share.js:416
 msgid "Set expiration date"
 msgstr "有効期限を設定"
 
-#: js/share.js:252
+#: js/share.js:417
 msgid "Expiration date"
 msgstr "有効期限"
 
-#: js/share.js:289
+#: js/share.js:455
 msgid "Share via email:"
 msgstr "メール経由で共有:"
 
-#: js/share.js:292
+#: js/share.js:458
 msgid "No people found"
 msgstr "ユーザーが見つかりません"
 
-#: js/share.js:336 js/share.js:397
+#: js/share.js:507 js/share.js:575
 msgid "group"
 msgstr "グループ"
 
-#: js/share.js:369
+#: js/share.js:540
 msgid "Resharing is not allowed"
 msgstr "再共有は許可されていません"
 
-#: js/share.js:413
+#: js/share.js:591
 msgid "Shared in {item} with {user}"
 msgstr "{item} 内で {user} と共有中"
 
-#: js/share.js:435
+#: js/share.js:613
 msgid "Unshare"
 msgstr "共有解除"
 
-#: js/share.js:443
+#: js/share.js:621
 msgid "notify by email"
 msgstr "メールで通知"
 
-#: js/share.js:446
+#: js/share.js:624
+msgid "can share"
+msgstr "共有可"
+
+#: js/share.js:627
 msgid "can edit"
 msgstr "編集を許可"
 
-#: js/share.js:448
+#: js/share.js:629
 msgid "access control"
 msgstr "アクセス権限"
 
-#: js/share.js:451
+#: js/share.js:632
 msgid "create"
 msgstr "作成"
 
-#: js/share.js:454
+#: js/share.js:635
 msgid "update"
 msgstr "アップデート"
 
-#: js/share.js:457
+#: js/share.js:638
 msgid "delete"
 msgstr "削除"
 
-#: js/share.js:460
-msgid "share"
-msgstr "共有"
-
-#: js/share.js:742
+#: js/share.js:988
 msgid "Password protected"
 msgstr "パスワード保護"
 
-#: js/share.js:761
+#: js/share.js:1007
 msgid "Error unsetting expiration date"
 msgstr "有効期限の未設定エラー"
 
-#: js/share.js:782
+#: js/share.js:1028
 msgid "Error setting expiration date"
 msgstr "有効期限の設定でエラー発生"
 
-#: js/share.js:811
+#: js/share.js:1057
 msgid "Sending ..."
 msgstr "送信中..."
 
-#: js/share.js:822
+#: js/share.js:1068
 msgid "Email sent"
 msgstr "メールを送信しました"
 
-#: js/share.js:846
+#: js/share.js:1092
 msgid "Warning"
 msgstr "警告"
 
-#: js/tags.js:4
+#: js/tags.js:8
 msgid "The object type is not specified."
 msgstr "オブジェクトタイプが指定されていません。"
 
-#: js/tags.js:13
+#: js/tags.js:19
 msgid "Enter new"
 msgstr "新規に入力"
 
-#: js/tags.js:27
+#: js/tags.js:33
 msgid "Delete"
 msgstr "削除"
 
-#: js/tags.js:31
+#: js/tags.js:43
 msgid "Add"
 msgstr "追加"
 
-#: js/tags.js:39
+#: js/tags.js:57
 msgid "Edit tags"
 msgstr "タグを編集"
 
-#: js/tags.js:57
+#: js/tags.js:75
 msgid "Error loading dialog template: {error}"
 msgstr "メッセージテンプレートの読み込みエラー: {error}"
 
-#: js/tags.js:264
+#: js/tags.js:288
 msgid "No tags selected for deletion."
 msgstr "削除するタグが選択されていません。"
 
-#: js/update.js:8
+#: js/update.js:30
+msgid "Updating {productName} to version {version}, this may take a while."
+msgstr "{productName} を バージョン {version} に更新しています。しばらくお待ちください。"
+
+#: js/update.js:43
 msgid "Please reload the page."
 msgstr "ページをリロードしてください。"
 
-#: js/update.js:17
-msgid ""
-"The update was unsuccessful. Please report this issue to the <a "
-"href=\"https://github.com/owncloud/core/issues\" target=\"_blank\">ownCloud "
-"community</a>."
-msgstr "アップデートに失敗しました。この問題を <a href=\"https://github.com/owncloud/core/issues\" target=\"_blank\">ownCloud community</a> にレポートしてください。"
+#: js/update.js:52
+msgid "The update was unsuccessful."
+msgstr "アップデートに失敗しました。"
 
-#: js/update.js:21
+#: js/update.js:61
 msgid "The update was successful. Redirecting you to ownCloud now."
 msgstr "アップデートに成功しました。今すぐownCloudにリダイレクトします。"
 
-#: lostpassword/controller.php:70
+#: lostpassword/controller/lostcontroller.php:133
+msgid "Couldn't reset password because the token is invalid"
+msgstr "トークンが無効なため、パスワードをリセットできませんでした"
+
+#: lostpassword/controller/lostcontroller.php:159
+msgid "Couldn't send reset email. Please make sure your username is correct."
+msgstr "リセットメールを送信できませんでした。ユーザー名が正しいことを確認してください。"
+
+#: lostpassword/controller/lostcontroller.php:174
+msgid ""
+"Couldn't send reset email because there is no email address for this "
+"username. Please contact your administrator."
+msgstr "このユーザー名に紐付けられたメールアドレスがないため、リセットメールを送信できませんでした。管理者に問い合わせてください。"
+
+#: lostpassword/controller/lostcontroller.php:191
 #, php-format
 msgid "%s password reset"
 msgstr "%s パスワードリセット"
-
-#: lostpassword/controller.php:72
-msgid ""
-"A problem has occurred whilst sending the email, please contact your "
-"administrator."
-msgstr "メールの送信中に問題が発生しました。管理者に問い合わせください。"
 
 #: lostpassword/templates/email.php:2
 msgid "Use the following link to reset your password: {link}"
 msgstr "パスワードをリセットするには次のリンクをクリックしてください: {link}"
 
-#: lostpassword/templates/lostpassword.php:7
-msgid ""
-"The link to reset your password has been sent to your email.<br>If you do "
-"not receive it within a reasonable amount of time, check your spam/junk "
-"folders.<br>If it is not there ask your local administrator ."
-msgstr "パスワードリセットのリンクをあなたのメールアドレスに送信しました。<br>しばらくたっても受信できない場合は、スパム／迷惑メールフォルダーを確認してください。<br>もしそこにもない場合は、管理者に問い合わせてください。"
-
-#: lostpassword/templates/lostpassword.php:15
-msgid "Request failed!<br>Did you make sure your email/username was right?"
-msgstr "リクエストに失敗しました！<br>あなたのメール／ユーザー名が正しいことを確認しましたか？"
-
-#: lostpassword/templates/lostpassword.php:18
+#: lostpassword/templates/lostpassword.php:6
 msgid "You will receive a link to reset your password via Email."
 msgstr "メールでパスワードをリセットするリンクが届きます。"
 
-#: lostpassword/templates/lostpassword.php:21 templates/installation.php:53
-#: templates/login.php:32
+#: lostpassword/templates/lostpassword.php:8
+#: lostpassword/templates/lostpassword.php:9 templates/installation.php:51
+#: templates/installation.php:54 templates/login.php:23 templates/login.php:27
 msgid "Username"
 msgstr "ユーザー名"
 
-#: lostpassword/templates/lostpassword.php:25
+#: lostpassword/templates/lostpassword.php:13
 msgid ""
 "Your files are encrypted. If you haven't enabled the recovery key, there "
 "will be no way to get your data back after your password is reset. If you "
@@ -524,29 +575,21 @@ msgid ""
 "continue. Do you really want to continue?"
 msgstr "ファイルが暗号化されています。リカバリキーを有効にしていなかった場合、パスワードをリセットしてからデータを復旧する方法はありません。何をすべきかよくわからないなら、続ける前にまず管理者に連絡しましょう。本当に続けますか？"
 
-#: lostpassword/templates/lostpassword.php:27
+#: lostpassword/templates/lostpassword.php:15
 msgid "Yes, I really want to reset my password now"
 msgstr "はい、今すぐパスワードをリセットします。"
 
-#: lostpassword/templates/lostpassword.php:30
+#: lostpassword/templates/lostpassword.php:18
 msgid "Reset"
 msgstr "リセット"
 
-#: lostpassword/templates/resetpassword.php:4
-msgid "Your password was reset"
-msgstr "あなたのパスワードはリセットされました。"
-
 #: lostpassword/templates/resetpassword.php:5
-msgid "To login page"
-msgstr "ログインページへ戻る"
-
-#: lostpassword/templates/resetpassword.php:8
 msgid "New password"
 msgstr "新しいパスワードを入力"
 
-#: lostpassword/templates/resetpassword.php:11
-msgid "Reset password"
-msgstr "パスワードをリセット"
+#: lostpassword/templates/resetpassword.php:6
+msgid "New Password"
+msgstr "新しいパスワード"
 
 #: setup/controller.php:140
 #, php-format
@@ -568,7 +611,7 @@ msgstr "個人"
 msgid "Users"
 msgstr "ユーザー"
 
-#: strings.php:7 templates/layout.user.php:116
+#: strings.php:7 templates/layout.user.php:56 templates/layout.user.php:121
 msgid "Apps"
 msgstr "アプリ"
 
@@ -678,105 +721,99 @@ msgstr "サーバーを適正に設定する情報は、こちらの<a href=\"%s
 msgid "Create an <strong>admin account</strong>"
 msgstr "<strong>管理者アカウント</strong>を作成してください"
 
-#: templates/installation.php:60 templates/login.php:40
+#: templates/installation.php:59 templates/installation.php:62
+#: templates/login.php:33 templates/login.php:36
 msgid "Password"
 msgstr "パスワード"
 
-#: templates/installation.php:70
+#: templates/installation.php:72
 msgid "Storage & database"
 msgstr "ストレージとデータベース"
 
-#: templates/installation.php:77
+#: templates/installation.php:79
 msgid "Data folder"
 msgstr "データフォルダー"
 
-#: templates/installation.php:90
+#: templates/installation.php:92
 msgid "Configure the database"
 msgstr "データベースを設定してください"
 
-#: templates/installation.php:94
-msgid "will be used"
-msgstr "が使用されます"
+#: templates/installation.php:96
+#, php-format
+msgid "Only %s is available."
+msgstr "%s のみ有効です。"
 
-#: templates/installation.php:109
+#: templates/installation.php:111 templates/installation.php:113
 msgid "Database user"
 msgstr "データベースのユーザー名"
 
-#: templates/installation.php:118
+#: templates/installation.php:119 templates/installation.php:122
 msgid "Database password"
 msgstr "データベースのパスワード"
 
-#: templates/installation.php:123
+#: templates/installation.php:127 templates/installation.php:129
 msgid "Database name"
 msgstr "データベース名"
 
-#: templates/installation.php:132
+#: templates/installation.php:137 templates/installation.php:139
 msgid "Database tablespace"
 msgstr "データベースの表領域"
 
-#: templates/installation.php:140
+#: templates/installation.php:146 templates/installation.php:148
 msgid "Database host"
 msgstr "データベースのホスト名"
 
-#: templates/installation.php:150
+#: templates/installation.php:157
+msgid ""
+"SQLite will be used as database. For larger installations we recommend to "
+"change this."
+msgstr "SQLite をデータベースとして利用します。大規模な運用では、利用しないことをお勧めします。"
+
+#: templates/installation.php:159
 msgid "Finish setup"
 msgstr "セットアップを完了します"
 
-#: templates/installation.php:150
+#: templates/installation.php:159
 msgid "Finishing …"
 msgstr "作業を完了しています ..."
 
-#: templates/layout.user.php:40
+#: templates/layout.user.php:43
 msgid ""
 "This application requires JavaScript to be enabled for correct operation.  "
 "Please <a href=\"http://enable-javascript.com/\" target=\"_blank\">enable "
 "JavaScript</a> and re-load this interface."
 msgstr "このアプリケーションを使用するにはJavaScriptが必要です。\n<a href=\"http://enable-javascript.com/\" target=\"_blank\">JavaScriptを有効にし</a>、インターフェースを更新してください。 "
 
-#: templates/layout.user.php:44
+#: templates/layout.user.php:47
 #, php-format
 msgid "%s is available. Get more information on how to update."
 msgstr "%s が利用可能です。アップデート方法について詳細情報を確認してください。"
 
-#: templates/layout.user.php:74 templates/singleuser.user.php:8
+#: templates/layout.user.php:83 templates/singleuser.user.php:8
 msgid "Log out"
 msgstr "ログアウト"
 
-#: templates/login.php:9
-msgid "Automatic logon rejected!"
-msgstr "自動ログインは拒否されました！"
-
-#: templates/login.php:10
-msgid ""
-"If you did not change your password recently, your account may be "
-"compromised!"
-msgstr "最近パスワードを変更していない場合、あなたのアカウントが危険にさらされている可能性があります!"
-
-#: templates/login.php:12
-msgid "Please change your password to secure your account again."
-msgstr "アカウント保護のため、パスワードを再度変更してください。"
-
-#: templates/login.php:17
+#: templates/login.php:11
 msgid "Server side authentication failed!"
 msgstr "サーバーサイドの認証に失敗しました！"
 
-#: templates/login.php:18
+#: templates/login.php:12
 msgid "Please contact your administrator."
 msgstr "管理者に問い合わせてください。"
 
-#: templates/login.php:46
-msgid "Lost your password?"
-msgstr "パスワードを忘れましたか？"
+#: templates/login.php:42
+msgid "Forgot your password? Reset it!"
+msgstr "パスワードを忘れましたか？リセットします！"
 
-#: templates/login.php:51
+#: templates/login.php:47
 msgid "remember"
 msgstr "パスワードを保存"
 
-#: templates/login.php:54
+#: templates/login.php:51
 msgid "Log in"
 msgstr "ログイン"
 
-#: templates/login.php:60
+#: templates/login.php:57
 msgid "Alternative Logins"
 msgstr "代替ログイン"
 
@@ -807,8 +844,27 @@ msgstr "しばらくお待ちください。"
 
 #: templates/update.admin.php:3
 #, php-format
-msgid "Updating ownCloud to version %s, this may take a while."
-msgstr "ownCloud をバージョン %s に更新しています、しばらくお待ちください。"
+msgid "%s will be updated to version %s."
+msgstr "%s はバージョン %s にアップデートされました。"
+
+#: templates/update.admin.php:7
+msgid "The following apps will be disabled:"
+msgstr "以下のアプリは無効です："
+
+#: templates/update.admin.php:17
+#, php-format
+msgid "The theme %s has been disabled."
+msgstr "テーマ %s が無効になっています。"
+
+#: templates/update.admin.php:21
+msgid ""
+"Please make sure that the database, the config folder and the data folder "
+"have been backed up before proceeding."
+msgstr "データベースを確認してください。実行前にconfig フォルダとdata フォルダをバックアップします。"
+
+#: templates/update.admin.php:23
+msgid "Start update"
+msgstr "アップデートを開始"
 
 #: templates/update.user.php:3
 msgid ""

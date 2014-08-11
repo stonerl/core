@@ -46,10 +46,6 @@
 	background-image: url('../img/actions/checkmark-white.svg');
 }
 
-.icon-clock {
-	background-image: url('../img/actions/clock.svg');
-}
-
 .icon-close {
 	background-image: url('../img/actions/close.svg');
 }
@@ -78,16 +74,16 @@
 	background-image: url('../img/actions/info.svg');
 }
 
-.icon-lock {
-	background-image: url('../img/actions/lock.svg');
-}
-
 .icon-logout {
 	background-image: url('../img/actions/logout.svg');
 }
 
 .icon-mail {
 	background-image: url('../img/actions/mail.svg');
+}
+
+.icon-menu {
+	background-image: url('../img/actions/menu.svg');
 }
 
 .icon-more {
@@ -131,6 +127,9 @@
 
 .icon-search {
 	background-image: url('../img/actions/search.svg');
+}
+.icon-search-white {
+	background-image: url('../img/actions/search-white.svg');
 }
 
 .icon-settings {

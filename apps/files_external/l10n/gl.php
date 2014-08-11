@@ -1,5 +1,11 @@
 <?php
 $TRANSLATIONS = array(
+"Fetching request tokens failed. Verify that your Dropbox app key and secret are correct." => "Fallou a obtención de marcas de petición. Comprobe que a chave e o código secreto do seu aplicativo Dropbox son correctas.",
+"Fetching access tokens failed. Verify that your Dropbox app key and secret are correct." => "Fallou a obtención de marcas de acceso. Comprobe que a chave e o código secreto do seu aplicativo Dropbox son correctas.",
+"Please provide a valid Dropbox app key and secret." => "Forneza unha chave correcta e segreda do Dropbox.",
+"Step 1 failed. Exception: %s" => "Fallou o paso 1. Excepción: %s",
+"Step 2 failed. Exception: %s" => "Fallou o paso 2. Excepción: %s",
+"External storage" => "Almacenamento externo",
 "Local" => "Local",
 "Location" => "Localización",
 "Amazon S3" => "Amazon S3",
@@ -42,19 +48,22 @@ $TRANSLATIONS = array(
 "Access granted" => "Concedeuse acceso",
 "Error configuring Dropbox storage" => "Produciuse un erro ao configurar o almacenamento en Dropbox",
 "Grant access" => "Permitir o acceso",
-"Please provide a valid Dropbox app key and secret." => "Forneza unha chave correcta e segreda do Dropbox.",
 "Error configuring Google Drive storage" => "Produciuse un erro ao configurar o almacenamento en Google Drive",
+"Personal" => "Persoal",
+"System" => "Sistema",
 "Saved" => "Gardado",
 "<b>Note:</b> " => "<b>Nota:</b> ",
 " and " => "e",
 "<b>Note:</b> The cURL support in PHP is not enabled or installed. Mounting of %s is not possible. Please ask your system administrator to install it." => "<b>Nota:</b> A compatibilidade de cURL en PHP non está activada, ou non está instalado. Non é posíbel a montaxe de %s. Consulte co administrador do sistema como instalalo.",
 "<b>Note:</b> The FTP support in PHP is not enabled or installed. Mounting of %s is not possible. Please ask your system administrator to install it." => "<b>Nota:</b> A compatibilidade de FTP en PHP non está activada, ou non está instalado. Non é posíbel a montaxe de %s. Consulte co administrador do sistema como instalalo.",
 "<b>Note:</b> \"%s\" is not installed. Mounting of %s is not possible. Please ask your system administrator to install it." => "<b>Nota:</b> «%s»  non está instalado. Non é posíbel a montaxe de %s. Consulte co administrador do sistema como instalalo.",
+"You don't have any external storages" => "Non ten ningún almacenamento externo",
+"Name" => "Nome",
+"Storage type" => "Tipo de almacenamento",
+"Scope" => "Ámbito",
 "External Storage" => "Almacenamento externo",
 "Folder name" => "Nome do cartafol",
-"External storage" => "Almacenamento externo",
 "Configuration" => "Configuración",
-"Options" => "Opcións",
 "Available for" => "Dispoñíbel para",
 "Add storage" => "Engadir almacenamento",
 "No user or group" => "Non hai usuario ou grupo",
@@ -64,7 +73,7 @@ $TRANSLATIONS = array(
 "Delete" => "Eliminar",
 "Enable User External Storage" => "Activar o almacenamento externo do usuario",
 "Allow users to mount the following external storage" => "Permitirlle aos usuarios montar o seguinte almacenamento externo",
-"SSL root certificates" => "Certificados SSL root",
-"Import Root Certificate" => "Importar o certificado root"
+"SSL root certificates" => "Certificados raíz SSL",
+"Import Root Certificate" => "Importar o certificado raíz"
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

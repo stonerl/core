@@ -20,6 +20,7 @@ $TRANSLATIONS = array(
 "November" => "నవంబర్",
 "December" => "డిసెంబర్",
 "Settings" => "అమరికలు",
+"Folder" => "సంచయం",
 "seconds ago" => "క్షణాల క్రితం",
 "_%n minute ago_::_%n minutes ago_" => array("%n నిమిషం క్రితం","%n నిమిషాల క్రితం"),
 "_%n hour ago_::_%n hours ago_" => array("%n గంట క్రితం","%n గంటల క్రితం"),
@@ -30,8 +31,8 @@ $TRANSLATIONS = array(
 "_%n month ago_::_%n months ago_" => array("%n నెల క్రితం","%n నెలల క్రితం"),
 "last year" => "పోయిన సంవత్సరం",
 "years ago" => "సంవత్సరాల క్రితం",
-"Yes" => "అవును",
 "No" => "కాదు",
+"Yes" => "అవును",
 "Ok" => "సరే",
 "_{count} file conflict_::_{count} file conflicts_" => array("",""),
 "Cancel" => "రద్దుచేయి",
@@ -49,7 +50,6 @@ $TRANSLATIONS = array(
 "Users" => "వాడుకరులు",
 "Help" => "సహాయం",
 "Password" => "సంకేతపదం",
-"Log out" => "నిష్క్రమించు",
-"Lost your password?" => "మీ సంకేతపదం పోయిందా?"
+"Log out" => "నిష్క్రమించు"
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

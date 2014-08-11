@@ -14,6 +14,7 @@ function updateStatus(statusEl, result){
 OC.MountConfig={
 	saveStorage:function(tr, callback) {
 		var mountPoint = $(tr).find('.mountPoint input').val();
+		var oldMountPoint = $(tr).find('.mountPoint input').data('mountpoint');
 		if (mountPoint == '') {
 			return false;
 		}
@@ -80,9 +81,11 @@ OC.MountConfig={
 							classOptions: classOptions,
 							mountType: mountType,
 							applicable: applicable,
-							isPersonal: isPersonal
+							isPersonal: isPersonal,
+							oldMountPoint: oldMountPoint
 						},
 						success: function(result) {
+							$(tr).find('.mountPoint input').data('mountpoint', mountPoint);
 							status = updateStatus(statusSpan, result);
 							if (callback) {
 								callback(status);
@@ -139,9 +142,11 @@ OC.MountConfig={
 						classOptions: classOptions,
 						mountType: mountType,
 						applicable: applicable,
-						isPersonal: isPersonal
+						isPersonal: isPersonal,
+						oldMountPoint: oldMountPoint
 					},
 					success: function(result) {
+						$(tr).find('.mountPoint input').data('mountpoint', mountPoint);
 						status = updateStatus(statusSpan, result);
 						if (callback) {
 							callback(status);
@@ -187,15 +192,15 @@ $(document).ready(function() {
 						placeholder = placeholder.substring(1);
 					}
 					if (placeholder.indexOf('*') === 0) {
-						var class_string = is_optional ? ' class="optional"' : '';
-						td.append('<input type="password"' + class_string + ' data-parameter="'+parameter+'" placeholder="'+placeholder.substring(1)+'" />');
+						var class_string = is_optional ? ' optional' : '';
+						td.append('<input type="password" class="added' + class_string + '" data-parameter="'+parameter+'" placeholder="'+placeholder.substring(1)+'" />');
 					} else if (placeholder.indexOf('!') === 0) {
-						td.append('<label><input type="checkbox" data-parameter="'+parameter+'" />'+placeholder.substring(1)+'</label>');
+						td.append('<label><input type="checkbox" class="added" data-parameter="'+parameter+'" />'+placeholder.substring(1)+'</label>');
 					} else if (placeholder.indexOf('#') === 0) {
-						td.append('<input type="hidden" data-parameter="'+parameter+'" />');
+						td.append('<input type="hidden" class="added" data-parameter="'+parameter+'" />');
 					} else {
-						var class_string = is_optional ? ' class="optional"' : '';
-						td.append('<input type="text"' + class_string + ' data-parameter="'+parameter+'" placeholder="'+placeholder+'" />');
+						var class_string = is_optional ? ' optional' : '';
+						td.append('<input type="text" class="added' + class_string + '" data-parameter="'+parameter+'" placeholder="'+placeholder+'" />');
 					}
 				});
 				if (parameters['custom'] && $('#externalStorage tbody tr.'+backendClass.replace(/\\/g, '\\\\')).length == 1) {
@@ -310,19 +315,28 @@ $(document).ready(function() {
 		OC.msg.startSaving('#userMountingMsg');
 		if (this.checked) {
 			OC.AppConfig.setValue('files_external', 'allow_user_mounting', 'yes');
-			$('#userMountingBackups').removeClass('hidden');
+			$('input[name="allowUserMountingBackends\\[\\]"]').prop('checked', true);
+			$('#userMountingBackends').removeClass('hidden');
+			$('input[name="allowUserMountingBackends\\[\\]"]').eq(0).trigger('change');
 		} else {
 			OC.AppConfig.setValue('files_external', 'allow_user_mounting', 'no');
-			$('#userMountingBackups').addClass('hidden');
+			$('#userMountingBackends').addClass('hidden');
 		}
 		OC.msg.finishedSaving('#userMountingMsg', {status: 'success', data: {message: t('settings', 'Saved')}});
 	});
 
 	$('input[name="allowUserMountingBackends\\[\\]"]').bind('change', function() {
 		OC.msg.startSaving('#userMountingMsg');
-		var user_mounting_backends = $('input[name="allowUserMountingBackends\\[\\]"]:checked').map(function(){return $(this).val();}).get();
-		OC.AppConfig.setValue('files_external', 'user_mounting_backends', user_mounting_backends.join());
+		var userMountingBackends = $('input[name="allowUserMountingBackends\\[\\]"]:checked').map(function(){return $(this).val();}).get();
+		OC.AppConfig.setValue('files_external', 'user_mounting_backends', userMountingBackends.join());
 		OC.msg.finishedSaving('#userMountingMsg', {status: 'success', data: {message: t('settings', 'Saved')}});
+
+		// disable allowUserMounting
+		if(userMountingBackends.length === 0) {
+			$('#allowUserMounting').prop('checked', false);
+			$('#allowUserMounting').trigger('change');
+
+		}
 	});
 });
 

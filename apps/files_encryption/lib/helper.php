@@ -49,6 +49,7 @@ class Helper {
 	public static function registerUserHooks() {
 
 		\OCP\Util::connectHook('OC_User', 'post_login', 'OCA\Encryption\Hooks', 'login');
+		\OCP\Util::connectHook('OC_User', 'logout', 'OCA\Encryption\Hooks', 'logout');
 		\OCP\Util::connectHook('OC_User', 'post_setPassword', 'OCA\Encryption\Hooks', 'setPassphrase');
 		\OCP\Util::connectHook('OC_User', 'pre_setPassword', 'OCA\Encryption\Hooks', 'preSetPassphrase');
 		\OCP\Util::connectHook('OC_User', 'post_createUser', 'OCA\Encryption\Hooks', 'postCreateUser');
@@ -62,9 +63,13 @@ class Helper {
 	public static function registerFilesystemHooks() {
 
 		\OCP\Util::connectHook('OC_Filesystem', 'rename', 'OCA\Encryption\Hooks', 'preRename');
-		\OCP\Util::connectHook('OC_Filesystem', 'post_rename', 'OCA\Encryption\Hooks', 'postRename');
+		\OCP\Util::connectHook('OC_Filesystem', 'post_rename', 'OCA\Encryption\Hooks', 'postRenameOrCopy');
+		\OCP\Util::connectHook('OC_Filesystem', 'copy', 'OCA\Encryption\Hooks', 'preCopy');
+		\OCP\Util::connectHook('OC_Filesystem', 'post_copy', 'OCA\Encryption\Hooks', 'postRenameOrCopy');
 		\OCP\Util::connectHook('OC_Filesystem', 'post_delete', 'OCA\Encryption\Hooks', 'postDelete');
 		\OCP\Util::connectHook('OC_Filesystem', 'delete', 'OCA\Encryption\Hooks', 'preDelete');
+		\OCP\Util::connectHook('OC_Filesystem', 'post_umount', 'OCA\Encryption\Hooks', 'postUmount');
+		\OCP\Util::connectHook('OC_Filesystem', 'umount', 'OCA\Encryption\Hooks', 'preUmount');
 	}
 
 	/**
@@ -428,12 +433,28 @@ class Helper {
 	}
 
 	/**
-	 * glob uses different pattern than regular expressions, escape glob pattern only
-	 * @param string $path unescaped path
-	 * @return string path
+	 * find all share keys for a given file
+	 * @param string $path to the file
+	 * @param \OC\Files\View $view view, relative to data/
+	 * @return array list of files, path relative to data/
 	 */
-	public static function escapeGlobPattern($path) {
-		return preg_replace('/(\*|\?|\[)/', '[$1]', $path);
+	public static function findShareKeys($path, $view) {
+		$result = array();
+		$pathinfo = pathinfo($path);
+		$dirContent = $view->opendir($pathinfo['dirname']);
+
+		if (is_resource($dirContent)) {
+			while (($file = readdir($dirContent)) !== false) {
+				if (!\OC\Files\Filesystem::isIgnoredDir($file)) {
+					if (preg_match("/" . $pathinfo['filename'] . ".(.*).shareKey/", $file)) {
+						$result[] = $pathinfo['dirname'] . '/' . $file;
+					}
+				}
+			}
+			closedir($dirContent);
+		}
+
+		return $result;
 	}
 
 	/**

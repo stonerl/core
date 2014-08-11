@@ -1,5 +1,8 @@
 <?php
 $TRANSLATIONS = array(
+"Storage not available" => "Μη διαθέσιμος αποθηκευτικός χώρος",
+"Storage invalid" => "Μη έγκυρος αποθηκευτικός χώρος",
+"Unknown error" => "Άγνωστο σφάλμα",
 "Could not move %s - File with this name already exists" => "Αδυναμία μετακίνησης του %s - υπάρχει ήδη αρχείο με αυτό το όνομα",
 "Could not move %s" => "Αδυναμία μετακίνησης του %s",
 "File name cannot be empty." => "Το όνομα αρχείου δεν μπορεί να είναι κενό.",
@@ -28,6 +31,7 @@ $TRANSLATIONS = array(
 "Upload failed. Could not get file info." => "Η φόρτωση απέτυχε. Αδυναμία λήψης πληροφοριών αρχείων.",
 "Invalid directory." => "Μη έγκυρος φάκελος.",
 "Files" => "Αρχεία",
+"All files" => "Όλα τα αρχεία",
 "Unable to upload {filename} as it is a directory or has 0 bytes" => "Αδυναμία φόρτωσης {filename} καθώς είναι κατάλογος αρχείων ή έχει 0 bytes",
 "Total file size {size1} exceeds upload limit {size2}" => "Το συνολικό μέγεθος αρχείου {size1} υπερβαίνει το όριο μεταφόρτωσης {size2}",
 "Not enough free space, you are uploading {size1} but only {size2} is left" => "Δεν υπάρχει αρκετός ελεύθερος χώρος, μεταφορτώνετε μέγεθος {size1} αλλά υπάρχει χώρος μόνο {size2}",
@@ -40,6 +44,9 @@ $TRANSLATIONS = array(
 "Could not create folder" => "Αδυναμία δημιουργίας φακέλου",
 "Error fetching URL" => "Σφάλμα φόρτωσης URL",
 "Share" => "Διαμοιρασμός",
+"Delete" => "Διαγραφή",
+"Disconnect storage" => "Αποσυνδεδεμένος αποθηκευτικός χώρος",
+"Unshare" => "Διακοπή διαμοιρασμού",
 "Delete permanently" => "Μόνιμη διαγραφή",
 "Rename" => "Μετονομασία",
 "Your download is being prepared. This might take some time if the files are big." => "Η λήψη προετοιμάζεται. Αυτό μπορεί να πάρει ώρα εάν τα αρχεία έχουν μεγάλο μέγεθος.",
@@ -67,10 +74,6 @@ $TRANSLATIONS = array(
 "File handling" => "Διαχείριση αρχείων",
 "Maximum upload size" => "Μέγιστο μέγεθος αποστολής",
 "max. possible: " => "μέγιστο δυνατό:",
-"Needed for multi-file and folder downloads." => "Απαραίτητο για κατέβασμα πολλαπλών αρχείων και φακέλων",
-"Enable ZIP-download" => "Επιτρέπεται η λήψη ZIP",
-"0 is unlimited" => "0 για απεριόριστο",
-"Maximum input size for ZIP files" => "Μέγιστο μέγεθος για αρχεία ZIP",
 "Save" => "Αποθήκευση",
 "WebDAV" => "WebDAV",
 "Use this address to <a href=\"%s\" target=\"_blank\">access your Files via WebDAV</a>" => "Χρησιμοποιήστε αυτήν την διεύθυνση για να αποκτήσετε <a href=\"%s\" target=\"_blank\">πρόσβαση στα αρχεία σας μέσω WebDAV</a>",
@@ -80,14 +83,12 @@ $TRANSLATIONS = array(
 "New folder" => "Νέος κατάλογος",
 "Folder" => "Φάκελος",
 "From link" => "Από σύνδεσμο",
-"Cancel upload" => "Ακύρωση αποστολής",
 "You don’t have permission to upload or create files here" => "Δεν έχετε δικαιώματα φόρτωσης ή δημιουργίας αρχείων εδώ",
 "Nothing in here. Upload something!" => "Δεν υπάρχει τίποτα εδώ. Ανεβάστε κάτι!",
 "Download" => "Λήψη",
-"Delete" => "Διαγραφή",
 "Upload too large" => "Πολύ μεγάλο αρχείο προς αποστολή",
 "The files you are trying to upload exceed the maximum size for file uploads on this server." => "Τα αρχεία που προσπαθείτε να ανεβάσετε υπερβαίνουν το μέγιστο μέγεθος αποστολής αρχείων σε αυτόν τον διακομιστή.",
 "Files are being scanned, please wait." => "Τα αρχεία σαρώνονται, παρακαλώ περιμένετε.",
-"Current scanning" => "Τρέχουσα ανίχνευση"
+"Currently scanning" => "Σάρωση σε εξέλιξη"
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

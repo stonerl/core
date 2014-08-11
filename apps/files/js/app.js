@@ -24,20 +24,33 @@
 		initialize: function() {
 			this.navigation = new OCA.Files.Navigation($('#app-navigation'));
 
-			// TODO: ideally these should be in a separate class / app (the embedded "all files" app)
-			this.fileActions = OCA.Files.FileActions;
+			var fileActions = new OCA.Files.FileActions();
+			// default actions
+			fileActions.registerDefaultActions();
+			// legacy actions
+			fileActions.merge(window.FileActions);
+			// regular actions
+			fileActions.merge(OCA.Files.fileActions);
+
+			this._onActionsUpdated = _.bind(this._onActionsUpdated, this);
+			OCA.Files.fileActions.on('setDefault.app-files', this._onActionsUpdated);
+			OCA.Files.fileActions.on('registerAction.app-files', this._onActionsUpdated);
+			window.FileActions.on('setDefault.app-files', this._onActionsUpdated);
+			window.FileActions.on('registerAction.app-files', this._onActionsUpdated);
+
 			this.files = OCA.Files.Files;
 
+			// TODO: ideally these should be in a separate class / app (the embedded "all files" app)
 			this.fileList = new OCA.Files.FileList(
 				$('#app-content-files'), {
 					scrollContainer: $('#app-content'),
 					dragOptions: dragOptions,
-					folderDropOptions: folderDropOptions
+					folderDropOptions: folderDropOptions,
+					fileActions: fileActions,
+					allowLegacyActions: true
 				}
 			);
 			this.files.initialize();
-			this.fileActions.registerDefaultActions(this.fileList);
-			this.fileList.setFileActions(this.fileActions);
 
 			// for backward compatibility, the global FileList will
 			// refer to the one of the "files" view
@@ -49,12 +62,54 @@
 		},
 
 		/**
+		 * Destroy the app
+		 */
+		destroy: function() {
+			this.navigation = null;
+			this.fileList.destroy();
+			this.fileList = null;
+			this.files = null;
+			OCA.Files.fileActions.off('setDefault.app-files', this._onActionsUpdated);
+			OCA.Files.fileActions.off('registerAction.app-files', this._onActionsUpdated);
+			window.FileActions.off('setDefault.app-files', this._onActionsUpdated);
+			window.FileActions.off('registerAction.app-files', this._onActionsUpdated);
+		},
+
+		_onActionsUpdated: function(ev, newAction) {
+			// forward new action to the file list
+			if (ev.action) {
+				this.fileList.fileActions.registerAction(ev.action);
+			} else if (ev.defaultAction) {
+				this.fileList.fileActions.setDefault(
+					ev.defaultAction.mime,
+					ev.defaultAction.name
+				);
+			}
+		},
+
+		/**
 		 * Returns the container of the currently visible app.
 		 *
 		 * @return app container
 		 */
 		getCurrentAppContainer: function() {
 			return this.navigation.getActiveContainer();
+		},
+
+		/**
+		 * Sets the currently active view
+		 * @param viewId view id
+		 */
+		setActiveView: function(viewId, options) {
+			this.navigation.setActiveItem(viewId, options);
+		},
+
+		/**
+		 * Returns the view id of the currently active view
+		 * @return view id
+		 */
+		getActiveView: function() {
+			return this.navigation.getActiveItem();
 		},
 
 		/**
@@ -138,7 +193,7 @@
 })();
 
 $(document).ready(function() {
-	// wait for other apps/extensions to register their event handlers
+	// wait for other apps/extensions to register their event handlers and file actions
 	// in the "ready" clause
 	_.defer(function() {
 		OCA.Files.App.initialize();

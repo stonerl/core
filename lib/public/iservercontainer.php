@@ -93,6 +93,20 @@ interface IServerContainer {
 	function getAppFolder();
 
 	/**
+	 * Returns a user manager
+	 *
+	 * @return \OCP\IUserManager
+	 */
+	function getUserManager();
+
+	/**
+	 * Returns a group manager
+	 *
+	 * @return \OCP\IGroupManager
+	 */
+	function getGroupManager();
+
+	/**
 	 * Returns the user session
 	 *
 	 * @return \OCP\IUserSession
@@ -204,4 +218,12 @@ interface IServerContainer {
 	 * @return \OCP\Route\IRouter
 	 */
 	function getRouter();
+
+	/**
+	 * Returns a search instance
+	 *
+	 * @return \OCP\ISearch
+	 */
+	function getSearch();
+
 }

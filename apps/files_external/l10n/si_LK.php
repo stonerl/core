@@ -1,5 +1,6 @@
 <?php
 $TRANSLATIONS = array(
+"Please provide a valid Dropbox app key and secret." => "කරුණාකර වලංගු Dropbox යෙදුම් යතුරක් හා රහසක් ලබාදෙන්න.",
 "Location" => "ස්ථානය",
 "Host" => "සත්කාරකය",
 "Username" => "පරිශීලක නම",
@@ -9,12 +10,12 @@ $TRANSLATIONS = array(
 "Access granted" => "පිවිසීමට හැක",
 "Error configuring Dropbox storage" => "Dropbox ගබඩාව වින්‍යාස කිරීමේ දෝශයක් ඇත",
 "Grant access" => "පිවිසුම ලබාදෙන්න",
-"Please provide a valid Dropbox app key and secret." => "කරුණාකර වලංගු Dropbox යෙදුම් යතුරක් හා රහසක් ලබාදෙන්න.",
 "Error configuring Google Drive storage" => "Google Drive ගබඩාව වින්‍යාස කිරීමේ දෝශයක් ඇත",
+"Personal" => "පෞද්ගලික",
+"Name" => "නම",
 "External Storage" => "භාහිර ගබඩාව",
 "Folder name" => "ෆොල්ඩරයේ නම",
 "Configuration" => "වින්‍යාසය",
-"Options" => "විකල්පයන්",
 "All Users" => "සියළු පරිශීලකයන්",
 "Groups" => "කණ්ඩායම්",
 "Users" => "පරිශීලකයන්",

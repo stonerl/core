@@ -19,15 +19,12 @@
 *
 */
 
-/* global OC */
-
 /**
  * Simulate the variables that are normally set by PHP code
  */
 
 // from core/js/config.php
 window.TESTING = true;
-window.oc_debug = true;
 window.datepickerFormatDate = 'MM d, yy';
 window.dayNames = [
 	'Sunday',
@@ -55,6 +52,8 @@ window.monthNames = [
 window.firstDay = 0;
 
 // setup dummy webroots
+/* jshint camelcase: false */
+window.oc_debug = true;
 window.oc_webroot = location.href + '/';
 window.oc_appswebroots = {
 	"files": window.oc_webroot + '/apps/files/'
@@ -68,16 +67,25 @@ window.oc_appconfig = {
 };
 window.oc_defaults = {};
 
+/* jshint camelcase: true */
+
+// mock for Snap.js plugin
+window.Snap = function() {};
+window.Snap.prototype = {
+	enable: function() {},
+	disable: function() {},
+	close: function() {}
+};
+
 // global setup for all tests
 (function setupTests() {
 	var fakeServer = null,
-		$testArea = null,
-		routesRequestStub;
+		$testArea = null;
 
 	beforeEach(function() {
 		// test area for elements that need absolute selector access or measure widths/heights
 		// which wouldn't work for detached or hidden elements
-		$testArea = $('<div id="testArea" style="position: absolute; width: 1280px; height: 800px; top: -3000px; left: -3000px;"></div>');
+		$testArea = $('<div id="testArea" style="position: absolute; width: 1280px; height: 800px; top: -3000px; left: -3000px; opacity: 0;"></div>');
 		$('body').append($testArea);
 		// enforce fake XHR, tests should not depend on the server and
 		// must use fake responses for expected calls
@@ -89,7 +97,8 @@ window.oc_defaults = {};
 					"Content-Type": "application/json"
 				},
 				'{"data": [], "plural_form": "nplurals=2; plural=(n != 1);"}'
-		]);
+			]
+		);
 
 		// make it globally available, so that other tests can define
 		// custom responses

@@ -109,6 +109,7 @@ class Shared_Updater {
 	static public function renameHook($params) {
 		self::correctFolders($params['newpath']);
 		self::correctFolders(pathinfo($params['oldpath'], PATHINFO_DIRNAME));
+		self::renameChildren($params['oldpath'], $params['newpath']);
 	}
 
 	/**
@@ -133,6 +134,68 @@ class Shared_Updater {
 	}
 
 	/**
+	 * update etags if a file was shared
+	 * @param array $params
+	 */
+	static public function postShareHook($params) {
+
+		if ($params['itemType'] === 'folder' || $params['itemType'] === 'file') {
+
+			$shareWith = $params['shareWith'];
+			$shareType = $params['shareType'];
+
+			if ($shareType === \OCP\Share::SHARE_TYPE_USER) {
+				self::correctUsersFolder($shareWith, '/');
+			} elseif ($shareType === \OCP\Share::SHARE_TYPE_GROUP) {
+				foreach (\OC_Group::usersInGroup($shareWith) as $user) {
+					self::correctUsersFolder($user, '/');
+				}
+			}
+		}
+	}
+
+	/**
+	 * update etags if a file was unshared
+	 *
+	 * @param array $params
+	 */
+	static public function postUnshareHook($params) {
+
+		if ($params['itemType'] === 'file' || $params['itemType'] === 'folder') {
+
+			$deletedShares = isset($params['deletedShares']) ? $params['deletedShares'] : array();
+
+			foreach ($deletedShares as $share) {
+				if ($share['shareType'] === \OCP\Share::SHARE_TYPE_GROUP) {
+					foreach (\OC_Group::usersInGroup($share['shareWith']) as $user) {
+						self::correctUsersFolder($user, dirname($share['fileTarget']));
+					}
+				} else {
+					self::correctUsersFolder($share['shareWith'], dirname($share['fileTarget']));
+				}
+			}
+		}
+	}
+
+	/**
+	 * update etags if file was unshared from self
+	 * @param array $params
+	 */
+	static public function postUnshareFromSelfHook($params) {
+		if ($params['itemType'] === 'file' || $params['itemType'] === 'folder') {
+			foreach ($params['unsharedItems'] as $item) {
+				if ($item['shareType'] === \OCP\Share::SHARE_TYPE_GROUP) {
+					foreach (\OC_Group::usersInGroup($item['shareWith']) as $user) {
+						self::correctUsersFolder($user, dirname($item['fileTarget']));
+					}
+				} else {
+					self::correctUsersFolder($item['shareWith'], dirname($item['fileTarget']));
+				}
+			}
+		}
+	}
+
+	/**
 	 * clean up oc_share table from files which are no longer exists
 	 *
 	 * This fixes issues from updates from files_sharing < 0.3.5.6 (ownCloud 4.5)
@@ -141,10 +204,32 @@ class Shared_Updater {
 	static public function fixBrokenSharesOnAppUpdate() {
 		// delete all shares where the original file no longer exists
 		$findAndRemoveShares = \OC_DB::prepare('DELETE FROM `*PREFIX*share` ' .
-			'WHERE `file_source` NOT IN ( ' .
-				'SELECT `fileid` FROM `*PREFIX*filecache` WHERE `item_type` IN (\'file\', \'folder\'))'
+			'WHERE `item_type` IN (\'file\', \'folder\') ' .
+			'AND `file_source` NOT IN (SELECT `fileid` FROM `*PREFIX*filecache`)'
 		);
 		$findAndRemoveShares->execute(array());
+	}
+
+	/**
+	 * rename mount point from the children if the parent was renamed
+	 * 
+	 * @param string $oldPath old path relative to data/user/files
+	 * @param string $newPath new path relative to data/user/files
+	 */
+	static private function renameChildren($oldPath, $newPath) {
+
+		$absNewPath =  \OC\Files\Filesystem::normalizePath('/' . \OCP\User::getUser() . '/files/' . $newPath);
+		$absOldPath =  \OC\Files\Filesystem::normalizePath('/' . \OCP\User::getUser() . '/files/' . $oldPath);
+
+		$mountManager = \OC\Files\Filesystem::getMountManager();
+		$mountedShares = $mountManager->findIn('/' . \OCP\User::getUser() . '/files/' . $oldPath);
+		foreach ($mountedShares as $mount) {
+			if ($mount->getStorage()->instanceOfStorage('OCA\Files_Sharing\ISharedStorage')) {
+				$mountPoint = $mount->getMountPoint();
+				$target = str_replace($absOldPath, $absNewPath, $mountPoint);
+				$mount->moveMount($target);
+			}
+		}
 	}
 
 }

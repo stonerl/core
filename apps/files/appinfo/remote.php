@@ -36,9 +36,9 @@ $server->setBaseUri($baseuri);
 
 // Load plugins
 $defaults = new OC_Defaults();
-$server->addPlugin(new Sabre_DAV_Auth_Plugin($authBackend, $defaults->getName()));
-$server->addPlugin(new Sabre_DAV_Locks_Plugin($lockBackend));
-$server->addPlugin(new Sabre_DAV_Browser_Plugin(false));
+$server->addPlugin(new \Sabre\DAV\Auth\Plugin($authBackend, $defaults->getName()));
+$server->addPlugin(new \Sabre\DAV\Locks\Plugin($lockBackend));
+$server->addPlugin(new \Sabre\DAV\Browser\Plugin(false)); // Show something in the Browser, but no upload
 $server->addPlugin(new OC_Connector_Sabre_FilesPlugin());
 $server->addPlugin(new OC_Connector_Sabre_MaintenancePlugin());
 $server->addPlugin(new OC_Connector_Sabre_ExceptionLoggerPlugin('webdav'));
@@ -49,10 +49,10 @@ $server->subscribeEvent('beforeMethod', function () use ($server, $objectTree) {
 	$rootInfo = $view->getFileInfo('');
 
 	// Create ownCloud Dir
+	$mountManager = \OC\Files\Filesystem::getMountManager();
 	$rootDir = new OC_Connector_Sabre_Directory($view, $rootInfo);
-	$objectTree->init($rootDir, $view);
+	$objectTree->init($rootDir, $view, $mountManager);
 
-	$server->addPlugin(new OC_Connector_Sabre_AbortedUploadDetectionPlugin($view));
 	$server->addPlugin(new OC_Connector_Sabre_QuotaPlugin($view));
 }, 30); // priority 30: after auth (10) and acl(20), before lock(50) and handling the request
 

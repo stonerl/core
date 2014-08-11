@@ -1,5 +1,6 @@
 <?php
 $TRANSLATIONS = array(
+"Unknown error" => "Nezināma kļūda",
 "Could not move %s - File with this name already exists" => "Nevarēja pārvietot %s — jau eksistē datne ar tādu nosaukumu",
 "Could not move %s" => "Nevarēja pārvietot %s",
 "File name cannot be empty." => "Datnes nosaukums nevar būt tukšs.",
@@ -21,6 +22,8 @@ $TRANSLATIONS = array(
 "File upload is in progress. Leaving the page now will cancel the upload." => "Notiek augšupielāde. Pametot lapu tagad, tiks atcelta augšupielāde.",
 "{new_name} already exists" => "{new_name} jau eksistē",
 "Share" => "Dalīties",
+"Delete" => "Dzēst",
+"Unshare" => "Pārtraukt dalīšanos",
 "Delete permanently" => "Dzēst pavisam",
 "Rename" => "Pārsaukt",
 "Your download is being prepared. This might take some time if the files are big." => "Tiek sagatavota lejupielāde. Tas var aizņemt kādu laiciņu, ja datnes ir lielas.",
@@ -39,10 +42,6 @@ $TRANSLATIONS = array(
 "File handling" => "Datņu pārvaldība",
 "Maximum upload size" => "Maksimālais datņu augšupielādes apjoms",
 "max. possible: " => "maksimālais iespējamais:",
-"Needed for multi-file and folder downloads." => "Vajadzīgs vairāku datņu un mapju lejupielādēšanai.",
-"Enable ZIP-download" => "Aktivēt ZIP lejupielādi",
-"0 is unlimited" => "0 ir neierobežots",
-"Maximum input size for ZIP files" => "Maksimālais ievades izmērs ZIP datnēm",
 "Save" => "Saglabāt",
 "WebDAV" => "WebDAV",
 "New" => "Jauna",
@@ -50,13 +49,10 @@ $TRANSLATIONS = array(
 "New folder" => "Jauna mape",
 "Folder" => "Mape",
 "From link" => "No saites",
-"Cancel upload" => "Atcelt augšupielādi",
 "Nothing in here. Upload something!" => "Te vēl nekas nav. Rīkojies, sāc augšupielādēt!",
 "Download" => "Lejupielādēt",
-"Delete" => "Dzēst",
 "Upload too large" => "Datne ir par lielu, lai to augšupielādētu",
 "The files you are trying to upload exceed the maximum size for file uploads on this server." => "Augšupielādējamās datnes pārsniedz servera pieļaujamo datņu augšupielādes apjomu",
-"Files are being scanned, please wait." => "Datnes šobrīd tiek caurskatītas, lūdzu, uzgaidiet.",
-"Current scanning" => "Šobrīd tiek caurskatīts"
+"Files are being scanned, please wait." => "Datnes šobrīd tiek caurskatītas, lūdzu, uzgaidiet."
 );
 $PLURAL_FORMS = "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);";

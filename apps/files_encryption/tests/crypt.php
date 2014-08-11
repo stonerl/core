@@ -7,7 +7,6 @@
  * See the COPYING-README file.
  */
 
-require_once __DIR__ . '/../3rdparty/Crypt_Blowfish/Blowfish.php';
 require_once __DIR__ . '/../../../lib/base.php';
 require_once __DIR__ . '/../lib/crypt.php';
 require_once __DIR__ . '/../lib/keymanager.php';
@@ -95,6 +94,8 @@ class Test_Encryption_Crypt extends \PHPUnit_Framework_TestCase {
 		} else {
 			OC_App::disable('files_trashbin');
 		}
+
+		$this->assertTrue(\OC_FileProxy::$enabled);
 	}
 
 	public static function tearDownAfterClass() {
@@ -388,33 +389,6 @@ class Test_Encryption_Crypt extends \PHPUnit_Framework_TestCase {
 
 	/**
 	 * @medium
-	 * test decryption using legacy blowfish method
-	 */
-	function testLegacyDecryptShort() {
-
-		$crypted = $this->legacyEncrypt($this->dataShort, $this->pass);
-
-		$decrypted = Encryption\Crypt::legacyBlockDecrypt($crypted, $this->pass);
-
-		$this->assertEquals($this->dataShort, $decrypted);
-
-	}
-
-	/**
-	 * @medium
-	 * test decryption using legacy blowfish method
-	 */
-	function testLegacyDecryptLong() {
-
-		$crypted = $this->legacyEncrypt($this->dataLong, $this->pass);
-
-		$decrypted = Encryption\Crypt::legacyBlockDecrypt($crypted, $this->pass);
-
-		$this->assertEquals($this->dataLong, $decrypted);
-	}
-
-	/**
-	 * @medium
 	 */
 	function testRenameFile() {
 
@@ -656,21 +630,6 @@ class Test_Encryption_Crypt extends \PHPUnit_Framework_TestCase {
 
 		// tear down
 		$view->unlink($filename);
-	}
-
-
-	/**
-	 * encryption using legacy blowfish method
-	 * @param string $data data to encrypt
-	 * @param string $passwd password
-	 * @return string
-	 */
-	function legacyEncrypt($data, $passwd) {
-
-		$bf = new \Crypt_Blowfish($passwd);
-		$crypted = $bf->encrypt($data);
-
-		return $crypted;
 	}
 
 }

@@ -1,5 +1,6 @@
 <?php
 $TRANSLATIONS = array(
+"Unknown error" => "Непозната грешка",
 "Could not move %s - File with this name already exists" => "Не можам да го преместам %s - Датотека со такво име веќе постои",
 "Could not move %s" => "Не можам да ги префрлам %s",
 "File name cannot be empty." => "Името на датотеката не може да биде празно.",
@@ -31,6 +32,8 @@ $TRANSLATIONS = array(
 "Could not create file" => "Не множам да креирам датотека",
 "Could not create folder" => "Не можам да креирам папка",
 "Share" => "Сподели",
+"Delete" => "Избриши",
+"Unshare" => "Не споделувај",
 "Delete permanently" => "Трајно избришани",
 "Rename" => "Преименувај",
 "Your download is being prepared. This might take some time if the files are big." => "Вашето преземање се подготвува. Ова може да потрае до колку датотеките се големи.",
@@ -51,23 +54,17 @@ $TRANSLATIONS = array(
 "File handling" => "Ракување со датотеки",
 "Maximum upload size" => "Максимална големина за подигање",
 "max. possible: " => "макс. можно:",
-"Needed for multi-file and folder downloads." => "Потребно за симнување повеќе-датотеки и папки.",
-"Enable ZIP-download" => "Овозможи ZIP симнување ",
-"0 is unlimited" => "0 е неограничено",
-"Maximum input size for ZIP files" => "Максимална големина за внес на ZIP датотеки",
 "Save" => "Сними",
 "WebDAV" => "WebDAV",
 "New" => "Ново",
 "Text file" => "Текстуална датотека",
+"New folder" => "Нова папка",
 "Folder" => "Папка",
 "From link" => "Од врска",
-"Cancel upload" => "Откажи прикачување",
 "Nothing in here. Upload something!" => "Тука нема ништо. Снимете нешто!",
 "Download" => "Преземи",
-"Delete" => "Избриши",
 "Upload too large" => "Фајлот кој се вчитува е преголем",
 "The files you are trying to upload exceed the maximum size for file uploads on this server." => "Датотеките кои се обидувате да ги подигнете ја надминуваат максималната големина за подигнување датотеки на овој сервер.",
-"Files are being scanned, please wait." => "Се скенираат датотеки, ве молам почекајте.",
-"Current scanning" => "Моментално скенирам"
+"Files are being scanned, please wait." => "Се скенираат датотеки, ве молам почекајте."
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;";

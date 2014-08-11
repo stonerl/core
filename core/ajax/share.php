@@ -31,6 +31,7 @@ if (isset($_POST['action']) && isset($_POST['itemType']) && isset($_POST['itemSo
 				try {
 					$shareType = (int)$_POST['shareType'];
 					$shareWith = $_POST['shareWith'];
+					$itemSourceName = isset($_POST['itemSourceName']) ? $_POST['itemSourceName'] : null;
 					if ($shareType === OCP\Share::SHARE_TYPE_LINK && $shareWith == '') {
 						$shareWith = null;
 					}
@@ -41,7 +42,7 @@ if (isset($_POST['action']) && isset($_POST['itemType']) && isset($_POST['itemSo
 						$shareType,
 						$shareWith,
 						$_POST['permissions'],
-						$_POST['itemSourceName'],
+						$itemSourceName,
 						(!empty($_POST['expirationDate']) ? new \DateTime($_POST['expirationDate']) : null)
 					);
 
@@ -80,16 +81,12 @@ if (isset($_POST['action']) && isset($_POST['itemType']) && isset($_POST['itemSo
 			break;
 		case 'setExpirationDate':
 			if (isset($_POST['date'])) {
-				$l = OC_L10N::get('core');
-				$date = new \DateTime($_POST['date']);
-				$today = new \DateTime('now');
-
-				if ($date < $today) {
-					OC_JSON::error(array('data' => array('message' => $l->t('Expiration date is in the past.'))));
-					return;
+				try {
+					$return = OCP\Share::setExpirationDate($_POST['itemType'], $_POST['itemSource'], $_POST['date']);
+					($return) ? OC_JSON::success() : OC_JSON::error();
+				} catch (\Exception $e) {
+					OC_JSON::error(array('data' => array('message' => $e->getMessage())));
 				}
-				$return = OCP\Share::setExpirationDate($_POST['itemType'], $_POST['itemSource'], $_POST['date']);
-				($return) ? OC_JSON::success() : OC_JSON::error();
 			}
 			break;
 		case 'informRecipients':
@@ -236,7 +233,7 @@ if (isset($_POST['action']) && isset($_POST['itemType']) && isset($_POST['itemSo
 			break;
 		case 'getShareWith':
 			if (isset($_GET['search'])) {
-				$sharePolicy = OC_Appconfig::getValue('core', 'shareapi_share_policy', 'global');
+				$shareWithinGroupOnly = OC\Share\Share::shareWithGroupMembersOnly();
 				$shareWith = array();
 // 				if (OC_App::isEnabled('contacts')) {
 // 					// TODO Add function to contacts to only get the 'fullname' column to improve performance
@@ -256,7 +253,7 @@ if (isset($_POST['action']) && isset($_POST['itemType']) && isset($_POST['itemSo
 // 					}
 // 				}
 				$groups = OC_Group::getGroups($_GET['search']);
-				if ($sharePolicy == 'groups_only') {
+				if ($shareWithinGroupOnly) {
 					$usergroups = OC_Group::getUserGroups(OC_User::getUser());
 					$groups = array_intersect($groups, $usergroups);
 				}
@@ -266,7 +263,7 @@ if (isset($_POST['action']) && isset($_POST['itemType']) && isset($_POST['itemSo
 				$offset = 0;
 				while ($count < 15 && count($users) == $limit) {
 					$limit = 15 - $count;
-					if ($sharePolicy == 'groups_only') {
+					if ($shareWithinGroupOnly) {
 						$users = OC_Group::DisplayNamesInGroups($usergroups, $_GET['search'], $limit, $offset);
 					} else {
 						$users = OC_User::getDisplayNames($_GET['search'], $limit, $offset);

@@ -1,5 +1,8 @@
 <?php
 $TRANSLATIONS = array(
+"Storage not available" => "Pamięć nie dostępna",
+"Storage invalid" => "Pamięć nieprawidłowa",
+"Unknown error" => "Nieznany błąd",
 "Could not move %s - File with this name already exists" => "Nie można było przenieść %s - Plik o takiej nazwie już istnieje",
 "Could not move %s" => "Nie można było przenieść %s",
 "File name cannot be empty." => "Nazwa pliku nie może być pusta.",
@@ -41,6 +44,9 @@ $TRANSLATIONS = array(
 "Could not create folder" => "Nie można utworzyć folderu",
 "Error fetching URL" => "Błąd przy pobieraniu adresu URL",
 "Share" => "Udostępnij",
+"Delete" => "Usuń",
+"Disconnect storage" => "Odłącz magazyn",
+"Unshare" => "Zatrzymaj współdzielenie",
 "Delete permanently" => "Trwale usuń",
 "Rename" => "Zmień nazwę",
 "Your download is being prepared. This might take some time if the files are big." => "Pobieranie jest przygotowywane. Może to zająć trochę czasu jeśli pliki są duże.",
@@ -68,10 +74,6 @@ $TRANSLATIONS = array(
 "File handling" => "Zarządzanie plikami",
 "Maximum upload size" => "Maksymalny rozmiar wysyłanego pliku",
 "max. possible: " => "maks. możliwy:",
-"Needed for multi-file and folder downloads." => "Wymagany do pobierania wielu plików i folderów",
-"Enable ZIP-download" => "Włącz pobieranie ZIP-paczki",
-"0 is unlimited" => "0 - bez limitów",
-"Maximum input size for ZIP files" => "Maksymalna wielkość pliku wejściowego ZIP ",
 "Save" => "Zapisz",
 "WebDAV" => "WebDAV",
 "Use this address to <a href=\"%s\" target=\"_blank\">access your Files via WebDAV</a>" => "Użyj tego adresu do <a href=\"%s\" target=\"_blank\">dostępu do twoich plików przez WebDAV</a>",
@@ -81,14 +83,12 @@ $TRANSLATIONS = array(
 "New folder" => "Nowy folder",
 "Folder" => "Folder",
 "From link" => "Z odnośnika",
-"Cancel upload" => "Anuluj wysyłanie",
 "You don’t have permission to upload or create files here" => "Nie masz uprawnień do wczytywania lub tworzenia plików w tym miejscu",
 "Nothing in here. Upload something!" => "Pusto. Wyślij coś!",
 "Download" => "Pobierz",
-"Delete" => "Usuń",
 "Upload too large" => "Ładowany plik jest za duży",
 "The files you are trying to upload exceed the maximum size for file uploads on this server." => "Pliki, które próbujesz przesłać, przekraczają maksymalną dopuszczalną wielkość.",
 "Files are being scanned, please wait." => "Skanowanie plików, proszę czekać.",
-"Current scanning" => "Aktualnie skanowane"
+"Currently scanning" => "Aktualnie skanowane"
 );
 $PLURAL_FORMS = "nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);";

@@ -6,6 +6,10 @@
  * See the COPYING-README file.
  */
 
+if (OCA\Files_Sharing\Helper::isOutgoingServer2serverShareEnabled() === false) {
+	return false;
+}
+
 // load needed apps
 $RUNTIME_APPTYPES = array('filesystem', 'authentication', 'logging');
 
@@ -26,9 +30,9 @@ $server->setBaseUri($baseuri);
 
 // Load plugins
 $defaults = new OC_Defaults();
-$server->addPlugin(new Sabre_DAV_Auth_Plugin($authBackend, $defaults->getName()));
-$server->addPlugin(new Sabre_DAV_Locks_Plugin($lockBackend));
-$server->addPlugin(new Sabre_DAV_Browser_Plugin(false)); // Show something in the Browser, but no upload
+$server->addPlugin(new \Sabre\DAV\Auth\Plugin($authBackend, $defaults->getName()));
+$server->addPlugin(new \Sabre\DAV\Locks\Plugin($lockBackend));
+$server->addPlugin(new \Sabre\DAV\Browser\Plugin(false)); // Show something in the Browser, but no upload
 $server->addPlugin(new OC_Connector_Sabre_FilesPlugin());
 $server->addPlugin(new OC_Connector_Sabre_MaintenancePlugin());
 $server->addPlugin(new OC_Connector_Sabre_ExceptionLoggerPlugin('webdav'));
@@ -37,7 +41,15 @@ $server->addPlugin(new OC_Connector_Sabre_ExceptionLoggerPlugin('webdav'));
 $server->subscribeEvent('beforeMethod', function () use ($server, $objectTree, $authBackend) {
 	$share = $authBackend->getShare();
 	$owner = $share['uid_owner'];
+	$isWritable = $share['permissions'] & (\OCP\PERMISSION_UPDATE | \OCP\PERMISSION_CREATE);
 	$fileId = $share['file_source'];
+
+	if (!$isWritable) {
+		\OC\Files\Filesystem::addStorageWrapper('readonly', function ($mountPoint, $storage) {
+			return new \OCA\Files_Sharing\ReadOnlyWrapper(array('storage' => $storage));
+		});
+	}
+
 	OC_Util::setupFS($owner);
 	$ownerView = \OC\Files\Filesystem::getView();
 	$path = $ownerView->getPath($fileId);
@@ -47,10 +59,14 @@ $server->subscribeEvent('beforeMethod', function () use ($server, $objectTree, $
 	$rootInfo = $view->getFileInfo('');
 
 	// Create ownCloud Dir
-	$rootDir = new OC_Connector_Sabre_Directory($view, $rootInfo);
-	$objectTree->init($rootDir, $view);
+	if ($rootInfo->getType() === 'dir') {
+		$root = new OC_Connector_Sabre_Directory($view, $rootInfo);
+	} else {
+		$root = new OC_Connector_Sabre_File($view, $rootInfo);
+	}
+	$mountManager = \OC\Files\Filesystem::getMountManager();
+	$objectTree->init($root, $view, $mountManager);
 
-	$server->addPlugin(new OC_Connector_Sabre_AbortedUploadDetectionPlugin($view));
 	$server->addPlugin(new OC_Connector_Sabre_QuotaPlugin($view));
 }, 30); // priority 30: after auth (10) and acl(20), before lock(50) and handling the request
 

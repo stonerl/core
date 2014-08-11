@@ -28,14 +28,19 @@ require_once __DIR__ . '/base.php';
  */
 class Test_Files_Sharing_Updater extends Test_Files_Sharing_Base {
 
-	const TEST_FOLDER_NAME = '/folder_share_api_test';
+	const TEST_FOLDER_NAME = '/folder_share_updater_test';
+
+	public static function setUpBeforeClass() {
+		parent::setUpBeforeClass();
+		\OCA\Files_Sharing\Helper::registerHooks();
+	}
 
 	function setUp() {
 		parent::setUp();
 
 		$this->folder = self::TEST_FOLDER_NAME;
 
-		$this->filename = '/share-api-test.txt';
+		$this->filename = '/share-updater-test.txt';
 
 		// save file with content
 		$this->view->file_put_contents($this->filename, $this->data);
@@ -47,17 +52,12 @@ class Test_Files_Sharing_Updater extends Test_Files_Sharing_Base {
 		$this->view->unlink($this->filename);
 		$this->view->deleteAll($this->folder);
 
-		$removeShares = \OC_DB::prepare('DELETE FROM `*PREFIX*share`');
-		$removeShares->execute();
-		$removeItems = \OC_DB::prepare('DELETE FROM `*PREFIX*filecache`');
-		$removeItems->execute();
-
 		parent::tearDown();
 	}
 
 	/**
 	 * test deletion of a folder which contains share mount points. Share mount
-	 * points should move up to the parent before the folder gets deleted so
+	 * points should be unshared before the folder gets deleted so
 	 * that the mount point doesn't end up at the trash bin
 	 */
 	function testDeleteParentFolder() {
@@ -78,6 +78,9 @@ class Test_Files_Sharing_Updater extends Test_Files_Sharing_Base {
 		// check if user2 can see the shared folder
 		$this->assertTrue($view->file_exists($this->folder));
 
+		$foldersShared = \OCP\Share::getItemsSharedWith('folder');
+		$this->assertSame(1, count($foldersShared));
+
 		$view->mkdir("localFolder");
 		$view->file_put_contents("localFolder/localFile.txt", "local file");
 
@@ -91,8 +94,9 @@ class Test_Files_Sharing_Updater extends Test_Files_Sharing_Base {
 
 		$this->loginHelper(self::TEST_FILES_SHARING_API_USER2);
 
-		// mount point should move up again
-		$this->assertTrue($view->file_exists($this->folder));
+		// shared folder should be unshared
+		$foldersShared = \OCP\Share::getItemsSharedWith('folder');
+		$this->assertTrue(empty($foldersShared));
 
 		// trashbin should contain the local file but not the mount point
 		$rootView = new \OC\Files\View('/' . self::TEST_FILES_SHARING_API_USER2);
@@ -112,123 +116,141 @@ class Test_Files_Sharing_Updater extends Test_Files_Sharing_Base {
 	}
 
 	/**
-	 * @medium
+	 * if a file gets shared the etag for the recipients root should change
 	 */
-	function testRemoveBrokenShares() {
+	function testShareFile() {
+		$this->loginHelper(self::TEST_FILES_SHARING_API_USER2);
 
-		$this->prepareFileCache();
+		$beforeShare = \OC\Files\Filesystem::getFileInfo('');
+		$etagBeforeShare = $beforeShare->getEtag();
 
-		// check if there are just 3 shares (see setUp - precondition: empty table)
-		$countShares = \OC_DB::prepare('SELECT COUNT(`id`) FROM `*PREFIX*share`');
-		$result = $countShares->execute()->fetchOne();
-		$this->assertEquals(3, $result);
+		$this->loginHelper(self::TEST_FILES_SHARING_API_USER1);
+		$fileinfo = \OC\Files\Filesystem::getFileInfo($this->folder);
+		$result = \OCP\Share::shareItem('folder', $fileinfo->getId(), \OCP\Share::SHARE_TYPE_USER, self::TEST_FILES_SHARING_API_USER2, 31);
+		$this->assertTrue($result);
 
-		// check if there are just 2 items (see setUp - precondition: empty table)
-		$countItems = \OC_DB::prepare('SELECT COUNT(`fileid`) FROM `*PREFIX*filecache`');
-		$result = $countItems->execute()->fetchOne();
-		$this->assertEquals(2, $result);
+		$this->loginHelper(self::TEST_FILES_SHARING_API_USER2);
 
-		// execute actual code which should be tested
-		\OC\Files\Cache\Shared_Updater::fixBrokenSharesOnAppUpdate();
+		$afterShare = \OC\Files\Filesystem::getFileInfo('');
+		$etagAfterShare = $afterShare->getEtag();
 
-		// check if there are just 2 shares (one gets killed by the code as there is no filecache entry for this)
-		$countShares = \OC_DB::prepare('SELECT COUNT(`id`) FROM `*PREFIX*share`');
-		$result = $countShares->execute()->fetchOne();
-		$this->assertEquals(2, $result);
-
-		// check if the share of file '200' is removed as there is no entry for this in filecache table
-		$countShares = \OC_DB::prepare('SELECT COUNT(`id`) FROM `*PREFIX*share` WHERE `file_source` = 200');
-		$result = $countShares->execute()->fetchOne();
-		$this->assertEquals(0, $result);
-
-		// check if there are just 2 items
-		$countItems = \OC_DB::prepare('SELECT COUNT(`fileid`) FROM `*PREFIX*filecache`');
-		$result = $countItems->execute()->fetchOne();
-		$this->assertEquals(2, $result);
-	}
-
-	/**
-	 * test update for the removal of the logical "Shared" folder. It should update
-	 * the file_target for every share and create a physical "Shared" folder for each user
-	 */
-	function testRemoveSharedFolder() {
-		self::prepareDB();
-		// run the update routine to remove the shared folder and replace it with a real folder
-		removeSharedFolder(false, 2);
-
-		// verify results
-		$query = \OC_DB::prepare('SELECT * FROM `*PREFIX*share`');
-		$result = $query->execute(array());
-
-		$newDBContent = $result->fetchAll();
-
-		foreach ($newDBContent as $row) {
-			if ((int)$row['share_type'] === \OCP\Share::SHARE_TYPE_USER) {
-				$this->assertSame('/Shared', substr($row['file_target'], 0, strlen('/Shared')));
-			} else {
-				$this->assertSame('/ShouldNotChange', $row['file_target']);
-			}
-		}
+		$this->assertTrue(is_string($etagBeforeShare));
+		$this->assertTrue(is_string($etagAfterShare));
+		$this->assertTrue($etagBeforeShare !== $etagAfterShare);
 
 		// cleanup
-		$this->cleanupSharedTable();
-
-	}
-
-	private function cleanupSharedTable() {
-		$query = \OC_DB::prepare('DELETE FROM `*PREFIX*share`');
-		$query->execute();
+		$this->loginHelper(self::TEST_FILES_SHARING_API_USER1);
+		$result = \OCP\Share::unshare('folder', $fileinfo->getId(), \OCP\Share::SHARE_TYPE_USER, self::TEST_FILES_SHARING_API_USER2);
+		$this->assertTrue($result);
 	}
 
 	/**
-	 * prepare sharing table for testRemoveSharedFolder()
+	 * if a file gets unshared by the owner the etag for the recipients root should change
 	 */
-	private function prepareDB() {
-		$this->cleanupSharedTable();
-		// add items except one - because this is the test case for the broken share table
-		$addItems = \OC_DB::prepare('INSERT INTO `*PREFIX*share` (`share_type`, `item_type`, ' .
-			'`share_with`, `uid_owner` , `file_target`) ' .
-			'VALUES (?, ?, ?, ?, ?)');
-		$items = array(
-			array(\OCP\Share::SHARE_TYPE_USER, 'file', 'user1', 'admin' , '/foo'),
-			array(\OCP\Share::SHARE_TYPE_USER, 'folder', 'user2', 'admin', '/foo2'),
-			array(\OCP\Share::SHARE_TYPE_USER, 'file', 'user3', 'admin', '/foo3'),
-			array(\OCP\Share::SHARE_TYPE_USER, 'folder', 'user4', 'admin', '/foo4'),
-			array(\OCP\Share::SHARE_TYPE_LINK, 'file', 'user1', 'admin', '/ShouldNotChange'),
-			array(\OCP\Share::SHARE_TYPE_CONTACT, 'contact', 'admin', 'user1', '/ShouldNotChange'),
+	function testUnshareFile() {
 
-			);
-		foreach($items as $item) {
-			// the number is used as path_hash
-			$addItems->execute($item);
-		}
+		$this->loginHelper(self::TEST_FILES_SHARING_API_USER1);
+		$fileinfo = \OC\Files\Filesystem::getFileInfo($this->folder);
+		$result = \OCP\Share::shareItem('folder', $fileinfo->getId(), \OCP\Share::SHARE_TYPE_USER, self::TEST_FILES_SHARING_API_USER2, 31);
+		$this->assertTrue($result);
+
+		$this->loginHelper(self::TEST_FILES_SHARING_API_USER2);
+
+		$beforeUnshare = \OC\Files\Filesystem::getFileInfo('');
+		$etagBeforeUnshare = $beforeUnshare->getEtag();
+
+		$this->loginHelper(self::TEST_FILES_SHARING_API_USER1);
+		$result = \OCP\Share::unshare('folder', $fileinfo->getId(), \OCP\Share::SHARE_TYPE_USER, self::TEST_FILES_SHARING_API_USER2);
+		$this->assertTrue($result);
+
+		$this->loginHelper(self::TEST_FILES_SHARING_API_USER2);
+
+		$afterUnshare = \OC\Files\Filesystem::getFileInfo('');
+		$etagAfterUnshare = $afterUnshare->getEtag();
+
+		$this->assertTrue(is_string($etagBeforeUnshare));
+		$this->assertTrue(is_string($etagAfterUnshare));
+		$this->assertTrue($etagBeforeUnshare !== $etagAfterUnshare);
+
 	}
 
 	/**
-	 * prepare file cache for testRemoveBrokenShares()
+	 * if a file gets unshared from self the etag for the recipients root should change
 	 */
-	private function prepareFileCache() {
-		// some previous tests didn't clean up and therefore this has to be done here
-		// FIXME: DIRTY HACK - TODO: find tests, that don't clean up and fix it there
-		$this->tearDown();
+	function testUnshareFromSelfFile() {
+		$this->loginHelper(self::TEST_FILES_SHARING_API_USER1);
+		$fileinfo = \OC\Files\Filesystem::getFileInfo($this->folder);
+		$result = \OCP\Share::shareItem('folder', $fileinfo->getId(), \OCP\Share::SHARE_TYPE_USER, self::TEST_FILES_SHARING_API_USER2, 31);
+		$this->assertTrue($result);
 
-		// add items except one - because this is the test case for the broken share table
-		$addItems = \OC_DB::prepare('INSERT INTO `*PREFIX*filecache` (`storage`, `path_hash`, ' .
-			'`parent`, `mimetype`, `mimepart`, `size`, `mtime`, `storage_mtime`) ' .
-			'VALUES (1, ?, 1, 1, 1, 1, 1, 1)');
-		$items = array(1, 3);
-		$fileIds = array();
-		foreach($items as $item) {
-			// the number is used as path_hash
-			$addItems->execute(array($item));
-			$fileIds[] = \OC_DB::insertId('*PREFIX*filecache');
-		}
+		$this->loginHelper(self::TEST_FILES_SHARING_API_USER2);
 
-		$addShares = \OC_DB::prepare('INSERT INTO `*PREFIX*share` (`file_source`, `item_type`, `uid_owner`) VALUES (?, \'file\', 1)');
-		// the number is used as item_source
-		$addShares->execute(array($fileIds[0]));
-		$addShares->execute(array(200)); // id of "deleted" file
-		$addShares->execute(array($fileIds[1]));
+		$result = \OCP\Share::shareItem('folder', $fileinfo->getId(), \OCP\Share::SHARE_TYPE_USER, self::TEST_FILES_SHARING_API_USER3, 31);
+
+		$beforeUnshareUser2 = \OC\Files\Filesystem::getFileInfo('');
+		$etagBeforeUnshareUser2 = $beforeUnshareUser2->getEtag();
+
+		$this->loginHelper(self::TEST_FILES_SHARING_API_USER3);
+
+		$beforeUnshareUser3 = \OC\Files\Filesystem::getFileInfo('');
+		$etagBeforeUnshareUser3 = $beforeUnshareUser3->getEtag();
+
+		$this->loginHelper(self::TEST_FILES_SHARING_API_USER2);
+
+		$result = \OC\Files\Filesystem::unlink($this->folder);
+		$this->assertTrue($result);
+
+		$afterUnshareUser2 = \OC\Files\Filesystem::getFileInfo('');
+		$etagAfterUnshareUser2 = $afterUnshareUser2->getEtag();
+
+		$this->loginHelper(self::TEST_FILES_SHARING_API_USER3);
+
+		$afterUnshareUser3 = \OC\Files\Filesystem::getFileInfo('');
+		$etagAfterUnshareUser3 = $afterUnshareUser3->getEtag();
+
+		$this->assertTrue(is_string($etagBeforeUnshareUser2));
+		$this->assertTrue(is_string($etagBeforeUnshareUser3));
+		$this->assertTrue(is_string($etagAfterUnshareUser2));
+		$this->assertTrue(is_string($etagAfterUnshareUser3));
+		$this->assertTrue($etagBeforeUnshareUser2 !== $etagAfterUnshareUser2);
+		$this->assertTrue($etagBeforeUnshareUser3 !== $etagAfterUnshareUser3);
+
+	}
+
+	/**
+	 * if a folder gets renamed all children mount points should be renamed too
+	 */
+	function testRename() {
+
+		$fileinfo = \OC\Files\Filesystem::getFileInfo($this->folder);
+		$result = \OCP\Share::shareItem('folder', $fileinfo->getId(), \OCP\Share::SHARE_TYPE_USER, self::TEST_FILES_SHARING_API_USER2, 31);
+		$this->assertTrue($result);
+
+		$this->loginHelper(self::TEST_FILES_SHARING_API_USER2);
+
+		// make sure that the shared folder exists
+		$this->assertTrue(\OC\Files\Filesystem::file_exists($this->folder));
+
+		\OC\Files\Filesystem::mkdir('oldTarget');
+		\OC\Files\Filesystem::mkdir('oldTarget/subfolder');
+		\OC\Files\Filesystem::mkdir('newTarget');
+
+		\OC\Files\Filesystem::rename($this->folder, 'oldTarget/subfolder/' . $this->folder);
+
+		// re-login to make sure that the new mount points are initialized
+		$this->loginHelper(self::TEST_FILES_SHARING_API_USER2);
+
+		\OC\Files\Filesystem::rename('/oldTarget', '/newTarget/oldTarget');
+
+		// re-login to make sure that the new mount points are initialized
+		$this->loginHelper(self::TEST_FILES_SHARING_API_USER2);
+
+		$this->assertTrue(\OC\Files\Filesystem::file_exists('/newTarget/oldTarget/subfolder/' . $this->folder));
+
+		// cleanup
+		$this->loginHelper(self::TEST_FILES_SHARING_API_USER1);
+		$result = \OCP\Share::unshare('folder', $fileinfo->getId(), \OCP\Share::SHARE_TYPE_USER, self::TEST_FILES_SHARING_API_USER2);
+		$this->assertTrue($result);
 	}
 
 }

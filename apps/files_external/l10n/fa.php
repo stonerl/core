@@ -1,5 +1,7 @@
 <?php
 $TRANSLATIONS = array(
+"Please provide a valid Dropbox app key and secret." => "لطفا یک کلید و کد امنیتی صحیح دراپ باکس وارد کنید.",
+"External storage" => "حافظه خارجی",
 "Location" => "محل",
 "Host" => "میزبانی",
 "Username" => "نام کاربری",
@@ -9,13 +11,12 @@ $TRANSLATIONS = array(
 "Access granted" => "مجوز دسترسی صادر شد",
 "Error configuring Dropbox storage" => "خطا به هنگام تنظیم فضای دراپ باکس",
 "Grant access" => " مجوز اعطا دسترسی",
-"Please provide a valid Dropbox app key and secret." => "لطفا یک کلید و کد امنیتی صحیح دراپ باکس وارد کنید.",
 "Error configuring Google Drive storage" => "خطا به هنگام تنظیم فضای Google Drive",
+"Personal" => "شخصی",
+"Name" => "نام",
 "External Storage" => "حافظه خارجی",
 "Folder name" => "نام پوشه",
-"External storage" => "حافظه خارجی",
 "Configuration" => "پیکربندی",
-"Options" => "تنظیمات",
 "Add storage" => "اضافه کردن حافظه",
 "All Users" => "تمام کاربران",
 "Groups" => "گروه ها",

@@ -3,22 +3,27 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Art O. Pal <artopal@fastmail.fm>, 2014
-# Dharth <emilpg@gmail.com>, 2013
-# inye <j.contrerasferrada@gmail.com>, 2014
-# mreyesca <mreyesca@luthcueit.onmicrosoft.com>, 2014
-# pablomillaquen <pablomillaquen@gmail.com>, 2013
+# aramirez <aramirez@simonrodriguez.org.ve>, 2014
+# Artopal <artopal@fastmail.fm>, 2014
+# Artopal <artopal@fastmail.fm>, 2014
+# Emilio Plaza García <emilpg@gmail.com>, 2013
+# Javier Contreras <j.contrerasferrada@gmail.com>, 2014
+# cyber89, 2014
+# joses <jose_mari_s@hotmail.com>, 2014
+# macofe <inactive+macofe@transifex.com>, 2014
+# Miguel Reyes Canales <mreyesca@luthcueit.onmicrosoft.com>, 2014
+# Pablo Millaquen <pablomillaquen@gmail.com>, 2013
 # Raul Fernandez Garcia <raulfg3@gmail.com>, 2013-2014
-# Rubén del Campo <yo@rubendelcampo.es>, 2013
+# Rubén del Campo Gómez <yo@rubendelcampo.es>, 2013
 # victormce <victormce@gmail.com>, 2014
 # xhiena <xhiena@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-05-24 01:54-0400\n"
-"PO-Revision-Date: 2014-05-24 05:54+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-08-08 01:54-0400\n"
+"PO-Revision-Date: 2014-08-07 06:11+0000\n"
+"Last-Translator: Artopal <artopal@fastmail.fm>\n"
 "Language-Team: Spanish (http://www.transifex.com/projects/p/owncloud/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,52 +31,74 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: base.php:695
+#: base.php:200 base.php:207
+msgid "Cannot write into \"config\" directory!"
+msgstr "¡No se puede escribir en el directorio de Configuración!"
+
+#: base.php:201
+msgid ""
+"This can usually be fixed by giving the webserver write access to the config"
+" directory"
+msgstr "Esto puede ser facilmente solucionado, dando permisos de escritura al directorio de configuración en el servidor Web"
+
+#: base.php:203
+#, php-format
+msgid "See %s"
+msgstr "Mirar %s"
+
+#: base.php:208 private/util.php:428
+#, php-format
+msgid ""
+"This can usually be fixed by %sgiving the webserver write access to the "
+"config directory%s."
+msgstr "Esto puede ser facilmente solucionado, %sdando permisos de escritura al directorio de configuración en el servidor Web%s."
+
+#: base.php:688
 msgid "You are accessing the server from an untrusted domain."
 msgstr "Está accediendo al servidor desde un dominio inseguro."
 
-#: base.php:696
+#: base.php:689
 msgid ""
 "Please contact your administrator. If you are an administrator of this "
 "instance, configure the \"trusted_domain\" setting in config/config.php. An "
 "example configuration is provided in config/config.sample.php."
 msgstr "Contacte a su administrador. Si usted es el administrador, configure \"trusted_domain\" en config/config.php. En config/config.sample.php se encuentra un ejemplo para la configuración."
 
-#: private/app.php:236
-#, php-format
-msgid ""
-"App \"%s\" can't be installed because it is not compatible with this version"
-" of ownCloud."
-msgstr "La aplicación \"%s\" no puede ser instalada porque no es compatible con esta versión de ownCloud"
-
-#: private/app.php:248
-msgid "No app name specified"
-msgstr "No se ha especificado nombre de la aplicación"
-
-#: private/app.php:353
+#: private/app.php:366
 msgid "Help"
 msgstr "Ayuda"
 
-#: private/app.php:366
+#: private/app.php:379
 msgid "Personal"
 msgstr "Personal"
 
-#: private/app.php:377
+#: private/app.php:390
 msgid "Settings"
 msgstr "Ajustes"
 
-#: private/app.php:389
+#: private/app.php:402
 msgid "Users"
 msgstr "Usuarios"
 
-#: private/app.php:402
+#: private/app.php:415
 msgid "Admin"
 msgstr "Administración"
 
-#: private/app.php:880
+#: private/app.php:985
 #, php-format
 msgid "Failed to upgrade \"%s\"."
 msgstr "Falló la actualización \"%s\"."
+
+#: private/app.php:1142
+#, php-format
+msgid ""
+"App \\\"%s\\\" can't be installed because it is not compatible with this "
+"version of ownCloud."
+msgstr "La aplicación \\\"%s\\\" no se puede instalar porque no es compatible con esta versión de ownCloud."
+
+#: private/app.php:1154
+msgid "No app name specified"
+msgstr "No se ha especificado nombre de la aplicación"
 
 #: private/avatar.php:66
 msgid "Unknown filetype"
@@ -81,87 +108,65 @@ msgstr "Tipo de archivo desconocido"
 msgid "Invalid image"
 msgstr "Imagen inválida"
 
-#: private/defaults.php:35
+#: private/defaults.php:42
 msgid "web services under your control"
 msgstr "Servicios web bajo su control"
 
-#: private/files.php:235
-msgid "ZIP download is turned off."
-msgstr "La descarga en ZIP está desactivada."
+#: private/installer.php:77
+msgid "App directory already exists"
+msgstr "El directorio de la aplicación ya existe"
 
-#: private/files.php:236
-msgid "Files need to be downloaded one by one."
-msgstr "Los archivos deben ser descargados uno por uno."
+#: private/installer.php:90
+#, php-format
+msgid "Can't create app folder. Please fix permissions. %s"
+msgstr "No se puede crear la carpeta de la aplicación. Corrija los permisos. %s"
 
-#: private/files.php:237 private/files.php:264
-msgid "Back to Files"
-msgstr "Volver a Archivos"
-
-#: private/files.php:262
-msgid "Selected files too large to generate zip file."
-msgstr "Los archivos seleccionados son demasiado grandes para generar el archivo zip."
-
-#: private/files.php:263
-msgid ""
-"Please download the files separately in smaller chunks or kindly ask your "
-"administrator."
-msgstr "Descargue los archivos en trozos más pequeños, por separado o solicítelos amablemente su administrador."
-
-#: private/installer.php:64
+#: private/installer.php:235
 msgid "No source specified when installing app"
 msgstr "No se ha especificado origen cuando se ha instalado la aplicación"
 
-#: private/installer.php:71
+#: private/installer.php:243
 msgid "No href specified when installing app from http"
 msgstr "No href especificado cuando se ha instalado la aplicación"
 
-#: private/installer.php:76
+#: private/installer.php:248
 msgid "No path specified when installing app from local file"
 msgstr "Sin path especificado  cuando se ha instalado la aplicación desde el fichero local"
 
-#: private/installer.php:90
+#: private/installer.php:256
 #, php-format
 msgid "Archives of type %s are not supported"
 msgstr "Ficheros de tipo %s no son soportados"
 
-#: private/installer.php:104
+#: private/installer.php:270
 msgid "Failed to open archive when installing app"
 msgstr "Fallo de apertura de fichero mientras se instala la aplicación"
 
-#: private/installer.php:126
+#: private/installer.php:308
 msgid "App does not provide an info.xml file"
 msgstr "La aplicación no suministra un fichero info.xml"
 
-#: private/installer.php:132
+#: private/installer.php:314
 msgid "App can't be installed because of not allowed code in the App"
 msgstr "La aplicación no puede ser instalada por tener código no autorizado en la aplicación"
 
-#: private/installer.php:141
+#: private/installer.php:320
 msgid ""
 "App can't be installed because it is not compatible with this version of "
 "ownCloud"
 msgstr "La aplicación no se puede instalar porque no es compatible con esta versión de ownCloud"
 
-#: private/installer.php:147
+#: private/installer.php:326
 msgid ""
 "App can't be installed because it contains the <shipped>true</shipped> tag "
 "which is not allowed for non shipped apps"
 msgstr "La aplicación no se puede instalar porque contiene la etiqueta\n<shipped>\ntrue\n</shipped>\nque no está permitida para aplicaciones no distribuidas"
 
-#: private/installer.php:160
+#: private/installer.php:339
 msgid ""
 "App can't be installed because the version in info.xml/version is not the "
 "same as the version reported from the app store"
 msgstr "La aplicación no puede ser instalada por que la versión en info.xml/version no es la misma que la establecida en la app store"
-
-#: private/installer.php:170
-msgid "App directory already exists"
-msgstr "El directorio de la aplicación ya existe"
-
-#: private/installer.php:183
-#, php-format
-msgid "Can't create app folder. Please fix permissions. %s"
-msgstr "No se puede crear la carpeta de la aplicación. Corrija los permisos. %s"
 
 #: private/json.php:29
 msgid "Application is not enabled"
@@ -178,18 +183,6 @@ msgstr "Token expirado. Por favor, recarga la página."
 #: private/json.php:74
 msgid "Unknown user"
 msgstr "Usuario desconocido"
-
-#: private/search/provider/file.php:18 private/search/provider/file.php:36
-msgid "Files"
-msgstr "Archivos"
-
-#: private/search/provider/file.php:27 private/search/provider/file.php:34
-msgid "Text"
-msgstr "Texto"
-
-#: private/search/provider/file.php:30
-msgid "Images"
-msgstr "Imágenes"
 
 #: private/setup/abstractdatabase.php:26
 #, php-format
@@ -219,7 +212,7 @@ msgstr "Tiene que ingresar una cuenta existente o la del administrador."
 
 #: private/setup/mysql.php:12
 msgid "MySQL/MariaDB username and/or password not valid"
-msgstr "Nombre de usuario o contraseña de MySQL/MariaDB inválidos"
+msgstr "Nombre de usuario y/o contraseña de MySQL/MariaDB inválidos"
 
 #: private/setup/mysql.php:67 private/setup/oci.php:54
 #: private/setup/oci.php:121 private/setup/oci.php:144
@@ -287,13 +280,13 @@ msgstr "Configurar un nombre de usuario del administrador"
 msgid "Set an admin password."
 msgstr "Configurar la contraseña del administrador."
 
-#: private/setup.php:164
+#: private/setup.php:170
 msgid ""
 "Your web server is not yet properly setup to allow files synchronization "
 "because the WebDAV interface seems to be broken."
 msgstr "Su servidor web aún no está configurado adecuadamente para permitir sincronización de archivos ya que la interfaz WebDAV parece no estar funcionando."
 
-#: private/setup.php:165
+#: private/setup.php:171
 #, php-format
 msgid "Please double check the <a href='%s'>installation guides</a>."
 msgstr "Por favor, vuelva a comprobar las <a href='%s'>guías de instalación</a>."
@@ -312,107 +305,118 @@ msgstr "No se pudo compartir %s porque el archivo no existe"
 #: private/share/share.php:501
 #, php-format
 msgid "You are not allowed to share %s"
-msgstr ""
+msgstr "Usted no está autorizado para compartir %s"
 
-#: private/share/share.php:526
+#: private/share/share.php:531
 #, php-format
 msgid "Sharing %s failed, because the user %s is the item owner"
 msgstr "Compartiendo %s ha fallado, ya que el usuario %s es el dueño del elemento"
 
-#: private/share/share.php:532
+#: private/share/share.php:537
 #, php-format
 msgid "Sharing %s failed, because the user %s does not exist"
 msgstr "Compartiendo %s ha fallado, ya que el usuario %s no existe"
 
-#: private/share/share.php:541
+#: private/share/share.php:546
 #, php-format
 msgid ""
 "Sharing %s failed, because the user %s is not a member of any groups that %s"
 " is a member of"
 msgstr "Compartiendo %s ha fallado, ya que el usuario %s no es miembro de algún grupo que %s es miembro"
 
-#: private/share/share.php:554 private/share/share.php:582
+#: private/share/share.php:559 private/share/share.php:587
 #, php-format
 msgid "Sharing %s failed, because this item is already shared with %s"
 msgstr "Compartiendo %s ha fallado, ya que este elemento ya está compartido con %s"
 
-#: private/share/share.php:562
+#: private/share/share.php:567
 #, php-format
 msgid "Sharing %s failed, because the group %s does not exist"
 msgstr "Compartiendo %s ha fallado, ya que el grupo %s no existe"
 
-#: private/share/share.php:569
+#: private/share/share.php:574
 #, php-format
 msgid "Sharing %s failed, because %s is not a member of the group %s"
 msgstr "Compartiendo %s ha fallado, ya que %s no es miembro del grupo %s"
 
-#: private/share/share.php:621
+#: private/share/share.php:628
 msgid ""
 "You need to provide a password to create a public link, only protected links"
 " are allowed"
 msgstr "Es necesario definir una contraseña para crear un enlace publico. Solo los enlaces protegidos están permitidos"
 
-#: private/share/share.php:641
+#: private/share/share.php:654
 #, php-format
 msgid "Sharing %s failed, because sharing with links is not allowed"
 msgstr "Compartiendo %s ha fallado, ya que compartir con enlaces no está permitido"
 
-#: private/share/share.php:648
+#: private/share/share.php:661
 #, php-format
 msgid "Share type %s is not valid for %s"
 msgstr "Compartir tipo %s no es válido para %s"
 
-#: private/share/share.php:787
+#: private/share/share.php:861
 #, php-format
 msgid ""
 "Setting permissions for %s failed, because the permissions exceed "
 "permissions granted to %s"
 msgstr "Configuración de permisos para %s ha fallado, ya que los permisos superan los permisos dados a %s"
 
-#: private/share/share.php:848
+#: private/share/share.php:922
 #, php-format
 msgid "Setting permissions for %s failed, because the item was not found"
 msgstr "Configuración de permisos para %s ha fallado, ya que el elemento no fue encontrado"
 
-#: private/share/share.php:959
+#: private/share/share.php:960
+#, php-format
+msgid ""
+"Cannot set expiration date. Shares cannot expire later than %s after they "
+"have been shared"
+msgstr "No se puede fijar fecha de caducidad. Archivos compartidos no pueden caducar luego de %s de ser compartidos"
+
+#: private/share/share.php:968
+msgid "Cannot set expiration date. Expiration date is in the past"
+msgstr "No se puede fijar la fecha de caducidad. La fecha de caducidad está en el pasado."
+
+#: private/share/share.php:1093
 #, php-format
 msgid "Sharing backend %s must implement the interface OCP\\Share_Backend"
 msgstr "El motor compartido %s debe implementar la interfaz OCP\\Share_Backend"
 
-#: private/share/share.php:966
+#: private/share/share.php:1100
 #, php-format
 msgid "Sharing backend %s not found"
 msgstr "El motor compartido %s no se ha encontrado"
 
-#: private/share/share.php:972
+#: private/share/share.php:1106
 #, php-format
 msgid "Sharing backend for %s not found"
 msgstr "Motor compartido para %s no encontrado"
 
-#: private/share/share.php:1388
+#: private/share/share.php:1524
 #, php-format
 msgid "Sharing %s failed, because the user %s is the original sharer"
 msgstr "Compartiendo %s ha fallado, ya que el usuario %s es el compartidor original"
 
-#: private/share/share.php:1397
+#: private/share/share.php:1533
 #, php-format
 msgid ""
 "Sharing %s failed, because the permissions exceed permissions granted to %s"
 msgstr "Compartiendo %s ha fallado, ya que los permisos superan los permisos otorgados a %s"
 
-#: private/share/share.php:1413
+#: private/share/share.php:1549
 #, php-format
 msgid "Sharing %s failed, because resharing is not allowed"
 msgstr "Compartiendo %s ha fallado, ya que volver a compartir no está permitido"
 
-#: private/share/share.php:1425
+#: private/share/share.php:1561
 #, php-format
 msgid ""
 "Sharing %s failed, because the sharing backend for %s could not find its "
 "source"
 msgstr "Compartir %s falló porque el motor compartido para %s podría no encontrar su origen"
 
-#: private/share/share.php:1439
+#: private/share/share.php:1575
 #, php-format
 msgid ""
 "Sharing %s failed, because the file could not be found in the file cache"
@@ -471,20 +475,171 @@ msgstr "año pasado"
 msgid "years ago"
 msgstr "hace años"
 
-#: private/user/manager.php:232
+#: private/user/manager.php:239
 msgid ""
 "Only the following characters are allowed in a username: \"a-z\", \"A-Z\", "
 "\"0-9\", and \"_.@-\""
 msgstr "Solo los siguientes caracteres están permitidos en un nombre de usuario: \"a-z\", \"A-Z\", \"0-9\", and \"_.@-\""
 
-#: private/user/manager.php:237
+#: private/user/manager.php:244
 msgid "A valid username must be provided"
 msgstr "Se debe proporcionar un nombre de usuario válido"
 
-#: private/user/manager.php:241
+#: private/user/manager.php:248
 msgid "A valid password must be provided"
 msgstr "Se debe proporcionar una contraseña válida"
 
-#: private/user/manager.php:246
+#: private/user/manager.php:253
 msgid "The username is already being used"
 msgstr "El nombre de usuario ya está en uso"
+
+#: private/util.php:413
+msgid "No database drivers (sqlite, mysql, or postgresql) installed."
+msgstr "No están instalados los drivers de BBDD  (sqlite, mysql, o postgresql)"
+
+#: private/util.php:420
+#, php-format
+msgid ""
+"Permissions can usually be fixed by %sgiving the webserver write access to "
+"the root directory%s."
+msgstr "Los permisos usualmente pueden ser  solucionados, %sdando permisos de escritura al directorio de configuración en el servidor Web%s."
+
+#: private/util.php:427
+msgid "Cannot write into \"config\" directory"
+msgstr "No se puede escribir el el directorio de configuración"
+
+#: private/util.php:440
+msgid "Cannot write into \"apps\" directory"
+msgstr "No se puede escribir en el directorio de \"apps\""
+
+#: private/util.php:441
+#, php-format
+msgid ""
+"This can usually be fixed by %sgiving the webserver write access to the apps"
+" directory%s or disabling the appstore in the config file."
+msgstr "Esto puede ser facilmente solucionado, %sdando permisos de escritura al servidor Web en el directorio%s de apps o deshabilitando la tienda de apps en el archivo de configuración."
+
+#: private/util.php:455
+#, php-format
+msgid "Cannot create \"data\" directory (%s)"
+msgstr "No puedo crear del directorio \"data\" (%s)"
+
+#: private/util.php:456
+#, php-format
+msgid ""
+"This can usually be fixed by <a href=\"%s\" target=\"_blank\">giving the "
+"webserver write access to the root directory</a>."
+msgstr "Esto puede ser solucionado <a href=\"%s\" target=\"_blank\">dando al servidor web permisos de escritura en el directorio raíz</a>."
+
+#: private/util.php:472
+#, php-format
+msgid "Setting locale to %s failed"
+msgstr "Falló la activación del idioma %s "
+
+#: private/util.php:475
+msgid ""
+"Please install one of theses locales on your system and restart your "
+"webserver."
+msgstr "Por favor instale uno de estos idiomas en su sitema y reinicie su servidor Web."
+
+#: private/util.php:479
+msgid "Please ask your server administrator to install the module."
+msgstr "Consulte al administrador de su servidor para instalar el módulo."
+
+#: private/util.php:483 private/util.php:490 private/util.php:497
+#: private/util.php:511 private/util.php:518 private/util.php:525
+#: private/util.php:532 private/util.php:539 private/util.php:546
+#: private/util.php:561
+#, php-format
+msgid "PHP module %s not installed."
+msgstr "El ódulo PHP %s no está instalado."
+
+#: private/util.php:553
+#, php-format
+msgid "PHP %s or higher is required."
+msgstr "Se requiere PHP %s o superior."
+
+#: private/util.php:554
+msgid ""
+"Please ask your server administrator to update PHP to the latest version. "
+"Your PHP version is no longer supported by ownCloud and the PHP community."
+msgstr "Consulte a su administrador del servidor para actualizar PHP a la versión más reciente. Su versión de PHP ya no es apoyado por ownCloud y la comunidad PHP."
+
+#: private/util.php:571
+msgid ""
+"PHP Safe Mode is enabled. ownCloud requires that it is disabled to work "
+"properly."
+msgstr "PHP Safe mode está habilitado. ownCloud requiere que se desactive para que funcione correctamente."
+
+#: private/util.php:572
+msgid ""
+"PHP Safe Mode is a deprecated and mostly useless setting that should be "
+"disabled. Please ask your server administrator to disable it in php.ini or "
+"in your webserver config."
+msgstr "Modo Seguro de PHP es un entorno en desuso y en su mayoría inútil que debe ser desactivada. Contacte al administrador del servidor para desactivarlo en php.ini o en la configuración del servidor web."
+
+#: private/util.php:579
+msgid ""
+"Magic Quotes is enabled. ownCloud requires that it is disabled to work "
+"properly."
+msgstr "Magic Quotes está habilitado. ownCloud requiere que se desactive para que funcione correctamente."
+
+#: private/util.php:580
+msgid ""
+"Magic Quotes is a deprecated and mostly useless setting that should be "
+"disabled. Please ask your server administrator to disable it in php.ini or "
+"in your webserver config."
+msgstr "Magic Quotes es un entorno en desuso y en su mayoría inútil que debe ser desactivada. Consulte a su administrador del servidor para desactivarlo en php.ini o en la configuración del servidor web."
+
+#: private/util.php:594
+msgid "PHP modules have been installed, but they are still listed as missing?"
+msgstr "Los módulos PHP se han instalado, pero aparecen listados como si faltaran"
+
+#: private/util.php:595
+msgid "Please ask your server administrator to restart the web server."
+msgstr "Consulte al administrador de su servidor para reiniciar el servidor web."
+
+#: private/util.php:624
+msgid "PostgreSQL >= 9 required"
+msgstr "PostgreSQL 9 o superior requerido."
+
+#: private/util.php:625
+msgid "Please upgrade your database version"
+msgstr "Actualice su versión de base de datos."
+
+#: private/util.php:632
+msgid "Error occurred while checking PostgreSQL version"
+msgstr "Error ocurrido mientras se chequeaba la versión de PostgreSQL"
+
+#: private/util.php:633
+msgid ""
+"Please make sure you have PostgreSQL >= 9 or check the logs for more "
+"information about the error"
+msgstr "Por favor, asegúrese de que tiene PostgreSQL 9 o superior, o revise los registros para obtener más información acerca del error."
+
+#: private/util.php:695
+msgid ""
+"Please change the permissions to 0770 so that the directory cannot be listed"
+" by other users."
+msgstr "Por favor cambie los permisos a 0770 para que el directorio no se pueda mostrar para otros usuarios."
+
+#: private/util.php:704
+#, php-format
+msgid "Data directory (%s) is readable by other users"
+msgstr "Directorio de datos (%s) se puede leer por otros usuarios."
+
+#: private/util.php:725
+#, php-format
+msgid "Data directory (%s) is invalid"
+msgstr "Directorio de datos (%s) no es válida"
+
+#: private/util.php:726
+msgid ""
+"Please check that the data directory contains a file \".ocdata\" in its "
+"root."
+msgstr "Verifique que el directorio de datos contiene un archivo \".ocdata\" en su directorio raíz."
+
+#: public/files/locknotacquiredexception.php:39
+#, php-format
+msgid "Could not obtain lock type %d on \"%s\"."
+msgstr "No se pudo realizar el bloqueo %d en \"%s\"."

@@ -1,5 +1,7 @@
 <?php
 $TRANSLATIONS = array(
+"Please provide a valid Dropbox app key and secret." => "Будь ласка, надайте дійсний ключ та пароль Dropbox.",
+"External storage" => "Зовнішнє сховище",
 "Location" => "Місце",
 "Host" => "Хост",
 "Username" => "Ім'я користувача",
@@ -9,13 +11,12 @@ $TRANSLATIONS = array(
 "Access granted" => "Доступ дозволено",
 "Error configuring Dropbox storage" => "Помилка при налаштуванні сховища Dropbox",
 "Grant access" => "Дозволити доступ",
-"Please provide a valid Dropbox app key and secret." => "Будь ласка, надайте дійсний ключ та пароль Dropbox.",
 "Error configuring Google Drive storage" => "Помилка при налаштуванні сховища Google Drive",
+"Personal" => "Особисте",
+"Name" => "Ім'я",
 "External Storage" => "Зовнішні сховища",
 "Folder name" => "Ім'я теки",
-"External storage" => "Зовнішнє сховище",
 "Configuration" => "Налаштування",
-"Options" => "Опції",
 "Add storage" => "Додати сховище",
 "All Users" => "Усі користувачі",
 "Groups" => "Групи",

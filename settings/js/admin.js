@@ -60,7 +60,7 @@ $(document).ready(function(){
 	});
 
 	$('#shareAPIEnabled').change(function() {
-		$('.shareAPI td:not(#enable)').toggle();
+		$('#shareAPI p:not(#enable)').toggleClass('hidden', !this.checked);
 	});
 
 	$('#shareAPI input').change(function() {
@@ -82,6 +82,7 @@ $(document).ready(function(){
 
 	$('#allowLinks').change(function() {
 		$("#publicLinkSettings").toggleClass('hidden', !this.checked);
+		$('#setDefaultExpireDate').toggleClass('hidden', !(this.checked && $('#shareapiDefaultExpireDate')[0].checked));
 	});
 
 	$('#security').change(function(){
@@ -118,14 +119,14 @@ $(document).ready(function(){
 		OC.msg.startSaving('#mail_settings_msg');
 		var post = $( "#mail_settings" ).serialize();
 		$.post(OC.generateUrl('/settings/admin/mailsettings'), post, function(data){
-			OC.msg.finishedSaving('#mail_settings .msg', data);
+			OC.msg.finishedSaving('#mail_settings_msg', data);
 		});
 	});
 
-	$('#sendtestemail').click(function(){
+	$('#sendtestemail').click(function(event){
+		event.preventDefault();
 		OC.msg.startAction('#sendtestmail_msg', t('settings', 'Sending...'));
-		var post = $( "#sendtestemail" ).serialize();
-		$.post(OC.generateUrl('/settings/admin/mailtest'), post, function(data){
+		$.post(OC.generateUrl('/settings/admin/mailtest'), '', function(data){
 			OC.msg.finishedAction('#sendtestmail_msg', data);
 		});
 	});

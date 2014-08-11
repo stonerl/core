@@ -34,6 +34,8 @@ class Hooks {
 	private static $renamedFiles = array();
 	// file for which we want to delete the keys after the delete operation was successful
 	private static $deleteFiles = array();
+	// file for which we want to delete the keys after the delete operation was successful
+	private static $umountedFiles = array();
 
 	/**
 	 * Startup encryption backend upon user login
@@ -51,16 +53,16 @@ class Hooks {
 		$view = new \OC\Files\View('/');
 
 		// ensure filesystem is loaded
-		if(!\OC\Files\Filesystem::$loaded) {
+		if (!\OC\Files\Filesystem::$loaded) {
 			\OC_Util::setupFS($params['uid']);
 		}
 
 		$privateKey = \OCA\Encryption\Keymanager::getPrivateKey($view, $params['uid']);
 
 		// if no private key exists, check server configuration
-		if(!$privateKey) {
+		if (!$privateKey) {
 			//check if all requirements are met
-			if(!Helper::checkRequirements() || !Helper::checkConfiguration()) {
+			if (!Helper::checkRequirements() || !Helper::checkConfiguration()) {
 				$error_msg = $l->t("Missing requirements.");
 				$hint = $l->t('Please make sure that PHP 5.3.3 or newer is installed and that OpenSSL together with the PHP extension is enabled and configured properly. For now, the encryption app has been disabled.');
 				\OC_App::disable('files_encryption');
@@ -90,49 +92,42 @@ class Hooks {
 			return false;
 		}
 
+		$result = true;
+
 		// If migration not yet done
 		if ($ready) {
 
-			$userView = new \OC\Files\View('/' . $params['uid']);
-
-			// Set legacy encryption key if it exists, to support
-			// depreciated encryption system
-			if (
-				$userView->file_exists('encryption.key')
-				&& $encLegacyKey = $userView->file_get_contents('encryption.key')
-			) {
-
-				$plainLegacyKey = Crypt::legacyDecrypt($encLegacyKey, $params['password']);
-
-				$session->setLegacyKey($plainLegacyKey);
-
-			}
-
 			// Encrypt existing user files
 			try {
-				$result = $util->encryptAll('/' . $params['uid'] . '/' . 'files', $session->getLegacyKey(), $params['password']);
+				$result = $util->encryptAll('/' . $params['uid'] . '/' . 'files');
 			} catch (\Exception $ex) {
 				\OCP\Util::writeLog('Encryption library', 'Initial encryption failed! Error: ' . $ex->getMessage(), \OCP\Util::FATAL);
-				$util->resetMigrationStatus();
-				\OCP\User::logout();
 				$result = false;
 			}
 
 			if ($result) {
-
 				\OC_Log::write(
-					'Encryption library', 'Encryption of existing files belonging to "' . $params['uid'] . '" completed'
-					, \OC_Log::INFO
-				);
-
+						'Encryption library', 'Encryption of existing files belonging to "' . $params['uid'] . '" completed'
+						, \OC_Log::INFO
+					);
 				// Register successful migration in DB
 				$util->finishMigration();
-
+			} else  {
+				\OCP\Util::writeLog('Encryption library', 'Initial encryption failed!', \OCP\Util::FATAL);
+				$util->resetMigrationStatus();
+				\OCP\User::logout();
 			}
 		}
 
-		return true;
+		return $result;
+	}
 
+	/**
+	 * remove keys from session during logout
+	 */
+	public static function logout() {
+		$session = new \OCA\Encryption\Session(new \OC\Files\View());
+		$session->removeKeys();
 	}
 
 	/**
@@ -186,7 +181,6 @@ class Hooks {
 	 * @param array $params keys: uid, password
 	 */
 	public static function setPassphrase($params) {
-
 		if (\OCP\App::isEnabled('files_encryption') === false) {
 			return true;
 		}
@@ -302,7 +296,7 @@ class Hooks {
 	}
 
 	/**
-	 * @brief
+	 * update share keys if a file was shared
 	 */
 	public static function postShared($params) {
 
@@ -312,39 +306,44 @@ class Hooks {
 
 		if ($params['itemType'] === 'file' || $params['itemType'] === 'folder') {
 
-			$view = new \OC\Files\View('/');
-			$session = new \OCA\Encryption\Session($view);
-			$userId = \OCP\User::getUser();
-			$util = new Util($view, $userId);
 			$path = \OC\Files\Filesystem::getPath($params['fileSource']);
 
-			$sharingEnabled = \OCP\Share::isEnabled();
-
-			// get the path including mount point only if not a shared folder
-			list($storage, ) = \OC\Files\Filesystem::resolvePath('/' . $userId . '/files' . $path);
-
-			if (!($storage instanceof \OC\Files\Storage\Local)) {
-				$mountPoint = 'files' . $storage->getMountPoint();
-			} else {
-				$mountPoint = '';
-			}
-
-			// if a folder was shared, get a list of all (sub-)folders
-			if ($params['itemType'] === 'folder') {
-				$allFiles = $util->getAllFiles($path, $mountPoint);
-			} else {
-				$allFiles = array($path);
-			}
-
-			foreach ($allFiles as $path) {
-				$usersSharing = $util->getSharingUsersArray($sharingEnabled, $path);
-				$util->setSharedFileKeyfiles($session, $usersSharing, $path);
-			}
+			self::updateKeyfiles($path, $params['itemType']);
 		}
 	}
 
 	/**
-	 * @brief
+	 * update keyfiles and share keys recursively
+	 *
+	 * @param string $path to the file/folder
+	 * @param string $type 'file' or 'folder'
+	 */
+	private static function updateKeyfiles($path, $type) {
+		$view = new \OC\Files\View('/');
+		$userId = \OCP\User::getUser();
+		$session = new \OCA\Encryption\Session($view);
+		$util = new Util($view, $userId);
+		$sharingEnabled = \OCP\Share::isEnabled();
+
+		$mountManager = \OC\Files\Filesystem::getMountManager();
+		$mount = $mountManager->find('/' . $userId . '/files' . $path);
+		$mountPoint = $mount->getMountPoint();
+
+		// if a folder was shared, get a list of all (sub-)folders
+		if ($type === 'folder') {
+			$allFiles = $util->getAllFiles($path, $mountPoint);
+		} else {
+			$allFiles = array($path);
+		}
+
+		foreach ($allFiles as $path) {
+			$usersSharing = $util->getSharingUsersArray($sharingEnabled, $path);
+			$util->setSharedFileKeyfiles($session, $usersSharing, $path);
+		}
+	}
+
+	/**
+	 * unshare file/folder from a user with whom you shared the file before
 	 */
 	public static function postUnshare($params) {
 
@@ -370,14 +369,9 @@ class Hooks {
 				}
 			}
 
-			// get the path including mount point only if not a shared folder
-			list($storage, ) = \OC\Files\Filesystem::resolvePath('/' . $userId . '/files' . $path);
-
-			if (!($storage instanceof \OC\Files\Storage\Local)) {
-				$mountPoint = 'files' . $storage->getMountPoint();
-			} else {
-				$mountPoint = '';
-			}
+			$mountManager = \OC\Files\Filesystem::getMountManager();
+			$mount = $mountManager->find('/' . $userId . '/files' . $path);
+			$mountPoint = $mount->getMountPoint();
 
 			// if we unshare a folder we need a list of all (sub-)files
 			if ($params['itemType'] === 'folder') {
@@ -394,8 +388,10 @@ class Hooks {
 				// Unshare every user who no longer has access to the file
 				$delUsers = array_diff($userIds, $sharingUsers);
 
+				list($owner, $ownerPath) = $util->getUidAndFilename($path);
+
 				// delete share key
-				Keymanager::delShareKey($view, $delUsers, $path);
+				Keymanager::delShareKey($view, $delUsers, $ownerPath, $owner);
 			}
 
 		}
@@ -415,23 +411,52 @@ class Hooks {
 		// otherwise we perform a stream copy, so we get a new set of keys
 		$mp1 = $view->getMountPoint('/' . $user . '/files/' . $params['oldpath']);
 		$mp2 = $view->getMountPoint('/' . $user . '/files/' . $params['newpath']);
-		list($storage1, ) = Filesystem::resolvePath($params['oldpath']);
+
+		$type = $view->is_dir('/' . $user . '/files/' . $params['oldpath']) ? 'folder' : 'file';
 
 		if ($mp1 === $mp2) {
 			self::$renamedFiles[$params['oldpath']] = array(
 				'uid' => $ownerOld,
-				'path' => $pathOld);
+				'path' => $pathOld,
+				'type' => $type,
+				'operation' => 'rename',
+				);
+
 		}
 	}
 
 	/**
-	 * after a file is renamed, rename its keyfile and share-keys also fix the file size and fix also the sharing
-	 * @param array $params array with oldpath and newpath
-	 *
-	 * This function is connected to the rename signal of OC_Filesystem and adjust the name and location
-	 * of the stored versions along the actual file
+	 * mark file as renamed so that we know the original source after the file was renamed
+	 * @param array $params with the old path and the new path
 	 */
-	public static function postRename($params) {
+	public static function preCopy($params) {
+		$user = \OCP\User::getUser();
+		$view = new \OC\Files\View('/');
+		$util = new Util($view, $user);
+		list($ownerOld, $pathOld) = $util->getUidAndFilename($params['oldpath']);
+
+		// we only need to rename the keys if the rename happens on the same mountpoint
+		// otherwise we perform a stream copy, so we get a new set of keys
+		$mp1 = $view->getMountPoint('/' . $user . '/files/' . $params['oldpath']);
+		$mp2 = $view->getMountPoint('/' . $user . '/files/' . $params['newpath']);
+
+		$type = $view->is_dir('/' . $user . '/files/' . $params['oldpath']) ? 'folder' : 'file';
+
+		if ($mp1 === $mp2) {
+			self::$renamedFiles[$params['oldpath']] = array(
+				'uid' => $ownerOld,
+				'path' => $pathOld,
+				'type' => $type,
+				'operation' => 'copy');
+		}
+	}
+
+	/**
+	 * after a file is renamed/copied, rename/copy its keyfile and share-keys also fix the file size and fix also the sharing
+	 *
+	 * @param array $params array with oldpath and newpath
+	 */
+	public static function postRenameOrCopy($params) {
 
 		if (\OCP\App::isEnabled('files_encryption') === false) {
 			return true;
@@ -442,7 +467,6 @@ class Hooks {
 		\OC_FileProxy::$enabled = false;
 
 		$view = new \OC\Files\View('/');
-		$session = new \OCA\Encryption\Session($view);
 		$userId = \OCP\User::getUser();
 		$util = new Util($view, $userId);
 
@@ -450,8 +474,11 @@ class Hooks {
 				isset(self::$renamedFiles[$params['oldpath']]['path'])) {
 			$ownerOld = self::$renamedFiles[$params['oldpath']]['uid'];
 			$pathOld = self::$renamedFiles[$params['oldpath']]['path'];
+			$type =  self::$renamedFiles[$params['oldpath']]['type'];
+			$operation = self::$renamedFiles[$params['oldpath']]['operation'];
+			unset(self::$renamedFiles[$params['oldpath']]);
 		} else {
-			\OCP\Util::writeLog('Encryption library', "can't get path and owner from the file before it was renamed", \OCP\Util::ERROR);
+			\OCP\Util::writeLog('Encryption library', "can't get path and owner from the file before it was renamed", \OCP\Util::DEBUG);
 			return false;
 		}
 
@@ -474,61 +501,39 @@ class Hooks {
 			$newShareKeyPath = $ownerNew . '/files_encryption/share-keys/' . $pathNew;
 		}
 
-		// add key ext if this is not an folder
-		if (!$view->is_dir($oldKeyfilePath)) {
+		// create new key folders if it doesn't exists
+		if (!$view->file_exists(dirname($newShareKeyPath))) {
+				$view->mkdir(dirname($newShareKeyPath));
+		}
+		if (!$view->file_exists(dirname($newKeyfilePath))) {
+			$view->mkdir(dirname($newKeyfilePath));
+		}
+
+		// handle share keys
+		if ($type === 'file') {
 			$oldKeyfilePath .= '.key';
 			$newKeyfilePath .= '.key';
 
 			// handle share-keys
-			$localKeyPath = $view->getLocalFile($oldShareKeyPath);
-			$escapedPath = Helper::escapeGlobPattern($localKeyPath);
-			$matches = glob($escapedPath . '*.shareKey');
+			$matches = Helper::findShareKeys($oldShareKeyPath, $view);
 			foreach ($matches as $src) {
 				$dst = \OC\Files\Filesystem::normalizePath(str_replace($pathOld, $pathNew, $src));
-
-				// create destination folder if not exists
-				if (!file_exists(dirname($dst))) {
-					mkdir(dirname($dst), 0750, true);
-				}
-
-				rename($src, $dst);
+				$view->$operation($src, $dst);
 			}
 
 		} else {
 			// handle share-keys folders
-
-			// create destination folder if not exists
-			if (!$view->file_exists(dirname($newShareKeyPath))) {
-				$view->mkdir(dirname($newShareKeyPath), 0750, true);
-			}
-
-			$view->rename($oldShareKeyPath, $newShareKeyPath);
+			$view->$operation($oldShareKeyPath, $newShareKeyPath);
 		}
 
 		// Rename keyfile so it isn't orphaned
 		if ($view->file_exists($oldKeyfilePath)) {
-
-			// create destination folder if not exists
-			if (!$view->file_exists(dirname($newKeyfilePath))) {
-				$view->mkdir(dirname($newKeyfilePath), 0750, true);
-			}
-
-			$view->rename($oldKeyfilePath, $newKeyfilePath);
+			$view->$operation($oldKeyfilePath, $newKeyfilePath);
 		}
 
-		// build the path to the file
-		$newPath = '/' . $ownerNew . '/files' . $pathNew;
 
-		if ($util->fixFileSize($newPath)) {
-			// get sharing app state
-			$sharingEnabled = \OCP\Share::isEnabled();
-
-			// get users
-			$usersSharing = $util->getSharingUsersArray($sharingEnabled, $pathNew);
-
-			// update sharing-keys
-			$util->setSharedFileKeyfiles($session, $usersSharing, $pathNew);
-		}
+		// update sharing-keys
+		self::updateKeyfiles($params['newpath'], $type);
 
 		\OC_FileProxy::$enabled = $proxyStatus;
 	}
@@ -541,8 +546,7 @@ class Hooks {
 	public static function preDisable($params) {
 		if ($params['app'] === 'files_encryption') {
 
-			$setMigrationStatus = \OC_DB::prepare('UPDATE `*PREFIX*encryption` SET `migration_status`=0');
-			$setMigrationStatus->execute();
+			\OC_Preferences::deleteAppFromAllUsers('files_encryption');
 
 			$session = new \OCA\Encryption\Session(new \OC\Files\View('/'));
 			$session->setInitialized(\OCA\Encryption\Session::NOT_INITIALIZED);
@@ -620,6 +624,63 @@ class Hooks {
 		self::$deleteFiles[$params[\OC\Files\Filesystem::signal_param_path]] = array(
 			'uid' => $owner,
 			'path' => $ownerPath);
+	}
+
+	/**
+	 * unmount file from yourself
+	 * remember files/folders which get unmounted
+	 */
+	public static function preUmount($params) {
+		$path = $params[\OC\Files\Filesystem::signal_param_path];
+		$user = \OCP\USER::getUser();
+
+		$view = new \OC\Files\View();
+		$itemType = $view->is_dir('/' . $user . '/files' . $path) ? 'folder' : 'file';
+
+		$util = new Util($view, $user);
+		list($owner, $ownerPath) = $util->getUidAndFilename($path);
+
+		self::$umountedFiles[$params[\OC\Files\Filesystem::signal_param_path]] = array(
+			'uid' => $owner,
+			'path' => $ownerPath,
+			'itemType' => $itemType);
+	}
+
+	/**
+	 * unmount file from yourself
+	 */
+	public static function postUmount($params) {
+
+		if (!isset(self::$umountedFiles[$params[\OC\Files\Filesystem::signal_param_path]])) {
+			return true;
+		}
+
+		$umountedFile = self::$umountedFiles[$params[\OC\Files\Filesystem::signal_param_path]];
+		$path = $umountedFile['path'];
+		$user = $umountedFile['uid'];
+		$itemType = $umountedFile['itemType'];
+
+		$view = new \OC\Files\View();
+		$util = new Util($view, $user);
+
+		// we don't need to remember the file any longer
+		unset(self::$umountedFiles[$params[\OC\Files\Filesystem::signal_param_path]]);
+
+		// if we unshare a folder we need a list of all (sub-)files
+		if ($itemType === 'folder') {
+			$allFiles = $util->getAllFiles($path);
+		} else {
+			$allFiles = array($path);
+		}
+
+		foreach ($allFiles as $path) {
+
+			// check if the user still has access to the file, otherwise delete share key
+			$sharingUsers = \OCP\Share::getUsersSharingFile($path, $user);
+			if (!in_array(\OCP\User::getUser(), $sharingUsers['users'])) {
+				Keymanager::delShareKey($view, array(\OCP\User::getUser()), $path, $user);
+			}
+		}
 	}
 
 }

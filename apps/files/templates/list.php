@@ -38,9 +38,8 @@
 			</div>
 			<div id="uploadprogresswrapper">
 				<div id="uploadprogressbar"></div>
-				<input type="button" class="stop" style="display:none"
-					value="<?php p($l->t('Cancel upload'));?>"
-				/>
+				<input type="button" class="stop icon-close"
+					style="display:none" value="" />
 			</div>
 		</div>
 		<div id="file_action_panel"></div>
@@ -61,13 +60,11 @@
 					<label for="select_all_files"></label>
 					<a class="name sort columntitle" data-sort="name"><span><?php p($l->t( 'Name' )); ?></span><span class="sort-indicator"></span></a>
 					<span id="selectedActionsList" class="selectedActions">
-						<?php if($_['allowZipDownload']) : ?>
-							<a href="" class="download">
-								<img class="svg" alt="Download"
-									 src="<?php print_unescaped(OCP\image_path("core", "actions/download.svg")); ?>" />
-								<?php p($l->t('Download'))?>
-							</a>
-						<?php endif; ?>
+						<a href="" class="download">
+							<img class="svg" alt="Download"
+								 src="<?php print_unescaped(OCP\image_path("core", "actions/download.svg")); ?>" />
+							<?php p($l->t('Download'))?>
+						</a>
 					</span>
 				</div>
 			</th>
@@ -89,7 +86,6 @@
 	<tfoot>
 	</tfoot>
 </table>
-<input type="hidden" name="allowZipDownload" id="allowZipDownload" value="<?php p($_['allowZipDownload']); ?>" />
 <input type="hidden" name="dir" id="dir" value="" />
 <div id="editor"></div><!-- FIXME Do not use this div in your app! It is deprecated and will be removed in the future! -->
 <div id="uploadsize-message" title="<?php p($l->t('Upload too large'))?>">
@@ -102,6 +98,6 @@
 		<?php p($l->t('Files are being scanned, please wait.'));?> <span id='scan-count'></span>
 	</h3>
 	<p>
-		<?php p($l->t('Current scanning'));?> <span id='scan-current'></span>
+		<?php p($l->t('Currently scanning'));?> <span id='scan-current'></span>
 	</p>
 </div>

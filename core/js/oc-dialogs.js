@@ -19,7 +19,7 @@
  *
  */
 
-/* global OC, t, alert, $ */
+/* global alert */
 
 /**
  * this class to ease the usage of jquery dialogs
@@ -38,7 +38,14 @@ var OCdialogs = {
 	* @param modal make the dialog modal
 	*/
 	alert:function(text, title, callback, modal) {
-		this.message(text, title, 'alert', OCdialogs.OK_BUTTON, callback, modal);
+		this.message(
+			text,
+			title,
+			'alert',
+			OCdialogs.OK_BUTTON,
+			callback,
+			modal
+		);
 	},
 	/**
 	* displays info dialog
@@ -59,7 +66,14 @@ var OCdialogs = {
 	* @param modal make the dialog modal
 	*/
 	confirm:function(text, title, callback, modal) {
-		this.message(text, title, 'notice', OCdialogs.YES_NO_BUTTONS, callback, modal);
+		return this.message(
+			text,
+			title,
+			'notice',
+			OCdialogs.YES_NO_BUTTONS,
+			callback,
+			modal
+		);
 	},
 	/**
 	 * displays prompt dialog
@@ -72,7 +86,7 @@ var OCdialogs = {
 	 * @param password whether the input should be a password input
 	 */
 	prompt: function (text, title, callback, modal, name, password) {
-		$.when(this._getMessageTemplate()).then(function ($tmpl) {
+		return $.when(this._getMessageTemplate()).then(function ($tmpl) {
 			var dialogName = 'oc-dialog-' + OCdialogs.dialogsCounter + '-content';
 			var dialogId = '#' + dialogName;
 			var $dlg = $tmpl.octemplate({
@@ -90,8 +104,15 @@ var OCdialogs = {
 				modal = false;
 			}
 			$('body').append($dlg);
-			var buttonlist = [
-				{
+			var buttonlist = [{
+					text : t('core', 'No'),
+					click: function () {
+						if (callback !== undefined) {
+							callback(false, input.val());
+						}
+						$(dialogId).ocdialog('close');
+					}
+				}, {
 					text         : t('core', 'Yes'),
 					click        : function () {
 						if (callback !== undefined) {
@@ -100,15 +121,6 @@ var OCdialogs = {
 						$(dialogId).ocdialog('close');
 					},
 					defaultButton: true
-				},
-				{
-					text : t('core', 'No'),
-					click: function () {
-						if (callback !== undefined) {
-							callback(false, input.val());
-						}
-						$(dialogId).ocdialog('close');
-					}
 				}
 			];
 
@@ -130,7 +142,13 @@ var OCdialogs = {
 	*/
 	filepicker:function(title, callback, multiselect, mimetypeFilter, modal) {
 		var self = this;
+		// avoid opening the picker twice
+		if (this.filepicker.loading) {
+			return;
+		}
+		this.filepicker.loading = true;
 		$.when(this._getFilePickerTemplate()).then(function($tmpl) {
+			self.filepicker.loading = false;
 			var dialogName = 'oc-dialog-filepicker-content';
 			if(self.$filePicker) {
 				self.$filePicker.ocdialog('close');
@@ -188,7 +206,7 @@ var OCdialogs = {
 
 			self.$filePicker.ocdialog({
 				closeOnEscape: true,
-				width: (4/9)*$(document).width(),
+				width: (4/5)*$(document).width(),
 				height: 420,
 				modal: modal,
 				buttons: buttonlist,
@@ -206,6 +224,7 @@ var OCdialogs = {
 		.fail(function(status, error) {
 			// If the method is called while navigating away
 			// from the page, it is probably not needed ;)
+			self.filepicker.loading = false;
 			if(status !== 0) {
 				alert(t('core', 'Error loading file picker template: {error}', {error: error}));
 			}
@@ -216,7 +235,7 @@ var OCdialogs = {
 	 * You better use a wrapper instead ...
 	*/
 	message:function(content, title, dialogType, buttons, callback, modal) {
-		$.when(this._getMessageTemplate()).then(function($tmpl) {
+		return $.when(this._getMessageTemplate()).then(function($tmpl) {
 			var dialogName = 'oc-dialog-' + OCdialogs.dialogsCounter + '-content';
 			var dialogId = '#' + dialogName;
 			var $dlg = $tmpl.octemplate({
@@ -233,6 +252,15 @@ var OCdialogs = {
 			switch (buttons) {
 			case OCdialogs.YES_NO_BUTTONS:
 				buttonlist = [{
+					text: t('core', 'No'),
+					click: function(){
+						if (callback !== undefined) {
+							callback(false);
+						}
+						$(dialogId).ocdialog('close');
+					}
+				},
+				{
 					text: t('core', 'Yes'),
 					click: function(){
 						if (callback !== undefined) {
@@ -241,15 +269,6 @@ var OCdialogs = {
 						$(dialogId).ocdialog('close');
 					},
 					defaultButton: true
-				},
-				{
-					text: t('core', 'No'),
-					click: function(){
-						if (callback !== undefined) {
-							callback(false);
-						}
-						$(dialogId).ocdialog('close');
-					}
 				}];
 				break;
 			case OCdialogs.OK_BUTTON:
@@ -616,7 +635,7 @@ var OCdialogs = {
 					type: entry.type,
 					dir: dir,
 					filename: entry.name,
-					date: OC.mtime2date(Math.floor(entry.mtime / 1000))
+					date: relative_modified_date(entry.mtime/1000)
 				});
 				if (entry.isPreviewAvailable) {
 					var urlSpec = {

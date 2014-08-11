@@ -9,7 +9,7 @@
 	</description>
 	<licence>AGPL</licence>
 	<author>Dominik Schmidt and Arthur Schiwon</author>
-	<require>4.93</require>
+	<requiremin>4.93</requiremin>
 	<shipped>true</shipped>
 	<types>
 		<authentication/>
@@ -17,4 +17,5 @@
 	<documentation>
 		<admin>http://doc.owncloud.org/server/6.0/go.php?to=admin-ldap</admin>
 	</documentation>
+	<ocsid>166061</ocsid>
 </info>

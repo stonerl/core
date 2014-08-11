@@ -149,56 +149,49 @@ class Helper extends \OC\Share\Constants {
 	 */
 	public static function delete($parent, $excludeParent = false, $uidOwner = null) {
 		$ids = array($parent);
+		$deletedItems = array();
 		$parents = array($parent);
 		while (!empty($parents)) {
 			$parents = "'".implode("','", $parents)."'";
 			// Check the owner on the first search of reshares, useful for
 			// finding and deleting the reshares by a single user of a group share
 			if (count($ids) == 1 && isset($uidOwner)) {
-				$query = \OC_DB::prepare('SELECT `id`, `uid_owner`, `item_type`, `item_target`, `parent`'
+				$query = \OC_DB::prepare('SELECT `id`, `share_with`, `item_type`, `share_type`, `item_target`, `file_target`, `parent`'
 					.' FROM `*PREFIX*share` WHERE `parent` IN ('.$parents.') AND `uid_owner` = ?');
 				$result = $query->execute(array($uidOwner));
 			} else {
-				$query = \OC_DB::prepare('SELECT `id`, `item_type`, `item_target`, `parent`, `uid_owner`'
+				$query = \OC_DB::prepare('SELECT `id`, `share_with`, `item_type`, `share_type`, `item_target`, `file_target`, `parent`, `uid_owner`'
 					.' FROM `*PREFIX*share` WHERE `parent` IN ('.$parents.')');
 				$result = $query->execute();
 			}
 			// Reset parents array, only go through loop again if items are found
 			$parents = array();
 			while ($item = $result->fetchRow()) {
-				// Search for a duplicate parent share, this occurs when an
-				// item is shared to the same user through a group and user or the
-				// same item is shared by different users
-				$userAndGroups = array_merge(array($item['uid_owner']), \OC_Group::getUserGroups($item['uid_owner']));
-				$query = \OC_DB::prepare('SELECT `id`, `permissions` FROM `*PREFIX*share`'
-					.' WHERE `item_type` = ?'
-					.' AND `item_target` = ?'
-					.' AND `share_type` IN (?,?,?)'
-					.' AND `share_with` IN (\''.implode('\',\'', $userAndGroups).'\')'
-					.' AND `uid_owner` != ? AND `id` != ?');
-				$duplicateParent = $query->execute(array($item['item_type'], $item['item_target'],
-					self::SHARE_TYPE_USER, self::SHARE_TYPE_GROUP, self::$shareTypeGroupUserUnique,
-					$item['uid_owner'], $item['parent']))->fetchRow();
-				if ($duplicateParent) {
-					// Change the parent to the other item id if share permission is granted
-					if ($duplicateParent['permissions'] & \OCP\PERMISSION_SHARE) {
-						$query = \OC_DB::prepare('UPDATE `*PREFIX*share` SET `parent` = ? WHERE `id` = ?');
-						$query->execute(array($duplicateParent['id'], $item['id']));
-						continue;
-					}
-				}
 				$ids[] = $item['id'];
 				$parents[] = $item['id'];
+				$tmpItem = array(
+					'id' => $item['id'],
+					'shareWith' => $item['share_with'],
+					'itemTarget' => $item['item_target'],
+					'itemType' => $item['item_type'],
+					'shareType' => (int)$item['share_type'],
+				);
+				if (isset($item['file_target'])) {
+					$tmpItem['fileTarget'] = $item['file_target'];
+				}
+				$deletedItems[] = $tmpItem;
 			}
 		}
 		if ($excludeParent) {
 			unset($ids[0]);
 		}
 		if (!empty($ids)) {
-			$ids = "'".implode("','", $ids)."'";
-			$query = \OC_DB::prepare('DELETE FROM `*PREFIX*share` WHERE `id` IN ('.$ids.')');
+			$idList = "'".implode("','", $ids)."'";
+			$query = \OC_DB::prepare('DELETE FROM `*PREFIX*share` WHERE `id` IN ('.$idList.')');
 			$query->execute();
 		}
+
+		return $deletedItems;
 	}
 
 	/**
@@ -219,6 +212,18 @@ class Helper extends \OC\Share\Constants {
 		}
 
 		return $defaultExpireSettings;
+	}
+
+	public static function calcExpireDate() {
+		$expireAfter = \OC\Share\Share::getExpireInterval() * 24 * 60 * 60;
+		$expireAt = time() + $expireAfter;
+		$date = new \DateTime();
+		$date->setTimestamp($expireAt);
+		$date->setTime(0, 0, 0);
+		//$dateString = $date->format('Y-m-d') . ' 00:00:00';
+
+		return $date;
+
 	}
 
 	/**

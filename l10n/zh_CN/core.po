@@ -4,16 +4,19 @@
 # 
 # Translators:
 # hanfeng <appweb.cn@gmail.com>, 2013
-# smartree <smartree@gmail.com>, 2014
-# Xuetian Weng <wengxt@gmail.com>, 2013-2014
-# min zhang <zm1990s@gmail.com>, 2013
-# min zhang <zm1990s@gmail.com>, 2013
+# jsgang <jsgang9@gmail.com>, 2014
+# Kaijia Feng <fengkaijia@gmail.com>, 2014
+# Smartree <smartree@gmail.com>, 2014
+# phy <transifex@phy25.com>, 2014
+# csslayer <wengxt@gmail.com>, 2013-2014
+# zhangmin <zm1990s@gmail.com>, 2013
+# zhangmin <zm1990s@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-05-17 01:54-0400\n"
-"PO-Revision-Date: 2014-05-17 05:54+0000\n"
+"POT-Creation-Date: 2014-08-10 01:54-0400\n"
+"PO-Revision-Date: 2014-08-10 05:54+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/owncloud/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -22,11 +25,7 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ajax/share.php:87
-msgid "Expiration date is in the past."
-msgstr "过期日期已过。"
-
-#: ajax/share.php:119 ajax/share.php:161
+#: ajax/share.php:116 ajax/share.php:158
 #, php-format
 msgid "Couldn't send mail to following users: %s "
 msgstr "发送失败，用户如下: %s "
@@ -43,478 +42,533 @@ msgstr "关闭维护模式"
 msgid "Updated database"
 msgstr "数据库已更新"
 
-#: avatar/controller.php:62
+#: ajax/update.php:19
+msgid "Checked database schema update"
+msgstr "已经检查数据库架构更新"
+
+#: ajax/update.php:27
+#, php-format
+msgid "Disabled incompatible apps: %s"
+msgstr "禁用不兼容应用：%s"
+
+#: avatar/controller.php:69
 msgid "No image or file provided"
 msgstr "没有提供图片或文件"
 
-#: avatar/controller.php:81
+#: avatar/controller.php:86
 msgid "Unknown filetype"
 msgstr "未知的文件类型"
 
-#: avatar/controller.php:85
+#: avatar/controller.php:90
 msgid "Invalid image"
 msgstr "无效的图像"
 
-#: avatar/controller.php:115 avatar/controller.php:142
+#: avatar/controller.php:120 avatar/controller.php:147
 msgid "No temporary profile picture available, try again"
 msgstr "没有临时概览页图片可用，请重试"
 
-#: avatar/controller.php:135
+#: avatar/controller.php:140
 msgid "No crop data provided"
 msgstr "没有提供相应数据"
 
-#: js/config.php:43
+#: js/config.php:45
 msgid "Sunday"
 msgstr "星期日"
 
-#: js/config.php:44
+#: js/config.php:46
 msgid "Monday"
 msgstr "星期一"
 
-#: js/config.php:45
+#: js/config.php:47
 msgid "Tuesday"
 msgstr "星期二"
 
-#: js/config.php:46
+#: js/config.php:48
 msgid "Wednesday"
 msgstr "星期三"
 
-#: js/config.php:47
+#: js/config.php:49
 msgid "Thursday"
 msgstr "星期四"
 
-#: js/config.php:48
+#: js/config.php:50
 msgid "Friday"
 msgstr "星期五"
 
-#: js/config.php:49
+#: js/config.php:51
 msgid "Saturday"
 msgstr "星期六"
 
-#: js/config.php:54
+#: js/config.php:56
 msgid "January"
 msgstr "一月"
 
-#: js/config.php:55
+#: js/config.php:57
 msgid "February"
 msgstr "二月"
 
-#: js/config.php:56
+#: js/config.php:58
 msgid "March"
 msgstr "三月"
 
-#: js/config.php:57
+#: js/config.php:59
 msgid "April"
 msgstr "四月"
 
-#: js/config.php:58
+#: js/config.php:60
 msgid "May"
 msgstr "五月"
 
-#: js/config.php:59
+#: js/config.php:61
 msgid "June"
 msgstr "六月"
 
-#: js/config.php:60
+#: js/config.php:62
 msgid "July"
 msgstr "七月"
 
-#: js/config.php:61
+#: js/config.php:63
 msgid "August"
 msgstr "八月"
 
-#: js/config.php:62
+#: js/config.php:64
 msgid "September"
 msgstr "九月"
 
-#: js/config.php:63
+#: js/config.php:65
 msgid "October"
 msgstr "十月"
 
-#: js/config.php:64
+#: js/config.php:66
 msgid "November"
 msgstr "十一月"
 
-#: js/config.php:65
+#: js/config.php:67
 msgid "December"
 msgstr "十二月"
 
-#: js/js.js:483
+#: js/js.js:501
 msgid "Settings"
 msgstr "设置"
 
-#: js/js.js:583
+#: js/js.js:590
+msgid "File"
+msgstr "文件"
+
+#: js/js.js:591
+msgid "Folder"
+msgstr "文件夹"
+
+#: js/js.js:592
+msgid "Image"
+msgstr "图像"
+
+#: js/js.js:593
+msgid "Audio"
+msgstr "声音"
+
+#: js/js.js:607
 msgid "Saving..."
 msgstr "保存中"
 
-#: js/js.js:1240
+#: js/js.js:1278
 msgid "seconds ago"
 msgstr "秒前"
 
-#: js/js.js:1241
+#: js/js.js:1279
 msgid "%n minute ago"
 msgid_plural "%n minutes ago"
 msgstr[0] "%n 分钟前"
 
-#: js/js.js:1242
+#: js/js.js:1280
 msgid "%n hour ago"
 msgid_plural "%n hours ago"
 msgstr[0] "%n 小时前"
 
-#: js/js.js:1243
+#: js/js.js:1281
 msgid "today"
 msgstr "今天"
 
-#: js/js.js:1244
+#: js/js.js:1282
 msgid "yesterday"
 msgstr "昨天"
 
-#: js/js.js:1245
+#: js/js.js:1283
 msgid "%n day ago"
 msgid_plural "%n days ago"
 msgstr[0] "%n 天前"
 
-#: js/js.js:1246
+#: js/js.js:1284
 msgid "last month"
 msgstr "上月"
 
-#: js/js.js:1247
+#: js/js.js:1285
 msgid "%n month ago"
 msgid_plural "%n months ago"
 msgstr[0] "%n 月前"
 
-#: js/js.js:1248
+#: js/js.js:1286
 msgid "last year"
 msgstr "去年"
 
-#: js/js.js:1249
+#: js/js.js:1287
 msgid "years ago"
 msgstr "年前"
 
-#: js/oc-dialogs.js:95 js/oc-dialogs.js:236
-msgid "Yes"
-msgstr "是"
+#: js/lostpassword.js:3 lostpassword/controller/lostcontroller.php:198
+msgid "Couldn't send reset email. Please contact your administrator."
+msgstr "未能成功发送重置邮件，请联系管理员。"
 
-#: js/oc-dialogs.js:105 js/oc-dialogs.js:246
+#: js/lostpassword.js:5
+msgid ""
+"The link to reset your password has been sent to your email. If you do not "
+"receive it within a reasonable amount of time, check your spam/junk "
+"folders.<br>If it is not there ask your local administrator."
+msgstr "密码重置邮件已经发送到您的电子邮箱中。如果您长时间没能收到邮件，请检查您的垃圾/广告邮件箱。<br>如果未能收到邮件请联系管理员。"
+
+#: js/lostpassword.js:7
+msgid ""
+"Your files are encrypted. If you haven't enabled the recovery key, there "
+"will be no way to get your data back after your password is reset.<br />If "
+"you are not sure what to do, please contact your administrator before you "
+"continue. <br />Do you really want to continue?"
+msgstr "您的文件已被加密。如果您没有启用恢复密钥，密码重置后您将无法取回您的文件。<br />在继续之前，如果有疑问请联系您的管理员。<br />确认继续？"
+
+#: js/lostpassword.js:10
+msgid "I know what I'm doing"
+msgstr "我知道我在做什么"
+
+#: js/lostpassword.js:13 lostpassword/templates/resetpassword.php:9
+msgid "Reset password"
+msgstr "重置密码"
+
+#: js/lostpassword.js:16
+msgid "Password can not be changed. Please contact your administrator."
+msgstr "无法修改密码，请联系管理员。"
+
+#: js/oc-dialogs.js:108 js/oc-dialogs.js:255
 msgid "No"
 msgstr "否"
 
-#: js/oc-dialogs.js:184
+#: js/oc-dialogs.js:116 js/oc-dialogs.js:264
+msgid "Yes"
+msgstr "是"
+
+#: js/oc-dialogs.js:202
 msgid "Choose"
 msgstr "选择(&C)..."
 
-#: js/oc-dialogs.js:210
+#: js/oc-dialogs.js:229
 msgid "Error loading file picker template: {error}"
 msgstr "加载文件分拣模板出错: {error}"
 
-#: js/oc-dialogs.js:263
+#: js/oc-dialogs.js:282
 msgid "Ok"
 msgstr "好"
 
-#: js/oc-dialogs.js:283
+#: js/oc-dialogs.js:302
 msgid "Error loading message template: {error}"
 msgstr "加载消息模板出错: {error}"
 
-#: js/oc-dialogs.js:411
+#: js/oc-dialogs.js:430
 msgid "{count} file conflict"
 msgid_plural "{count} file conflicts"
 msgstr[0] "{count} 个文件冲突"
 
-#: js/oc-dialogs.js:425
+#: js/oc-dialogs.js:444
 msgid "One file conflict"
 msgstr "1个文件冲突"
 
-#: js/oc-dialogs.js:431
+#: js/oc-dialogs.js:450
 msgid "New Files"
 msgstr "新文件"
 
-#: js/oc-dialogs.js:432
+#: js/oc-dialogs.js:451
 msgid "Already existing files"
 msgstr "已经存在的文件"
 
-#: js/oc-dialogs.js:434
+#: js/oc-dialogs.js:453
 msgid "Which files do you want to keep?"
 msgstr "想要保留哪一个文件呢？"
 
-#: js/oc-dialogs.js:435
+#: js/oc-dialogs.js:454
 msgid ""
 "If you select both versions, the copied file will have a number added to its"
 " name."
-msgstr "如果同时选择了连个版本，复制的文件名将会添加上一个数字。"
+msgstr "如果同时选择了两个版本，复制的文件名将会增加上一个数字。"
 
-#: js/oc-dialogs.js:443
+#: js/oc-dialogs.js:462
 msgid "Cancel"
 msgstr "取消"
 
-#: js/oc-dialogs.js:453
+#: js/oc-dialogs.js:472
 msgid "Continue"
 msgstr "继续"
 
-#: js/oc-dialogs.js:500 js/oc-dialogs.js:513
+#: js/oc-dialogs.js:519 js/oc-dialogs.js:532
 msgid "(all selected)"
 msgstr "(选中全部)"
 
-#: js/oc-dialogs.js:503 js/oc-dialogs.js:517
+#: js/oc-dialogs.js:522 js/oc-dialogs.js:536
 msgid "({count} selected)"
 msgstr "(选择了{count}个)"
 
-#: js/oc-dialogs.js:525
+#: js/oc-dialogs.js:544
 msgid "Error loading file exists template"
 msgstr "加载文件存在性模板失败"
 
-#: js/setup.js:84
+#: js/setup.js:96
 msgid "Very weak password"
 msgstr "非常弱的密码"
 
-#: js/setup.js:85
+#: js/setup.js:97
 msgid "Weak password"
 msgstr "弱密码"
 
-#: js/setup.js:86
+#: js/setup.js:98
 msgid "So-so password"
 msgstr "一般强度的密码"
 
-#: js/setup.js:87
+#: js/setup.js:99
 msgid "Good password"
 msgstr "较强的密码"
 
-#: js/setup.js:88
+#: js/setup.js:100
 msgid "Strong password"
 msgstr "强密码"
 
-#: js/share.js:51 js/share.js:66 js/share.js:106
+#: js/share.js:129 js/share.js:251
 msgid "Shared"
 msgstr "已共享"
 
-#: js/share.js:109
+#: js/share.js:257
+msgid "Shared with {recipients}"
+msgstr "由{recipients}分享"
+
+#: js/share.js:266
 msgid "Share"
 msgstr "分享"
 
-#: js/share.js:158 js/share.js:171 js/share.js:178 js/share.js:761
+#: js/share.js:326 js/share.js:340 js/share.js:347 js/share.js:1007
 #: templates/installation.php:10
 msgid "Error"
 msgstr "错误"
 
-#: js/share.js:160 js/share.js:824
+#: js/share.js:328 js/share.js:1070
 msgid "Error while sharing"
 msgstr "共享时出错"
 
-#: js/share.js:171
+#: js/share.js:340
 msgid "Error while unsharing"
 msgstr "取消共享时出错"
 
-#: js/share.js:178
+#: js/share.js:347
 msgid "Error while changing permissions"
 msgstr "修改权限时出错"
 
-#: js/share.js:188
+#: js/share.js:357
 msgid "Shared with you and the group {group} by {owner}"
 msgstr "{owner} 共享给您及 {group} 组"
 
-#: js/share.js:190
+#: js/share.js:359
 msgid "Shared with you by {owner}"
 msgstr "{owner} 与您共享"
 
-#: js/share.js:214
+#: js/share.js:383
 msgid "Share with user or group …"
 msgstr "分享给其他用户或组 ..."
 
-#: js/share.js:220
+#: js/share.js:389
 msgid "Share link"
 msgstr "分享链接"
 
-#: js/share.js:226
+#: js/share.js:394
 msgid ""
 "The public link will expire no later than {days} days after it is created"
-msgstr ""
+msgstr "这个共享链接将在创建后 {days} 天失效"
 
-#: js/share.js:228
-msgid "By default the public link will expire after {days} days"
-msgstr ""
-
-#: js/share.js:233
+#: js/share.js:398
 msgid "Password protect"
 msgstr "密码保护"
 
-#: js/share.js:235
+#: js/share.js:400
 msgid "Choose a password for the public link"
-msgstr ""
+msgstr "为共享链接设置密码"
 
-#: js/share.js:241
+#: js/share.js:406
 msgid "Allow Public Upload"
 msgstr "允许公开上传"
 
-#: js/share.js:245
+#: js/share.js:410
 msgid "Email link to person"
 msgstr "发送链接到个人"
 
-#: js/share.js:246
+#: js/share.js:411
 msgid "Send"
 msgstr "发送"
 
-#: js/share.js:251
+#: js/share.js:416
 msgid "Set expiration date"
 msgstr "设置过期日期"
 
-#: js/share.js:252
+#: js/share.js:417
 msgid "Expiration date"
 msgstr "过期日期"
 
-#: js/share.js:289
+#: js/share.js:455
 msgid "Share via email:"
 msgstr "通过Email共享"
 
-#: js/share.js:292
+#: js/share.js:458
 msgid "No people found"
 msgstr "未找到此人"
 
-#: js/share.js:336 js/share.js:397
+#: js/share.js:507 js/share.js:575
 msgid "group"
 msgstr "组"
 
-#: js/share.js:369
+#: js/share.js:540
 msgid "Resharing is not allowed"
 msgstr "不允许二次共享"
 
-#: js/share.js:413
+#: js/share.js:591
 msgid "Shared in {item} with {user}"
 msgstr "在 {item} 与 {user} 共享。"
 
-#: js/share.js:435
+#: js/share.js:613
 msgid "Unshare"
 msgstr "取消共享"
 
-#: js/share.js:443
+#: js/share.js:621
 msgid "notify by email"
 msgstr "以邮件通知"
 
-#: js/share.js:446
+#: js/share.js:624
+msgid "can share"
+msgstr "可共享"
+
+#: js/share.js:627
 msgid "can edit"
 msgstr "可以修改"
 
-#: js/share.js:448
+#: js/share.js:629
 msgid "access control"
 msgstr "访问控制"
 
-#: js/share.js:451
+#: js/share.js:632
 msgid "create"
 msgstr "创建"
 
-#: js/share.js:454
+#: js/share.js:635
 msgid "update"
 msgstr "更新"
 
-#: js/share.js:457
+#: js/share.js:638
 msgid "delete"
 msgstr "删除"
 
-#: js/share.js:460
-msgid "share"
-msgstr "共享"
-
-#: js/share.js:742
+#: js/share.js:988
 msgid "Password protected"
 msgstr "密码已受保护"
 
-#: js/share.js:761
+#: js/share.js:1007
 msgid "Error unsetting expiration date"
 msgstr "取消设置过期日期时出错"
 
-#: js/share.js:782
+#: js/share.js:1028
 msgid "Error setting expiration date"
 msgstr "设置过期日期时出错"
 
-#: js/share.js:811
+#: js/share.js:1057
 msgid "Sending ..."
 msgstr "正在发送..."
 
-#: js/share.js:822
+#: js/share.js:1068
 msgid "Email sent"
 msgstr "邮件已发送"
 
-#: js/share.js:846
+#: js/share.js:1092
 msgid "Warning"
 msgstr "警告"
 
-#: js/tags.js:4
+#: js/tags.js:8
 msgid "The object type is not specified."
 msgstr "未指定对象类型。"
 
-#: js/tags.js:13
+#: js/tags.js:19
 msgid "Enter new"
 msgstr "输入新..."
 
-#: js/tags.js:27
+#: js/tags.js:33
 msgid "Delete"
 msgstr "删除"
 
-#: js/tags.js:31
+#: js/tags.js:43
 msgid "Add"
 msgstr "增加"
 
-#: js/tags.js:39
+#: js/tags.js:57
 msgid "Edit tags"
 msgstr "编辑标签"
 
-#: js/tags.js:57
+#: js/tags.js:75
 msgid "Error loading dialog template: {error}"
 msgstr "加载对话框模板出错: {error}"
 
-#: js/tags.js:264
+#: js/tags.js:288
 msgid "No tags selected for deletion."
 msgstr "请选择要删除的标签。"
 
-#: js/update.js:8
+#: js/update.js:30
+msgid "Updating {productName} to version {version}, this may take a while."
+msgstr "更新 {productName} 到版本 {version}，这可能需要一些时间。"
+
+#: js/update.js:43
 msgid "Please reload the page."
 msgstr "请重新加载页面。"
 
-#: js/update.js:17
-msgid ""
-"The update was unsuccessful. Please report this issue to the <a "
-"href=\"https://github.com/owncloud/core/issues\" target=\"_blank\">ownCloud "
-"community</a>."
-msgstr "更新不成功。请汇报将此问题汇报给  <a href=\"https://github.com/owncloud/core/issues\" target=\"_blank\">ownCloud 社区</a>。"
+#: js/update.js:52
+msgid "The update was unsuccessful."
+msgstr "更新未成功。"
 
-#: js/update.js:21
+#: js/update.js:61
 msgid "The update was successful. Redirecting you to ownCloud now."
 msgstr "更新成功。正在重定向至 ownCloud。"
 
-#: lostpassword/controller.php:70
+#: lostpassword/controller/lostcontroller.php:133
+msgid "Couldn't reset password because the token is invalid"
+msgstr "令牌无效，无法重置密码"
+
+#: lostpassword/controller/lostcontroller.php:159
+msgid "Couldn't send reset email. Please make sure your username is correct."
+msgstr "无法发送重置邮件，请检查您的用户名是否正确。"
+
+#: lostpassword/controller/lostcontroller.php:174
+msgid ""
+"Couldn't send reset email because there is no email address for this "
+"username. Please contact your administrator."
+msgstr "此用户名的电子邮件地址不存在导致无法发送重置邮件，请联系管理员。"
+
+#: lostpassword/controller/lostcontroller.php:191
 #, php-format
 msgid "%s password reset"
 msgstr "重置 %s 的密码"
-
-#: lostpassword/controller.php:72
-msgid ""
-"A problem has occurred whilst sending the email, please contact your "
-"administrator."
-msgstr "发送电子邮件时发生问题，请和管理员联系。"
 
 #: lostpassword/templates/email.php:2
 msgid "Use the following link to reset your password: {link}"
 msgstr "使用以下链接重置您的密码：{link}"
 
-#: lostpassword/templates/lostpassword.php:7
-msgid ""
-"The link to reset your password has been sent to your email.<br>If you do "
-"not receive it within a reasonable amount of time, check your spam/junk "
-"folders.<br>If it is not there ask your local administrator ."
-msgstr "重置密码的链接已发送到您的邮箱。<br>如果您觉得在合理的时间内还未收到邮件，请查看 spam/junk 目录。<br>如果没有在那里，请询问您的本地管理员。"
-
-#: lostpassword/templates/lostpassword.php:15
-msgid "Request failed!<br>Did you make sure your email/username was right?"
-msgstr "请求失败<br>您确定您的邮箱/用户名是正确的？"
-
-#: lostpassword/templates/lostpassword.php:18
+#: lostpassword/templates/lostpassword.php:6
 msgid "You will receive a link to reset your password via Email."
 msgstr "您将会收到包含可以重置密码链接的邮件。"
 
-#: lostpassword/templates/lostpassword.php:21 templates/installation.php:53
-#: templates/login.php:32
+#: lostpassword/templates/lostpassword.php:8
+#: lostpassword/templates/lostpassword.php:9 templates/installation.php:51
+#: templates/installation.php:54 templates/login.php:23 templates/login.php:27
 msgid "Username"
 msgstr "用户名"
 
-#: lostpassword/templates/lostpassword.php:25
+#: lostpassword/templates/lostpassword.php:13
 msgid ""
 "Your files are encrypted. If you haven't enabled the recovery key, there "
 "will be no way to get your data back after your password is reset. If you "
@@ -522,29 +576,21 @@ msgid ""
 "continue. Do you really want to continue?"
 msgstr "您的文件已加密。如果您不启用恢复密钥，您将无法在重设密码后取回文件。如果您不太确定，请在继续前联系您的管理员。您真的要继续吗？"
 
-#: lostpassword/templates/lostpassword.php:27
+#: lostpassword/templates/lostpassword.php:15
 msgid "Yes, I really want to reset my password now"
 msgstr "使得，我真的要现在重设密码"
 
-#: lostpassword/templates/lostpassword.php:30
+#: lostpassword/templates/lostpassword.php:18
 msgid "Reset"
 msgstr "重置"
 
-#: lostpassword/templates/resetpassword.php:4
-msgid "Your password was reset"
-msgstr "您的密码已重置"
-
 #: lostpassword/templates/resetpassword.php:5
-msgid "To login page"
-msgstr "到登录页面"
-
-#: lostpassword/templates/resetpassword.php:8
 msgid "New password"
 msgstr "新密码"
 
-#: lostpassword/templates/resetpassword.php:11
-msgid "Reset password"
-msgstr "重置密码"
+#: lostpassword/templates/resetpassword.php:6
+msgid "New Password"
+msgstr "新密码"
 
 #: setup/controller.php:140
 #, php-format
@@ -566,7 +612,7 @@ msgstr "个人"
 msgid "Users"
 msgstr "用户"
 
-#: strings.php:7 templates/layout.user.php:116
+#: strings.php:7 templates/layout.user.php:56 templates/layout.user.php:121
 msgid "Apps"
 msgstr "应用"
 
@@ -592,7 +638,7 @@ msgstr "删除标签(s)时出错"
 
 #: tags/controller.php:75
 msgid "Error tagging"
-msgstr "添加标签时出错"
+msgstr "增加标签时出错"
 
 #: tags/controller.php:86
 msgid "Error untagging"
@@ -676,105 +722,99 @@ msgstr "关于如何配置服务器，请参见 <a href=\"%s\" target=\"_blank\"
 msgid "Create an <strong>admin account</strong>"
 msgstr "创建<strong>管理员账号</strong>"
 
-#: templates/installation.php:60 templates/login.php:40
+#: templates/installation.php:59 templates/installation.php:62
+#: templates/login.php:33 templates/login.php:36
 msgid "Password"
 msgstr "密码"
 
-#: templates/installation.php:70
+#: templates/installation.php:72
 msgid "Storage & database"
 msgstr "存储 & 数据库"
 
-#: templates/installation.php:77
+#: templates/installation.php:79
 msgid "Data folder"
 msgstr "数据目录"
 
-#: templates/installation.php:90
+#: templates/installation.php:92
 msgid "Configure the database"
 msgstr "配置数据库"
 
-#: templates/installation.php:94
-msgid "will be used"
-msgstr "将被使用"
+#: templates/installation.php:96
+#, php-format
+msgid "Only %s is available."
+msgstr "仅 %s 可用。"
 
-#: templates/installation.php:109
+#: templates/installation.php:111 templates/installation.php:113
 msgid "Database user"
 msgstr "数据库用户"
 
-#: templates/installation.php:118
+#: templates/installation.php:119 templates/installation.php:122
 msgid "Database password"
 msgstr "数据库密码"
 
-#: templates/installation.php:123
+#: templates/installation.php:127 templates/installation.php:129
 msgid "Database name"
 msgstr "数据库名"
 
-#: templates/installation.php:132
+#: templates/installation.php:137 templates/installation.php:139
 msgid "Database tablespace"
 msgstr "数据库表空间"
 
-#: templates/installation.php:140
+#: templates/installation.php:146 templates/installation.php:148
 msgid "Database host"
 msgstr "数据库主机"
 
-#: templates/installation.php:150
+#: templates/installation.php:157
+msgid ""
+"SQLite will be used as database. For larger installations we recommend to "
+"change this."
+msgstr "将会使用 SQLite 为数据库。我们不建议大型站点使用 SQLite。"
+
+#: templates/installation.php:159
 msgid "Finish setup"
 msgstr "安装完成"
 
-#: templates/installation.php:150
+#: templates/installation.php:159
 msgid "Finishing …"
 msgstr "正在结束 ..."
 
-#: templates/layout.user.php:40
+#: templates/layout.user.php:43
 msgid ""
 "This application requires JavaScript to be enabled for correct operation.  "
 "Please <a href=\"http://enable-javascript.com/\" target=\"_blank\">enable "
 "JavaScript</a> and re-load this interface."
 msgstr "此程序需要启用JavaScript才能正常运行。请<a href=\"http://enable-javascript.com/\" target=\"_blank\">启用JavaScript</a> 并重新加载此接口。"
 
-#: templates/layout.user.php:44
+#: templates/layout.user.php:47
 #, php-format
 msgid "%s is available. Get more information on how to update."
 msgstr "%s 可用。获取更多关于如何升级的信息。"
 
-#: templates/layout.user.php:74 templates/singleuser.user.php:8
+#: templates/layout.user.php:83 templates/singleuser.user.php:8
 msgid "Log out"
 msgstr "注销"
 
-#: templates/login.php:9
-msgid "Automatic logon rejected!"
-msgstr "自动登录被拒绝！"
-
-#: templates/login.php:10
-msgid ""
-"If you did not change your password recently, your account may be "
-"compromised!"
-msgstr "如果您没有最近修改您的密码，您的帐户可能会受到影响！"
-
-#: templates/login.php:12
-msgid "Please change your password to secure your account again."
-msgstr "请修改您的密码，以保护您的账户安全。"
-
-#: templates/login.php:17
+#: templates/login.php:11
 msgid "Server side authentication failed!"
 msgstr "服务端验证失败！"
 
-#: templates/login.php:18
+#: templates/login.php:12
 msgid "Please contact your administrator."
 msgstr "请联系你的管理员。"
 
-#: templates/login.php:46
-msgid "Lost your password?"
-msgstr "忘记密码？"
+#: templates/login.php:42
+msgid "Forgot your password? Reset it!"
+msgstr "忘记密码？立即重置！"
 
-#: templates/login.php:51
+#: templates/login.php:47
 msgid "remember"
 msgstr "记住"
 
-#: templates/login.php:54
+#: templates/login.php:51
 msgid "Log in"
 msgstr "登录"
 
-#: templates/login.php:60
+#: templates/login.php:57
 msgid "Alternative Logins"
 msgstr "其他登录方式"
 
@@ -805,8 +845,27 @@ msgstr "感谢让你久等了。"
 
 #: templates/update.admin.php:3
 #, php-format
-msgid "Updating ownCloud to version %s, this may take a while."
-msgstr "更新 ownCloud 到版本 %s，这可能需要一些时间。"
+msgid "%s will be updated to version %s."
+msgstr "%s 将会更新到版本 %s。"
+
+#: templates/update.admin.php:7
+msgid "The following apps will be disabled:"
+msgstr "以下应用将会被禁用："
+
+#: templates/update.admin.php:17
+#, php-format
+msgid "The theme %s has been disabled."
+msgstr "%s 主题已被禁用。"
+
+#: templates/update.admin.php:21
+msgid ""
+"Please make sure that the database, the config folder and the data folder "
+"have been backed up before proceeding."
+msgstr "在继续之前，请确认数据库、配置文件夹和数据文件夹已经备份。"
+
+#: templates/update.admin.php:23
+msgid "Start update"
+msgstr "开始更新"
 
 #: templates/update.user.php:3
 msgid ""

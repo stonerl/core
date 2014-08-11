@@ -1,8 +1,16 @@
 <?php
 
 try {
-
 	require_once 'lib/base.php';
+
+	if (\OCP\Util::needUpgrade()) {
+		// since the behavior of apps or remotes are unpredictable during
+		// an upgrade, return a 503 directly
+		OC_Response::setStatus(OC_Response::STATUS_SERVICE_UNAVAILABLE);
+		OC_Template::printErrorPage('Service unavailable');
+		exit;
+	}
+
 	$path_info = OC_Request::getPathInfo();
 	if ($path_info === false || $path_info === '') {
 		OC_Response::setStatus(OC_Response::STATUS_NOT_FOUND);
@@ -24,6 +32,12 @@ try {
 
 	$parts=explode('/', $file, 2);
 	$app=$parts[0];
+
+	// Load all required applications
+	\OC::$REQUESTEDAPP = $app;
+	OC_App::loadApps(array('authentication'));
+	OC_App::loadApps(array('filesystem', 'logging'));
+
 	switch ($app) {
 		case 'core':
 			$file =  OC::$SERVERROOT .'/'. $file;

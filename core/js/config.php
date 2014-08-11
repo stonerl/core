@@ -25,11 +25,13 @@ foreach(OC_App::getEnabledApps() as $app) {
 	$apps_paths[$app] = OC_App::getAppWebPath($app);
 }
 
-$defaultExpireDateEnabled = \OCP\Config::getAppValue('core', 'shareapi_default_expire_date', 'no');
+$value = \OCP\Config::getAppValue('core', 'shareapi_default_expire_date', 'no');
+$defaultExpireDateEnabled = ($value === 'yes') ? true :false;
 $defaultExpireDate = $enforceDefaultExpireDate = null;
-if ($defaultExpireDateEnabled === 'yes') {
-	$defaultExpireDate = \OCP\Config::getAppValue('core', 'shareapi_expire_after_n_days', '7');
-	$enforceDefaultExpireDate = \OCP\Config::getAppValue('core', 'shareapi_enforce_expire_date', 'no');
+if ($defaultExpireDateEnabled) {
+	$defaultExpireDate = (int)\OCP\Config::getAppValue('core', 'shareapi_expire_after_n_days', '7');
+	$value = \OCP\Config::getAppValue('core', 'shareapi_enforce_expire_date', 'no');
+	$enforceDefaultExpireDate = ($value === 'yes') ? true : false;
 }
 
 $array = array(
@@ -68,7 +70,7 @@ $array = array(
 	"firstDay" => json_encode($l->l('firstday', 'firstday')) ,
 	"oc_config" => json_encode(
 		array(
-			'session_lifetime'	=> \OCP\Config::getSystemValue('session_lifetime', ini_get('session.gc_maxlifetime')),
+			'session_lifetime'	=> min(\OCP\Config::getSystemValue('session_lifetime', ini_get('session.gc_maxlifetime')), ini_get('session.gc_maxlifetime')),
 			'session_keepalive'	=> \OCP\Config::getSystemValue('session_keepalive', true),
 			'version'			=> implode('.', OC_Util::getVersion()),
 			'versionstring'		=> OC_Util::getVersionString(),
@@ -81,6 +83,7 @@ $array = array(
 				'defaultExpireDateEnforced' => $enforceDefaultExpireDate,
 				'enforcePasswordForPublicLink' => \OCP\Util::isPublicLinkPasswordRequired(),
 				'sharingDisabledForUser' => \OCP\Util::isSharingDisabledForUser(),
+				'resharingAllowed' => \OCP\Share::isResharingAllowed(),
 				)
 			)
 	),

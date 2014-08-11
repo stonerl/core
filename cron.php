@@ -48,10 +48,18 @@ try {
 
 	require_once 'lib/base.php';
 
+	if (\OCP\Util::needUpgrade()) {
+		\OCP\Util::writeLog('cron', 'Update required, skipping cron', \OCP\Util::DEBUG);
+		exit();
+	}
+
 	// load all apps to get all api routes properly setup
 	OC_App::loadApps();
 
 	\OC::$session->close();
+
+	// initialize a dummy memory session
+	\OC::$session = new \OC\Session\Memory('');
 
 	$logger = \OC_Log::$object;
 

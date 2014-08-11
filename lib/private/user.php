@@ -236,6 +236,17 @@ class OC_User {
 	}
 
 	/**
+	 * Try to login a user using the magic cookie (remember login)
+	 *
+	 * @param string $uid The username of the user to log in
+	 * @param string $token
+	 * @return bool
+	 */
+	public static function loginWithCookie($uid, $token) {
+		return self::getUserSession()->loginWithCookie($uid, $token);
+	}
+
+	/**
 	 * Try to login a user, assuming authentication
 	 * has already happened (e.g. via Single Sign On).
 	 *
@@ -326,7 +337,7 @@ class OC_User {
 	 * Checks if the user is logged in
 	 */
 	public static function isLoggedIn() {
-		if (\OC::$session->get('user_id') && self::$incognitoMode === false) {
+		if (\OC::$session->get('user_id') !== null && self::$incognitoMode === false) {
 			return self::userExists(\OC::$session->get('user_id'));
 		}
 		return false;
@@ -354,7 +365,7 @@ class OC_User {
 			return $backend->getLogoutAttribute();
 		}
 
-		return 'href="' . link_to('', 'index.php') . '?logout=true"';
+		return 'href="' . link_to('', 'index.php') . '?logout=true&requesttoken=' . OC_Util::callRegister() . '"';
 	}
 
 	/**

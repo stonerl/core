@@ -100,6 +100,8 @@ class Session {
 			$privateKey = Crypt::decryptPrivateKey($encryptedKey, '');
 			$this->setPublicSharePrivateKey($privateKey);
 
+			$this->setInitialized(\OCA\Encryption\Session::INIT_SUCCESSFUL);
+
 			\OC_FileProxy::$enabled = $proxyStatus;
 		}
 	}
@@ -117,6 +119,14 @@ class Session {
 
 		return true;
 
+	}
+
+	/**
+	 * remove keys from session
+	 */
+	public function removeKeys() {
+		\OC::$session->remove('publicSharePrivateKey');
+		\OC::$session->remove('privateKey');
 	}
 
 	/**
@@ -200,38 +210,6 @@ class Session {
 		} else {
 			return false;
 		}
-	}
-
-
-	/**
-	 * Sets user legacy key to session
-	 * @param string $legacyKey
-	 * @return bool
-	 */
-	public function setLegacyKey($legacyKey) {
-
-		\OC::$session->set('legacyKey', $legacyKey);
-
-		return true;
-	}
-
-	/**
-	 * Gets user legacy key from session
-	 * @return string $legacyKey The user's plaintext legacy key
-	 *
-	 */
-	public function getLegacyKey() {
-
-		if (!is_null(\OC::$session->get('legacyKey'))) {
-
-			return \OC::$session->get('legacyKey');
-
-		} else {
-
-			return false;
-
-		}
-
 	}
 
 }

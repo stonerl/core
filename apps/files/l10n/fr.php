@@ -1,5 +1,8 @@
 <?php
 $TRANSLATIONS = array(
+"Storage not available" => "Support de stockage non disponible",
+"Storage invalid" => "Support de stockage invalide",
+"Unknown error" => "Erreur Inconnue ",
 "Could not move %s - File with this name already exists" => "Impossible de déplacer %s - Un fichier possédant ce nom existe déjà",
 "Could not move %s" => "Impossible de déplacer %s",
 "File name cannot be empty." => "Le nom de fichier ne peut être vide.",
@@ -41,6 +44,9 @@ $TRANSLATIONS = array(
 "Could not create folder" => "Impossible de créer le dossier",
 "Error fetching URL" => "Erreur d'accès à l'URL",
 "Share" => "Partager",
+"Delete" => "Supprimer",
+"Disconnect storage" => "Déconnecter ce support de stockage",
+"Unshare" => "Ne plus partager",
 "Delete permanently" => "Supprimer de façon définitive",
 "Rename" => "Renommer",
 "Your download is being prepared. This might take some time if the files are big." => "Votre téléchargement est cours de préparation. Ceci peut nécessiter un certain temps si les fichiers sont volumineux.",
@@ -68,10 +74,6 @@ $TRANSLATIONS = array(
 "File handling" => "Gestion des fichiers",
 "Maximum upload size" => "Taille max. d'envoi",
 "max. possible: " => "Max. possible :",
-"Needed for multi-file and folder downloads." => "Nécessaire pour le téléchargement de plusieurs fichiers et de dossiers.",
-"Enable ZIP-download" => "Activer le téléchargement ZIP",
-"0 is unlimited" => "0 est illimité",
-"Maximum input size for ZIP files" => "Taille maximale pour les fichiers ZIP",
 "Save" => "Sauvegarder",
 "WebDAV" => "WebDAV",
 "Use this address to <a href=\"%s\" target=\"_blank\">access your Files via WebDAV</a>" => "Utiliser cette adresse pour <a href=\"%s\" target=\"_blank\"> accéder à vos fichiers par WebDAV</a>",
@@ -81,14 +83,12 @@ $TRANSLATIONS = array(
 "New folder" => "Nouveau dossier",
 "Folder" => "Dossier",
 "From link" => "Depuis le lien",
-"Cancel upload" => "Annuler l'envoi",
 "You don’t have permission to upload or create files here" => "Vous n'avez pas la permission de téléverser ou de créer des fichiers ici",
 "Nothing in here. Upload something!" => "Il n'y a rien ici ! Envoyez donc quelque chose :)",
 "Download" => "Télécharger",
-"Delete" => "Supprimer",
 "Upload too large" => "Téléversement trop volumineux",
 "The files you are trying to upload exceed the maximum size for file uploads on this server." => "Les fichiers que vous essayez d'envoyer dépassent la taille maximale permise par ce serveur.",
 "Files are being scanned, please wait." => "Les fichiers sont en cours d'analyse, veuillez patienter.",
-"Current scanning" => "Analyse en cours"
+"Currently scanning" => "Analyse en cours de traitement"
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n > 1);";

@@ -41,6 +41,12 @@ class TestCleanupListener implements PHPUnit_Framework_TestListener {
 	}
 
 	public function endTestSuite(PHPUnit_Framework_TestSuite $suite) {
+		if ($this->cleanStorages() && $this->isShowSuiteWarning()) {
+			printf("TestSuite '%s': Did not clean up storages\n", $suite->getName());
+		}
+		if ($this->cleanFileCache() && $this->isShowSuiteWarning()) {
+			printf("TestSuite '%s': Did not clean up file cache\n", $suite->getName());
+		}
 		if ($this->cleanStrayDataFiles() && $this->isShowSuiteWarning()) {
 			printf("TestSuite '%s': Did not clean up data dir\n", $suite->getName());
 		}
@@ -114,6 +120,26 @@ class TestCleanupListener implements PHPUnit_Framework_TestListener {
 		return false;
 	}
 
+	private function cleanStorages() {
+		$sql = 'DELETE FROM `*PREFIX*storages`';
+		$query = \OC_DB::prepare( $sql );
+		$result = $query->execute();
+		if ($result > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	private function cleanFileCache() {
+		$sql = 'DELETE FROM `*PREFIX*filecache`';
+		$query = \OC_DB::prepare( $sql );
+		$result = $query->execute();
+		if ($result > 0) {
+			return true;
+		}
+		return false;
+	}
+
 	private function cleanStrayHooks() {
 		$hasHooks = false;
 		$hooks = OC_Hook::getHooks();
@@ -140,6 +166,8 @@ class TestCleanupListener implements PHPUnit_Framework_TestListener {
 	private function cleanProxies() {
 		$proxies = OC_FileProxy::getProxies();
 		OC_FileProxy::clearProxies();
+		// reenable in case some test failed to reenable them
+		OC_FileProxy::$enabled = true;
 		return count($proxies) > 0;
 	}
 }

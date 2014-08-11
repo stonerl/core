@@ -1,5 +1,6 @@
 <?php
 $TRANSLATIONS = array(
+"Delete" => "తొలగించు",
 "Delete permanently" => "శాశ్వతంగా తొలగించు",
 "Error" => "పొరపాటు",
 "Name" => "పేరు",
@@ -9,7 +10,6 @@ $TRANSLATIONS = array(
 "_Uploading %n file_::_Uploading %n files_" => array("",""),
 "Save" => "భద్రపరచు",
 "New folder" => "కొత్త సంచయం",
-"Folder" => "సంచయం",
-"Delete" => "తొలగించు"
+"Folder" => "సంచయం"
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

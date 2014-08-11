@@ -1,5 +1,6 @@
 <?php
 $TRANSLATIONS = array(
+"Unknown error" => "Unbekannter Fehler",
 "Could not move %s - File with this name already exists" => "%s konnte nicht verschoben werden. Eine Datei mit diesem Namen existiert bereits.",
 "Could not move %s" => "Konnte %s nicht verschieben",
 "File name cannot be empty." => "Der Dateiname darf nicht leer sein.",
@@ -21,6 +22,8 @@ $TRANSLATIONS = array(
 "File upload is in progress. Leaving the page now will cancel the upload." => "Dateiupload läuft. Wenn Sie die Seite jetzt verlassen, wird der Upload abgebrochen.",
 "{new_name} already exists" => "{new_name} existiert bereits",
 "Share" => "Teilen",
+"Delete" => "Löschen",
+"Unshare" => "Teilung aufheben",
 "Delete permanently" => "Endgültig löschen",
 "Rename" => "Umbenennen",
 "Your download is being prepared. This might take some time if the files are big." => "Ihr Download wird vorbereitet. Dies kann bei grösseren Dateien etwas dauern.",
@@ -39,10 +42,6 @@ $TRANSLATIONS = array(
 "File handling" => "Dateibehandlung",
 "Maximum upload size" => "Maximale Upload-Grösse",
 "max. possible: " => "maximal möglich:",
-"Needed for multi-file and folder downloads." => "Für Mehrfachdatei- und Ordnerdownloads benötigt:",
-"Enable ZIP-download" => "ZIP-Download aktivieren",
-"0 is unlimited" => "0 bedeutet unbegrenzt",
-"Maximum input size for ZIP files" => "Maximale Grösse für ZIP-Dateien",
 "Save" => "Speichern",
 "WebDAV" => "WebDAV",
 "New" => "Neu",
@@ -50,13 +49,10 @@ $TRANSLATIONS = array(
 "New folder" => "Neues Verzeichnis",
 "Folder" => "Ordner",
 "From link" => "Von einem Link",
-"Cancel upload" => "Upload abbrechen",
 "Nothing in here. Upload something!" => "Alles leer. Laden Sie etwas hoch!",
 "Download" => "Herunterladen",
-"Delete" => "Löschen",
 "Upload too large" => "Der Upload ist zu gross",
 "The files you are trying to upload exceed the maximum size for file uploads on this server." => "Die Datei überschreitet die Maximalgrösse für Uploads auf diesem Server.",
-"Files are being scanned, please wait." => "Dateien werden gescannt, bitte warten.",
-"Current scanning" => "Scanne"
+"Files are being scanned, please wait." => "Dateien werden gescannt, bitte warten."
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

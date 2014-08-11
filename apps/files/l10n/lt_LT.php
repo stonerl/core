@@ -1,5 +1,6 @@
 <?php
 $TRANSLATIONS = array(
+"Unknown error" => "Neatpažinta klaida",
 "Could not move %s - File with this name already exists" => "Nepavyko perkelti %s - failas su tokiu pavadinimu jau egzistuoja",
 "Could not move %s" => "Nepavyko perkelti %s",
 "File name cannot be empty." => "Failo pavadinimas negali būti tuščias.",
@@ -36,6 +37,8 @@ $TRANSLATIONS = array(
 "Could not create folder" => "Neįmanoma sukurti aplanko",
 "Error fetching URL" => "Klauda gaunant URL",
 "Share" => "Dalintis",
+"Delete" => "Ištrinti",
+"Unshare" => "Nebesidalinti",
 "Delete permanently" => "Ištrinti negrįžtamai",
 "Rename" => "Pervadinti",
 "Your download is being prepared. This might take some time if the files are big." => "Jūsų atsisiuntimas yra paruošiamas. tai gali užtrukti jei atsisiunčiamas didelis failas.",
@@ -60,10 +63,6 @@ $TRANSLATIONS = array(
 "File handling" => "Failų tvarkymas",
 "Maximum upload size" => "Maksimalus įkeliamo failo dydis",
 "max. possible: " => "maks. galima:",
-"Needed for multi-file and folder downloads." => "Reikalinga daugybinui failų ir aplankalų atsisiuntimui.",
-"Enable ZIP-download" => "Įjungti atsisiuntimą ZIP archyvu",
-"0 is unlimited" => "0 yra neribotas",
-"Maximum input size for ZIP files" => "Maksimalus ZIP archyvo failo dydis",
 "Save" => "Išsaugoti",
 "WebDAV" => "WebDAV",
 "Use this address to <a href=\"%s\" target=\"_blank\">access your Files via WebDAV</a>" => "Naudokite šį adresą, kad <a href=\"%s\" target=\"_blank\">pasiektumėte savo failus per WebDAV</a>",
@@ -73,14 +72,11 @@ $TRANSLATIONS = array(
 "New folder" => "Naujas aplankas",
 "Folder" => "Katalogas",
 "From link" => "Iš nuorodos",
-"Cancel upload" => "Atšaukti siuntimą",
 "You don’t have permission to upload or create files here" => "Jūs neturite leidimo čia įkelti arba kurti failus",
 "Nothing in here. Upload something!" => "Čia tuščia. Įkelkite ką nors!",
 "Download" => "Atsisiųsti",
-"Delete" => "Ištrinti",
 "Upload too large" => "Įkėlimui failas per didelis",
 "The files you are trying to upload exceed the maximum size for file uploads on this server." => "Bandomų įkelti failų dydis viršija maksimalų, kuris leidžiamas šiame serveryje",
-"Files are being scanned, please wait." => "Skenuojami failai, prašome palaukti.",
-"Current scanning" => "Šiuo metu skenuojama"
+"Files are being scanned, please wait." => "Skenuojami failai, prašome palaukti."
 );
 $PLURAL_FORMS = "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);";

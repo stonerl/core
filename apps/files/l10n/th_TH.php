@@ -1,5 +1,6 @@
 <?php
 $TRANSLATIONS = array(
+"Unknown error" => "ข้อผิดพลาดที่ไม่ทราบสาเหตุ",
 "Could not move %s - File with this name already exists" => "ไม่สามารถย้าย %s ได้ - ไฟล์ที่ใช้ชื่อนี้มีอยู่แล้ว",
 "Could not move %s" => "ไม่สามารถย้าย %s ได้",
 "File name cannot be empty." => "ชื่อไฟล์ไม่สามารถเว้นว่างได้",
@@ -19,6 +20,8 @@ $TRANSLATIONS = array(
 "File upload is in progress. Leaving the page now will cancel the upload." => "การอัพโหลดไฟล์กำลังอยู่ในระหว่างดำเนินการ การออกจากหน้าเว็บนี้จะทำให้การอัพโหลดถูกยกเลิก",
 "{new_name} already exists" => "{new_name} มีอยู่แล้วในระบบ",
 "Share" => "แชร์",
+"Delete" => "ลบ",
+"Unshare" => "ยกเลิกการแชร์",
 "Rename" => "เปลี่ยนชื่อ",
 "Your download is being prepared. This might take some time if the files are big." => "กำลังเตรียมดาวน์โหลดข้อมูล หากไฟล์มีขนาดใหญ่ อาจใช้เวลาสักครู่",
 "Pending" => "อยู่ระหว่างดำเนินการ",
@@ -34,10 +37,6 @@ $TRANSLATIONS = array(
 "File handling" => "การจัดกาไฟล์",
 "Maximum upload size" => "ขนาดไฟล์สูงสุดที่อัพโหลดได้",
 "max. possible: " => "จำนวนสูงสุดที่สามารถทำได้: ",
-"Needed for multi-file and folder downloads." => "จำเป็นต้องใช้สำหรับการดาวน์โหลดไฟล์พร้อมกันหลายๆไฟล์หรือดาวน์โหลดทั้งโฟลเดอร์",
-"Enable ZIP-download" => "อนุญาตให้ดาวน์โหลดเป็นไฟล์ ZIP ได้",
-"0 is unlimited" => "0 หมายถึงไม่จำกัด",
-"Maximum input size for ZIP files" => "ขนาดไฟล์ ZIP สูงสุด",
 "Save" => "บันทึก",
 "WebDAV" => "WebDAV",
 "New" => "อัพโหลดไฟล์ใหม่",
@@ -45,13 +44,10 @@ $TRANSLATIONS = array(
 "New folder" => "โฟลเดอร์ใหม่",
 "Folder" => "แฟ้มเอกสาร",
 "From link" => "จากลิงก์",
-"Cancel upload" => "ยกเลิกการอัพโหลด",
 "Nothing in here. Upload something!" => "ยังไม่มีไฟล์ใดๆอยู่ที่นี่ กรุณาอัพโหลดไฟล์!",
 "Download" => "ดาวน์โหลด",
-"Delete" => "ลบ",
 "Upload too large" => "ไฟล์ที่อัพโหลดมีขนาดใหญ่เกินไป",
 "The files you are trying to upload exceed the maximum size for file uploads on this server." => "ไฟล์ที่คุณพยายามที่จะอัพโหลดมีขนาดเกินกว่าขนาดสูงสุดที่กำหนดไว้ให้อัพโหลดได้สำหรับเซิร์ฟเวอร์นี้",
-"Files are being scanned, please wait." => "ไฟล์กำลังอยู่ระหว่างการสแกน, กรุณารอสักครู่.",
-"Current scanning" => "ไฟล์ที่กำลังสแกนอยู่ขณะนี้"
+"Files are being scanned, please wait." => "ไฟล์กำลังอยู่ระหว่างการสแกน, กรุณารอสักครู่."
 );
 $PLURAL_FORMS = "nplurals=1; plural=0;";

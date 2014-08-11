@@ -1,5 +1,6 @@
 <?php
 $TRANSLATIONS = array(
+"Unknown error" => "خطای نامشخص",
 "Could not move %s - File with this name already exists" => "%s نمی توان جابجا کرد - در حال حاضر پرونده با این نام وجود دارد. ",
 "Could not move %s" => "%s نمی تواند حرکت کند ",
 "File name cannot be empty." => "نام پرونده نمی تواند خالی باشد.",
@@ -21,6 +22,8 @@ $TRANSLATIONS = array(
 "File upload is in progress. Leaving the page now will cancel the upload." => "آپلودکردن پرونده در حال پیشرفت است. در صورت خروج از صفحه آپلود لغو میگردد. ",
 "{new_name} already exists" => "{نام _جدید} در حال حاضر وجود دارد.",
 "Share" => "اشتراک‌گذاری",
+"Delete" => "حذف",
+"Unshare" => "لغو اشتراک",
 "Delete permanently" => "حذف قطعی",
 "Rename" => "تغییرنام",
 "Your download is being prepared. This might take some time if the files are big." => "دانلود شما در حال آماده شدن است. در صورتیکه پرونده ها بزرگ باشند ممکن است مدتی طول بکشد.",
@@ -38,10 +41,6 @@ $TRANSLATIONS = array(
 "File handling" => "اداره پرونده ها",
 "Maximum upload size" => "حداکثر اندازه بارگزاری",
 "max. possible: " => "حداکثرمقدارممکن:",
-"Needed for multi-file and folder downloads." => "احتیاج پیدا خواهد شد برای چند پوشه و پرونده",
-"Enable ZIP-download" => "فعال سازی بارگیری پرونده های فشرده",
-"0 is unlimited" => "0 نامحدود است",
-"Maximum input size for ZIP files" => "حداکثرمقدار برای بار گزاری پرونده های فشرده",
 "Save" => "ذخیره",
 "WebDAV" => "WebDAV",
 "Use this address to <a href=\"%s\" target=\"_blank\">access your Files via WebDAV</a>" => "از این آدرس استفاده کنید تا <a href=\"%s\" target=\"_blank\">بتوانید به فایل‌های خود توسط WebDAV دسترسی پیدا کنید</a>",
@@ -50,13 +49,10 @@ $TRANSLATIONS = array(
 "New folder" => "پوشه جدید",
 "Folder" => "پوشه",
 "From link" => "از پیوند",
-"Cancel upload" => "متوقف کردن بار گذاری",
 "Nothing in here. Upload something!" => "اینجا هیچ چیز نیست.",
 "Download" => "دانلود",
-"Delete" => "حذف",
 "Upload too large" => "سایز فایل برای آپلود زیاد است(م.تنظیمات در php.ini)",
 "The files you are trying to upload exceed the maximum size for file uploads on this server." => "فایلها بیش از حد تعیین شده در این سرور هستند\nمترجم:با تغییر فایل php,ini میتوان این محدودیت را برطرف کرد",
-"Files are being scanned, please wait." => "پرونده ها در حال بازرسی هستند لطفا صبر کنید",
-"Current scanning" => "بازرسی کنونی"
+"Files are being scanned, please wait." => "پرونده ها در حال بازرسی هستند لطفا صبر کنید"
 );
 $PLURAL_FORMS = "nplurals=1; plural=0;";

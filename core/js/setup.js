@@ -13,6 +13,8 @@ $(document).ready(function() {
 	if($('#hasSQLite').val()){
 		$('#use_other_db').hide();
 		$('#use_oracle_db').hide();
+	} else {
+		$('#sqliteInformation').hide();
 	}
 	$('#adminlogin').change(function(){
 		$('#adminlogin').val($.trim($('#adminlogin').val()));
@@ -20,16 +22,19 @@ $(document).ready(function() {
 	$('#sqlite').click(function() {
 		$('#use_other_db').slideUp(250);
 		$('#use_oracle_db').slideUp(250);
+		$('#sqliteInformation').show();
 	});
 
 	$('#mysql,#pgsql,#mssql').click(function() {
 		$('#use_other_db').slideDown(250);
 		$('#use_oracle_db').slideUp(250);
+		$('#sqliteInformation').hide();
 	});
 
 	$('#oci').click(function() {
 		$('#use_other_db').slideDown(250);
 		$('#use_oracle_db').show(250);
+		$('#sqliteInformation').hide();
 	});
 
 	$('input[checked]').trigger('click');
@@ -47,6 +52,10 @@ $(document).ready(function() {
 		$(':submit', this).attr('disabled','disabled').val($(':submit', this).data('finishing'));
 		$('input', this).addClass('ui-state-disabled').attr('disabled','disabled');
 		$('#selectDbType').buttonset('disable');
+		$('.strengthify-wrapper, .tipsy')
+			.css('-ms-filter', '"progid:DXImageTransform.Microsoft.Alpha(Opacity=30)"')
+			.css('filter', 'alpha(opacity=30)')
+			.css('opacity', .3);
 
 		// Create the form
 		var form = $('<form>');
@@ -72,7 +81,10 @@ $(document).ready(function() {
 		$('input[type="radio"]').first().click();
 	}
 
-	if (currentDbType === 'sqlite' || (dbtypes.sqlite && currentDbType === undefined)){
+	if (
+		currentDbType === 'sqlite' ||
+		(dbtypes.sqlite && currentDbType === undefined)
+	){
 		$('#datadirContent').hide(250);
 		$('#databaseBackend').hide(250);
 		$('#databaseField').hide(250);

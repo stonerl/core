@@ -10,8 +10,9 @@
 namespace OC\User;
 
 use OC\Hooks\Emitter;
+use OCP\IUser;
 
-class User {
+class User implements IUser {
 	/**
 	 * @var string $uid
 	 */
@@ -43,6 +44,11 @@ class User {
 	private $home;
 
 	/**
+	 * @var int $lastLogin
+	 */
+	private $lastLogin;
+
+	/**
 	 * @var \OC\AllConfig $config
 	 */
 	private $config;
@@ -64,6 +70,7 @@ class User {
 		} else {
 			$this->enabled = true;
 		}
+		$this->lastLogin = \OC_Preferences::getValue($uid, 'login', 'lastLogin', 0);
 	}
 
 	/**
@@ -108,6 +115,25 @@ class User {
 	}
 
 	/**
+	 * returns the timestamp of the user's last login or 0 if the user did never
+	 * login
+	 *
+	 * @return int
+	 */
+	public function getLastLogin() {
+		return $this->lastLogin;
+	}
+
+	/**
+	 * updates the timestamp of the most recent login of this user
+	 */
+	public function updateLastLoginTimestamp() {
+		$this->lastLogin = time();
+		\OC_Preferences::setValue(
+			$this->uid, 'login', 'lastLogin', $this->lastLogin);
+	}
+
+	/**
 	 * Delete the user
 	 *
 	 * @return bool
@@ -130,7 +156,7 @@ class User {
 	 * @param string $recoveryPassword for the encryption app to reset encryption keys
 	 * @return bool
 	 */
-	public function setPassword($password, $recoveryPassword) {
+	public function setPassword($password, $recoveryPassword = null) {
 		if ($this->emitter) {
 			$this->emitter->emit('\OC\User', 'preSetPassword', array($this, $password, $recoveryPassword));
 		}

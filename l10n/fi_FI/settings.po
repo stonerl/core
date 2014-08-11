@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-05-24 01:54-0400\n"
-"PO-Revision-Date: 2014-05-24 05:54+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-07-10 04:58-0400\n"
+"PO-Revision-Date: 2014-07-10 07:11+0000\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish (Finland) (http://www.transifex.com/projects/p/owncloud/language/fi_FI/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,15 +48,15 @@ msgstr "Sähköposti lähetetty"
 msgid "You need to set your user email before being able to send test emails."
 msgstr "Aseta sähköpostiosoite, jotta voit testata sähköpostin toimivuutta."
 
-#: admin/controller.php:116 templates/admin.php:331
+#: admin/controller.php:116 templates/admin.php:337
 msgid "Send mode"
 msgstr "Lähetystila"
 
-#: admin/controller.php:118 templates/admin.php:344 templates/personal.php:144
+#: admin/controller.php:118 templates/admin.php:350 templates/personal.php:156
 msgid "Encryption"
 msgstr "Salaus"
 
-#: admin/controller.php:120 templates/admin.php:368
+#: admin/controller.php:120 templates/admin.php:374
 msgid "Authentication method"
 msgstr "Tunnistautumistapa"
 
@@ -77,11 +77,11 @@ msgstr "Koko nimesi on muutettu."
 msgid "Unable to change full name"
 msgstr "Koko nimen muuttaminen epäonnistui"
 
-#: ajax/creategroup.php:10
+#: ajax/creategroup.php:11
 msgid "Group already exists"
 msgstr "Ryhmä on jo olemassa"
 
-#: ajax/creategroup.php:19
+#: ajax/creategroup.php:20
 msgid "Unable to add group"
 msgstr "Ryhmän lisäys epäonnistui"
 
@@ -107,7 +107,11 @@ msgstr "Salausavaimet poistettiin pysyvästi"
 msgid ""
 "Couldn't permanently delete your encryption keys, please check your "
 "owncloud.log or ask your administrator"
-msgstr ""
+msgstr "Salausavaintesi poistaminen pysyvästi ei onnistunut, tarkista owncloud.log tai ole yhteydessä ylläpitäjään"
+
+#: ajax/installapp.php:18 ajax/uninstallapp.php:18
+msgid "Couldn't remove app."
+msgstr "Sovelluksen poistaminen epäonnistui."
 
 #: ajax/lostpassword.php:12
 msgid "Email saved"
@@ -133,7 +137,7 @@ msgstr "Varmuuskopiot palautettiin onnistuneesti"
 msgid ""
 "Couldn't restore your encryption keys, please check your owncloud.log or ask"
 " your administrator"
-msgstr ""
+msgstr "Salausavaintesi palauttaminen ei onnistunut, tarkista owncloud.log tai ole yhteydessä ylläpitäjään"
 
 #: ajax/setlanguage.php:15
 msgid "Language changed"
@@ -157,7 +161,7 @@ msgstr "Käyttäjän tai ryhmän %s lisääminen ei onnistu"
 msgid "Unable to remove user from group %s"
 msgstr "Käyttäjän poistaminen ryhmästä %s ei onnistu"
 
-#: ajax/updateapp.php:14
+#: ajax/updateapp.php:41
 msgid "Couldn't update app."
 msgstr "Sovelluksen päivitys epäonnistui."
 
@@ -167,84 +171,100 @@ msgstr "Väärä salasana"
 
 #: changepassword/controller.php:36
 msgid "No user supplied"
-msgstr ""
+msgstr "Käyttäjää ei määritetty"
 
 #: changepassword/controller.php:68
 msgid ""
 "Please provide an admin recovery password, otherwise all user data will be "
 "lost"
-msgstr ""
+msgstr "Anna ylläpitäjän palautussalasana, muuten kaikki käyttäjien data menetetään"
 
 #: changepassword/controller.php:73
 msgid ""
 "Wrong admin recovery password. Please check the password and try again."
-msgstr ""
+msgstr "Väärä ylläpitäjän salasana. Tarkista salasana ja yritä uudelleen."
 
 #: changepassword/controller.php:81
 msgid ""
 "Back-end doesn't support password change, but the users encryption key was "
 "successfully updated."
-msgstr ""
+msgstr "Taustaosa ei tue salasanan vaihtamista, mutta käyttäjän salausavain päivitettiin onnistuneesti."
 
 #: changepassword/controller.php:86 changepassword/controller.php:97
 msgid "Unable to change password"
 msgstr "Salasanan vaihto ei onnistunut"
 
-#: js/admin.js:126
+#: js/admin.js:128
 msgid "Sending..."
 msgstr "Lähetetään..."
 
-#: js/apps.js:45 templates/help.php:4
+#: js/apps.js:45 templates/help.php:7
 msgid "User Documentation"
 msgstr "Käyttäjäohjeistus"
 
-#: js/apps.js:50
+#: js/apps.js:54
 msgid "Admin Documentation"
 msgstr "Ylläpitäjän ohjeistus"
 
-#: js/apps.js:67
+#: js/apps.js:82
 msgid "Update to {appversion}"
 msgstr "Päivitä versioon {appversion}"
 
-#: js/apps.js:73 js/apps.js:106 js/apps.js:134
+#: js/apps.js:90
+msgid "Uninstall App"
+msgstr "Poista sovelluksen asennus"
+
+#: js/apps.js:96 js/apps.js:158 js/apps.js:191
 msgid "Disable"
 msgstr "Poista käytöstä"
 
-#: js/apps.js:73 js/apps.js:114 js/apps.js:127 js/apps.js:143
+#: js/apps.js:96 js/apps.js:167 js/apps.js:184 js/apps.js:215
 msgid "Enable"
 msgstr "Käytä"
 
-#: js/apps.js:95
+#: js/apps.js:147
 msgid "Please wait...."
 msgstr "Odota hetki..."
 
-#: js/apps.js:103 js/apps.js:104 js/apps.js:125
+#: js/apps.js:155 js/apps.js:156 js/apps.js:182
 msgid "Error while disabling app"
 msgstr "Virhe poistaessa sovellusta käytöstä"
 
-#: js/apps.js:124 js/apps.js:138 js/apps.js:139
+#: js/apps.js:181 js/apps.js:210 js/apps.js:211
 msgid "Error while enabling app"
 msgstr "Virhe ottaessa sovellusta käyttöön"
 
-#: js/apps.js:149
+#: js/apps.js:220
 msgid "Updating...."
 msgstr "Päivitetään..."
 
-#: js/apps.js:152
+#: js/apps.js:223
 msgid "Error while updating app"
 msgstr "Virhe sovellusta päivittäessä"
 
-#: js/apps.js:152
+#: js/apps.js:223 js/apps.js:236
 msgid "Error"
 msgstr "Virhe"
 
-#: js/apps.js:153 templates/apps.php:55
+#: js/apps.js:224 templates/apps.php:55
 msgid "Update"
 msgstr "Päivitä"
 
-#: js/apps.js:156
+#: js/apps.js:227
 msgid "Updated"
 msgstr "Päivitetty"
+
+#: js/apps.js:233
+msgid "Uninstalling ...."
+msgstr "Poistetaan asennusta...."
+
+#: js/apps.js:236
+msgid "Error while uninstalling app"
+msgstr "Virhe sovellusta poistaessa"
+
+#: js/apps.js:237 templates/apps.php:56
+msgid "Uninstall"
+msgstr "Poista asennus"
 
 #: js/personal.js:256
 msgid "Select a profile picture"
@@ -282,48 +302,67 @@ msgstr "Poista salausavaimet pysyvästi."
 msgid "Restore encryption keys."
 msgstr "Palauta salausavaimet."
 
-#: js/users.js:47
-msgid "deleted"
-msgstr "poistettu"
+#: js/users/deleteHandler.js:166
+msgid "Unable to delete {objName}"
+msgstr "Kohteen {objName} poistaminen epäonnistui"
 
-#: js/users.js:47
+#: js/users/groups.js:73 js/users/groups.js:178
+msgid "Error creating group"
+msgstr "Virhe ryhmää luotaessa"
+
+#: js/users/groups.js:177
+msgid "A valid group name must be provided"
+msgstr "Anna kelvollinen ryhmän nimi"
+
+#: js/users/groups.js:205
+msgid "deleted {groupName}"
+msgstr "poistettu {groupName}"
+
+#: js/users/groups.js:206 js/users/users.js:265
 msgid "undo"
 msgstr "kumoa"
 
-#: js/users.js:79
-msgid "Unable to remove user"
-msgstr "Käyttäjän poistaminen ei onnistunut"
-
-#: js/users.js:101 templates/admin.php:280 templates/users.php:24
-#: templates/users.php:88 templates/users.php:116
+#: js/users/users.js:37 templates/admin.php:292
+#: templates/users/part.createuser.php:12 templates/users/part.userlist.php:10
+#: templates/users/part.userlist.php:41
 msgid "Groups"
 msgstr "Ryhmät"
 
-#: js/users.js:105 templates/users.php:90 templates/users.php:128
+#: js/users/users.js:41 templates/users/part.userlist.php:12
+#: templates/users/part.userlist.php:57
 msgid "Group Admin"
 msgstr "Ryhmän ylläpitäjä"
 
-#: js/users.js:127 templates/users.php:168
+#: js/users/users.js:63 templates/users/part.grouplist.php:46
+#: templates/users/part.userlist.php:108
 msgid "Delete"
 msgstr "Poista"
 
-#: js/users.js:310
+#: js/users/users.js:85 templates/users/part.userlist.php:98
+msgid "never"
+msgstr "ei koskaan"
+
+#: js/users/users.js:264
+msgid "deleted {userName}"
+msgstr "poistettu {userName}"
+
+#: js/users/users.js:381
 msgid "add group"
 msgstr "lisää ryhmä"
 
-#: js/users.js:486
+#: js/users/users.js:578
 msgid "A valid username must be provided"
 msgstr "Anna kelvollinen käyttäjätunnus"
 
-#: js/users.js:487 js/users.js:493 js/users.js:508
+#: js/users/users.js:579 js/users/users.js:585 js/users/users.js:600
 msgid "Error creating user"
 msgstr "Virhe käyttäjää luotaessa"
 
-#: js/users.js:492
+#: js/users/users.js:584
 msgid "A valid password must be provided"
 msgstr "Anna kelvollinen salasana"
 
-#: js/users.js:516
+#: js/users/users.js:608
 msgid "Warning: Home directory for user \"{user}\" already exists"
 msgstr "Varoitus: käyttäjällä \"{user}\" on jo olemassa kotikansio"
 
@@ -393,9 +432,9 @@ msgid ""
 "configure your webserver in a way that the data directory is no longer "
 "accessible or you move the data directory outside the webserver document "
 "root."
-msgstr ""
+msgstr "Datahakemistosi ja kaikki tiedostosi ovat luultavasti käytettävissä suoraan internetistä. .htaccess-tiedosto ei toimi tällä hetkellä. Määritä verkkopalvelimen asetukset siten, ettei datahakemistosi ole suoraan käytettävissä tai siirrä kyseinen hakemisto pois verkkopalvelimen dokumenttijuuresta."
 
-#: templates/admin.php:75
+#: templates/admin.php:75 templates/admin.php:90
 msgid "Setup Warning"
 msgstr "Asetusvaroitus"
 
@@ -410,257 +449,264 @@ msgstr "Web-palvelimen asetukset eivät ole kelvolliset tiedostojen synkronointi
 msgid "Please double check the <a href=\"%s\">installation guides</a>."
 msgstr "Lue <a href=\"%s\">asennusohjeet</a> tarkasti."
 
-#: templates/admin.php:90
+#: templates/admin.php:93
+msgid ""
+"PHP is apparently setup to strip inline doc blocks. This will make several "
+"core apps inaccessible."
+msgstr ""
+
+#: templates/admin.php:94
+msgid ""
+"This is probably caused by a cache/accelerator such as Zend OPcache or "
+"eAccelerator."
+msgstr ""
+
+#: templates/admin.php:105
+msgid "Database Performance Info"
+msgstr "Tietokannan suorituskyvyn tiedot"
+
+#: templates/admin.php:108
+msgid ""
+"SQLite is used as database. For larger installations we recommend to change "
+"this. To migrate to another database use the command line tool: 'occ db"
+":convert-type'"
+msgstr "SQLitea käytetään tietokantana. Laajoja asennuksia varten tämä asetus kannattaa muuttaa. Käytä komentorivityökalua 'occ db:convert-type' siirtyäksesi toiseen tietokantaan."
+
+#: templates/admin.php:119
 msgid "Module 'fileinfo' missing"
 msgstr "Moduuli 'fileinfo' puuttuu"
 
-#: templates/admin.php:93
+#: templates/admin.php:122
 msgid ""
 "The PHP module 'fileinfo' is missing. We strongly recommend to enable this "
 "module to get best results with mime-type detection."
 msgstr "PHP-moduuli \"fileinfo\" puuttuu. Sen käyttö on erittäin suositeltavaa, jotta MIME-tyypin havaitseminen onnistuu parhaalla mahdollisella tavalla."
 
-#: templates/admin.php:104
+#: templates/admin.php:133
 msgid "Your PHP version is outdated"
 msgstr "Käytössä oleva PHP-versio on vanhentunut"
 
-#: templates/admin.php:107
+#: templates/admin.php:136
 msgid ""
 "Your PHP version is outdated. We strongly recommend to update to 5.3.8 or "
 "newer because older versions are known to be broken. It is possible that "
 "this installation is not working correctly."
 msgstr "Käytössä oleva PHP on vanhentunut. Päivitä versioon 5.3.8 tai uudempaan, koska aiemmat versiot eivät ole toimivia. On mahdollista, että tämä ownCloud-asennus ei toimi kunnolla."
 
-#: templates/admin.php:118
+#: templates/admin.php:147
 msgid "Locale not working"
 msgstr "Maa-asetus ei toimi"
 
-#: templates/admin.php:123
+#: templates/admin.php:152
 msgid "System locale can not be set to a one which supports UTF-8."
 msgstr "Järjestelmän maa-asetusta ei voi asettaa UTF-8:aa tukevaksi."
 
-#: templates/admin.php:127
+#: templates/admin.php:156
 msgid ""
 "This means that there might be problems with certain characters in file "
 "names."
 msgstr "Tämä tarkoittaa, että tiettyjen merkkien kanssa tiedostojen nimissä saattaa olla ongelmia."
 
-#: templates/admin.php:131
+#: templates/admin.php:160
 #, php-format
 msgid ""
 "We strongly suggest to install the required packages on your system to "
 "support one of the following locales: %s."
 msgstr "Suosittelemme vahvasti asentamaan vaaditut paketit järjestelmään, jotta jotain seuraavista maa-asetuksista on mahdollista tukea: %s."
 
-#: templates/admin.php:143
+#: templates/admin.php:172
 msgid "Internet connection not working"
 msgstr "Internet-yhteys ei toimi"
 
-#: templates/admin.php:146
+#: templates/admin.php:175
 msgid ""
 "This server has no working internet connection. This means that some of the "
 "features like mounting of external storage, notifications about updates or "
 "installation of 3rd party apps don´t work. Accessing files from remote and "
 "sending of notification emails might also not work. We suggest to enable "
 "internet connection for this server if you want to have all features."
-msgstr ""
+msgstr "Tällä palvelimella ei ole toimivaa internetyhteyttä. Sen seurauksena jotkin ominaisuudet, kuten erillisten tallennustilojen liittäminen, ilmoitukset päivityksistä tai kolmansien osapuolten sovellusten asentaminen eivät toimi. Tiedostojen käyttäminen etäältä ja ilmoitusten lähettäminen sähköpostitse eivät myöskään välttämättä toimi. Jos haluat käyttää kaikkia palvelimen ominaisuuksia, kytke palvelin internetiin."
 
-#: templates/admin.php:160
+#: templates/admin.php:189
 msgid "Cron"
 msgstr "Cron"
 
-#: templates/admin.php:167
+#: templates/admin.php:196
 #, php-format
 msgid "Last cron was executed at %s."
 msgstr "Viimeisin cron suoritettiin %s."
 
-#: templates/admin.php:170
+#: templates/admin.php:199
 #, php-format
 msgid ""
 "Last cron was executed at %s. This is more than an hour ago, something seems"
 " wrong."
 msgstr "Viimeisin cron suoritettiin %s. Siitä on yli tunti aikaa, joten jokin näyttää olevan pielessä."
 
-#: templates/admin.php:174
+#: templates/admin.php:203
 msgid "Cron was not executed yet!"
 msgstr "Cronia ei suoritettu vielä!"
 
-#: templates/admin.php:184
+#: templates/admin.php:213
 msgid "Execute one task with each page loaded"
-msgstr ""
+msgstr "Suorita yksi tehtävä jokaista ladattua sivua kohden"
 
-#: templates/admin.php:192
+#: templates/admin.php:221
 msgid ""
 "cron.php is registered at a webcron service to call cron.php every 15 "
 "minutes over http."
-msgstr ""
+msgstr "cron.php kutsuu webcron-palvelun kautta cron.php:ta  15 minuutin välein http:tä käyttäen."
 
-#: templates/admin.php:200
-msgid "Use systems cron service to call the cron.php file every 15 minutes."
-msgstr "Käytä järjestelmän cron-palvelua cron.php-tiedoston kutsumiseen 15 minuutin välein"
+#: templates/admin.php:229
+msgid "Use system's cron service to call the cron.php file every 15 minutes."
+msgstr "Käytä järjestelmän cron-palvelua cron.php-tiedoston kutsumista varten 15 minuutin välein."
 
-#: templates/admin.php:205
+#: templates/admin.php:234
 msgid "Sharing"
 msgstr "Jakaminen"
 
-#: templates/admin.php:211
-msgid "Enable Share API"
-msgstr "Käytä jakamisen ohjelmointirajapintaa"
-
-#: templates/admin.php:212
+#: templates/admin.php:238
 msgid "Allow apps to use the Share API"
 msgstr "Salli sovellusten käyttää jakamisen ohjelmointirajapintaa"
 
-#: templates/admin.php:219
-msgid "Allow links"
-msgstr "Salli linkit"
+#: templates/admin.php:243
+msgid "Allow users to share via link"
+msgstr "Salli käyttäjien jakaa linkkien kautta"
 
-#: templates/admin.php:223
+#: templates/admin.php:249
 msgid "Enforce password protection"
 msgstr ""
 
-#: templates/admin.php:226
+#: templates/admin.php:252
 msgid "Allow public uploads"
 msgstr "Salli julkiset lähetykset"
 
-#: templates/admin.php:230
+#: templates/admin.php:256
 msgid "Set default expiration date"
 msgstr "Aseta oletusvanhenemispäivä"
 
-#: templates/admin.php:232
+#: templates/admin.php:260
 msgid "Expire after "
 msgstr "Vanhenna"
 
-#: templates/admin.php:235
+#: templates/admin.php:263
 msgid "days"
 msgstr "päivän jälkeen"
 
-#: templates/admin.php:238
+#: templates/admin.php:266
 msgid "Enforce expiration date"
 msgstr "Pakota vanhenemispäivä"
 
-#: templates/admin.php:242
-msgid "Allow users to share items to the public with links"
-msgstr "Salli käyttäjien jakaa kohteita käyttäen linkkejä"
-
-#: templates/admin.php:249
+#: templates/admin.php:271
 msgid "Allow resharing"
 msgstr "Salli uudelleenjakaminen"
 
-#: templates/admin.php:250
-msgid "Allow users to share items shared with them again"
-msgstr "Mahdollistaa käyttäjien jakavan uudelleen heidän kanssaan jaettuja kohteita"
+#: templates/admin.php:276
+msgid "Restrict users to only share with users in their groups"
+msgstr "Salli käyttäjien jakaa vain omassa ryhmässä olevien henkilöiden kesken"
 
-#: templates/admin.php:257
-msgid "Allow users to share with anyone"
-msgstr "Salli käyttäjien jakaa kenen tahansa kanssa"
-
-#: templates/admin.php:260
-msgid "Allow users to only share with users in their groups"
-msgstr "Salli jakaminen vain samoissa ryhmissä olevien käyttäjien kesken"
-
-#: templates/admin.php:267
-msgid "Allow mail notification"
-msgstr "Salli sähköposti-ilmoitukset"
-
-#: templates/admin.php:268
+#: templates/admin.php:281
 msgid "Allow users to send mail notification for shared files"
 msgstr "Salli käyttäjien lähettää sähköposti-ilmoituksia jaetuista tiedostoista"
 
-#: templates/admin.php:275
-msgid "Exclude groups from sharing"
-msgstr ""
-
 #: templates/admin.php:286
+msgid "Exclude groups from sharing"
+msgstr "Kiellä ryhmiä jakamasta"
+
+#: templates/admin.php:298
 msgid ""
 "These groups will still be able to receive shares, but not to initiate them."
-msgstr ""
+msgstr "Nämä ryhmät kykenevät vastaanottamaan jakoja, mutta eivät kuitenkaan itse pysty luoda jakoja."
 
-#: templates/admin.php:293
+#: templates/admin.php:303
 msgid "Security"
 msgstr "Tietoturva"
 
-#: templates/admin.php:306
+#: templates/admin.php:314
 msgid "Enforce HTTPS"
 msgstr "Pakota HTTPS"
 
-#: templates/admin.php:308
+#: templates/admin.php:316
 #, php-format
 msgid "Forces the clients to connect to %s via an encrypted connection."
 msgstr "Pakottaa asiakasohjelmistot ottamaan yhteyden %siin salatun yhteyden kautta."
 
-#: templates/admin.php:314
+#: templates/admin.php:322
 #, php-format
 msgid ""
 "Please connect to your %s via HTTPS to enable or disable the SSL "
 "enforcement."
 msgstr "Yhdistä %siin HTTPS-yhteydellä ottaaksesi käyttöön tai poistaaksesi käytöstä SSL-pakotteen."
 
-#: templates/admin.php:326
+#: templates/admin.php:332
 msgid "Email Server"
 msgstr "Sähköpostipalvelin"
 
-#: templates/admin.php:328
+#: templates/admin.php:334
 msgid "This is used for sending out notifications."
 msgstr "Tätä käytetään ilmoitusten lähettämiseen."
 
-#: templates/admin.php:359
+#: templates/admin.php:365
 msgid "From address"
 msgstr "Lähettäjän osoite"
 
-#: templates/admin.php:381
+#: templates/admin.php:366
+msgid "mail"
+msgstr ""
+
+#: templates/admin.php:387
 msgid "Authentication required"
 msgstr "Tunnistautuminen vaaditaan"
 
-#: templates/admin.php:385
+#: templates/admin.php:391
 msgid "Server address"
 msgstr "Palvelimen osoite"
 
-#: templates/admin.php:389
+#: templates/admin.php:395
 msgid "Port"
 msgstr "Portti"
 
-#: templates/admin.php:394
+#: templates/admin.php:400
 msgid "Credentials"
 msgstr "Tilitiedot"
 
-#: templates/admin.php:395
+#: templates/admin.php:401
 msgid "SMTP Username"
 msgstr "SMTP-käyttäjätunnus"
 
-#: templates/admin.php:398
+#: templates/admin.php:404
 msgid "SMTP Password"
 msgstr "SMTP-salasana"
 
-#: templates/admin.php:402
+#: templates/admin.php:408
 msgid "Test email settings"
 msgstr "Testaa sähköpostiasetukset"
 
-#: templates/admin.php:403
+#: templates/admin.php:409
 msgid "Send email"
 msgstr "Lähetä sähköpostiviesti"
 
-#: templates/admin.php:408
+#: templates/admin.php:414
 msgid "Log"
 msgstr "Loki"
 
-#: templates/admin.php:409
+#: templates/admin.php:415
 msgid "Log level"
 msgstr "Lokitaso"
 
-#: templates/admin.php:441
+#: templates/admin.php:447
 msgid "More"
 msgstr "Enemmän"
 
-#: templates/admin.php:442
+#: templates/admin.php:448
 msgid "Less"
 msgstr "Vähemmän"
 
-#: templates/admin.php:448 templates/personal.php:196
+#: templates/admin.php:454 templates/personal.php:208
 msgid "Version"
 msgstr "Versio"
 
-#: templates/admin.php:452 templates/personal.php:199
+#: templates/admin.php:458 templates/personal.php:211
 msgid ""
 "Developed by the <a href=\"http://ownCloud.org/contact\" "
 "target=\"_blank\">ownCloud community</a>, the <a "
@@ -698,23 +744,31 @@ msgstr "Lue lisää sovelluksen sivustolta"
 msgid "<span class=\"licence\"></span>-licensed by <span class=\"author\"></span>"
 msgstr "<span class=\"licence\"></span>-lisensoija <span class=\"author\"></span>"
 
-#: templates/help.php:6
+#: templates/apps.php:59
+msgid "Enable only for specific groups"
+msgstr "Salli vain tietyille ryhmille"
+
+#: templates/apps.php:61
+msgid "All"
+msgstr "Kaikki"
+
+#: templates/help.php:13
 msgid "Administrator Documentation"
 msgstr "Ylläpito-ohjeistus"
 
-#: templates/help.php:9
+#: templates/help.php:20
 msgid "Online Documentation"
 msgstr "Verkko-ohjeistus"
 
-#: templates/help.php:11
+#: templates/help.php:25
 msgid "Forum"
 msgstr "Keskustelupalsta"
 
-#: templates/help.php:14
+#: templates/help.php:33
 msgid "Bugtracker"
 msgstr "Ohjelmistovirheiden jäljitys"
 
-#: templates/help.php:17
+#: templates/help.php:40
 msgid "Commercial Support"
 msgstr "Kaupallinen tuki"
 
@@ -722,174 +776,214 @@ msgstr "Kaupallinen tuki"
 msgid "Get the apps to sync your files"
 msgstr "Aseta sovellukset synkronoimaan tiedostosi"
 
-#: templates/personal.php:19
+#: templates/personal.php:21
+msgid ""
+"If you want to support the project\n"
+"\t\t<a href=\"https://owncloud.org/contribute\"\n"
+"\t\t\ttarget=\"_blank\">join development</a>\n"
+"\t\tor\n"
+"\t\t<a href=\"https://owncloud.org/promote\"\n"
+"\t\t\ttarget=\"_blank\">spread the word</a>!"
+msgstr "Jos haluat tukea projektia,\n\t\t<a href=\"https://owncloud.org/contribute\"\n\t\t\ttarget=\"_blank\">osallistu kehitykseen</a>\n\t\ttai\n\t\t<a href=\"https://owncloud.org/promote\"\n\t\t\ttarget=\"_blank\">levitä sanaa</a>!"
+
+#: templates/personal.php:31
 msgid "Show First Run Wizard again"
 msgstr "Näytä ensimmäisen käyttökerran avustaja uudelleen"
 
-#: templates/personal.php:27
+#: templates/personal.php:39
 #, php-format
 msgid "You have used <strong>%s</strong> of the available <strong>%s</strong>"
 msgstr "Käytössäsi on <strong>%s</strong>/<strong>%s</strong>"
 
-#: templates/personal.php:38 templates/users.php:21 templates/users.php:87
+#: templates/personal.php:50 templates/users/part.createuser.php:8
+#: templates/users/part.userlist.php:9
 msgid "Password"
 msgstr "Salasana"
 
-#: templates/personal.php:39
+#: templates/personal.php:51
 msgid "Your password was changed"
 msgstr "Salasanasi vaihdettiin"
 
-#: templates/personal.php:40
+#: templates/personal.php:52
 msgid "Unable to change your password"
 msgstr "Salasanaasi ei voitu vaihtaa"
 
-#: templates/personal.php:42
+#: templates/personal.php:54
 msgid "Current password"
 msgstr "Nykyinen salasana"
 
-#: templates/personal.php:45
+#: templates/personal.php:57
 msgid "New password"
 msgstr "Uusi salasana"
 
-#: templates/personal.php:49
+#: templates/personal.php:61
 msgid "Change password"
 msgstr "Vaihda salasana"
 
-#: templates/personal.php:61 templates/users.php:86
+#: templates/personal.php:73 templates/users/part.userlist.php:8
 msgid "Full Name"
 msgstr "Koko nimi"
 
-#: templates/personal.php:76
+#: templates/personal.php:88
 msgid "Email"
 msgstr "Sähköpostiosoite"
 
-#: templates/personal.php:78
+#: templates/personal.php:90
 msgid "Your email address"
 msgstr "Sähköpostiosoitteesi"
 
-#: templates/personal.php:81
+#: templates/personal.php:93
 msgid ""
 "Fill in an email address to enable password recovery and receive "
 "notifications"
 msgstr "Anna sähköpostiosoitteesi, jotta unohdettu salasana on mahdollista palauttaa ja voit vastaanottaa ilmoituksia"
 
-#: templates/personal.php:89
+#: templates/personal.php:101
 msgid "Profile picture"
 msgstr "Profiilikuva"
 
-#: templates/personal.php:94
+#: templates/personal.php:106
 msgid "Upload new"
 msgstr "Lähetä uusi"
 
-#: templates/personal.php:96
+#: templates/personal.php:108
 msgid "Select new from Files"
 msgstr "Valitse uusi tiedostoista"
 
-#: templates/personal.php:97
+#: templates/personal.php:109
 msgid "Remove image"
 msgstr "Poista kuva"
 
-#: templates/personal.php:98
+#: templates/personal.php:110
 msgid "Either png or jpg. Ideally square but you will be able to crop it."
-msgstr "Joko png- tai jpg-kuva. Mieluite neliö, voit kuitenkin rajata kuvaa."
+msgstr "Joko png- tai jpg-kuva. Mieluiten neliö, voit kuitenkin rajata kuvaa."
 
-#: templates/personal.php:100
+#: templates/personal.php:112
 msgid "Your avatar is provided by your original account."
 msgstr "Avatar-kuvasi pohjautuu alkuperäiseen tiliisi."
 
-#: templates/personal.php:104
+#: templates/personal.php:116
 msgid "Cancel"
 msgstr "Peru"
 
-#: templates/personal.php:105
+#: templates/personal.php:117
 msgid "Choose as profile image"
 msgstr "Valitse profiilikuvaksi"
 
-#: templates/personal.php:111 templates/personal.php:112
+#: templates/personal.php:123 templates/personal.php:124
 msgid "Language"
 msgstr "Kieli"
 
-#: templates/personal.php:131
+#: templates/personal.php:143
 msgid "Help translate"
 msgstr "Auta kääntämisessä"
 
-#: templates/personal.php:150
+#: templates/personal.php:162
 msgid "The encryption app is no longer enabled, please decrypt all your files"
 msgstr "Salaussovellus ei ole enää käytössä, joten pura kaikkien tiedostojesi salaus"
 
-#: templates/personal.php:156
+#: templates/personal.php:168
 msgid "Log-in password"
 msgstr "Kirjautumissalasana"
 
-#: templates/personal.php:161
+#: templates/personal.php:173
 msgid "Decrypt all Files"
 msgstr "Pura kaikkien tiedostojen salaus"
 
-#: templates/personal.php:174
+#: templates/personal.php:186
 msgid ""
 "Your encryption keys are moved to a backup location. If something went wrong"
 " you can restore the keys. Only delete them permanently if you are sure that"
 " all files are decrypted correctly."
 msgstr ""
 
-#: templates/personal.php:178
+#: templates/personal.php:190
 msgid "Restore Encryption Keys"
 msgstr "Palauta salausavaimet"
 
-#: templates/personal.php:182
+#: templates/personal.php:194
 msgid "Delete Encryption Keys"
 msgstr "Poista salausavaimet"
 
-#: templates/users.php:19
+#: templates/users/part.createuser.php:4
 msgid "Login Name"
 msgstr "Kirjautumisnimi"
 
-#: templates/users.php:28
+#: templates/users/part.createuser.php:20
 msgid "Create"
 msgstr "Luo"
 
-#: templates/users.php:34
+#: templates/users/part.createuser.php:26
 msgid "Admin Recovery Password"
-msgstr ""
+msgstr "Ylläpitäjän palautussalasana"
 
-#: templates/users.php:35 templates/users.php:36
+#: templates/users/part.createuser.php:27
+#: templates/users/part.createuser.php:28
 msgid ""
 "Enter the recovery password in order to recover the users files during "
 "password change"
 msgstr ""
 
-#: templates/users.php:40
-msgid "Default Storage"
-msgstr "Oletustallennustila"
+#: templates/users/part.createuser.php:32
+msgid "Search Users and Groups"
+msgstr "Etsi käyttäjiä ja ryhmiä"
 
-#: templates/users.php:42 templates/users.php:137
+#: templates/users/part.grouplist.php:5
+msgid "Add Group"
+msgstr "Lisää ryhmä"
+
+#: templates/users/part.grouplist.php:10
+msgid "Group"
+msgstr "Ryhmä"
+
+#: templates/users/part.grouplist.php:18
+msgid "Everyone"
+msgstr "Kaikki"
+
+#: templates/users/part.grouplist.php:31
+msgid "Admins"
+msgstr "Ylläpitäjät"
+
+#: templates/users/part.setquota.php:7
+msgid "Default Quota"
+msgstr "Oletuskiintiö"
+
+#: templates/users/part.setquota.php:9 templates/users/part.userlist.php:66
 msgid "Please enter storage quota (ex: \"512 MB\" or \"12 GB\")"
 msgstr "Määritä tallennustilan kiintiö (esim. \"512 MB\" tai \"12 GB\")"
 
-#: templates/users.php:46 templates/users.php:146
+#: templates/users/part.setquota.php:11 templates/users/part.userlist.php:75
 msgid "Unlimited"
 msgstr "Rajoittamaton"
 
-#: templates/users.php:64 templates/users.php:161
+#: templates/users/part.setquota.php:26 templates/users/part.userlist.php:90
 msgid "Other"
 msgstr "Muu"
 
-#: templates/users.php:85
+#: templates/users/part.userlist.php:7
 msgid "Username"
 msgstr "Käyttäjätunnus"
 
-#: templates/users.php:92
-msgid "Storage"
-msgstr "Tallennustila"
+#: templates/users/part.userlist.php:14
+msgid "Quota"
+msgstr "Kiintiö"
 
-#: templates/users.php:106
+#: templates/users/part.userlist.php:15
+msgid "Storage Location"
+msgstr "Tallennustilan sijainti"
+
+#: templates/users/part.userlist.php:16
+msgid "Last Login"
+msgstr "Viimeisin kirjautuminen"
+
+#: templates/users/part.userlist.php:30
 msgid "change full name"
 msgstr "muuta koko nimi"
 
-#: templates/users.php:110
+#: templates/users/part.userlist.php:34
 msgid "set new password"
 msgstr "aseta uusi salasana"
 
-#: templates/users.php:141
+#: templates/users/part.userlist.php:70
 msgid "Default"
 msgstr "Oletus"

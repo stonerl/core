@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# សុវិចិត្រ Sovichet ទេព Tep, 2014
+# Sovichet Tep, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-05-17 01:54-0400\n"
-"PO-Revision-Date: 2014-05-17 05:54+0000\n"
+"POT-Creation-Date: 2014-08-10 01:54-0400\n"
+"PO-Revision-Date: 2014-08-10 05:54+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: Khmer (http://www.transifex.com/projects/p/owncloud/language/km/)\n"
 "MIME-Version: 1.0\n"
@@ -18,11 +18,7 @@ msgstr ""
 "Language: km\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ajax/share.php:87
-msgid "Expiration date is in the past."
-msgstr ""
-
-#: ajax/share.php:119 ajax/share.php:161
+#: ajax/share.php:116 ajax/share.php:158
 #, php-format
 msgid "Couldn't send mail to following users: %s "
 msgstr ""
@@ -39,478 +35,533 @@ msgstr ""
 msgid "Updated database"
 msgstr ""
 
-#: avatar/controller.php:62
+#: ajax/update.php:19
+msgid "Checked database schema update"
+msgstr ""
+
+#: ajax/update.php:27
+#, php-format
+msgid "Disabled incompatible apps: %s"
+msgstr ""
+
+#: avatar/controller.php:69
 msgid "No image or file provided"
 msgstr ""
 
-#: avatar/controller.php:81
+#: avatar/controller.php:86
 msgid "Unknown filetype"
 msgstr "មិន​ស្គាល់​ប្រភេទ​ឯកសារ"
 
-#: avatar/controller.php:85
+#: avatar/controller.php:90
 msgid "Invalid image"
 msgstr "រូបភាព​មិន​ត្រឹម​ត្រូវ"
 
-#: avatar/controller.php:115 avatar/controller.php:142
+#: avatar/controller.php:120 avatar/controller.php:147
 msgid "No temporary profile picture available, try again"
 msgstr ""
 
-#: avatar/controller.php:135
+#: avatar/controller.php:140
 msgid "No crop data provided"
 msgstr ""
 
-#: js/config.php:43
+#: js/config.php:45
 msgid "Sunday"
 msgstr "ថ្ងៃអាទិត្យ"
 
-#: js/config.php:44
+#: js/config.php:46
 msgid "Monday"
 msgstr "ថ្ងៃចន្ទ"
 
-#: js/config.php:45
+#: js/config.php:47
 msgid "Tuesday"
 msgstr "ថ្ងៃអង្គារ"
 
-#: js/config.php:46
+#: js/config.php:48
 msgid "Wednesday"
 msgstr "ថ្ងៃពុធ"
 
-#: js/config.php:47
+#: js/config.php:49
 msgid "Thursday"
 msgstr "ថ្ងៃព្រហស្បតិ៍"
 
-#: js/config.php:48
+#: js/config.php:50
 msgid "Friday"
 msgstr "ថ្ងៃសុក្រ"
 
-#: js/config.php:49
+#: js/config.php:51
 msgid "Saturday"
 msgstr "ថ្ងៃសៅរ៍"
 
-#: js/config.php:54
+#: js/config.php:56
 msgid "January"
 msgstr "ខែមករា"
 
-#: js/config.php:55
+#: js/config.php:57
 msgid "February"
 msgstr "ខែកុម្ភៈ"
 
-#: js/config.php:56
+#: js/config.php:58
 msgid "March"
 msgstr "ខែមីនា"
 
-#: js/config.php:57
+#: js/config.php:59
 msgid "April"
 msgstr "ខែមេសា"
 
-#: js/config.php:58
+#: js/config.php:60
 msgid "May"
 msgstr "ខែឧសភា"
 
-#: js/config.php:59
+#: js/config.php:61
 msgid "June"
 msgstr "ខែមិថុនា"
 
-#: js/config.php:60
+#: js/config.php:62
 msgid "July"
 msgstr "ខែកក្កដា"
 
-#: js/config.php:61
+#: js/config.php:63
 msgid "August"
 msgstr "ខែសីហា"
 
-#: js/config.php:62
+#: js/config.php:64
 msgid "September"
 msgstr "ខែកញ្ញា"
 
-#: js/config.php:63
+#: js/config.php:65
 msgid "October"
 msgstr "ខែតុលា"
 
-#: js/config.php:64
+#: js/config.php:66
 msgid "November"
 msgstr "ខែវិច្ឆិកា"
 
-#: js/config.php:65
+#: js/config.php:67
 msgid "December"
 msgstr "ខែធ្នូ"
 
-#: js/js.js:483
+#: js/js.js:501
 msgid "Settings"
 msgstr "ការកំណត់"
 
-#: js/js.js:583
+#: js/js.js:590
+msgid "File"
+msgstr ""
+
+#: js/js.js:591
+msgid "Folder"
+msgstr "ថត"
+
+#: js/js.js:592
+msgid "Image"
+msgstr ""
+
+#: js/js.js:593
+msgid "Audio"
+msgstr ""
+
+#: js/js.js:607
 msgid "Saving..."
 msgstr "កំពុង​រក្សាទុក"
 
-#: js/js.js:1240
+#: js/js.js:1278
 msgid "seconds ago"
 msgstr "វិនាទី​មុន"
 
-#: js/js.js:1241
+#: js/js.js:1279
 msgid "%n minute ago"
 msgid_plural "%n minutes ago"
 msgstr[0] "%n នាទី​មុន"
 
-#: js/js.js:1242
+#: js/js.js:1280
 msgid "%n hour ago"
 msgid_plural "%n hours ago"
 msgstr[0] "%n ម៉ោង​មុន"
 
-#: js/js.js:1243
+#: js/js.js:1281
 msgid "today"
 msgstr "ថ្ងៃនេះ"
 
-#: js/js.js:1244
+#: js/js.js:1282
 msgid "yesterday"
 msgstr "ម្សិលមិញ"
 
-#: js/js.js:1245
+#: js/js.js:1283
 msgid "%n day ago"
 msgid_plural "%n days ago"
 msgstr[0] "%n ថ្ងៃ​មុន"
 
-#: js/js.js:1246
+#: js/js.js:1284
 msgid "last month"
 msgstr "ខែមុន"
 
-#: js/js.js:1247
+#: js/js.js:1285
 msgid "%n month ago"
 msgid_plural "%n months ago"
 msgstr[0] "%n ខែ​មុន"
 
-#: js/js.js:1248
+#: js/js.js:1286
 msgid "last year"
 msgstr "ឆ្នាំ​មុន"
 
-#: js/js.js:1249
+#: js/js.js:1287
 msgid "years ago"
 msgstr "ឆ្នាំ​មុន"
 
-#: js/oc-dialogs.js:95 js/oc-dialogs.js:236
-msgid "Yes"
-msgstr "ព្រម"
+#: js/lostpassword.js:3 lostpassword/controller/lostcontroller.php:198
+msgid "Couldn't send reset email. Please contact your administrator."
+msgstr ""
 
-#: js/oc-dialogs.js:105 js/oc-dialogs.js:246
+#: js/lostpassword.js:5
+msgid ""
+"The link to reset your password has been sent to your email. If you do not "
+"receive it within a reasonable amount of time, check your spam/junk "
+"folders.<br>If it is not there ask your local administrator."
+msgstr ""
+
+#: js/lostpassword.js:7
+msgid ""
+"Your files are encrypted. If you haven't enabled the recovery key, there "
+"will be no way to get your data back after your password is reset.<br />If "
+"you are not sure what to do, please contact your administrator before you "
+"continue. <br />Do you really want to continue?"
+msgstr ""
+
+#: js/lostpassword.js:10
+msgid "I know what I'm doing"
+msgstr ""
+
+#: js/lostpassword.js:13 lostpassword/templates/resetpassword.php:9
+msgid "Reset password"
+msgstr "កំណត់​ពាក្យ​សម្ងាត់​ម្ដង​ទៀត"
+
+#: js/lostpassword.js:16
+msgid "Password can not be changed. Please contact your administrator."
+msgstr ""
+
+#: js/oc-dialogs.js:108 js/oc-dialogs.js:255
 msgid "No"
 msgstr "ទេ"
 
-#: js/oc-dialogs.js:184
+#: js/oc-dialogs.js:116 js/oc-dialogs.js:264
+msgid "Yes"
+msgstr "ព្រម"
+
+#: js/oc-dialogs.js:202
 msgid "Choose"
 msgstr "ជ្រើស"
 
-#: js/oc-dialogs.js:210
+#: js/oc-dialogs.js:229
 msgid "Error loading file picker template: {error}"
 msgstr ""
 
-#: js/oc-dialogs.js:263
+#: js/oc-dialogs.js:282
 msgid "Ok"
 msgstr "ព្រម"
 
-#: js/oc-dialogs.js:283
+#: js/oc-dialogs.js:302
 msgid "Error loading message template: {error}"
 msgstr ""
 
-#: js/oc-dialogs.js:411
+#: js/oc-dialogs.js:430
 msgid "{count} file conflict"
 msgid_plural "{count} file conflicts"
 msgstr[0] ""
 
-#: js/oc-dialogs.js:425
+#: js/oc-dialogs.js:444
 msgid "One file conflict"
 msgstr ""
 
-#: js/oc-dialogs.js:431
+#: js/oc-dialogs.js:450
 msgid "New Files"
 msgstr "ឯកសារ​ថ្មី"
 
-#: js/oc-dialogs.js:432
+#: js/oc-dialogs.js:451
 msgid "Already existing files"
 msgstr "មាន​ឯកសារ​នេះ​រួច​ហើយ"
 
-#: js/oc-dialogs.js:434
+#: js/oc-dialogs.js:453
 msgid "Which files do you want to keep?"
 msgstr ""
 
-#: js/oc-dialogs.js:435
+#: js/oc-dialogs.js:454
 msgid ""
 "If you select both versions, the copied file will have a number added to its"
 " name."
 msgstr ""
 
-#: js/oc-dialogs.js:443
+#: js/oc-dialogs.js:462
 msgid "Cancel"
 msgstr "លើកលែង"
 
-#: js/oc-dialogs.js:453
+#: js/oc-dialogs.js:472
 msgid "Continue"
 msgstr "បន្ត"
 
-#: js/oc-dialogs.js:500 js/oc-dialogs.js:513
+#: js/oc-dialogs.js:519 js/oc-dialogs.js:532
 msgid "(all selected)"
 msgstr "(បាន​ជ្រើស​ទាំង​អស់)"
 
-#: js/oc-dialogs.js:503 js/oc-dialogs.js:517
+#: js/oc-dialogs.js:522 js/oc-dialogs.js:536
 msgid "({count} selected)"
 msgstr "(បាន​ជ្រើស {count})"
 
-#: js/oc-dialogs.js:525
+#: js/oc-dialogs.js:544
 msgid "Error loading file exists template"
 msgstr ""
 
-#: js/setup.js:84
+#: js/setup.js:96
 msgid "Very weak password"
 msgstr "ពាក្យ​សម្ងាត់​ខ្សោយ​ណាស់"
 
-#: js/setup.js:85
+#: js/setup.js:97
 msgid "Weak password"
 msgstr "ពាក្យ​សម្ងាត់​ខ្សោយ"
 
-#: js/setup.js:86
+#: js/setup.js:98
 msgid "So-so password"
 msgstr "ពាក្យ​សម្ងាត់​ធម្មតា"
 
-#: js/setup.js:87
+#: js/setup.js:99
 msgid "Good password"
 msgstr "ពាក្យ​សម្ងាត់​ល្អ"
 
-#: js/setup.js:88
+#: js/setup.js:100
 msgid "Strong password"
 msgstr "ពាក្យ​សម្ងាត់​ខ្លាំង"
 
-#: js/share.js:51 js/share.js:66 js/share.js:106
+#: js/share.js:129 js/share.js:251
 msgid "Shared"
 msgstr "បាន​ចែក​រំលែក"
 
-#: js/share.js:109
+#: js/share.js:257
+msgid "Shared with {recipients}"
+msgstr ""
+
+#: js/share.js:266
 msgid "Share"
 msgstr "ចែក​រំលែក"
 
-#: js/share.js:158 js/share.js:171 js/share.js:178 js/share.js:761
+#: js/share.js:326 js/share.js:340 js/share.js:347 js/share.js:1007
 #: templates/installation.php:10
 msgid "Error"
 msgstr "កំហុស"
 
-#: js/share.js:160 js/share.js:824
+#: js/share.js:328 js/share.js:1070
 msgid "Error while sharing"
 msgstr "កំហុស​ពេល​ចែក​រំលែក"
 
-#: js/share.js:171
+#: js/share.js:340
 msgid "Error while unsharing"
 msgstr "កំពុង​ពេល​លែង​ចែក​រំលែក"
 
-#: js/share.js:178
+#: js/share.js:347
 msgid "Error while changing permissions"
 msgstr "មាន​កំហុស​នៅ​ពេល​ប្ដូរ​សិទ្ធិ"
 
-#: js/share.js:188
+#: js/share.js:357
 msgid "Shared with you and the group {group} by {owner}"
 msgstr "បាន​ចែក​រំលែក​ជាមួយ​អ្នក និង​ក្រុម {group} ដោយ {owner}"
 
-#: js/share.js:190
+#: js/share.js:359
 msgid "Shared with you by {owner}"
 msgstr "បាន​ចែក​រំលែក​ជាមួយ​អ្នក​ដោយ {owner}"
 
-#: js/share.js:214
+#: js/share.js:383
 msgid "Share with user or group …"
 msgstr ""
 
-#: js/share.js:220
+#: js/share.js:389
 msgid "Share link"
 msgstr ""
 
-#: js/share.js:226
+#: js/share.js:394
 msgid ""
 "The public link will expire no later than {days} days after it is created"
 msgstr ""
 
-#: js/share.js:228
-msgid "By default the public link will expire after {days} days"
-msgstr ""
-
-#: js/share.js:233
+#: js/share.js:398
 msgid "Password protect"
 msgstr "ការ​ពារ​ដោយ​ពាក្យ​សម្ងាត់"
 
-#: js/share.js:235
+#: js/share.js:400
 msgid "Choose a password for the public link"
 msgstr ""
 
-#: js/share.js:241
+#: js/share.js:406
 msgid "Allow Public Upload"
 msgstr "អនុញ្ញាត​ការ​ផ្ទុកឡើង​ជា​សាធារណៈ"
 
-#: js/share.js:245
+#: js/share.js:410
 msgid "Email link to person"
 msgstr ""
 
-#: js/share.js:246
+#: js/share.js:411
 msgid "Send"
 msgstr "ផ្ញើ"
 
-#: js/share.js:251
+#: js/share.js:416
 msgid "Set expiration date"
 msgstr "កំណត់​ពេល​ផុត​កំណត់"
 
-#: js/share.js:252
+#: js/share.js:417
 msgid "Expiration date"
 msgstr "ពេល​ផុត​កំណត់"
 
-#: js/share.js:289
+#: js/share.js:455
 msgid "Share via email:"
 msgstr "ចែក​រំលែក​តាម​អ៊ីមែល៖"
 
-#: js/share.js:292
+#: js/share.js:458
 msgid "No people found"
 msgstr "រក​មិន​ឃើញ​មនុស្ស​ណា​ម្នាក់"
 
-#: js/share.js:336 js/share.js:397
+#: js/share.js:507 js/share.js:575
 msgid "group"
 msgstr "ក្រុម"
 
-#: js/share.js:369
+#: js/share.js:540
 msgid "Resharing is not allowed"
 msgstr "មិន​អនុញ្ញាត​ឲ្យ​មាន​ការ​ចែក​រំលែក​ឡើង​វិញ"
 
-#: js/share.js:413
+#: js/share.js:591
 msgid "Shared in {item} with {user}"
 msgstr "បាន​ចែក​រំលែក​ក្នុង {item} ជាមួយ {user}"
 
-#: js/share.js:435
+#: js/share.js:613
 msgid "Unshare"
 msgstr "លែង​ចែក​រំលែក"
 
-#: js/share.js:443
+#: js/share.js:621
 msgid "notify by email"
 msgstr ""
 
-#: js/share.js:446
+#: js/share.js:624
+msgid "can share"
+msgstr "អាច​ចែក​រំលែក"
+
+#: js/share.js:627
 msgid "can edit"
 msgstr "អាច​កែប្រែ"
 
-#: js/share.js:448
+#: js/share.js:629
 msgid "access control"
 msgstr "សិទ្ធិ​បញ្ជា"
 
-#: js/share.js:451
+#: js/share.js:632
 msgid "create"
 msgstr "បង្កើត"
 
-#: js/share.js:454
+#: js/share.js:635
 msgid "update"
 msgstr "ធ្វើ​បច្ចុប្បន្នភាព"
 
-#: js/share.js:457
+#: js/share.js:638
 msgid "delete"
 msgstr "លុប"
 
-#: js/share.js:460
-msgid "share"
-msgstr "ចែក​រំលែក"
-
-#: js/share.js:742
+#: js/share.js:988
 msgid "Password protected"
 msgstr "បាន​ការ​ពារ​ដោយ​ពាក្យ​សម្ងាត់"
 
-#: js/share.js:761
+#: js/share.js:1007
 msgid "Error unsetting expiration date"
 msgstr ""
 
-#: js/share.js:782
+#: js/share.js:1028
 msgid "Error setting expiration date"
 msgstr ""
 
-#: js/share.js:811
+#: js/share.js:1057
 msgid "Sending ..."
 msgstr "កំពុង​ផ្ញើ ..."
 
-#: js/share.js:822
+#: js/share.js:1068
 msgid "Email sent"
 msgstr "បាន​ផ្ញើ​អ៊ីមែល"
 
-#: js/share.js:846
+#: js/share.js:1092
 msgid "Warning"
 msgstr "បម្រាម"
 
-#: js/tags.js:4
+#: js/tags.js:8
 msgid "The object type is not specified."
 msgstr "មិន​បាន​កំណត់​ប្រភេទ​វត្ថុ។"
 
-#: js/tags.js:13
+#: js/tags.js:19
 msgid "Enter new"
 msgstr ""
 
-#: js/tags.js:27
+#: js/tags.js:33
 msgid "Delete"
 msgstr "លុប"
 
-#: js/tags.js:31
+#: js/tags.js:43
 msgid "Add"
 msgstr "បញ្ចូល"
 
-#: js/tags.js:39
+#: js/tags.js:57
 msgid "Edit tags"
 msgstr ""
 
-#: js/tags.js:57
+#: js/tags.js:75
 msgid "Error loading dialog template: {error}"
 msgstr ""
 
-#: js/tags.js:264
+#: js/tags.js:288
 msgid "No tags selected for deletion."
 msgstr ""
 
-#: js/update.js:8
+#: js/update.js:30
+msgid "Updating {productName} to version {version}, this may take a while."
+msgstr ""
+
+#: js/update.js:43
 msgid "Please reload the page."
 msgstr "សូម​ផ្ទុក​ទំព័រ​នេះ​ឡើង​វិញ។"
 
-#: js/update.js:17
-msgid ""
-"The update was unsuccessful. Please report this issue to the <a "
-"href=\"https://github.com/owncloud/core/issues\" target=\"_blank\">ownCloud "
-"community</a>."
+#: js/update.js:52
+msgid "The update was unsuccessful."
 msgstr ""
 
-#: js/update.js:21
+#: js/update.js:61
 msgid "The update was successful. Redirecting you to ownCloud now."
 msgstr ""
 
-#: lostpassword/controller.php:70
+#: lostpassword/controller/lostcontroller.php:133
+msgid "Couldn't reset password because the token is invalid"
+msgstr ""
+
+#: lostpassword/controller/lostcontroller.php:159
+msgid "Couldn't send reset email. Please make sure your username is correct."
+msgstr ""
+
+#: lostpassword/controller/lostcontroller.php:174
+msgid ""
+"Couldn't send reset email because there is no email address for this "
+"username. Please contact your administrator."
+msgstr ""
+
+#: lostpassword/controller/lostcontroller.php:191
 #, php-format
 msgid "%s password reset"
 msgstr ""
-
-#: lostpassword/controller.php:72
-msgid ""
-"A problem has occurred whilst sending the email, please contact your "
-"administrator."
-msgstr "មាន​កំហុស​បាន​កើត​ឡើង​នៅ​ពេលល​កំពុង​ផ្ញើ​អ៊ីមែល​ចេញ, សូម​ទាក់ទង​អភិបាល​របស់​អ្នក។"
 
 #: lostpassword/templates/email.php:2
 msgid "Use the following link to reset your password: {link}"
 msgstr ""
 
-#: lostpassword/templates/lostpassword.php:7
-msgid ""
-"The link to reset your password has been sent to your email.<br>If you do "
-"not receive it within a reasonable amount of time, check your spam/junk "
-"folders.<br>If it is not there ask your local administrator ."
-msgstr ""
-
-#: lostpassword/templates/lostpassword.php:15
-msgid "Request failed!<br>Did you make sure your email/username was right?"
-msgstr ""
-
-#: lostpassword/templates/lostpassword.php:18
+#: lostpassword/templates/lostpassword.php:6
 msgid "You will receive a link to reset your password via Email."
 msgstr ""
 
-#: lostpassword/templates/lostpassword.php:21 templates/installation.php:53
-#: templates/login.php:32
+#: lostpassword/templates/lostpassword.php:8
+#: lostpassword/templates/lostpassword.php:9 templates/installation.php:51
+#: templates/installation.php:54 templates/login.php:23 templates/login.php:27
 msgid "Username"
 msgstr "ឈ្មោះ​អ្នកប្រើ"
 
-#: lostpassword/templates/lostpassword.php:25
+#: lostpassword/templates/lostpassword.php:13
 msgid ""
 "Your files are encrypted. If you haven't enabled the recovery key, there "
 "will be no way to get your data back after your password is reset. If you "
@@ -518,29 +569,21 @@ msgid ""
 "continue. Do you really want to continue?"
 msgstr ""
 
-#: lostpassword/templates/lostpassword.php:27
+#: lostpassword/templates/lostpassword.php:15
 msgid "Yes, I really want to reset my password now"
 msgstr ""
 
-#: lostpassword/templates/lostpassword.php:30
+#: lostpassword/templates/lostpassword.php:18
 msgid "Reset"
 msgstr ""
 
-#: lostpassword/templates/resetpassword.php:4
-msgid "Your password was reset"
-msgstr "ពាក្យ​សម្ងាត់​របស់​អ្នក​ត្រូវ​បាន​កំណត់​ឡើង​វិញ"
-
 #: lostpassword/templates/resetpassword.php:5
-msgid "To login page"
-msgstr "ទៅ​ទំព័រ​ចូល"
-
-#: lostpassword/templates/resetpassword.php:8
 msgid "New password"
 msgstr "ពាក្យ​សម្ងាត់​ថ្មី"
 
-#: lostpassword/templates/resetpassword.php:11
-msgid "Reset password"
-msgstr "កំណត់​ពាក្យ​សម្ងាត់​ម្ដង​ទៀត"
+#: lostpassword/templates/resetpassword.php:6
+msgid "New Password"
+msgstr ""
 
 #: setup/controller.php:140
 #, php-format
@@ -562,7 +605,7 @@ msgstr "ផ្ទាល់​ខ្លួន"
 msgid "Users"
 msgstr "អ្នកប្រើ"
 
-#: strings.php:7 templates/layout.user.php:116
+#: strings.php:7 templates/layout.user.php:56 templates/layout.user.php:121
 msgid "Apps"
 msgstr "កម្មវិធី"
 
@@ -672,105 +715,99 @@ msgstr ""
 msgid "Create an <strong>admin account</strong>"
 msgstr "បង្កើត​<strong>គណនី​អភិបាល</strong>"
 
-#: templates/installation.php:60 templates/login.php:40
+#: templates/installation.php:59 templates/installation.php:62
+#: templates/login.php:33 templates/login.php:36
 msgid "Password"
 msgstr "ពាក្យសម្ងាត់"
 
-#: templates/installation.php:70
+#: templates/installation.php:72
 msgid "Storage & database"
 msgstr "ឃ្លាំង​ផ្ទុក & មូលដ្ឋាន​ទិន្នន័យ"
 
-#: templates/installation.php:77
+#: templates/installation.php:79
 msgid "Data folder"
 msgstr "ថត​ទិន្នន័យ"
 
-#: templates/installation.php:90
+#: templates/installation.php:92
 msgid "Configure the database"
 msgstr "កំណត់​សណ្ឋាន​មូលដ្ឋាន​ទិន្នន័យ"
 
-#: templates/installation.php:94
-msgid "will be used"
-msgstr "នឹង​ត្រូវ​បាន​ប្រើ"
+#: templates/installation.php:96
+#, php-format
+msgid "Only %s is available."
+msgstr ""
 
-#: templates/installation.php:109
+#: templates/installation.php:111 templates/installation.php:113
 msgid "Database user"
 msgstr "អ្នក​ប្រើ​មូលដ្ឋាន​ទិន្នន័យ"
 
-#: templates/installation.php:118
+#: templates/installation.php:119 templates/installation.php:122
 msgid "Database password"
 msgstr "ពាក្យ​សម្ងាត់​មូលដ្ឋាន​ទិន្នន័យ"
 
-#: templates/installation.php:123
+#: templates/installation.php:127 templates/installation.php:129
 msgid "Database name"
 msgstr "ឈ្មោះ​មូលដ្ឋាន​ទិន្នន័យ"
 
-#: templates/installation.php:132
+#: templates/installation.php:137 templates/installation.php:139
 msgid "Database tablespace"
 msgstr ""
 
-#: templates/installation.php:140
+#: templates/installation.php:146 templates/installation.php:148
 msgid "Database host"
 msgstr "ម៉ាស៊ីន​មូលដ្ឋាន​ទិន្នន័យ"
 
-#: templates/installation.php:150
+#: templates/installation.php:157
+msgid ""
+"SQLite will be used as database. For larger installations we recommend to "
+"change this."
+msgstr ""
+
+#: templates/installation.php:159
 msgid "Finish setup"
 msgstr "បញ្ចប់​ការ​ដំឡើង"
 
-#: templates/installation.php:150
+#: templates/installation.php:159
 msgid "Finishing …"
 msgstr "កំពុង​បញ្ចប់ ..."
 
-#: templates/layout.user.php:40
+#: templates/layout.user.php:43
 msgid ""
 "This application requires JavaScript to be enabled for correct operation.  "
 "Please <a href=\"http://enable-javascript.com/\" target=\"_blank\">enable "
 "JavaScript</a> and re-load this interface."
 msgstr ""
 
-#: templates/layout.user.php:44
+#: templates/layout.user.php:47
 #, php-format
 msgid "%s is available. Get more information on how to update."
 msgstr ""
 
-#: templates/layout.user.php:74 templates/singleuser.user.php:8
+#: templates/layout.user.php:83 templates/singleuser.user.php:8
 msgid "Log out"
 msgstr "ចាក​ចេញ"
 
-#: templates/login.php:9
-msgid "Automatic logon rejected!"
-msgstr "បាន​បដិសេធ​ការ​ចូល​ដោយ​ស្វ័យ​ប្រវត្តិ!"
-
-#: templates/login.php:10
-msgid ""
-"If you did not change your password recently, your account may be "
-"compromised!"
-msgstr ""
-
-#: templates/login.php:12
-msgid "Please change your password to secure your account again."
-msgstr "សូម​ប្ដូរ​ពាក្យ​សម្ងាត់​របស់​អ្នក ដើម្បី​ការពារ​គណនី​របស់​អ្នក។"
-
-#: templates/login.php:17
+#: templates/login.php:11
 msgid "Server side authentication failed!"
 msgstr ""
 
-#: templates/login.php:18
+#: templates/login.php:12
 msgid "Please contact your administrator."
 msgstr ""
 
-#: templates/login.php:46
-msgid "Lost your password?"
-msgstr "បាត់​ពាក្យ​សម្ងាត់​របស់​អ្នក?"
+#: templates/login.php:42
+msgid "Forgot your password? Reset it!"
+msgstr ""
 
-#: templates/login.php:51
+#: templates/login.php:47
 msgid "remember"
 msgstr "ចងចាំ"
 
-#: templates/login.php:54
+#: templates/login.php:51
 msgid "Log in"
 msgstr "ចូល"
 
-#: templates/login.php:60
+#: templates/login.php:57
 msgid "Alternative Logins"
 msgstr "ការ​ចូល​ជំនួស"
 
@@ -801,8 +838,27 @@ msgstr ""
 
 #: templates/update.admin.php:3
 #, php-format
-msgid "Updating ownCloud to version %s, this may take a while."
-msgstr "ការ​ធ្វើ​បច្ចុប្បន្នភាព ownCloud ទៅ​កំណែ %s អាច​ចំណាយ​ពេល​មួយ​សំទុះ។"
+msgid "%s will be updated to version %s."
+msgstr ""
+
+#: templates/update.admin.php:7
+msgid "The following apps will be disabled:"
+msgstr ""
+
+#: templates/update.admin.php:17
+#, php-format
+msgid "The theme %s has been disabled."
+msgstr ""
+
+#: templates/update.admin.php:21
+msgid ""
+"Please make sure that the database, the config folder and the data folder "
+"have been backed up before proceeding."
+msgstr ""
+
+#: templates/update.admin.php:23
+msgid "Start update"
+msgstr ""
 
 #: templates/update.user.php:3
 msgid ""

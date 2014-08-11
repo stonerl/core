@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-05-11 01:55-0400\n"
-"PO-Revision-Date: 2014-05-11 05:02+0000\n"
+"POT-Creation-Date: 2014-07-16 01:54-0400\n"
+"PO-Revision-Date: 2014-07-16 05:54+0000\n"
 "Last-Translator: I Robot\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/owncloud/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -18,9 +18,69 @@ msgstr ""
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: js/share.js:33
-msgid "Shared by {owner}"
-msgstr "Compartilhado por {owner}"
+#: ajax/external.php:17
+msgid "Server to server sharing is not enabled on this server"
+msgstr "Compartilhamento de servidor para servidor não está habilitado no servidor"
+
+#: ajax/external.php:47
+msgid "Couldn't add remote share"
+msgstr "Não foi possível adicionar compartilhamento remoto"
+
+#: appinfo/app.php:33 js/app.js:34
+msgid "Shared with you"
+msgstr "Compartilhado com você"
+
+#: appinfo/app.php:42 js/app.js:53
+msgid "Shared with others"
+msgstr "Compartilhados com outros"
+
+#: appinfo/app.php:51 js/app.js:72
+msgid "Shared by link"
+msgstr "Compartilhado por link"
+
+#: js/app.js:35
+msgid "No files have been shared with you yet."
+msgstr "Nenhum arquivo ainda foi compartilhado com você."
+
+#: js/app.js:54
+msgid "You haven't shared any files yet."
+msgstr "Você ainda não compartilhou nenhum arquivo."
+
+#: js/app.js:73
+msgid "You haven't shared any files by link yet."
+msgstr "Você ainda não compartilhou nenhum arquivo por link."
+
+#: js/external.js:48 js/external.js:59
+msgid "Do you want to add the remote share {name} from {owner}@{remote}?"
+msgstr "Você quer adicionar o compartilhamento remoto {name} de {owner}@{remote}?"
+
+#: js/external.js:51 js/external.js:62
+msgid "Remote share"
+msgstr "Compartilhamento remoto"
+
+#: js/external.js:65
+msgid "Remote share password"
+msgstr "Senha do compartilhamento remoto"
+
+#: js/external.js:76
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: js/external.js:77
+msgid "Add remote share"
+msgstr "Adicionar compartilhamento remoto"
+
+#: js/public.js:203
+msgid "No ownCloud installation found at {remote}"
+msgstr "Nenhuma instalação ownCloud encontrada em {remote}"
+
+#: js/public.js:204
+msgid "Invalid ownCloud url"
+msgstr "Url invalida para ownCloud"
+
+#: js/sharedfilelist.js:123
+msgid "Shared by"
+msgstr "Compartilhado por"
 
 #: templates/authenticate.php:4
 msgid "This share is password-protected"
@@ -30,9 +90,17 @@ msgstr "Este compartilhamento esta protegido por senha"
 msgid "The password is wrong. Try again."
 msgstr "Senha incorreta. Tente novamente."
 
-#: templates/authenticate.php:10
+#: templates/authenticate.php:10 templates/authenticate.php:12
 msgid "Password"
 msgstr "Senha"
+
+#: templates/list.php:16
+msgid "Name"
+msgstr "Nome"
+
+#: templates/list.php:20
+msgid "Share time"
+msgstr "Tempo de compartilhamento"
 
 #: templates/part.404.php:3
 msgid "Sorry, this link doesn’t seem to work anymore."
@@ -52,21 +120,37 @@ msgstr "o link expirou"
 
 #: templates/part.404.php:8
 msgid "sharing is disabled"
-msgstr "compartilhamento está desativada"
+msgstr "o compartilhamento está desativado"
 
 #: templates/part.404.php:10
 msgid "For more info, please ask the person who sent this link."
 msgstr "Para mais informações, por favor, pergunte a pessoa que enviou este link."
 
-#: templates/public.php:21
+#: templates/public.php:22
+msgid "Add to your ownCloud"
+msgstr "Adiconar ao seu ownCloud"
+
+#: templates/public.php:30
 msgid "Download"
 msgstr "Baixar"
 
-#: templates/public.php:52
+#: templates/public.php:61
 #, php-format
 msgid "Download %s"
 msgstr "Baixar %s"
 
-#: templates/public.php:56
+#: templates/public.php:65
 msgid "Direct link"
 msgstr "Link direto"
+
+#: templates/settings-admin.php:3
+msgid "Remote Shares"
+msgstr "Compartilhamentos Remoto"
+
+#: templates/settings-admin.php:7
+msgid "Allow other instances to mount public links shared from this server"
+msgstr "Permitir que outras instâncias montem links de compartilhamentos públicos a partir desde servidor"
+
+#: templates/settings-admin.php:11
+msgid "Allow users to mount public link shares"
+msgstr "Permitir aos usuários montar links públicos de compartilhamentos"

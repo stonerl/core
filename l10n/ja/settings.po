@@ -4,18 +4,18 @@
 # 
 # Translators:
 # Daisuke Deguchi <ddeguchi@nagoya-u.jp>, 2013-2014
-# plazmism <gomidori@live.jp>, 2013-2014
-# iLikeIT <dj_dark_junglist@yahoo.com>, 2013
+# タカハシ <gomidori@live.jp>, 2013-2014
+# Jake G. <dj_dark_junglist@yahoo.com>, 2013
 # kuromabo <md81bird@hitaki.net>, 2014
-# mikako, 2014
-# tt yn <tetuyano+transi@gmail.com>, 2013
+# Mika Kobayashi, 2014
+# YANO Tetsu <tetuyano+transi@gmail.com>, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-05-24 01:54-0400\n"
-"PO-Revision-Date: 2014-05-24 05:54+0000\n"
-"Last-Translator: I Robot\n"
+"POT-Creation-Date: 2014-07-10 04:58-0400\n"
+"PO-Revision-Date: 2014-07-10 07:11+0000\n"
+"Last-Translator: Daisuke Deguchi <ddeguchi@nagoya-u.jp>\n"
 "Language-Team: Japanese (Japan) (http://www.transifex.com/projects/p/owncloud/language/ja_JP/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,7 +34,7 @@ msgstr "保存されました"
 
 #: admin/controller.php:90
 msgid "test email settings"
-msgstr "eメール設定をテスト"
+msgstr "メール設定をテスト"
 
 #: admin/controller.php:91
 msgid "If you received this email, the settings seem to be correct."
@@ -53,15 +53,15 @@ msgstr "メールを送信しました"
 msgid "You need to set your user email before being able to send test emails."
 msgstr "ユーザーメールを設定して初めて、テストメールを送信することができるようになります。"
 
-#: admin/controller.php:116 templates/admin.php:331
+#: admin/controller.php:116 templates/admin.php:337
 msgid "Send mode"
 msgstr "送信モード"
 
-#: admin/controller.php:118 templates/admin.php:344 templates/personal.php:144
+#: admin/controller.php:118 templates/admin.php:350 templates/personal.php:156
 msgid "Encryption"
 msgstr "暗号化"
 
-#: admin/controller.php:120 templates/admin.php:368
+#: admin/controller.php:120 templates/admin.php:374
 msgid "Authentication method"
 msgstr "認証方法"
 
@@ -76,17 +76,17 @@ msgstr "認証エラー"
 
 #: ajax/changedisplayname.php:31
 msgid "Your full name has been changed."
-msgstr "フルネームを変更しました。"
+msgstr "名前を変更しました。"
 
 #: ajax/changedisplayname.php:34
 msgid "Unable to change full name"
-msgstr "フルネームを変更できません"
+msgstr "名前を変更できません"
 
-#: ajax/creategroup.php:10
+#: ajax/creategroup.php:11
 msgid "Group already exists"
 msgstr "グループはすでに存在します"
 
-#: ajax/creategroup.php:19
+#: ajax/creategroup.php:20
 msgid "Unable to add group"
 msgstr "グループを追加できません"
 
@@ -113,6 +113,10 @@ msgid ""
 "Couldn't permanently delete your encryption keys, please check your "
 "owncloud.log or ask your administrator"
 msgstr "暗号化キーを完全に削除できませんでした。owncloud.logを確認するか、管理者に問い合わせてください。"
+
+#: ajax/installapp.php:18 ajax/uninstallapp.php:18
+msgid "Couldn't remove app."
+msgstr "アプリが削除できませんでした。"
 
 #: ajax/lostpassword.php:12
 msgid "Email saved"
@@ -162,7 +166,7 @@ msgstr "ユーザーをグループ %s に追加できません"
 msgid "Unable to remove user from group %s"
 msgstr "ユーザーをグループ %s から削除できません"
 
-#: ajax/updateapp.php:14
+#: ajax/updateapp.php:41
 msgid "Couldn't update app."
 msgstr "アプリをアップデートできませんでした。"
 
@@ -195,61 +199,77 @@ msgstr "バックエンドはパスワード変更をサポートしていませ
 msgid "Unable to change password"
 msgstr "パスワードを変更できません"
 
-#: js/admin.js:126
+#: js/admin.js:128
 msgid "Sending..."
 msgstr "送信中…"
 
-#: js/apps.js:45 templates/help.php:4
+#: js/apps.js:45 templates/help.php:7
 msgid "User Documentation"
 msgstr "ユーザードキュメント"
 
-#: js/apps.js:50
+#: js/apps.js:54
 msgid "Admin Documentation"
 msgstr "管理者ドキュメント"
 
-#: js/apps.js:67
+#: js/apps.js:82
 msgid "Update to {appversion}"
 msgstr "{appversion} にアップデート"
 
-#: js/apps.js:73 js/apps.js:106 js/apps.js:134
+#: js/apps.js:90
+msgid "Uninstall App"
+msgstr "アプリをアンインストール"
+
+#: js/apps.js:96 js/apps.js:158 js/apps.js:191
 msgid "Disable"
 msgstr "無効"
 
-#: js/apps.js:73 js/apps.js:114 js/apps.js:127 js/apps.js:143
+#: js/apps.js:96 js/apps.js:167 js/apps.js:184 js/apps.js:215
 msgid "Enable"
 msgstr "有効にする"
 
-#: js/apps.js:95
+#: js/apps.js:147
 msgid "Please wait...."
 msgstr "しばらくお待ちください。"
 
-#: js/apps.js:103 js/apps.js:104 js/apps.js:125
+#: js/apps.js:155 js/apps.js:156 js/apps.js:182
 msgid "Error while disabling app"
 msgstr "アプリ無効化中にエラーが発生"
 
-#: js/apps.js:124 js/apps.js:138 js/apps.js:139
+#: js/apps.js:181 js/apps.js:210 js/apps.js:211
 msgid "Error while enabling app"
 msgstr "アプリを有効にする際にエラーが発生"
 
-#: js/apps.js:149
+#: js/apps.js:220
 msgid "Updating...."
 msgstr "更新中...."
 
-#: js/apps.js:152
+#: js/apps.js:223
 msgid "Error while updating app"
 msgstr "アプリの更新中にエラーが発生"
 
-#: js/apps.js:152
+#: js/apps.js:223 js/apps.js:236
 msgid "Error"
 msgstr "エラー"
 
-#: js/apps.js:153 templates/apps.php:55
+#: js/apps.js:224 templates/apps.php:55
 msgid "Update"
 msgstr "アップデート"
 
-#: js/apps.js:156
+#: js/apps.js:227
 msgid "Updated"
 msgstr "アップデート済み"
+
+#: js/apps.js:233
+msgid "Uninstalling ...."
+msgstr "アンインストール中 ...."
+
+#: js/apps.js:236
+msgid "Error while uninstalling app"
+msgstr "アプリをアンインストール中にエラーが発生"
+
+#: js/apps.js:237 templates/apps.php:56
+msgid "Uninstall"
+msgstr "アンインストール"
 
 #: js/personal.js:256
 msgid "Select a profile picture"
@@ -287,48 +307,67 @@ msgstr "暗号化キーを永久に削除する。"
 msgid "Restore encryption keys."
 msgstr "暗号化キーを復元する。"
 
-#: js/users.js:47
-msgid "deleted"
-msgstr "削除"
+#: js/users/deleteHandler.js:166
+msgid "Unable to delete {objName}"
+msgstr "{objName} を削除できません"
 
-#: js/users.js:47
+#: js/users/groups.js:73 js/users/groups.js:178
+msgid "Error creating group"
+msgstr "グループの作成エラー"
+
+#: js/users/groups.js:177
+msgid "A valid group name must be provided"
+msgstr "有効なグループ名を指定する必要があります"
+
+#: js/users/groups.js:205
+msgid "deleted {groupName}"
+msgstr "{groupName} を削除しました"
+
+#: js/users/groups.js:206 js/users/users.js:265
 msgid "undo"
 msgstr "元に戻す"
 
-#: js/users.js:79
-msgid "Unable to remove user"
-msgstr "ユーザーを削除できません"
-
-#: js/users.js:101 templates/admin.php:280 templates/users.php:24
-#: templates/users.php:88 templates/users.php:116
+#: js/users/users.js:37 templates/admin.php:292
+#: templates/users/part.createuser.php:12 templates/users/part.userlist.php:10
+#: templates/users/part.userlist.php:41
 msgid "Groups"
 msgstr "グループ"
 
-#: js/users.js:105 templates/users.php:90 templates/users.php:128
+#: js/users/users.js:41 templates/users/part.userlist.php:12
+#: templates/users/part.userlist.php:57
 msgid "Group Admin"
 msgstr "グループ管理者"
 
-#: js/users.js:127 templates/users.php:168
+#: js/users/users.js:63 templates/users/part.grouplist.php:46
+#: templates/users/part.userlist.php:108
 msgid "Delete"
 msgstr "削除"
 
-#: js/users.js:310
+#: js/users/users.js:85 templates/users/part.userlist.php:98
+msgid "never"
+msgstr "なし"
+
+#: js/users/users.js:264
+msgid "deleted {userName}"
+msgstr "{userName} を削除しました"
+
+#: js/users/users.js:381
 msgid "add group"
 msgstr "グループを追加"
 
-#: js/users.js:486
+#: js/users/users.js:578
 msgid "A valid username must be provided"
 msgstr "有効なユーザー名を指定する必要があります"
 
-#: js/users.js:487 js/users.js:493 js/users.js:508
+#: js/users/users.js:579 js/users/users.js:585 js/users/users.js:600
 msgid "Error creating user"
 msgstr "ユーザー作成エラー"
 
-#: js/users.js:492
+#: js/users/users.js:584
 msgid "A valid password must be provided"
 msgstr "有効なパスワードを指定する必要があります"
 
-#: js/users.js:516
+#: js/users/users.js:608
 msgid "Warning: Home directory for user \"{user}\" already exists"
 msgstr "警告: ユーザー \"{user}\" のホームディレクトリはすでに存在します"
 
@@ -400,7 +439,7 @@ msgid ""
 "root."
 msgstr "データディレクトリとファイルがインターネットからアクセス可能になっている可能性があります。.htaccessファイルが機能していません。データディレクトリがアクセスされないようにウェブサーバーを設定するか、ウェブサーバーのドキュメントルートからデータディレクトリを移動するように強くお勧めします。"
 
-#: templates/admin.php:75
+#: templates/admin.php:75 templates/admin.php:90
 msgid "Setup Warning"
 msgstr "セットアップ警告"
 
@@ -415,53 +454,76 @@ msgstr "WebDAVインターフェースに問題があると思われるため、
 msgid "Please double check the <a href=\"%s\">installation guides</a>."
 msgstr "<a href=\"%s\">installation guides</a>をもう一度チェックするようにお願いいたします。"
 
-#: templates/admin.php:90
+#: templates/admin.php:93
+msgid ""
+"PHP is apparently setup to strip inline doc blocks. This will make several "
+"core apps inaccessible."
+msgstr "PHPでインラインドキュメントブロックを取り除く設定になっています。これによりコアアプリで利用できないものがいくつかあります。"
+
+#: templates/admin.php:94
+msgid ""
+"This is probably caused by a cache/accelerator such as Zend OPcache or "
+"eAccelerator."
+msgstr "これは、Zend OPcacheやeAccelerator 等のキャッシュ/アクセラレータが原因かもしれません。"
+
+#: templates/admin.php:105
+msgid "Database Performance Info"
+msgstr "データベースパフォーマンス情報"
+
+#: templates/admin.php:108
+msgid ""
+"SQLite is used as database. For larger installations we recommend to change "
+"this. To migrate to another database use the command line tool: 'occ db"
+":convert-type'"
+msgstr "SQLite をデータベースとして利用します。大規模な運用では、利用しないことをお勧めします。別のデータベースへ移行する場合は、コマンドラインツール: 'occ db:convert-type'を使ってください。"
+
+#: templates/admin.php:119
 msgid "Module 'fileinfo' missing"
 msgstr "モジュール 'fileinfo' が見つかりません"
 
-#: templates/admin.php:93
+#: templates/admin.php:122
 msgid ""
 "The PHP module 'fileinfo' is missing. We strongly recommend to enable this "
 "module to get best results with mime-type detection."
 msgstr "PHP のモジュール 'fileinfo' が見つかりません。mimeタイプの検出を精度良く行うために、このモジュールを有効にすることを強くお勧めします。"
 
-#: templates/admin.php:104
+#: templates/admin.php:133
 msgid "Your PHP version is outdated"
 msgstr "PHPバーションが古くなっています。"
 
-#: templates/admin.php:107
+#: templates/admin.php:136
 msgid ""
 "Your PHP version is outdated. We strongly recommend to update to 5.3.8 or "
 "newer because older versions are known to be broken. It is possible that "
 "this installation is not working correctly."
 msgstr "PHPバーションが古くなっています。古いバージョンには既知の問題があるため、5.3.8以降のバージョンにアップデートすることを強く推奨します。このインストール状態では正常に動作しない可能性があります。"
 
-#: templates/admin.php:118
+#: templates/admin.php:147
 msgid "Locale not working"
 msgstr "ロケールが動作していません"
 
-#: templates/admin.php:123
+#: templates/admin.php:152
 msgid "System locale can not be set to a one which supports UTF-8."
 msgstr "システムロケールを UTF-8 をサポートするロケールに設定できません。"
 
-#: templates/admin.php:127
+#: templates/admin.php:156
 msgid ""
 "This means that there might be problems with certain characters in file "
 "names."
 msgstr "これは、ファイル名の特定の文字に問題があることを意味しています。"
 
-#: templates/admin.php:131
+#: templates/admin.php:160
 #, php-format
 msgid ""
 "We strongly suggest to install the required packages on your system to "
 "support one of the following locales: %s."
 msgstr "次のロケールをサポートするために、システムに必要なパッケージをインストールすることを強くおすすめします: %s。"
 
-#: templates/admin.php:143
+#: templates/admin.php:172
 msgid "Internet connection not working"
 msgstr "インターネット接続が動作していません"
 
-#: templates/admin.php:146
+#: templates/admin.php:175
 msgid ""
 "This server has no working internet connection. This means that some of the "
 "features like mounting of external storage, notifications about updates or "
@@ -470,202 +532,186 @@ msgid ""
 "internet connection for this server if you want to have all features."
 msgstr "このサーバーはインターネットに接続していません。この場合、外部ストレージのマウント、更新の通知やサードパーティアプリといったいくつかの機能が使えません。また、リモート接続でのファイルアクセス、通知メールの送信と言った機能も利用できないかもしれません。全ての機能を利用したいのであれば、このサーバーからインターネットに接続できるようにすることをお勧めします。"
 
-#: templates/admin.php:160
+#: templates/admin.php:189
 msgid "Cron"
 msgstr "Cron"
 
-#: templates/admin.php:167
+#: templates/admin.php:196
 #, php-format
 msgid "Last cron was executed at %s."
 msgstr "直近では %s に cron が実行されました。"
 
-#: templates/admin.php:170
+#: templates/admin.php:199
 #, php-format
 msgid ""
 "Last cron was executed at %s. This is more than an hour ago, something seems"
 " wrong."
 msgstr "直近では %s に cron が実行されました。これは今から１時間以上前なので、なんらかの問題が発生しているようです。"
 
-#: templates/admin.php:174
+#: templates/admin.php:203
 msgid "Cron was not executed yet!"
 msgstr "cron は未だ実行されていません！"
 
-#: templates/admin.php:184
+#: templates/admin.php:213
 msgid "Execute one task with each page loaded"
 msgstr "各ページの読み込み時にタスクを実行する"
 
-#: templates/admin.php:192
+#: templates/admin.php:221
 msgid ""
 "cron.php is registered at a webcron service to call cron.php every 15 "
 "minutes over http."
 msgstr "cron.phpは、HTTP経由で15分ごとにcron.phpを実行するようwebcronサービスに登録されています"
 
-#: templates/admin.php:200
-msgid "Use systems cron service to call the cron.php file every 15 minutes."
-msgstr "システムのcronサービスを利用して15分ごとにcron.phpファイルを実行します。"
+#: templates/admin.php:229
+msgid "Use system's cron service to call the cron.php file every 15 minutes."
+msgstr "システムの cron サービスを利用して、15分間隔で cron.php ファイルを実行する。"
 
-#: templates/admin.php:205
+#: templates/admin.php:234
 msgid "Sharing"
 msgstr "共有"
 
-#: templates/admin.php:211
-msgid "Enable Share API"
-msgstr "共有APIを有効にする"
-
-#: templates/admin.php:212
+#: templates/admin.php:238
 msgid "Allow apps to use the Share API"
 msgstr "アプリからの共有APIの利用を許可する"
 
-#: templates/admin.php:219
-msgid "Allow links"
-msgstr "リンクを許可する"
+#: templates/admin.php:243
+msgid "Allow users to share via link"
+msgstr "URLリンクで共有を許可する"
 
-#: templates/admin.php:223
+#: templates/admin.php:249
 msgid "Enforce password protection"
 msgstr "常にパスワード保護を有効にする"
 
-#: templates/admin.php:226
+#: templates/admin.php:252
 msgid "Allow public uploads"
-msgstr "パブリックなアップロードを許可"
+msgstr "パブリックなアップロードを許可する"
 
-#: templates/admin.php:230
+#: templates/admin.php:256
 msgid "Set default expiration date"
 msgstr "有効期限の既定値を設定"
 
-#: templates/admin.php:232
+#: templates/admin.php:260
 msgid "Expire after "
 msgstr "無効になるまで"
 
-#: templates/admin.php:235
+#: templates/admin.php:263
 msgid "days"
 msgstr "日"
 
-#: templates/admin.php:238
+#: templates/admin.php:266
 msgid "Enforce expiration date"
 msgstr "有効期限を反映させる"
 
-#: templates/admin.php:242
-msgid "Allow users to share items to the public with links"
-msgstr "ユーザーがリンクによりアイテムを公開することを許可する"
-
-#: templates/admin.php:249
+#: templates/admin.php:271
 msgid "Allow resharing"
 msgstr "再共有を許可する"
 
-#: templates/admin.php:250
-msgid "Allow users to share items shared with them again"
-msgstr "ユーザーが共有しているアイテムの再共有を許可する"
+#: templates/admin.php:276
+msgid "Restrict users to only share with users in their groups"
+msgstr "グループ内のユーザーでのみ共有するように制限する"
 
-#: templates/admin.php:257
-msgid "Allow users to share with anyone"
-msgstr "ユーザーに誰とでも共有することを許可する"
-
-#: templates/admin.php:260
-msgid "Allow users to only share with users in their groups"
-msgstr "ユーザーにグループ内のユーザーとのみ共有を許可する"
-
-#: templates/admin.php:267
-msgid "Allow mail notification"
-msgstr "メール通知を許可"
-
-#: templates/admin.php:268
+#: templates/admin.php:281
 msgid "Allow users to send mail notification for shared files"
-msgstr "共有ファイルに関するメール通知の送信をユーザに許可する"
-
-#: templates/admin.php:275
-msgid "Exclude groups from sharing"
-msgstr ""
+msgstr "共有ファイルに関するメール通知の送信をユーザーに許可する"
 
 #: templates/admin.php:286
+msgid "Exclude groups from sharing"
+msgstr "共有可能なグループから除外"
+
+#: templates/admin.php:298
 msgid ""
 "These groups will still be able to receive shares, but not to initiate them."
-msgstr ""
+msgstr "このグループでは、フォルダ共有を開始することはできませんが、共有されたフォルダを参照することはできます。"
 
-#: templates/admin.php:293
+#: templates/admin.php:303
 msgid "Security"
 msgstr "セキュリティ"
 
-#: templates/admin.php:306
+#: templates/admin.php:314
 msgid "Enforce HTTPS"
 msgstr "常にHTTPSを使用する"
 
-#: templates/admin.php:308
+#: templates/admin.php:316
 #, php-format
 msgid "Forces the clients to connect to %s via an encrypted connection."
 msgstr "クライアントから %sへの接続を常に暗号化します。"
 
-#: templates/admin.php:314
+#: templates/admin.php:322
 #, php-format
 msgid ""
 "Please connect to your %s via HTTPS to enable or disable the SSL "
 "enforcement."
 msgstr "強制的なSSL接続を有効/無効にするには、HTTPS経由で %s へ接続してください。"
 
-#: templates/admin.php:326
+#: templates/admin.php:332
 msgid "Email Server"
 msgstr "メールサーバー"
 
-#: templates/admin.php:328
+#: templates/admin.php:334
 msgid "This is used for sending out notifications."
 msgstr "これは通知の送信に使われます。"
 
-#: templates/admin.php:359
+#: templates/admin.php:365
 msgid "From address"
 msgstr "アドレスから"
 
-#: templates/admin.php:381
+#: templates/admin.php:366
+msgid "mail"
+msgstr "メール"
+
+#: templates/admin.php:387
 msgid "Authentication required"
 msgstr "要求される認証"
 
-#: templates/admin.php:385
+#: templates/admin.php:391
 msgid "Server address"
 msgstr "サーバーアドレス"
 
-#: templates/admin.php:389
+#: templates/admin.php:395
 msgid "Port"
 msgstr "ポート"
 
-#: templates/admin.php:394
+#: templates/admin.php:400
 msgid "Credentials"
 msgstr "資格情報"
 
-#: templates/admin.php:395
+#: templates/admin.php:401
 msgid "SMTP Username"
 msgstr "SMTP ユーザー名"
 
-#: templates/admin.php:398
+#: templates/admin.php:404
 msgid "SMTP Password"
 msgstr "SMTP パスワード"
 
-#: templates/admin.php:402
+#: templates/admin.php:408
 msgid "Test email settings"
-msgstr "メールテスト設定"
+msgstr "メール設定をテスト"
 
-#: templates/admin.php:403
+#: templates/admin.php:409
 msgid "Send email"
 msgstr "メールを送信"
 
-#: templates/admin.php:408
+#: templates/admin.php:414
 msgid "Log"
 msgstr "ログ"
 
-#: templates/admin.php:409
+#: templates/admin.php:415
 msgid "Log level"
 msgstr "ログレベル"
 
-#: templates/admin.php:441
+#: templates/admin.php:447
 msgid "More"
 msgstr "もっと見る"
 
-#: templates/admin.php:442
+#: templates/admin.php:448
 msgid "Less"
 msgstr "閉じる"
 
-#: templates/admin.php:448 templates/personal.php:196
+#: templates/admin.php:454 templates/personal.php:208
 msgid "Version"
 msgstr "バージョン"
 
-#: templates/admin.php:452 templates/personal.php:199
+#: templates/admin.php:458 templates/personal.php:211
 msgid ""
 "Developed by the <a href=\"http://ownCloud.org/contact\" "
 "target=\"_blank\">ownCloud community</a>, the <a "
@@ -703,23 +749,31 @@ msgstr "アプリケーションのウェブサイトを見る"
 msgid "<span class=\"licence\"></span>-licensed by <span class=\"author\"></span>"
 msgstr "<span class=\"licence\"></span>-ライセンス: <span class=\"author\"></span>"
 
-#: templates/help.php:6
+#: templates/apps.php:59
+msgid "Enable only for specific groups"
+msgstr "特定のグループのみ有効に"
+
+#: templates/apps.php:61
+msgid "All"
+msgstr "すべて"
+
+#: templates/help.php:13
 msgid "Administrator Documentation"
 msgstr "管理者ドキュメント"
 
-#: templates/help.php:9
+#: templates/help.php:20
 msgid "Online Documentation"
 msgstr "オンラインドキュメント"
 
-#: templates/help.php:11
+#: templates/help.php:25
 msgid "Forum"
 msgstr "フォーラム"
 
-#: templates/help.php:14
+#: templates/help.php:33
 msgid "Bugtracker"
 msgstr "バグトラッカー"
 
-#: templates/help.php:17
+#: templates/help.php:40
 msgid "Commercial Support"
 msgstr "商用サポート"
 
@@ -727,174 +781,214 @@ msgstr "商用サポート"
 msgid "Get the apps to sync your files"
 msgstr "ファイルを同期するためのアプリを取得"
 
-#: templates/personal.php:19
+#: templates/personal.php:21
+msgid ""
+"If you want to support the project\n"
+"\t\t<a href=\"https://owncloud.org/contribute\"\n"
+"\t\t\ttarget=\"_blank\">join development</a>\n"
+"\t\tor\n"
+"\t\t<a href=\"https://owncloud.org/promote\"\n"
+"\t\t\ttarget=\"_blank\">spread the word</a>!"
+msgstr "もしプロジェクトをサポートしていただけるなら、\n\t\t<a href=\"https://owncloud.org/contribute\"\n\t\t\ttarget=\"_blank\">開発に参加する</a>\n\t\t、もしくは\n\t\t<a href=\"https://owncloud.org/promote\"\n\t\t\ttarget=\"_blank\">プロジェクトを広く伝えてください</a>！"
+
+#: templates/personal.php:31
 msgid "Show First Run Wizard again"
 msgstr "初回ウィザードを再表示する"
 
-#: templates/personal.php:27
+#: templates/personal.php:39
 #, php-format
 msgid "You have used <strong>%s</strong> of the available <strong>%s</strong>"
 msgstr "現在、<strong>%s</strong> / <strong>%s</strong> を利用しています"
 
-#: templates/personal.php:38 templates/users.php:21 templates/users.php:87
+#: templates/personal.php:50 templates/users/part.createuser.php:8
+#: templates/users/part.userlist.php:9
 msgid "Password"
 msgstr "パスワード"
 
-#: templates/personal.php:39
+#: templates/personal.php:51
 msgid "Your password was changed"
 msgstr "パスワードを変更しました"
 
-#: templates/personal.php:40
+#: templates/personal.php:52
 msgid "Unable to change your password"
 msgstr "パスワードを変更することができません"
 
-#: templates/personal.php:42
+#: templates/personal.php:54
 msgid "Current password"
-msgstr "Current password"
+msgstr "現在のパスワード"
 
-#: templates/personal.php:45
+#: templates/personal.php:57
 msgid "New password"
-msgstr "新しいパスワードを入力"
+msgstr "新しいパスワード"
 
-#: templates/personal.php:49
+#: templates/personal.php:61
 msgid "Change password"
 msgstr "パスワードを変更"
 
-#: templates/personal.php:61 templates/users.php:86
+#: templates/personal.php:73 templates/users/part.userlist.php:8
 msgid "Full Name"
 msgstr "名前"
 
-#: templates/personal.php:76
+#: templates/personal.php:88
 msgid "Email"
 msgstr "メール"
 
-#: templates/personal.php:78
+#: templates/personal.php:90
 msgid "Your email address"
 msgstr "あなたのメールアドレス"
 
-#: templates/personal.php:81
+#: templates/personal.php:93
 msgid ""
 "Fill in an email address to enable password recovery and receive "
 "notifications"
 msgstr "パスワードの回復を有効にし、通知を受け取るにはメールアドレスを入力してください"
 
-#: templates/personal.php:89
+#: templates/personal.php:101
 msgid "Profile picture"
 msgstr "プロフィール写真"
 
-#: templates/personal.php:94
+#: templates/personal.php:106
 msgid "Upload new"
 msgstr "新規にアップロード"
 
-#: templates/personal.php:96
+#: templates/personal.php:108
 msgid "Select new from Files"
 msgstr "ファイルから新規に選択"
 
-#: templates/personal.php:97
+#: templates/personal.php:109
 msgid "Remove image"
 msgstr "画像を削除"
 
-#: templates/personal.php:98
+#: templates/personal.php:110
 msgid "Either png or jpg. Ideally square but you will be able to crop it."
-msgstr "png と jpg のいずれか。正方形が理想ですが、切り取って加工することも可能です。"
+msgstr "pngまたはjpg形式。正方形が理想ですが、切り取って加工することもできます。"
 
-#: templates/personal.php:100
+#: templates/personal.php:112
 msgid "Your avatar is provided by your original account."
 msgstr "あなたのアバターは、あなたのオリジナルのアカウントで提供されています。"
 
-#: templates/personal.php:104
+#: templates/personal.php:116
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: templates/personal.php:105
+#: templates/personal.php:117
 msgid "Choose as profile image"
 msgstr "プロファイル画像として選択"
 
-#: templates/personal.php:111 templates/personal.php:112
+#: templates/personal.php:123 templates/personal.php:124
 msgid "Language"
 msgstr "言語"
 
-#: templates/personal.php:131
+#: templates/personal.php:143
 msgid "Help translate"
 msgstr "翻訳に協力する"
 
-#: templates/personal.php:150
+#: templates/personal.php:162
 msgid "The encryption app is no longer enabled, please decrypt all your files"
 msgstr "暗号化アプリはもはや有効ではありません、すべてのファイルを複合してください"
 
-#: templates/personal.php:156
+#: templates/personal.php:168
 msgid "Log-in password"
 msgstr "ログインパスワード"
 
-#: templates/personal.php:161
+#: templates/personal.php:173
 msgid "Decrypt all Files"
 msgstr "すべてのファイルを複合する"
 
-#: templates/personal.php:174
+#: templates/personal.php:186
 msgid ""
 "Your encryption keys are moved to a backup location. If something went wrong"
 " you can restore the keys. Only delete them permanently if you are sure that"
 " all files are decrypted correctly."
 msgstr "暗号化キーはバックアップ場所に移動されました。何か問題があった場合は、キーを復元することができます。すべてのファイルが正しく復号化されたことが確信できる場合にのみ、キーを完全に削除してください。"
 
-#: templates/personal.php:178
+#: templates/personal.php:190
 msgid "Restore Encryption Keys"
 msgstr "暗号化キーを復元する"
 
-#: templates/personal.php:182
+#: templates/personal.php:194
 msgid "Delete Encryption Keys"
 msgstr "暗号化キーを削除する"
 
-#: templates/users.php:19
+#: templates/users/part.createuser.php:4
 msgid "Login Name"
 msgstr "ログイン名"
 
-#: templates/users.php:28
+#: templates/users/part.createuser.php:20
 msgid "Create"
 msgstr "作成"
 
-#: templates/users.php:34
+#: templates/users/part.createuser.php:26
 msgid "Admin Recovery Password"
 msgstr "管理者リカバリパスワード"
 
-#: templates/users.php:35 templates/users.php:36
+#: templates/users/part.createuser.php:27
+#: templates/users/part.createuser.php:28
 msgid ""
 "Enter the recovery password in order to recover the users files during "
 "password change"
 msgstr "パスワード変更時のユーザーのファイルを回復するため、リカバリパスワードを入力してください"
 
-#: templates/users.php:40
-msgid "Default Storage"
-msgstr "デフォルトストレージ"
+#: templates/users/part.createuser.php:32
+msgid "Search Users and Groups"
+msgstr "ユーザーとグループを検索"
 
-#: templates/users.php:42 templates/users.php:137
+#: templates/users/part.grouplist.php:5
+msgid "Add Group"
+msgstr "グループを追加"
+
+#: templates/users/part.grouplist.php:10
+msgid "Group"
+msgstr "グループ"
+
+#: templates/users/part.grouplist.php:18
+msgid "Everyone"
+msgstr "すべてのユーザー"
+
+#: templates/users/part.grouplist.php:31
+msgid "Admins"
+msgstr "管理者"
+
+#: templates/users/part.setquota.php:7
+msgid "Default Quota"
+msgstr "デフォルトのクォータサイズ"
+
+#: templates/users/part.setquota.php:9 templates/users/part.userlist.php:66
 msgid "Please enter storage quota (ex: \"512 MB\" or \"12 GB\")"
-msgstr "ストレージの割り当てを入力してください (例: \"512MB\" や \"12 GB\")"
+msgstr "ストレージのクォータを入力してください (例: \"512MB\" や \"12 GB\")"
 
-#: templates/users.php:46 templates/users.php:146
+#: templates/users/part.setquota.php:11 templates/users/part.userlist.php:75
 msgid "Unlimited"
 msgstr "無制限"
 
-#: templates/users.php:64 templates/users.php:161
+#: templates/users/part.setquota.php:26 templates/users/part.userlist.php:90
 msgid "Other"
 msgstr "その他"
 
-#: templates/users.php:85
+#: templates/users/part.userlist.php:7
 msgid "Username"
-msgstr "ユーザー名"
+msgstr "ユーザーID"
 
-#: templates/users.php:92
-msgid "Storage"
-msgstr "ストレージ"
+#: templates/users/part.userlist.php:14
+msgid "Quota"
+msgstr "クオータ"
 
-#: templates/users.php:106
+#: templates/users/part.userlist.php:15
+msgid "Storage Location"
+msgstr "データの保存場所"
+
+#: templates/users/part.userlist.php:16
+msgid "Last Login"
+msgstr "最終ログイン"
+
+#: templates/users/part.userlist.php:30
 msgid "change full name"
-msgstr "フルネームを変更"
+msgstr "名前を変更"
 
-#: templates/users.php:110
+#: templates/users/part.userlist.php:34
 msgid "set new password"
 msgstr "新しいパスワードを設定"
 
-#: templates/users.php:141
+#: templates/users/part.userlist.php:70
 msgid "Default"
 msgstr "デフォルト"

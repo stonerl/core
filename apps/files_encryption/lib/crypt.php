@@ -25,8 +25,6 @@
 
 namespace OCA\Encryption;
 
-require_once __DIR__ . '/../3rdparty/Crypt_Blowfish/Blowfish.php';
-
 /**
  * Class for common cryptography functionality
  */
@@ -43,6 +41,7 @@ class Crypt {
 	 * return encryption mode client or server side encryption
 	 * @param string $user name (use system wide setting if name=null)
 	 * @return string 'client' or 'server'
+	 * @note at the moment we only support server side encryption
 	 */
 	public static function mode($user = null) {
 
@@ -174,36 +173,6 @@ class Crypt {
 
 		// Return encryption status
 		return isset($metadata['encrypted']) && ( bool )$metadata['encrypted'];
-
-	}
-
-	/**
-	 * Check if a file is encrypted via legacy system
-	 * @param boolean $isCatFileContent
-	 * @param string $relPath The path of the file, relative to user/data;
-	 *        e.g. filename or /Docs/filename, NOT admin/files/filename
-	 * @return boolean
-	 */
-	public static function isLegacyEncryptedContent($isCatFileContent, $relPath) {
-
-		// Fetch all file metadata from DB
-		$metadata = \OC\Files\Filesystem::getFileInfo($relPath, '');
-
-		// If a file is flagged with encryption in DB, but isn't a
-		// valid content + IV combination, it's probably using the
-		// legacy encryption system
-		if (isset($metadata['encrypted'])
-			&& $metadata['encrypted'] === true
-			&& $isCatFileContent === false
-		) {
-
-			return true;
-
-		} else {
-
-			return false;
-
-		}
 
 	}
 
@@ -389,6 +358,7 @@ class Crypt {
 	 * @param string $plainContent content to be encrypted
 	 * @param array $publicKeys array keys must be the userId of corresponding user
 	 * @return array keys: keys (array, key = userId), data
+	 * @throws \OCA\Encryption\Exceptions\\MultiKeyEncryptException if encryption failed
 	 * @note symmetricDecryptFileContent() can decrypt files created using this method
 	 */
 	public static function multiKeyEncrypt($plainContent, array $publicKeys) {
@@ -396,9 +366,7 @@ class Crypt {
 		// openssl_seal returns false without errors if $plainContent
 		// is empty, so trigger our own error
 		if (empty($plainContent)) {
-
-			throw new \Exception('Cannot mutliKeyEncrypt empty plain content');
-
+			throw new Exceptions\MultiKeyEncryptException('Cannot mutliKeyEncrypt empty plain content', 10);
 		}
 
 		// Set empty vars to be set by openssl by reference
@@ -425,9 +393,7 @@ class Crypt {
 			);
 
 		} else {
-
-			return false;
-
+			throw new Exceptions\MultiKeyEncryptException('multi key encryption failed: ' . openssl_error_string(), 20);
 		}
 
 	}
@@ -437,8 +403,8 @@ class Crypt {
 	 * @param string $encryptedContent
 	 * @param string $shareKey
 	 * @param mixed $privateKey
-	 * @return false|string
-	 * @internal param string $plainContent content to be encrypted
+	 * @throws \OCA\Encryption\Exceptions\\MultiKeyDecryptException if decryption failed
+	 * @internal param string $plainContent contains decrypted content
 	 * @return string $plainContent decrypted string
 	 * @note symmetricDecryptFileContent() can be used to decrypt files created using this method
 	 *
@@ -447,9 +413,7 @@ class Crypt {
 	public static function multiKeyDecrypt($encryptedContent, $shareKey, $privateKey) {
 
 		if (!$encryptedContent) {
-
-			return false;
-
+			throw new Exceptions\MultiKeyDecryptException('Cannot mutliKeyDecrypt empty plain content', 10);
 		}
 
 		if (openssl_open($encryptedContent, $plainContent, $shareKey, $privateKey)) {
@@ -457,11 +421,7 @@ class Crypt {
 			return $plainContent;
 
 		} else {
-
-			\OCP\Util::writeLog('Encryption library', 'Decryption (asymmetric) of sealed content with share-key "'.$shareKey.'" failed', \OCP\Util::ERROR);
-
-			return false;
-
+			throw new Exceptions\MultiKeyDecryptException('multiKeyDecrypt with share-key' . $shareKey . 'failed: ' . openssl_error_string(), 20);
 		}
 
 	}
@@ -519,64 +479,6 @@ class Crypt {
 
 		}
 
-	}
-
-	/**
-	 * Get the blowfish encryption handler for a key
-	 * @param string $key (optional)
-	 * @return \Crypt_Blowfish blowfish object
-	 *
-	 * if the key is left out, the default handler will be used
-	 */
-	private static function getBlowfish($key = '') {
-
-		if ($key) {
-
-			return new \Crypt_Blowfish($key);
-
-		} else {
-
-			return false;
-
-		}
-
-	}
-
-	/**
-	 * decrypts content using legacy blowfish system
-	 * @param string $content the cleartext message you want to decrypt
-	 * @param string $passphrase
-	 * @return string cleartext content
-	 *
-	 * This function decrypts an content
-	 */
-	public static function legacyDecrypt($content, $passphrase = '') {
-
-		$bf = self::getBlowfish($passphrase);
-
-		$decrypted = $bf->decrypt($content);
-
-		return $decrypted;
-	}
-
-	/**
-	 * @param string $data
-	 * @param string $key
-	 * @param int $maxLength
-	 * @return string
-	 */
-	public static function legacyBlockDecrypt($data, $key = '', $maxLength = 0) {
-
-		$result = '';
-		while (strlen($data)) {
-			$result .= self::legacyDecrypt(substr($data, 0, 8192), $key);
-			$data = substr($data, 8192);
-		}
-		if ($maxLength > 0) {
-			return substr($result, 0, $maxLength);
-		} else {
-			return rtrim($result, "\0");
-		}
 	}
 
 }

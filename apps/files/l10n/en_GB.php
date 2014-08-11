@@ -1,5 +1,8 @@
 <?php
 $TRANSLATIONS = array(
+"Storage not available" => "Storage not available",
+"Storage invalid" => "Storage invalid",
+"Unknown error" => "Unknown error",
 "Could not move %s - File with this name already exists" => "Could not move %s - File with this name already exists",
 "Could not move %s" => "Could not move %s",
 "File name cannot be empty." => "File name cannot be empty.",
@@ -41,6 +44,9 @@ $TRANSLATIONS = array(
 "Could not create folder" => "Could not create folder",
 "Error fetching URL" => "Error fetching URL",
 "Share" => "Share",
+"Delete" => "Delete",
+"Disconnect storage" => "Disconnect storage",
+"Unshare" => "Unshare",
 "Delete permanently" => "Delete permanently",
 "Rename" => "Rename",
 "Your download is being prepared. This might take some time if the files are big." => "Your download is being prepared. This might take some time if the files are big.",
@@ -68,10 +74,6 @@ $TRANSLATIONS = array(
 "File handling" => "File handling",
 "Maximum upload size" => "Maximum upload size",
 "max. possible: " => "max. possible: ",
-"Needed for multi-file and folder downloads." => "Needed for multi-file and folder downloads.",
-"Enable ZIP-download" => "Enable ZIP-download",
-"0 is unlimited" => "0 is unlimited",
-"Maximum input size for ZIP files" => "Maximum input size for ZIP files",
 "Save" => "Save",
 "WebDAV" => "WebDAV",
 "Use this address to <a href=\"%s\" target=\"_blank\">access your Files via WebDAV</a>" => "Use this address to <a href=\"%s\" target=\"_blank\">access your Files via WebDAV</a>",
@@ -81,14 +83,12 @@ $TRANSLATIONS = array(
 "New folder" => "New folder",
 "Folder" => "Folder",
 "From link" => "From link",
-"Cancel upload" => "Cancel upload",
 "You don’t have permission to upload or create files here" => "You don’t have permission to upload or create files here",
 "Nothing in here. Upload something!" => "Nothing in here. Upload something!",
 "Download" => "Download",
-"Delete" => "Delete",
 "Upload too large" => "Upload too large",
 "The files you are trying to upload exceed the maximum size for file uploads on this server." => "The files you are trying to upload exceed the maximum size for file uploads on this server.",
 "Files are being scanned, please wait." => "Files are being scanned, please wait.",
-"Current scanning" => "Currently scanning"
+"Currently scanning" => "Currently scanning"
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

@@ -1,5 +1,6 @@
 <?php
 $TRANSLATIONS = array(
+"Unknown error" => "Nekonata eraro",
 "Could not move %s - File with this name already exists" => "Ne eblis movi %s: dosiero kun ĉi tiu nomo jam ekzistas",
 "Could not move %s" => "Ne eblis movi %s",
 "File name cannot be empty." => "Dosiernomo devas ne malpleni.",
@@ -33,6 +34,8 @@ $TRANSLATIONS = array(
 "Could not create file" => "Ne povis kreiĝi dosiero",
 "Could not create folder" => "Ne povis kreiĝi dosierujo",
 "Share" => "Kunhavigi",
+"Delete" => "Forigi",
+"Unshare" => "Malkunhavigi",
 "Delete permanently" => "Forigi por ĉiam",
 "Rename" => "Alinomigi",
 "Your download is being prepared. This might take some time if the files are big." => "Via elŝuto pretiĝatas. Ĉi tio povas daŭri iom da tempo se la dosieroj grandas.",
@@ -50,13 +53,10 @@ $TRANSLATIONS = array(
 "Your storage is almost full ({usedSpacePercent}%)" => "Via memoro preskaŭ plenas ({usedSpacePercent}%)",
 "{dirs} and {files}" => "{dirs} kaj {files}",
 "%s could not be renamed" => "%s ne povis alinomiĝi",
+"Upload (max. %s)" => "Alŝuti (maks. %s)",
 "File handling" => "Dosieradministro",
 "Maximum upload size" => "Maksimuma alŝutogrando",
 "max. possible: " => "maks. ebla: ",
-"Needed for multi-file and folder downloads." => "Necesa por elŝuto de pluraj dosieroj kaj dosierujoj.",
-"Enable ZIP-download" => "Kapabligi ZIP-elŝuton",
-"0 is unlimited" => "0 signifas senlime",
-"Maximum input size for ZIP files" => "Maksimuma enirgrando por ZIP-dosieroj",
 "Save" => "Konservi",
 "WebDAV" => "WebDAV",
 "New" => "Nova",
@@ -64,14 +64,11 @@ $TRANSLATIONS = array(
 "New folder" => "Nova dosierujo",
 "Folder" => "Dosierujo",
 "From link" => "El ligilo",
-"Cancel upload" => "Nuligi alŝuton",
 "You don’t have permission to upload or create files here" => "Vi ne havas permeson alŝuti aŭ krei dosierojn ĉi tie",
 "Nothing in here. Upload something!" => "Nenio estas ĉi tie. Alŝutu ion!",
 "Download" => "Elŝuti",
-"Delete" => "Forigi",
 "Upload too large" => "Alŝuto tro larĝa",
 "The files you are trying to upload exceed the maximum size for file uploads on this server." => "La dosieroj, kiujn vi provas alŝuti, transpasas la maksimuman grandon por dosieralŝutoj en ĉi tiu servilo.",
-"Files are being scanned, please wait." => "Dosieroj estas skanataj, bonvolu atendi.",
-"Current scanning" => "Nuna skano"
+"Files are being scanned, please wait." => "Dosieroj estas skanataj, bonvolu atendi."
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

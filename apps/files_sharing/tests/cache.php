@@ -32,6 +32,9 @@ class Test_Files_Sharing_Cache extends Test_Files_Sharing_Base {
 	function setUp() {
 		parent::setUp();
 
+		\OC_User::setDisplayName(self::TEST_FILES_SHARING_API_USER1, 'User One');
+		\OC_User::setDisplayName(self::TEST_FILES_SHARING_API_USER2, 'User Two');
+
 		self::loginHelper(self::TEST_FILES_SHARING_API_USER1);
 
 		$this->user2View = new \OC\Files\View('/'. self::TEST_FILES_SHARING_API_USER2 . '/files');
@@ -92,6 +95,80 @@ class Test_Files_Sharing_Cache extends Test_Files_Sharing_Base {
 		parent::tearDown();
 	}
 
+	function searchDataProvider() {
+		return array(
+			array('%another%',
+				array(
+					array('name' => 'another too.txt', 'path' => 'subdir/another too.txt'),
+					array('name' => 'another.txt', 'path' => 'subdir/another.txt'),
+				)
+			),
+			array('%Another%',
+				array(
+					array('name' => 'another too.txt', 'path' => 'subdir/another too.txt'),
+					array('name' => 'another.txt', 'path' => 'subdir/another.txt'),
+				)
+			),
+			array('%dir%',
+				array(
+					array('name' => 'emptydir', 'path' => 'emptydir'),
+					array('name' => 'subdir', 'path' => 'subdir'),
+					array('name' => 'shareddir', 'path' => ''),
+				)
+			),
+			array('%Dir%',
+				array(
+					array('name' => 'emptydir', 'path' => 'emptydir'),
+					array('name' => 'subdir', 'path' => 'subdir'),
+					array('name' => 'shareddir', 'path' => ''),
+				)
+			),
+			array('%txt%',
+				array(
+					array('name' => 'bar.txt', 'path' => 'bar.txt'),
+					array('name' => 'another too.txt', 'path' => 'subdir/another too.txt'),
+					array('name' => 'another.txt', 'path' => 'subdir/another.txt'),
+				)
+			),
+			array('%Txt%',
+				array(
+					array('name' => 'bar.txt', 'path' => 'bar.txt'),
+					array('name' => 'another too.txt', 'path' => 'subdir/another too.txt'),
+					array('name' => 'another.txt', 'path' => 'subdir/another.txt'),
+				)
+			),
+			array('%',
+				array(
+					array('name' => 'bar.txt', 'path' => 'bar.txt'),
+					array('name' => 'emptydir', 'path' => 'emptydir'),
+					array('name' => 'subdir', 'path' => 'subdir'),
+					array('name' => 'another too.txt', 'path' => 'subdir/another too.txt'),
+					array('name' => 'another.txt', 'path' => 'subdir/another.txt'),
+					array('name' => 'not a text file.xml', 'path' => 'subdir/not a text file.xml'),
+					array('name' => 'shareddir', 'path' => ''),
+				)
+			),
+			array('%nonexistant%',
+				array(
+				)
+			),
+		);
+	}
+
+	/**
+	 * we cannot use a dataProvider because that would cause the stray hook detection to remove the hooks
+	 * that were added in setUpBeforeClass.
+	 */
+	function testSearch() {
+		foreach ($this->searchDataProvider() as $data) {
+			list($pattern, $expectedFiles) = $data;
+
+			$results = $this->sharedStorage->getCache()->search($pattern);
+
+			$this->verifyFiles($expectedFiles, $results);
+		}
+
+	}
 	/**
 	 * Test searching by mime type
 	 */
@@ -112,8 +189,6 @@ class Test_Files_Sharing_Cache extends Test_Files_Sharing_Base {
 				),
 			);
 		$this->verifyFiles($check, $results);
-
-		$this->verifyFiles($check, $results);
 	}
 
 	function testGetFolderContentsInRoot() {
@@ -133,11 +208,15 @@ class Test_Files_Sharing_Cache extends Test_Files_Sharing_Base {
 					'name' => 'shareddir',
 					'path' => 'files/shareddir',
 					'mimetype' => 'httpd/unix-directory',
+					'uid_owner' => self::TEST_FILES_SHARING_API_USER1,
+					'displayname_owner' => 'User One',
 				),
 				array(
 					'name' => 'shared single file.txt',
 					'path' => 'files/shared single file.txt',
 					'mimetype' => 'text/plain',
+					'uid_owner' => self::TEST_FILES_SHARING_API_USER1,
+					'displayname_owner' => 'User One',
 				),
 			),
 			$results
@@ -153,16 +232,22 @@ class Test_Files_Sharing_Cache extends Test_Files_Sharing_Base {
 					'name' => 'bar.txt',
 					'path' => 'bar.txt',
 					'mimetype' => 'text/plain',
+					'uid_owner' => self::TEST_FILES_SHARING_API_USER1,
+					'displayname_owner' => 'User One',
 				),
 				array(
 					'name' => 'emptydir',
 					'path' => 'emptydir',
 					'mimetype' => 'httpd/unix-directory',
+					'uid_owner' => self::TEST_FILES_SHARING_API_USER1,
+					'displayname_owner' => 'User One',
 				),
 				array(
 					'name' => 'subdir',
 					'path' => 'subdir',
 					'mimetype' => 'httpd/unix-directory',
+					'uid_owner' => self::TEST_FILES_SHARING_API_USER1,
+					'displayname_owner' => 'User One',
 				),
 			),
 			$results
@@ -187,16 +272,22 @@ class Test_Files_Sharing_Cache extends Test_Files_Sharing_Base {
 					'name' => 'another too.txt',
 					'path' => 'another too.txt',
 					'mimetype' => 'text/plain',
+					'uid_owner' => self::TEST_FILES_SHARING_API_USER1,
+					'displayname_owner' => 'User One',
 				),
 				array(
 					'name' => 'another.txt',
 					'path' => 'another.txt',
 					'mimetype' => 'text/plain',
+					'uid_owner' => self::TEST_FILES_SHARING_API_USER1,
+					'displayname_owner' => 'User One',
 				),
 				array(
 					'name' => 'not a text file.xml',
 					'path' => 'not a text file.xml',
 					'mimetype' => 'application/xml',
+					'uid_owner' => self::TEST_FILES_SHARING_API_USER1,
+					'displayname_owner' => 'User One',
 				),
 			),
 			$results
@@ -226,7 +317,7 @@ class Test_Files_Sharing_Cache extends Test_Files_Sharing_Base {
 				}
 			}
 		}
-		$this->assertTrue(empty($results));
+		$this->assertEquals(array(), $results);
 	}
 
 	/**

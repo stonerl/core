@@ -17,7 +17,7 @@ class HomeCache extends Cache {
 	 * @return int
 	 */
 	public function calculateFolderSize($path, $entry = null) {
-		if ($path !== '/' and $path !== '' and $path !== 'files' and $path !== 'files_trashbin') {
+		if ($path !== '/' and $path !== '' and $path !== 'files' and $path !== 'files_trashbin' and $path !== 'files_versions') {
 			return parent::calculateFolderSize($path, $entry);
 		} elseif ($path === '' or $path === '/') {
 			// since the size of / isn't used (the size of /files is used instead) there is no use in calculating it
@@ -36,8 +36,10 @@ class HomeCache extends Cache {
 			$result = \OC_DB::executeAudited($sql, array($id, $this->getNumericStorageId()));
 			if ($row = $result->fetchRow()) {
 				list($sum, $unencryptedSum) = array_values($row);
-				$totalSize = (int)$sum;
-				$unencryptedSize = (int)$unencryptedSum;
+				$totalSize = 0 + $sum;
+				$unencryptedSize = 0 + $unencryptedSum;
+				$entry['size'] += 0;
+				$entry['unencrypted_size'] += 0;
 				if ($entry['size'] !== $totalSize) {
 					$this->update($id, array('size' => $totalSize));
 				}

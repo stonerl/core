@@ -43,6 +43,7 @@ class Shared_Cache extends Cache {
 
 	/**
 	 * Get the source cache of a shared file or folder
+	 *
 	 * @param string $target Shared target file path
 	 * @return \OC\Files\Cache\Cache
 	 */
@@ -94,6 +95,11 @@ class Shared_Cache extends Cache {
 					$data['is_share_mount_point'] = true;
 				}
 				$data['uid_owner'] = $this->storage->getOwner($file);
+				if (isset($data['permissions'])) {
+					$data['permissions'] &= $this->storage->getPermissions($file);
+				} else {
+					$data['permissions'] = $this->storage->getPermissions($file);
+				}
 				return $data;
 			}
 		} else {
@@ -105,7 +111,7 @@ class Shared_Cache extends Cache {
 			}
 			$query = \OC_DB::prepare(
 				'SELECT `fileid`, `storage`, `path`, `parent`, `name`, `mimetype`, `mimepart`,'
-				. ' `size`, `mtime`, `encrypted`, `unencrypted_size`, `storage_mtime`, `etag`'
+				. ' `size`, `mtime`, `encrypted`, `unencrypted_size`, `storage_mtime`, `etag`, `permissions`'
 				. ' FROM `*PREFIX*filecache` WHERE `fileid` = ?');
 			$result = $query->execute(array($sourceId));
 			$data = $result->fetchRow();
@@ -124,11 +130,13 @@ class Shared_Cache extends Cache {
 			} else {
 				$data['size'] = (int)$data['size'];
 			}
+			$data['permissions'] = (int)$data['permissions'];
 			if (!is_int($file) || $file === 0) {
 				$data['path'] = '';
 				$data['name'] = basename($this->storage->getMountPoint());
 				$data['is_share_mount_point'] = true;
 			}
+			$data['permissions'] &= $this->storage->getPermissions('');
 			return $data;
 		}
 		return false;
@@ -155,7 +163,8 @@ class Shared_Cache extends Cache {
 			foreach ($sourceFolderContent as $key => $c) {
 				$sourceFolderContent[$key]['path'] = $dir . $c['name'];
 				$sourceFolderContent[$key]['uid_owner'] = $parent['uid_owner'];
-				$sourceFolderContent[$key]['displayname_owner'] = $parent['uid_owner'];
+				$sourceFolderContent[$key]['displayname_owner'] = \OC_User::getDisplayName($parent['uid_owner']);
+				$sourceFolderContent[$key]['permissions'] = $sourceFolderContent[$key]['permissions'] & $this->storage->getPermissions($dir . $c['name']);
 			}
 
 			return $sourceFolderContent;
@@ -267,12 +276,34 @@ class Shared_Cache extends Cache {
 	 */
 	public function search($pattern) {
 
-		$where = '`name` LIKE ? AND ';
+		$pattern = trim($pattern, '%');
 
-		// normalize pattern
-		$value = $this->normalize($pattern);
+		$normalizedPattern = $this->normalize($pattern);
 
-		return $this->searchWithWhere($where, $value);
+		$result = array();
+		$exploreDirs = array('');
+		while (count($exploreDirs) > 0) {
+			$dir = array_pop($exploreDirs);
+			$files = $this->getFolderContents($dir);
+			// no results?
+			if (!$files) {
+				// maybe it's a single shared file
+				$file = $this->get('');
+				if ($normalizedPattern === '' || stristr($file['name'], $normalizedPattern) !== false) {
+					$result[] = $file;
+				}
+				continue;
+			}
+			foreach ($files as $file) {
+				if ($normalizedPattern === '' || stristr($file['name'], $normalizedPattern) !== false) {
+					$result[] = $file;
+				}
+				if ($file['mimetype'] === 'httpd/unix-directory') {
+					$exploreDirs[] = ltrim($dir . '/' . $file['name'], '/');
+				}
+			}
+		}
+		return $result;
 
 	}
 
@@ -288,10 +319,6 @@ class Shared_Cache extends Cache {
 			$mimepart = $mimetype;
 			$mimetype = null;
 		}
-
-		// note: searchWithWhere is currently broken as it doesn't
-		// recurse into subdirs nor returns the correct
-		// file paths, so using getFolderContents() for now
 
 		$result = array();
 		$exploreDirs = array('');
@@ -316,57 +343,6 @@ class Shared_Cache extends Cache {
 			}
 		}
 		return $result;
-	}
-
-	/**
-	 * The maximum number of placeholders that can be used in an SQL query.
-	 * Value MUST be <= 1000 for oracle:
-	 * see ORA-01795 maximum number of expressions in a list is 1000
-	 * FIXME we should get this from doctrine as other DBs allow a lot more placeholders
-	 */
-	const MAX_SQL_CHUNK_SIZE = 1000;
-
-	/**
-	 * search for files with a custom where clause and value
-	 * the $wherevalue will be array_merge()d with the file id chunks
-	 *
-	 * @param string $sqlwhere
-	 * @param string $wherevalue
-	 * @return array
-	 */
-	private function searchWithWhere($sqlwhere, $wherevalue, $chunksize = self::MAX_SQL_CHUNK_SIZE) {
-
-		$ids = $this->getAll();
-
-		$files = array();
-
-		// divide into chunks
-		$chunks = array_chunk($ids, $chunksize);
-
-		foreach ($chunks as $chunk) {
-			$placeholders = join(',', array_fill(0, count($chunk), '?'));
-			$sql = 'SELECT `fileid`, `storage`, `path`, `parent`, `name`, `mimetype`, `mimepart`, `size`, `mtime`,
-					`encrypted`, `unencrypted_size`, `etag`
-					FROM `*PREFIX*filecache` WHERE ' . $sqlwhere . ' `fileid` IN (' . $placeholders . ')';
-
-			$stmt = \OC_DB::prepare($sql);
-
-			$result = $stmt->execute(array_merge(array($wherevalue), $chunk));
-
-			while ($row = $result->fetchRow()) {
-				if (substr($row['path'], 0, 6) === 'files/') {
-					$row['path'] = substr($row['path'], 6); // remove 'files/' from path as it's relative to '/Shared'
-				}
-				$row['mimetype'] = $this->getMimetype($row['mimetype']);
-				$row['mimepart'] = $this->getMimetype($row['mimepart']);
-				if ($row['encrypted'] or ($row['unencrypted_size'] > 0 and $row['mimetype'] === 'httpd/unix-directory')) {
-					$row['encrypted_size'] = $row['size'];
-					$row['size'] = $row['unencrypted_size'];
-				}
-				$files[] = $row;
-			}
-		}
-		return $files;
 	}
 
 	/**
@@ -428,8 +404,7 @@ class Shared_Cache extends Cache {
 	 */
 	public function getPathById($id, $pathEnd = '') {
 		// direct shares are easy
-		$path = $this->getShareById($id);
-		if (is_string($path)) {
+		if ($id === $this->storage->getSourceId()) {
 			return ltrim($pathEnd, '/');
 		} else {
 			// if the item is a direct share we try and get the path of the parent and append the name of the item to it
@@ -444,28 +419,14 @@ class Shared_Cache extends Cache {
 
 	/**
 	 * @param integer $id
-	 */
-	private function getShareById($id) {
-		$item = \OCP\Share::getItemSharedWithBySource('file', $id);
-		if ($item) {
-			return trim($item['file_target'], '/');
-		}
-		$item = \OCP\Share::getItemSharedWithBySource('folder', $id);
-		if ($item) {
-			return trim($item['file_target'], '/');
-		}
-		return null;
-	}
-
-	/**
-	 * @param integer $id
+	 * @return array
 	 */
 	private function getParentInfo($id) {
 		$sql = 'SELECT `parent`, `name` FROM `*PREFIX*filecache` WHERE `fileid` = ?';
 		$query = \OC_DB::prepare($sql);
 		$result = $query->execute(array($id));
 		if ($row = $result->fetchRow()) {
-			return array($row['parent'], $row['name']);
+			return array((int)$row['parent'], $row['name']);
 		} else {
 			return array(-1, '');
 		}

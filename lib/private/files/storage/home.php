@@ -11,7 +11,7 @@ namespace OC\Files\Storage;
 /**
  * Specialized version of Local storage for home directory usage
  */
-class Home extends Local {
+class Home extends Local implements \OCP\Files\IHomeStorage {
 	/**
 	 * @var string
 	 */
@@ -49,9 +49,12 @@ class Home extends Local {
 	/**
 	 * @return \OC\Files\Cache\HomeCache
 	 */
-	public function getCache($path = '') {
+	public function getCache($path = '', $storage = null) {
+		if (!$storage) {
+			$storage = $this;
+		}
 		if (!isset($this->cache)) {
-			$this->cache = new \OC\Files\Cache\HomeCache($this);
+			$this->cache = new \OC\Files\Cache\HomeCache($storage);
 		}
 		return $this->cache;
 	}

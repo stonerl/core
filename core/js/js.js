@@ -1,7 +1,7 @@
 /**
  * Disable console output unless DEBUG mode is enabled.
  * Add
- *	define('DEBUG', true);
+ *      define('DEBUG', true);
  * To the end of config/config.php to enable debug mode.
  * The undefined checks fix the broken ie8 console
  */
@@ -23,7 +23,10 @@ if (typeof oc_webroot === "undefined") {
 		oc_webroot = oc_webroot.substr(0, oc_webroot.lastIndexOf('/'));
 	}
 }
-if (oc_debug !== true || typeof console === "undefined" || typeof console.log === "undefined") {
+if (
+	oc_debug !== true || typeof console === "undefined" ||
+	typeof console.log === "undefined"
+) {
 	if (!window.console) {
 		window.console = {};
 	}
@@ -37,7 +40,8 @@ if (oc_debug !== true || typeof console === "undefined" || typeof console.log ==
 function initL10N(app) {
 	if (!( t.cache[app] )) {
 		$.ajax(OC.filePath('core', 'ajax', 'translations.php'), {
-			async: false,//todo a proper solution for this without sync ajax calls
+			// TODO a proper solution for this without sync ajax calls
+			async: false,
 			data: {'app': app},
 			type: 'POST',
 			success: function (jsondata) {
@@ -75,8 +79,8 @@ function initL10N(app) {
 			/* We used to use eval, but it seems IE has issues with it.
 			 * We now use "new Function", though it carries a slightly
 			 * bigger performance hit.
-			 var code = 'function (n) { var plural; var nplurals; '+pf+' return { "nplural" : nplurals, "plural" : (plural === true ? 1 : plural ? plural : 0) }; };';
-			 Gettext._locale_data[domain].head.plural_func = eval("("+code+")");
+			var code = 'function (n) { var plural; var nplurals; '+pf+' return { "nplural" : nplurals, "plural" : (plural === true ? 1 : plural ? plural : 0) }; };';
+			Gettext._locale_data[domain].head.plural_func = eval("("+code+")");
 			 */
 			var code = 'var plural; var nplurals; '+pf+' return { "nplural" : nplurals, "plural" : (plural === true ? 1 : plural ? plural : 0) };';
 			t.plural_function[app] = new Function("n", code);
@@ -154,7 +158,7 @@ function n(app, text_singular, text_plural, count, vars) {
 * @return {string} Sanitized string
 */
 function escapeHTML(s) {
-	return s.toString().split('&').join('&amp;').split('<').join('&lt;').split('"').join('&quot;');
+	return s.toString().split('&').join('&amp;').split('<').join('&lt;').split('>').join('&gt;').split('"').join('&quot;').split('\'').join('&#039;');
 }
 
 /**
@@ -175,11 +179,16 @@ var OC={
 	PERMISSION_DELETE:8,
 	PERMISSION_SHARE:16,
 	PERMISSION_ALL:31,
+	/* jshint camelcase: false */
 	webroot:oc_webroot,
 	appswebroots:(typeof oc_appswebroots !== 'undefined') ? oc_appswebroots:false,
 	currentUser:(typeof oc_current_user!=='undefined')?oc_current_user:false,
+	config: window.oc_config,
+	appConfig: window.oc_appconfig || {},
+	theme: window.oc_defaults || {},
 	coreApps:['', 'admin','log','search','settings','core','3rdparty'],
-	
+	menuSpeed: 100,
+
 	/**
 	 * Get an absolute url to a file in an app
 	 * @param {string} app the id of the app the file belongs to
@@ -207,7 +216,16 @@ var OC={
 	linkToRemote:function(service) {
 		return window.location.protocol + '//' + window.location.host + OC.linkToRemoteBase(service);
 	},
-	
+
+	/**
+	 * Gets the base path for the given OCS API service.
+	 * @param {string} service name
+	 * @return {string} OCS API base path
+	 */
+	linkToOCS: function(service) {
+		return window.location.protocol + '//' + window.location.host + OC.webroot + '/ocs/v1.php/' + service + '/';
+	},
+
 	/**
 	 * Generates the absolute url for the given relative url, which can contain parameters.
 	 * @param {string} url
@@ -362,7 +380,7 @@ var OC={
 	 * Do a search query and display the results
 	 * @param {string} query the search query
 	 */
-	search:function(query){
+	search: _.debounce(function(query){
 		if(query){
 			OC.addStyle('search','results');
 			$.getJSON(OC.filePath('search','ajax','search.php')+'?query='+encodeURIComponent(query), function(results){
@@ -370,7 +388,7 @@ var OC={
 				OC.search.showResults(results);
 			});
 		}
-	},
+	}, 500),
 	dialogs:OCdialogs,
 	mtime2date:function(mtime) {
 		mtime = parseInt(mtime,10);
@@ -515,10 +533,9 @@ var OC={
 	 */
 	registerMenu: function($toggle, $menuEl) {
 		$menuEl.addClass('menu');
-		$toggle.addClass('menutoggle');
 		$toggle.on('click.menu', function(event) {
 			if ($menuEl.is(OC._currentMenu)) {
-				$menuEl.hide();
+				$menuEl.slideUp(OC.menuSpeed);
 				OC._currentMenu = null;
 				OC._currentMenuToggle = null;
 				return false;
@@ -528,7 +545,7 @@ var OC={
 				// close it
 				OC._currentMenu.hide();
 			}
-			$menuEl.show();
+			$menuEl.slideToggle(OC.menuSpeed);
 			OC._currentMenu = $menuEl;
 			OC._currentMenuToggle = $toggle;
 			return false;
@@ -541,7 +558,7 @@ var OC={
 	unregisterMenu: function($toggle, $menuEl) {
 		// close menu if opened
 		if ($menuEl.is(OC._currentMenu)) {
-			$menuEl.hide();
+			$menuEl.slideUp(OC.menuSpeed);
 			OC._currentMenu = null;
 			OC._currentMenuToggle = null;
 		}
@@ -568,6 +585,13 @@ OC.search.customResults={};
 OC.search.currentResult=-1;
 OC.search.lastQuery='';
 OC.search.lastResults={};
+//translations for result type ids, can be extended by apps
+OC.search.resultTypes={
+	file: t('core','File'),
+	folder: t('core','Folder'),
+	image: t('core','Image'),
+	audio: t('core','Audio')
+};
 OC.addStyle.loaded=[];
 OC.addScript.loaded=[];
 
@@ -672,7 +696,7 @@ OC.Notification={
 		var notification = $('#notification');
 		if((notification.filter('span.undo').length == 1) || OC.Notification.isHidden()){
 			notification.html(html);
-			notification.fadeIn().css("display","inline");
+			notification.fadeIn().css('display','inline-block');
 		}else{
 			OC.Notification.queuedNotifications.push(html);
 		}
@@ -686,7 +710,7 @@ OC.Notification={
 		var notification = $('#notification');
 		if((notification.filter('span.undo').length == 1) || OC.Notification.isHidden()){
 			notification.text(text);
-			notification.fadeIn().css("display","inline");
+			notification.fadeIn().css('display','inline-block');
 		}else{
 			OC.Notification.queuedNotifications.push($('<div/>').text(text).html());
 		}
@@ -935,39 +959,6 @@ function object(o) {
 }
 
 /**
- * Fills height of window. (more precise than height: 100%;)
- * @param selector
- */
-function fillHeight(selector) {
-	if (selector.length === 0) {
-		return;
-	}
-	var height = parseFloat($(window).height())-selector.offset().top;
-	selector.css('height', height + 'px');
-	if(selector.outerHeight() > selector.height()){
-		selector.css('height', height-(selector.outerHeight()-selector.height()) + 'px');
-	}
-	console.warn("This function is deprecated! Use CSS instead");
-}
-
-/**
- * Fills height and width of window. (more precise than height: 100%; or width: 100%;)
- * @param selector
- */
-function fillWindow(selector) {
-	if (selector.length === 0) {
-		return;
-	}
-	fillHeight(selector);
-	var width = parseFloat($(window).width())-selector.offset().left;
-	selector.css('width', width + 'px');
-	if(selector.outerWidth() > selector.width()){
-		selector.css('width', width-(selector.outerWidth()-selector.width()) + 'px');
-	}
-	console.warn("This function is deprecated! Use CSS instead");
-}
-
-/**
  * Initializes core
  */
 function initCore() {
@@ -977,6 +968,8 @@ function initCore() {
 	 * time out
 	 */
 	function initSessionHeartBeat(){
+		// max interval in seconds set to 24 hours
+		var maxInterval = 24 * 3600;
 		// interval in seconds
 		var interval = 900;
 		if (oc_config.session_lifetime) {
@@ -985,6 +978,9 @@ function initCore() {
 		// minimum one minute
 		if (interval < 60) {
 			interval = 60;
+		}
+		if (interval > maxInterval) {
+			interval = maxInterval;
 		}
 		var url = OC.generateUrl('/heartbeat');
 		setInterval(function(){
@@ -1054,11 +1050,6 @@ function initCore() {
 	setShowPassword($('#pass2'), $('label[for=personal-show]'));
 	setShowPassword($('#dbpass'), $('label[for=dbpassword]'));
 
-	//use infield labels
-	$("label.infield").inFieldLabels({
-		pollDuration: 100
-	});
-
 	var checkShowCredentials = function() {
 		var empty = false;
 		$('input#user, input#password').each(function() {
@@ -1088,7 +1079,7 @@ function initCore() {
 		}
 	});
 	$('#settings #expand').click(function(event) {
-		$('#settings #expanddiv').slideToggle(200);
+		$('#settings #expanddiv').slideToggle(OC.menuSpeed);
 		event.stopPropagation();
 	});
 	$('#settings #expanddiv').click(function(event){
@@ -1096,7 +1087,7 @@ function initCore() {
 	});
 	//hide the user menu when clicking outside it
 	$(document).click(function(){
-		$('#settings #expanddiv').slideUp(200);
+		$('#settings #expanddiv').slideUp(OC.menuSpeed);
 	});
 
 	// all the tipsy stuff needs to be here (in reverse order) to work
@@ -1107,6 +1098,7 @@ function initCore() {
 	$('a.action.delete').tipsy({gravity:'e', fade:true, live:true});
 	$('a.action').tipsy({gravity:'s', fade:true, live:true});
 	$('td .modified').tipsy({gravity:'s', fade:true, live:true});
+	$('td.lastLogin').tipsy({gravity:'s', fade:true, html:true});
 	$('input').tipsy({gravity:'w', fade:true});
 
 	// toggle for menus
@@ -1117,7 +1109,7 @@ function initCore() {
 			return false;
 		}
 		if (OC._currentMenu) {
-			OC._currentMenu.hide();
+			OC._currentMenu.slideUp(OC.menuSpeed);
 		}
 		OC._currentMenu = null;
 		OC._currentMenuToggle = null;
@@ -1130,45 +1122,83 @@ function initCore() {
 	 * If the screen is bigger, the main menu is not a toggle any more.
 	 */
 	function setupMainMenu() {
-		// toggle the navigation on mobile
-		if (!OC._matchMedia) {
-			return;
-		}
-		var mq = OC._matchMedia('(max-width: 768px)');
-		var lastMatch = mq.matches;
-		var $toggle = $('#header #owncloud');
+		// toggle the navigation
+		var $toggle = $('#header .menutoggle');
 		var $navigation = $('#navigation');
 
-		function updateMainMenu() {
-			// mobile mode ?
-			if (lastMatch && !$toggle.hasClass('menutoggle')) {
-				// init the menu
-				OC.registerMenu($toggle, $navigation);
-				$toggle.data('oldhref', $toggle.attr('href'));
-				$toggle.attr('href', '#');
-				$navigation.hide();
-			}
-			else {
-				OC.unregisterMenu($toggle, $navigation);
-				$toggle.attr('href', $toggle.data('oldhref'));
-				$navigation.show();
-			}
-		}
+		// init the menu
+		OC.registerMenu($toggle, $navigation);
+		$toggle.data('oldhref', $toggle.attr('href'));
+		$toggle.attr('href', '#');
+		$navigation.hide();
 
-		updateMainMenu();
-
-		// TODO: debounce this
-		$(window).resize(function() {
-			if (lastMatch !== mq.matches) {
-				lastMatch = mq.matches;
-				updateMainMenu();
+		// show loading feedback
+		$navigation.delegate('a', 'click', function(event) {
+			var $app = $(event.target);
+			if(!$app.is('a')) {
+				$app = $app.closest('a');
+			}
+			if(!event.ctrlKey) {
+				$app.addClass('app-loading');
 			}
 		});
 	}
 
-	if (window.matchMedia) {
-		setupMainMenu();
+	setupMainMenu();
+
+	// just add snapper for logged in users
+	if($('#app-navigation').length && !$('html').hasClass('lte9')) {
+
+		// App sidebar on mobile
+		var snapper = new Snap({
+			element: document.getElementById('app-content'),
+			disable: 'right',
+			maxPosition: 250
+		});
+		$('#app-content').prepend('<div id="app-navigation-toggle" class="icon-menu" style="display:none;"></div>');
+		$('#app-navigation-toggle').click(function(){
+			if(snapper.state().state == 'left'){
+				snapper.close();
+			} else {
+				snapper.open('left');
+			}
+		});
+		// close sidebar when switching navigation entry
+		var $appNavigation = $('#app-navigation');
+		$appNavigation.delegate('a', 'click', function(event) {
+			var $target = $(event.target);
+			// don't hide navigation when changing settings or adding things
+			if($target.is('.app-navigation-noclose') ||
+				$target.closest('.app-navigation-noclose').length) {
+				return;
+			}
+			if($target.is('.add-new') ||
+				$target.closest('.add-new').length) {
+				return;
+			}
+			if($target.is('#app-settings') ||
+				$target.closest('#app-settings').length) {
+				return;
+			}
+			snapper.close();
+		});
+
+		var toggleSnapperOnSize = function() {
+			if($(window).width() > 768) {
+				snapper.close();
+				snapper.disable();
+			} else {
+				snapper.enable();
+			}
+		};
+
+		$(window).resize(_.debounce(toggleSnapperOnSize, 250));
+
+		// initial call
+		toggleSnapperOnSize();
+
 	}
+
 }
 
 $(document).ready(initCore);
@@ -1183,9 +1213,10 @@ $.fn.filterAttr = function(attr_name, attr_value) {
 /**
  * Returns a human readable file size
  * @param {number} size Size in bytes
+ * @param {boolean} skipSmallSizes return '< 1 kB' for small files
  * @return {string}
  */
-function humanFileSize(size) {
+function humanFileSize(size, skipSmallSizes) {
 	var humanList = ['B', 'kB', 'MB', 'GB', 'TB'];
 	// Calculate Log with base 1024: size = 1024 ** order
 	var order = size?Math.floor(Math.log(size) / Math.log(1024)):0;
@@ -1193,6 +1224,13 @@ function humanFileSize(size) {
 	order = Math.min(humanList.length - 1, order);
 	var readableFormat = humanList[order];
 	var relativeSize = (size / Math.pow(1024, order)).toFixed(1);
+	if(skipSmallSizes === true && order === 0) {
+		if(relativeSize !== "0.0"){
+			return '< 1 kB';
+		} else {
+			return '0 kB';
+		}
+	}
 	if(order < 2){
 		relativeSize = parseFloat(relativeSize).toFixed(0);
 	}
@@ -1270,7 +1308,7 @@ OC.Util = {
 	 * @return {string} fixed image path with png extension if SVG is not supported
 	 */
 	replaceSVGIcon: function(file) {
-		if (!OC.Util.hasSVGSupport()) {
+		if (file && !OC.Util.hasSVGSupport()) {
 			var i = file.lastIndexOf('.svg');
 			if (i >= 0) {
 				file = file.substr(0, i) + '.png' + file.substr(i+4);
@@ -1315,6 +1353,18 @@ OC.Util = {
 				}
 			});
 		});
+	},
+
+	/**
+	 * Remove the time component from a given date
+	 *
+	 * @param {Date} date date
+	 * @return {Date} date with stripped time
+	 */
+	stripTime: function(date) {
+		// FIXME: likely to break when crossing DST
+		// would be better to use a library like momentJS
+		return new Date(date.getFullYear(), date.getMonth(), date.getDate());
 	}
 };
 
@@ -1374,6 +1424,10 @@ OC.Util.History = {
 			pos = hash.indexOf('?');
 		if (pos >= 0) {
 			return hash.substr(pos + 1);
+		}
+		if (hash.length) {
+			// remove hash sign
+			return hash.substr(1);
 		}
 		return '';
 	},

@@ -41,6 +41,10 @@ describe('OCA.Files.App tests', function() {
 			'</div>'
 		);
 
+		window.FileActions = new OCA.Files.FileActions();
+		OCA.Files.legacyFileActions = window.FileActions;
+		OCA.Files.fileActions = new OCA.Files.FileActions();
+
 		pushStateStub = sinon.stub(OC.Util.History, 'pushState');
 		parseUrlQueryStub = sinon.stub(OC.Util.History, 'parseUrlQuery');
 		parseUrlQueryStub.returns({});
@@ -48,11 +52,7 @@ describe('OCA.Files.App tests', function() {
 		App.initialize();
 	});
 	afterEach(function() {
-		App.navigation = null;
-		App.fileList = null;
-		App.files = null;
-		App.fileActions.clear();
-		App.fileActions = null;
+		App.destroy();
 
 		pushStateStub.restore();
 		parseUrlQueryStub.restore();
@@ -63,6 +63,53 @@ describe('OCA.Files.App tests', function() {
 			expect(App.fileList).toBeDefined();
 			expect(App.fileList.fileActions.actions.all).toBeDefined();
 			expect(App.fileList.$el.is('#app-content-files')).toEqual(true);
+		});
+		it('merges the legacy file actions with the default ones', function() {
+			var legacyActionStub = sinon.stub();
+			var actionStub = sinon.stub();
+			// legacy action
+			window.FileActions.register(
+					'all',
+					'LegacyTest',
+					OC.PERMISSION_READ,
+					OC.imagePath('core', 'actions/test'),
+					legacyActionStub
+			);
+			// legacy action to be overwritten
+			window.FileActions.register(
+					'all',
+					'OverwriteThis',
+					OC.PERMISSION_READ,
+					OC.imagePath('core', 'actions/test'),
+					legacyActionStub
+			);
+
+			// regular file actions
+			OCA.Files.fileActions.register(
+					'all',
+					'RegularTest',
+					OC.PERMISSION_READ,
+					OC.imagePath('core', 'actions/test'),
+					actionStub
+			);
+
+			// overwrite
+			OCA.Files.fileActions.register(
+					'all',
+					'OverwriteThis',
+					OC.PERMISSION_READ,
+					OC.imagePath('core', 'actions/test'),
+					actionStub
+			);
+
+			App.initialize();
+
+			var actions = App.fileList.fileActions.actions;
+			expect(actions.all.OverwriteThis.action).toBe(actionStub);
+			expect(actions.all.LegacyTest.action).toBe(legacyActionStub);
+			expect(actions.all.RegularTest.action).toBe(actionStub);
+			// default one still there
+			expect(actions.dir.Open.action).toBeDefined();
 		});
 	});
 
@@ -151,31 +198,31 @@ describe('OCA.Files.App tests', function() {
 				expect(App.navigation.getActiveItem()).toEqual('other');
 				expect($('#app-content-files').hasClass('hidden')).toEqual(true);
 				expect($('#app-content-other').hasClass('hidden')).toEqual(false);
-				expect($('li[data-id=files]').hasClass('selected')).toEqual(false);
-				expect($('li[data-id=other]').hasClass('selected')).toEqual(true);
+				expect($('li[data-id=files]').hasClass('active')).toEqual(false);
+				expect($('li[data-id=other]').hasClass('active')).toEqual(true);
 
 				App._onPopState({view: 'files', dir: '/somedir'});
 
 				expect(App.navigation.getActiveItem()).toEqual('files');
 				expect($('#app-content-files').hasClass('hidden')).toEqual(false);
 				expect($('#app-content-other').hasClass('hidden')).toEqual(true);
-				expect($('li[data-id=files]').hasClass('selected')).toEqual(true);
-				expect($('li[data-id=other]').hasClass('selected')).toEqual(false);
+				expect($('li[data-id=files]').hasClass('active')).toEqual(true);
+				expect($('li[data-id=other]').hasClass('active')).toEqual(false);
 			});
 			it('clicking on navigation switches the panel visibility', function() {
 				$('li[data-id=other]>a').click();
 				expect(App.navigation.getActiveItem()).toEqual('other');
 				expect($('#app-content-files').hasClass('hidden')).toEqual(true);
 				expect($('#app-content-other').hasClass('hidden')).toEqual(false);
-				expect($('li[data-id=files]').hasClass('selected')).toEqual(false);
-				expect($('li[data-id=other]').hasClass('selected')).toEqual(true);
+				expect($('li[data-id=files]').hasClass('active')).toEqual(false);
+				expect($('li[data-id=other]').hasClass('active')).toEqual(true);
 
 				$('li[data-id=files]>a').click();
 				expect(App.navigation.getActiveItem()).toEqual('files');
 				expect($('#app-content-files').hasClass('hidden')).toEqual(false);
 				expect($('#app-content-other').hasClass('hidden')).toEqual(true);
-				expect($('li[data-id=files]').hasClass('selected')).toEqual(true);
-				expect($('li[data-id=other]').hasClass('selected')).toEqual(false);
+				expect($('li[data-id=files]').hasClass('active')).toEqual(true);
+				expect($('li[data-id=other]').hasClass('active')).toEqual(false);
 			});
 			it('clicking on navigation sends "show" and "urlChanged" event', function() {
 				var handler = sinon.stub();

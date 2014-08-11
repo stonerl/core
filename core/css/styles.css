@@ -15,27 +15,13 @@ ul { list-style:none; }
 
 
 body {
-	background: #fefefe;
-	font: normal .8em/1.6em "Helvetica Neue",Helvetica,Arial,FreeSans,sans-serif;
+	background-color: #ffffff;
+	font-weight: normal;
+	font-size: .8em;
+	line-height: 1.6em;
+	font-family: 'Open Sans', Frutiger, Calibri, 'Myriad Pro', Myriad, sans-serif;
 	color: #000;
 	height: auto;
-}
-
-
-/* HEADERS */
-#body-user #header,
-#body-settings #header,
-#body-public #header {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	z-index: 100;
-	height: 45px;
-	line-height: 2.5em;
-	background-color: #1d2d44;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
 }
 
 #body-login {
@@ -50,34 +36,7 @@ body {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#35537a', endColorstr='#1d2d44',GradientType=0 ); /* IE6-9 */
 }
 
-#owncloud {
-	position: absolute;
-	top: 0;
-	left: 0;
-	padding: 6px;
-	padding-bottom: 0;
-}
 
-/* info part on the right, used e.g. for info on who shared something */
-.header-right {
-	position: absolute;
-	right: 0;
-	padding: 7px 5px;
-	color: #fff;
-	height: 100%;
-	max-width: 40%;
-	white-space: nowrap;
-}
-
-/* Profile picture in header */
-#header .avatardiv {
-	float: left;
-	display: inline-block;
-	margin-right: 5px;
-}
-#header .avatardiv img {
-	opacity: 1;
-}
 
 #nojavascript {
 	position: absolute;
@@ -107,20 +66,6 @@ body {
 	color: #aaa;
 }
 
-#header .logo {
-	background-image: url(../img/logo.svg);
-	background-repeat: no-repeat;
-	width: 250px;
-	height: 118px;
-	margin: 0 auto;
-}
-
-#header .logo-wide {
-	background-image: url(../img/logo-wide.svg);
-	background-repeat: no-repeat;
-	width: 147px;
-	height: 32px;
-}
 
 /* INPUTS */
 input[type="text"],
@@ -205,9 +150,15 @@ input img, button img, .button img {
 
 
 /* SCROLLING */
-::-webkit-scrollbar { width:8px; }
-::-webkit-scrollbar-track-piece { background-color:transparent; }
-::-webkit-scrollbar-thumb { background:#ddd; }
+::-webkit-scrollbar {
+	width: 8px;
+}
+::-webkit-scrollbar-track-piece {
+	background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+	background: #ccc;
+}
 
 
 /* BUTTONS */
@@ -215,6 +166,7 @@ input[type="submit"], input[type="button"],
 button, .button,
 #quota, select, .pager li a {
 	width: auto;
+	min-width: 25px;
 	padding: 5px;
 	background-color: rgba(240,240,240,.9);
 	font-weight: bold;
@@ -291,22 +243,28 @@ input[type="submit"].enabled {
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	position: fixed;
-	top:45px;
+	top: 45px;
 	right: 0;
 	left: 0;
 	height: 44px;
 	width: 100%;
 	padding: 0;
 	margin: 0;
-	background: #eee;
-	border-bottom: 1px solid #e7e7e7;
+	background-color: rgba(255, 255, 255, .95);
 	z-index: 50;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
-/* account for shift of controls bar due to app navigation */
-#body-user #controls,
-#body-settings #controls {
-	padding-left: 80px;
+/* position controls for apps with app-navigation */
+#app-navigation+#app-content #controls {
+	left: 250px;
 }
+.viewer-mode #app-navigation+#app-content #controls {
+	left: 0;
+}
+
 #controls .button,
 #controls button,
 #controls input[type='submit'],
@@ -325,23 +283,31 @@ input[type="submit"].enabled {
 	display: none;
 }
 
-#content { position:relative; height:100%; width:100%; }
+#content {
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
 #content .hascontrols {
 	position: relative;
 	top: 45px;
 }
 #content-wrapper {
-	position:absolute; height:100%; width:100%; padding-left:80px; padding-top: 45px;
-	-moz-box-sizing:border-box; box-sizing:border-box;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	overflow-x: hidden; /* prevent horizontal scrollbar */
+	padding-top: 45px;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
 }
 
 #emptycontent {
-	font-size: 1.5em;
-	font-weight: bold;
+	font-size: 16px;
 	color: #888;
 	position: absolute;
 	text-align: center;
-	top: 50%;
+	top: 30%;
 	width: 100%;
 }
 
@@ -368,6 +334,16 @@ input[type="submit"].enabled {
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
 	filter: alpha(opacity=60);
 	opacity: .6;
+}
+
+#body-login .update h2 {
+	font-weight: bold;
+	font-size: 18px;
+	margin-bottom: 30px;
+}
+
+#body-login .infogroup {
+	margin-bottom: 15px;
 }
 
 #body-login p#message img {
@@ -443,14 +419,14 @@ input[name='password-clone'] {
 #user+label+img,
 #password-icon {
 	position: absolute;
-	left: 1.25em;
-	top: 1.65em;
+	left: 16px;
+	top: 22px;
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
 	filter: alpha(opacity=30);
 	opacity: .3;
 }
 #adminpass-icon, #password-icon {
-	top: 1.1em;
+	top: 17px;
 }
 
 /* General new input field look */
@@ -463,13 +439,20 @@ input[name='password-clone'] {
 }
 
 /* Nicely grouping input field sets */
-#body-login .grouptop input {
+.grouptop,
+.groupmiddle,
+.groupbottom {
+	position: relative;
+}
+#body-login .grouptop input,
+.grouptop input {
 	margin-bottom: 0;
 	border-bottom: 0;
 	border-bottom-left-radius: 0;
 	border-bottom-right-radius: 0;
 }
-#body-login .groupmiddle input {
+#body-login .groupmiddle input,
+.groupmiddle input {
 	margin-top: 0;
 	margin-bottom: 0;
 	border-top: 0;
@@ -477,7 +460,8 @@ input[name='password-clone'] {
 	border-radius: 0;
 	box-shadow: 0 1px 0 rgba(0,0,0,.1) inset !important;
 }
-#body-login .groupbottom input {
+#body-login .groupbottom input,
+.groupbottom input {
 	margin-top: 0;
 	border-top: 0;
 	border-top-right-radius: 0;
@@ -485,30 +469,18 @@ input[name='password-clone'] {
 	box-shadow: 0 1px 0 rgba(0,0,0,.1) inset !important;
 }
 
-/* In field labels. No, HTML placeholder does not work as well. */
-#body-login .groupmiddle label, #body-login .groupbottom label { top:.65em; }
-p.infield { position:relative; }
-label.infield { cursor:text !important; top:1.05em; left:.85em; }
-#body-login form label.infield { /* labels are ellipsized when too long, keep them short */
-	position: absolute;
-	width: 82%;
-	margin-left: 26px;
-	font-size: 19px;
-	color: #aaa;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+/* keep the labels for screen readers but hide them since we use placeholders */
+label.infield {
+	display: none;
 }
-#body-login #databaseField .infield {
-	margin-left: 0;
-}
+
 #body-login form input[type="checkbox"]+label {
 	position: relative;
 	margin: 0;
-	font-size: 13px;
 	padding: 14px;
 	padding-left: 28px;
 	margin-left: -28px;
+	vertical-align: middle;
 }
 #body-login form .errors { background:#fed7d7; border:1px solid #f00; list-style-indent:inside; margin:0 0 2em; padding:1em; }
 #body-login .success { background:#d7fed7; border:1px solid #0f0; width: 35%; margin: 30px auto; padding:1em; text-align: center;}
@@ -532,7 +504,7 @@ label.infield { cursor:text !important; top:1.05em; left:.85em; }
 }
 
 
-#body-login p.info{
+#body-login footer .info {
 	white-space: nowrap;
 }
 
@@ -559,7 +531,7 @@ label.infield { cursor:text !important; top:1.05em; left:.85em; }
 }
 #show + label, #dbpassword + label, #personal-show + label {
 	position: absolute !important;
-	height: 14px;
+	height: 20px;
 	width: 24px;
 	background-image: url("../img/actions/toggle.png");
 	background-repeat: no-repeat;
@@ -573,8 +545,9 @@ label.infield { cursor:text !important; top:1.05em; left:.85em; }
 	width: 8em;
 }
 #personal-show + label {
-	margin-top: 1em;
-	margin-left: -3em;
+	height: 14px;
+	margin-top: 14px;
+	margin-left: -36px;
 }
 #passwordbutton {
 	margin-left: .5em;
@@ -602,8 +575,13 @@ label.infield { cursor:text !important; top:1.05em; left:.85em; }
 }
 
 #body-login .update {
+	width: inherit;
 	text-align: center;
 	color: #ccc;
+}
+
+#body-login .v-align {
+	width: inherit;
 }
 
 #body-login .update img.float-spinner {
@@ -650,6 +628,12 @@ label.infield { cursor:text !important; top:1.05em; left:.85em; }
 	cursor: pointer;
 }
 
+/* fixes for update page TODO should be fixed some time in a proper way */
+/* this is just for an error while updating the ownCloud instance */
+#body-login .updateProgress .error {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
 
 /* Alternative Logins */
 #alternative-logins legend { margin-bottom:10px; }
@@ -659,7 +643,7 @@ label.infield { cursor:text !important; top:1.05em; left:.85em; }
 #body-login input {
 	font-size: 20px;
 	margin: 5px;
-	padding: 12px 10px 8px;
+	padding: 11px 10px 9px;
 }
 #body-login input[type="text"],
 #body-login input[type="password"] {
@@ -690,155 +674,39 @@ label.infield { cursor:text !important; top:1.05em; left:.85em; }
 
 
 
-/* NAVIGATION ------------------------------------------------------------- */
-#navigation {
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	width: 80px;
-	margin-top:45px;
-	z-index: 75;
-	background-color: #383c43;
-	overflow-y: auto;
-	overflow-x: hidden;
-	-moz-box-sizing:border-box; box-sizing:border-box;
-	/* prevent ugly selection effect on accidental selection */
-	-webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
-}
-#apps {
-	height: 100%;
-}
-#navigation a span {
-	display: block;
-	text-decoration: none;
-	font-size: 11px;
-	text-align: center;
-	color: #fff;
-	white-space:nowrap; overflow:hidden; text-overflow:ellipsis; /* ellipsize long app names */
-	padding-bottom: 10px;
-	/* prevent shift caused by scrollbar */
-	padding-left: 8px;
-	width: 64px;
-}
-
-	/* icon opacity and hover effect */
-	#navigation a img,
-	#navigation a span {
-		/* 50% opacity when inactive */
-		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-		filter: alpha(opacity=50);
-		opacity: .5;
-	}
-	#navigation a:hover img, #navigation a:focus img,
-	#navigation a:hover span, #navigation a:focus span {
-		/* 80% opacity when hovered or focused */
-		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
-		filter: alpha(opacity=80);
-		opacity: .8;
-	}
-	#navigation a.active img,
-	#navigation a.active span {
-		 /* full opacity for the active app */
-		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-		filter: alpha(opacity=100);
-		opacity: 1;
-	}
-	#navigation .icon {
-		display: block;
-		width: 32px;
-		height: 32px;
-		margin-left: 24px;
-		padding: 10px 0 4px;
-	}
-	#navigation li:first-child .icon { /* special rule for Files icon as it's first */
-		padding-top: 20px;
-	}
-
-/* Apps management as sticky footer, less obtrusive in the list */
-#navigation .wrapper {
-	min-height: 100%;
-	margin: 0 auto -82px 0;
-}
-#apps-management, #navigation .push {
-	height: 72px;
-}
-#apps-management {
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
-	filter: alpha(opacity=60);
-	opacity: .6;
-}
-#apps-management .icon {
-	padding-bottom: 0;
-}
-
-
-
-
-/* USER MENU */
-#settings {
-	float: right;
-	color: #bbb;
-}
-#expand {
-	display: block;
-	padding: 7px 12px 6px 7px;
-	cursor: pointer;
-	font-weight: bold;
-}
-#expand:hover, #expand:focus, #expand:active { color:#fff; }
-#expand img { -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=70)"; filter:alpha(opacity=70); opacity:.7; margin-bottom:-2px; }
-#expand:hover img, #expand:focus img, #expand:active img { -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)"; filter:alpha(opacity=100); opacity:1; }
-#expanddiv {
-	position:absolute; right:0; top:45px; z-index:76; display:none;
-	background-color: #383c43;
-	border-bottom-left-radius:7px; border-bottom:1px #333 solid; border-left:1px #333 solid;
-	box-shadow:0 0 7px rgb(29,45,68);
-	-moz-box-sizing: border-box; box-sizing: border-box;
-	/* prevent ugly selection effect on accidental selection */
-	-webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
-}
-	#expanddiv a {
-		display: block;
-		height: 40px;
-		color: #fff;
-		padding: 4px 12px 0;
-		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
-		filter: alpha(opacity=70);
-		opacity: .7;
-		-moz-box-sizing: border-box;
-		box-sizing: border-box;
-	}
-	#expanddiv a img {
-		margin-bottom: -3px;
-		margin-right: 6px;
-	}
-	#expanddiv a:hover, #expanddiv a:focus, #expanddiv a:active {
-		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-		filter: alpha(opacity=100);
-		opacity: 1;
-	}
-
-
 /* VARIOUS REUSABLE SELECTORS */
 .hidden { display:none; }
 .bold { font-weight:bold; }
 .center { text-align:center; }
 .inlineblock { display: inline-block; }
 
-#notification-container { position: fixed; top: 0px; width: 100%; text-align: center; z-index: 101; line-height: 1.2;}
+#notification-container {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	text-align: center;
+}
 #notification, #update-notification {
+	margin: 0 auto;
+	max-width: 60%;
 	z-index: 101;
 	background-color: #fc4;
 	border: 0;
-	padding: 0 .7em .3em;
+	padding: 1px 8px;
 	display: none;
 	position: relative;
 	top: 0;
 	border-bottom-left-radius: 3px;
 	border-bottom-right-radius: 3px;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+	filter:alpha(opacity=90);
+	opacity: .9;
 }
-#notification span, #update-notification span { cursor:pointer; font-weight:bold; margin-left:1em; }
+#notification span, #update-notification span {
+	cursor: pointer;
+	font-weight: bold;
+	margin-left: 1em;
+}
 
 tr .action:not(.permanent), .selectedActions a { -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; filter:alpha(opacity=0); opacity:0; }
 tr:hover .action, tr .action.permanent, .selectedActions a { -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter:alpha(opacity=50); opacity:.5; }
@@ -899,14 +767,19 @@ a.bookmarklet { background-color:#ddd; border:1px solid #ccc; padding:5px;paddin
 #oc-dialog-filepicker-content .filelist .filename {
 	position: absolute;
 	top: 8px;
+	max-width: 60%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 #oc-dialog-filepicker-content .filelist img {
 	margin: 2px 1em 0 4px;
 }
 #oc-dialog-filepicker-content .filelist .date {
 	float: right;
-	margin-right: 1em;
-	margin-top: 8px;
+	margin-right: 10px;
+	margin-top: 0;
+	padding-top: 9px;
 }
 #oc-dialog-filepicker-content .filepicker_element_selected { background-color:lightblue;}
 .ui-dialog {position:fixed !important;}
@@ -953,15 +826,6 @@ span.ui-icon {float: left; margin: 3px 7px 30px 0;}
 .arrow.left { left:-13px; bottom:1.2em; -webkit-transform:rotate(270deg); -moz-transform:rotate(270deg); -o-transform:rotate(270deg); -ms-transform:rotate(270deg); transform:rotate(270deg); }
 .arrow.up { top:-8px; right:6px; }
 .arrow.down { -webkit-transform:rotate(180deg); -moz-transform:rotate(180deg); -o-transform:rotate(180deg); -ms-transform:rotate(180deg); transform:rotate(180deg); }
-.help-includes {
-	overflow: hidden;
-	width: 100%;
-	height: 100%;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	padding-top: 44px;
-}
-.help-iframe {width: 100%; height: 100%; margin: 0;padding: 0; border: 0; overflow: auto;}
 
 
 /* ---- BREADCRUMB ---- */
@@ -970,6 +834,7 @@ div.crumb {
 	display: block;
 	background: url('../img/breadcrumb.svg') no-repeat right center;
 	height: 44px;
+	background-size: auto 24px;
 }
 div.crumb.hidden {
 	display: none;
@@ -1010,6 +875,38 @@ div.crumb:active {
 .appear.transparent {
 	opacity: 0;
 }
+
+
+/* public footer */
+#body-public footer {
+	margin-top: 65px;
+	text-align: center;
+}
+
+#body-public footer .info {
+	color: #777;
+	text-align: center;
+	margin: 0 auto;
+	padding: 20px 0;
+}
+
+#body-public footer .info a {
+	color: #777;
+	font-weight: bold;
+	padding: 13px;
+	margin: -13px;
+}
+
+
+/* LEGACY FIX only - do not use fieldsets for settings */
+fieldset.warning legend, fieldset.update legend {
+	top: 18px;
+	position: relative;
+}
+fieldset.warning legend + p, fieldset.update legend + p {
+	margin-top: 12px;
+}
+
 
 /* for IE10 */
 @-ms-viewport {

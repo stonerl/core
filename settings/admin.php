@@ -21,7 +21,7 @@ $entries=OC_Log_Owncloud::getEntries(3);
 $entriesremain = count(OC_Log_Owncloud::getEntries(4)) > 3;
 
 // Should we display sendmail as an option?
-$tmpl->assign('sendmail_is_available', (bool) findBinaryPath('sendmailsendmail'));
+$tmpl->assign('sendmail_is_available', (bool) findBinaryPath('sendmail'));
 
 $tmpl->assign('loglevel', OC_Config::getValue( "loglevel", 2 ));
 $tmpl->assign('mail_domain', OC_Config::getValue( "mail_domain", '' ));
@@ -39,6 +39,7 @@ $tmpl->assign('entriesremain', $entriesremain);
 $tmpl->assign('htaccessworking', $htaccessworking);
 $tmpl->assign('internetconnectionworking', OC_Util::isInternetConnectionEnabled() ? OC_Util::isInternetConnectionWorking() : false);
 $tmpl->assign('isLocaleWorking', OC_Util::isSetLocaleWorking());
+$tmpl->assign('isAnnotationsWorking', OC_Util::isAnnotationsWorking());
 $tmpl->assign('isWebDavWorking', OC_Util::isWebDAVWorking());
 $tmpl->assign('has_fileinfo', OC_Util::fileInfoLoaded());
 $tmpl->assign('old_php', OC_Util::isPHPoutdated());
@@ -81,12 +82,16 @@ $tmpl->assign('allowLinks', OC_Appconfig::getValue('core', 'shareapi_allow_links
 $tmpl->assign('enforceLinkPassword', \OCP\Util::isPublicLinkPasswordRequired());
 $tmpl->assign('allowPublicUpload', OC_Appconfig::getValue('core', 'shareapi_allow_public_upload', 'yes'));
 $tmpl->assign('allowResharing', OC_Appconfig::getValue('core', 'shareapi_allow_resharing', 'yes'));
-$tmpl->assign('allowMailNotification', OC_Appconfig::getValue('core', 'shareapi_allow_mail_notification', 'yes'));
-$tmpl->assign('sharePolicy', OC_Appconfig::getValue('core', 'shareapi_share_policy', 'global'));
+$tmpl->assign('allowMailNotification', OC_Appconfig::getValue('core', 'shareapi_allow_mail_notification', 'no'));
+$tmpl->assign('onlyShareWithGroupMembers', \OC\Share\Share::shareWithGroupMembersOnly());
 $tmpl->assign('forms', array());
 foreach($forms as $form) {
 	$tmpl->append('forms', $form);
 }
+
+$databaseOverload = (strpos(\OCP\Config::getSystemValue('dbtype'), 'sqlite') !== false);
+$tmpl->assign('databaseOverload', $databaseOverload);
+
 $tmpl->printPage();
 
 /**
@@ -96,9 +101,11 @@ $tmpl->printPage();
  * @return null|string
  */
 function findBinaryPath($program) {
-	exec('command -v ' . escapeshellarg($program) . ' 2> /dev/null', $output, $returnCode);
-	if ($returnCode === 0 && count($output) > 0) {
-		return escapeshellcmd($output[0]);
+	if (OC_Helper::is_function_enabled('exec')) {
+		exec('command -v ' . escapeshellarg($program) . ' 2> /dev/null', $output, $returnCode);
+		if ($returnCode === 0 && count($output) > 0) {
+			return escapeshellcmd($output[0]);
+		}
 	}
 	return null;
 }

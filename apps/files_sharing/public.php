@@ -89,7 +89,7 @@ if (isset($path)) {
 		}
 	}
 	$basePath = $path;
-	$rootName = basename($path);
+	$rootName = \OC_Util::basename($path);
 	if (isset($_GET['path']) && \OC\Files\Filesystem::isReadable($basePath . $_GET['path'])) {
 		$getPath = \OC\Files\Filesystem::normalizePath($_GET['path']);
 		$path .= $getPath;
@@ -100,6 +100,10 @@ if (isset($path)) {
 	$file = basename($path);
 	// Download the file
 	if (isset($_GET['download'])) {
+		if (!\OCP\App::isEnabled('files_encryption')) {
+			// encryption app requires the session to store the keys in
+			\OC::$server->getSession()->close();
+		}
 		if (isset($_GET['files'])) { // download selected files
 			$files = urldecode($_GET['files']);
 			$files_list = json_decode($files);
@@ -128,6 +132,7 @@ if (isset($path)) {
 		$tmpl->assign('mimetype', \OC\Files\Filesystem::getMimeType($path));
 		$tmpl->assign('dirToken', $linkItem['token']);
 		$tmpl->assign('sharingToken', $token);
+		$tmpl->assign('protected', isset($linkItem['share_with']) ? 'true' : 'false');
 
 		$urlLinkIdentifiers= (isset($token)?'&t='.$token:'')
 							.(isset($_GET['dir'])?'&dir='.$_GET['dir']:'')
@@ -160,17 +165,12 @@ if (isset($path)) {
 			$folder->assign('uploadMaxHumanFilesize', OCP\Util::humanFileSize($maxUploadFilesize));
 			$folder->assign('freeSpace', $freeSpace);
 			$folder->assign('uploadLimit', $uploadLimit); // PHP upload limit
-			$folder->assign('allowZipDownload', intval(OCP\Config::getSystemValue('allowZipDownload', true)));
 			$folder->assign('usedSpacePercent', 0);
 			$folder->assign('trash', false);
 			$tmpl->assign('folder', $folder->fetchPage());
-			$allowZip = OCP\Config::getSystemValue('allowZipDownload', true);
-			$tmpl->assign('allowZipDownload', intval($allowZip));
-			$tmpl->assign('showDownloadButton', intval($allowZip));
 			$tmpl->assign('downloadURL',
 				OCP\Util::linkToPublic('files') . $urlLinkIdentifiers . '&download&path=' . urlencode($getPath));
 		} else {
-			$tmpl->assign('showDownloadButton', true);
 			$tmpl->assign('dir', $dir);
 
 			// Show file preview if viewer is available

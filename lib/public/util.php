@@ -128,10 +128,11 @@ class Util {
 	/**
 	 * get l10n object
 	 * @param string $application
+	 * @param string|null $language
 	 * @return \OC_L10N
 	 */
-	public static function getL10N( $application ) {
-		return \OC_L10N::get( $application );
+	public static function getL10N($application, $language = null) {
+		return \OC_L10N::get($application, $language);
 	}
 
 	/**
@@ -515,5 +516,23 @@ class Util {
 	 */
 	public static function isPublicLinkPasswordRequired() {
 		return \OC_Util::isPublicLinkPasswordRequired();
+	}
+
+	/**
+	 * check if share API enforces a default expire date
+	 * @return boolean
+	 */
+	public static function isDefaultExpireDateEnforced() {
+		return \OC_Util::isDefaultExpireDateEnforced();
+	}
+
+
+	/**
+	 * Checks whether the current version needs upgrade.
+	 *
+	 * @return bool true if upgrade is needed, false otherwise
+	 */
+	public static function needUpgrade() {
+		return \OC_Util::needUpgrade();
 	}
 }

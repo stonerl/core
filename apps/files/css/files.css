@@ -87,36 +87,15 @@
 
 #filestable tbody tr { background-color:#fff; height:51px; }
 
-.app-files #app-content {
-	position: relative;
+/* fit app list view heights */
+.app-files #app-content>.viewcontainer {
+	min-height: 100%;
 }
 
-/**
- * Override global #controls styles
- * to be more flexible / relative
- */
-#body-user .app-files #controls {
-	left: 310px; /* main nav bar + sidebar */
-	position: fixed;
-	padding-left: 0px;
-}
-
-/* this is mostly for file viewer apps, text editor, etc */
-#body-user .app-files.no-sidebar #controls {
-	left: 0px;
-	padding-left: 80px; /* main nav bar */
-}
-
-.app-files #app-navigation {
-	width: 230px;
-}
-
-.app-files #app-settings {
-	width: 229px; /* DUH */
-}
-
-.app-files #app-settings input {
-	width: 90%;
+/* move Deleted Files to bottom of sidebar */
+.nav-trashbin {
+	position: absolute !important;
+	bottom: 0;
 }
 
 #filestable tbody tr { background-color:#fff; height:40px; }
@@ -142,6 +121,7 @@ span.extension {
 	-moz-transition: opacity 300ms;
 	-o-transition: opacity 300ms;
 	transition: opacity 300ms;
+	vertical-align: top;
 }
 tr:hover span.extension {
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
@@ -150,12 +130,18 @@ tr:hover span.extension {
 	color: #777;
 }
 
-table tr.mouseOver td { background-color:#eee; }
-table th { height:24px; padding:0 8px; color:#999; }
+table tr.mouseOver td {
+	background-color: #eee;
+}
+table th, table th a {
+	color: #999;
+}
+table.multiselect th a {
+	color: #000;
+}
 table th .columntitle {
-	display: inline-block;
+	display: block;
 	padding: 15px;
-	width: 100%;
 	height: 50px;
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -163,21 +149,26 @@ table th .columntitle {
 }
 table th .columntitle.name {
 	padding-left: 5px;
+	padding-right: 80px;
 	margin-left: 50px;
-	max-width: 300px;
 }
-/* hover effect on sortable column */
-table th a.columntitle:hover {
-	background-color: #F0F0F0;
-}
+
+.sort-indicator.hidden { visibility: hidden; }
 table th .sort-indicator {
 	width: 10px;
 	height: 8px;
 	margin-left: 10px;
 	display: inline-block;
 }
+table th:hover .sort-indicator.hidden {
+	width: 10px;
+	height: 8px;
+	margin-left: 10px;
+	visibility: visible;
+}
 table th, table td { border-bottom:1px solid #ddd; text-align:left; font-weight:normal; }
 table td {
+	padding: 0 15px;
 	border-bottom: 1px solid #eee;
 	font-style: normal;
 	background-position: 8px center;
@@ -193,14 +184,10 @@ table th#headerName {
 	height: 50px;
 }
 table th#headerSize, table td.filesize {
-	min-width: 48px;
 	text-align: right;
-	padding: 0;
 }
-table table td.filesize {
-	padding: 0 16px;
-}
-table th#headerDate, table td.date {
+table th#headerDate, table td.date,
+table th.column-last, table td.column-last {
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 	position: relative;
@@ -219,9 +206,12 @@ table.multiselect thead {
 	z-index: 10;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
-	left: 310px; /* main nav bar + sidebar */
+	left: 250px; /* sidebar */
 }
 
+table thead th {
+	background-color: #fff;
+}
 table.multiselect thead th {
 	background-color: rgba(220,220,220,.8);
 	color: #000;
@@ -239,45 +229,95 @@ table td.filename a.name {
 	box-sizing: border-box;
 	display: block;
 	height: 50px;
-	vertical-align: middle;
+	line-height: 50px;
 	padding: 0;
 }
 table tr[data-type="dir"] td.filename a.name span.nametext {font-weight:bold; }
 table td.filename input.filename {
-	width: 80%;
-	font-size: 14px;
-	margin-top: 8px;
-	margin-left: 2px;
+	width: 70%;
+	margin-top: 1px;
+	margin-left: 48px;
 	cursor: text;
 }
 table td.filename a, table td.login, table td.logout, table td.download, table td.upload, table td.create, table td.delete { padding:3px 8px 8px 3px; }
-table td.filename .nametext, .uploadtext, .modified { float:left; padding:14px 0; }
+table td.filename .nametext, .uploadtext, .modified, .column-last>span:first-child { float:left; padding:15px 0; }
 
-.modified {
+.modified, .column-last>span:first-child {
 	position: relative;
-	padding-left: 8px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	width: 90%;
 }
 /* ellipsize long modified dates to make room for showing delete button */
-#fileList tr:hover .modified,
-#fileList tr:focus .modified {
+#fileList tr:hover .modified, #fileList tr:hover .column-last>span:first-child,
+#fileList tr:focus .modified, #fileList tr:focus .column-last>span:first-child {
 	width: 75%;
 }
 
 /* TODO fix usability bug (accidental file/folder selection) */
 table td.filename .nametext {
 	position: absolute;
-	top: 16px;
 	left: 55px;
 	padding: 0;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	max-width: 800px;
+	height: 100%;
 }
-table td.filename .uploadtext { font-weight:normal; margin-left:8px; }
-table td.filename form { font-size:14px; margin-left:48px; margin-right:48px; }
+
+table td.filename .nametext .innernametext {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	position: relative;
+	display: inline-block;
+}
+
+@media only screen and (min-width: 1366px) {
+	table td.filename .nametext .innernametext {
+		max-width: 760px;
+	}
+
+	table tr:hover td.filename .nametext .innernametext {
+		max-width: 480px;
+	}
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1366px) {
+	table td.filename .nametext .innernametext {
+		max-width: 600px;
+	}
+
+	table tr:hover td.filename .nametext .innernametext {
+		max-width: 320px;
+	}
+}
+
+@media only screen and (min-width: 1000px) and (max-width: 1200px) {
+	table td.filename .nametext .innernametext {
+		max-width: 400px;
+	}
+
+	table tr:hover td.filename .nametext .innernametext {
+		max-width: 120px;
+	}
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1000px) {
+	table td.filename .nametext .innernametext {
+		max-width: 320px;
+	}
+
+	table tr:hover td.filename .nametext .innernametext {
+		max-width: 40px;
+	}
+}
+
+/* for smaller resolutions - see mobile.css */
+
+table td.filename .uploadtext {
+	font-weight: normal;
+	margin-left: 8px;
+}
 
 .ie8 input[type="checkbox"]{
 	padding: 0;
@@ -289,6 +329,7 @@ table td.filename form { font-size:14px; margin-left:48px; margin-right:48px; }
 	filter: alpha(opacity=0);
 	opacity: 0;
 	float: left;
+	top: 0;
 	margin: 32px 0 4px 32px; /* bigger clickable area doesn’t work in FF width:2.8em; height:2.4em;*/
 }
 /* Show checkbox when hovering, checked, or selected */
@@ -319,6 +360,7 @@ table td.filename form { font-size:14px; margin-left:48px; margin-right:48px; }
 }
 #fileList tr td.filename>input[type="checkbox"] + label {
 	left: 0;
+	top: 0;
 }
 .select-all + label {
 	top: 0;
@@ -329,9 +371,10 @@ table td.filename form { font-size:14px; margin-left:48px; margin-right:48px; }
 	left: 18px;
 }
 
-
 #fileList tr td.filename {
-	position:relative; width:100%;
+	position: relative;
+	width: 100%;
+	padding-left: 0;
 	-webkit-transition:background-image 500ms; -moz-transition:background-image 500ms; -o-transition:background-image 500ms; transition:background-image 500ms;
 }
 
@@ -346,7 +389,6 @@ table td.filename form { font-size:14px; margin-left:48px; margin-right:48px; }
 /* File actions */
 .fileactions {
 	position: absolute;
-	top: 14px;
 	right: 0;
 	font-size: 11px;
 }
@@ -355,39 +397,48 @@ table td.filename form { font-size:14px; margin-left:48px; margin-right:48px; }
 #fileList a.action.delete {
 	position: absolute;
 	right: 0;
-	padding: 28px 14px 19px !important;
+	padding: 17px 14px;
 }
 
-#fileList .action.action-share-notification span, img, a {
+#fileList .action.action-share-notification span, #fileList a {
 	cursor: default !important;
 }
 
-a.action>img { max-height:16px; max-width:16px; vertical-align:text-bottom; }
+a.action>img {
+	max-height:16px;
+	max-width:16px;
+	vertical-align:text-bottom;
+	margin-bottom: -1px;
+}
 
 /* Actions for selected files */
 .selectedActions {
 	position: absolute;
-	top: -1px;
+	top: 0;
 	right: 0;
-	padding: 15px 8px;
 }
 .selectedActions a {
 	display: inline;
-	padding: 17px 5px;
+	font-size: 11px;
+	line-height: 50px;
+	padding: 18px 5px;
+}
+.selectedActions a.delete-selected {
+	padding-right: 15px;
 }
 .selectedActions a.hidden {
 	display: none;
 }
 .selectedActions a img {
 	position:relative;
-	top:5px;
+	vertical-align: text-bottom;
+	margin-bottom: -1px;
 }
-
 
 #fileList a.action {
 	display: inline;
-	margin: -8px 0;
 	padding: 18px 8px;
+	line-height: 50px;
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
 	filter: alpha(opacity=0);
 	opacity: 0;
@@ -395,7 +446,9 @@ a.action>img { max-height:16px; max-width:16px; vertical-align:text-bottom; }
 }
 
 #fileList a.action[data-action="Rename"] {
-	padding:18px 14px !important;
+	padding: 16px 14px 17px !important;
+	position: relative;
+	top: -21px;
 }
 #fileList tr:hover a.action, #fileList a.action.permanent {
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
@@ -422,12 +475,12 @@ a.action>img { max-height:16px; max-width:16px; vertical-align:text-bottom; }
 }
 
 .summary td {
-	padding-top: 8px;
-	padding-bottom: 8px;
+	padding-top: 20px;
+	padding-bottom: 250px;
 	border-bottom: none;
 }
 .summary .info {
-	margin-left: 55px;
+	margin-left: 40px;
 }
 
 #scanning-message{ top:40%; left:40%; position:absolute; display:none; }

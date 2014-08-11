@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Fatih Aşıcı <fatih.asici@gmail.com>, 2013
-# ismail yenigül <ismail.yenigul@surgate.com>, 2013
-# tridinebandim, 2013
-# volkangezer <volkangezer@gmail.com>, 2013-2014
+# ismail yenigul <ismail.yenigul@surgate.com>, 2013
+# Mustafa Tat, 2013
+# Volkan Gezer <volkangezer@gmail.com>, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-05-20 01:54-0400\n"
-"PO-Revision-Date: 2014-05-19 15:03+0000\n"
-"Last-Translator: volkangezer <volkangezer@gmail.com>\n"
+"POT-Creation-Date: 2014-08-10 01:54-0400\n"
+"PO-Revision-Date: 2014-08-10 05:54+0000\n"
+"Last-Translator: I Robot\n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/owncloud/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,11 +21,7 @@ msgstr ""
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ajax/share.php:88
-msgid "Expiration date is in the past."
-msgstr "Son kullanma tarihi geçmişte."
-
-#: ajax/share.php:120 ajax/share.php:162
+#: ajax/share.php:116 ajax/share.php:158
 #, php-format
 msgid "Couldn't send mail to following users: %s "
 msgstr "Şu kullanıcılara posta gönderilemedi: %s"
@@ -42,483 +38,538 @@ msgstr "Bakım kipi kapatıldı"
 msgid "Updated database"
 msgstr "Veritabanı güncellendi"
 
-#: avatar/controller.php:62
+#: ajax/update.php:19
+msgid "Checked database schema update"
+msgstr "Veritabanı şema güncellemesi denetlendi"
+
+#: ajax/update.php:27
+#, php-format
+msgid "Disabled incompatible apps: %s"
+msgstr "Uyumsuz uygulamalar devre dışı bırakıldı: %s"
+
+#: avatar/controller.php:69
 msgid "No image or file provided"
 msgstr "Resim veya dosya belirtilmedi"
 
-#: avatar/controller.php:81
+#: avatar/controller.php:86
 msgid "Unknown filetype"
 msgstr "Bilinmeyen dosya türü"
 
-#: avatar/controller.php:85
+#: avatar/controller.php:90
 msgid "Invalid image"
 msgstr "Geçersiz resim"
 
-#: avatar/controller.php:115 avatar/controller.php:142
+#: avatar/controller.php:120 avatar/controller.php:147
 msgid "No temporary profile picture available, try again"
 msgstr "Kullanılabilir geçici profil resmi yok, tekrar deneyin"
 
-#: avatar/controller.php:135
+#: avatar/controller.php:140
 msgid "No crop data provided"
 msgstr "Kesme verisi sağlanmamış"
 
-#: js/config.php:43
+#: js/config.php:45
 msgid "Sunday"
 msgstr "Pazar"
 
-#: js/config.php:44
+#: js/config.php:46
 msgid "Monday"
 msgstr "Pazartesi"
 
-#: js/config.php:45
+#: js/config.php:47
 msgid "Tuesday"
 msgstr "Salı"
 
-#: js/config.php:46
+#: js/config.php:48
 msgid "Wednesday"
 msgstr "Çarşamba"
 
-#: js/config.php:47
+#: js/config.php:49
 msgid "Thursday"
 msgstr "Perşembe"
 
-#: js/config.php:48
+#: js/config.php:50
 msgid "Friday"
 msgstr "Cuma"
 
-#: js/config.php:49
+#: js/config.php:51
 msgid "Saturday"
 msgstr "Cumartesi"
 
-#: js/config.php:54
+#: js/config.php:56
 msgid "January"
 msgstr "Ocak"
 
-#: js/config.php:55
+#: js/config.php:57
 msgid "February"
 msgstr "Şubat"
 
-#: js/config.php:56
+#: js/config.php:58
 msgid "March"
 msgstr "Mart"
 
-#: js/config.php:57
+#: js/config.php:59
 msgid "April"
 msgstr "Nisan"
 
-#: js/config.php:58
+#: js/config.php:60
 msgid "May"
 msgstr "Mayıs"
 
-#: js/config.php:59
+#: js/config.php:61
 msgid "June"
 msgstr "Haziran"
 
-#: js/config.php:60
+#: js/config.php:62
 msgid "July"
 msgstr "Temmuz"
 
-#: js/config.php:61
+#: js/config.php:63
 msgid "August"
 msgstr "Ağustos"
 
-#: js/config.php:62
+#: js/config.php:64
 msgid "September"
 msgstr "Eylül"
 
-#: js/config.php:63
+#: js/config.php:65
 msgid "October"
 msgstr "Ekim"
 
-#: js/config.php:64
+#: js/config.php:66
 msgid "November"
 msgstr "Kasım"
 
-#: js/config.php:65
+#: js/config.php:67
 msgid "December"
 msgstr "Aralık"
 
-#: js/js.js:483
+#: js/js.js:501
 msgid "Settings"
 msgstr "Ayarlar"
 
-#: js/js.js:583
+#: js/js.js:590
+msgid "File"
+msgstr "Dosya"
+
+#: js/js.js:591
+msgid "Folder"
+msgstr "Klasör"
+
+#: js/js.js:592
+msgid "Image"
+msgstr "Resim"
+
+#: js/js.js:593
+msgid "Audio"
+msgstr "Ses"
+
+#: js/js.js:607
 msgid "Saving..."
 msgstr "Kaydediliyor..."
 
-#: js/js.js:1240
+#: js/js.js:1278
 msgid "seconds ago"
 msgstr "saniyeler önce"
 
-#: js/js.js:1241
+#: js/js.js:1279
 msgid "%n minute ago"
 msgid_plural "%n minutes ago"
 msgstr[0] "%n dakika önce"
 msgstr[1] "%n dakika önce"
 
-#: js/js.js:1242
+#: js/js.js:1280
 msgid "%n hour ago"
 msgid_plural "%n hours ago"
 msgstr[0] "%n saat önce"
 msgstr[1] "%n saat önce"
 
-#: js/js.js:1243
+#: js/js.js:1281
 msgid "today"
 msgstr "bugün"
 
-#: js/js.js:1244
+#: js/js.js:1282
 msgid "yesterday"
 msgstr "dün"
 
-#: js/js.js:1245
+#: js/js.js:1283
 msgid "%n day ago"
 msgid_plural "%n days ago"
 msgstr[0] "%n gün önce"
 msgstr[1] "%n gün önce"
 
-#: js/js.js:1246
+#: js/js.js:1284
 msgid "last month"
 msgstr "geçen ay"
 
-#: js/js.js:1247
+#: js/js.js:1285
 msgid "%n month ago"
 msgid_plural "%n months ago"
 msgstr[0] "%n ay önce"
 msgstr[1] "%n ay önce"
 
-#: js/js.js:1248
+#: js/js.js:1286
 msgid "last year"
 msgstr "geçen yıl"
 
-#: js/js.js:1249
+#: js/js.js:1287
 msgid "years ago"
 msgstr "yıllar önce"
 
-#: js/oc-dialogs.js:95 js/oc-dialogs.js:236
-msgid "Yes"
-msgstr "Evet"
+#: js/lostpassword.js:3 lostpassword/controller/lostcontroller.php:198
+msgid "Couldn't send reset email. Please contact your administrator."
+msgstr "Sıfırlama e-postası gönderilemedi. Lütfen yöneticiniz ile iletişime geçin."
 
-#: js/oc-dialogs.js:105 js/oc-dialogs.js:246
+#: js/lostpassword.js:5
+msgid ""
+"The link to reset your password has been sent to your email. If you do not "
+"receive it within a reasonable amount of time, check your spam/junk "
+"folders.<br>If it is not there ask your local administrator."
+msgstr "Parolanızı değiştirme bağlantısı e-posta adresinize gönderildi. Makul bir süre içerisinde almadıysanız spam/gereksiz klasörlerini kontrol ediniz.<br>Bu konumlarda da yoksa yerel sistem yöneticinize sorunuz."
+
+#: js/lostpassword.js:7
+msgid ""
+"Your files are encrypted. If you haven't enabled the recovery key, there "
+"will be no way to get your data back after your password is reset.<br />If "
+"you are not sure what to do, please contact your administrator before you "
+"continue. <br />Do you really want to continue?"
+msgstr "Dosyalarınız şifrelenmiş. Kurtarma anahtarını etkinleştirmemişseniz, parola sıfırlama işleminden sonra verilerinize erişmeniz imkansız olacak.<br />Ne yaptığınızdan emin değilseniz, devam etmeden önce sistem yöneticiniz ile iletişime geçin.<br />Gerçekten devam etmek istiyor musunuz?"
+
+#: js/lostpassword.js:10
+msgid "I know what I'm doing"
+msgstr "Ne yaptığımı biliyorum"
+
+#: js/lostpassword.js:13 lostpassword/templates/resetpassword.php:9
+msgid "Reset password"
+msgstr "Parolayı sıfırla"
+
+#: js/lostpassword.js:16
+msgid "Password can not be changed. Please contact your administrator."
+msgstr "Parola değiştirilemedi. Lütfen yöneticiniz ile iletişime geçin."
+
+#: js/oc-dialogs.js:108 js/oc-dialogs.js:255
 msgid "No"
 msgstr "Hayır"
 
-#: js/oc-dialogs.js:184
+#: js/oc-dialogs.js:116 js/oc-dialogs.js:264
+msgid "Yes"
+msgstr "Evet"
+
+#: js/oc-dialogs.js:202
 msgid "Choose"
 msgstr "Seç"
 
-#: js/oc-dialogs.js:210
+#: js/oc-dialogs.js:229
 msgid "Error loading file picker template: {error}"
 msgstr "Dosya seçici şablonu yüklenirken hata: {error}"
 
-#: js/oc-dialogs.js:263
+#: js/oc-dialogs.js:282
 msgid "Ok"
 msgstr "Tamam"
 
-#: js/oc-dialogs.js:283
+#: js/oc-dialogs.js:302
 msgid "Error loading message template: {error}"
 msgstr "İleti şablonu yüklenirken hata: {error}"
 
-#: js/oc-dialogs.js:411
+#: js/oc-dialogs.js:430
 msgid "{count} file conflict"
 msgid_plural "{count} file conflicts"
 msgstr[0] "{count} dosya çakışması"
 msgstr[1] "{count} dosya çakışması"
 
-#: js/oc-dialogs.js:425
+#: js/oc-dialogs.js:444
 msgid "One file conflict"
 msgstr "Bir dosya çakışması"
 
-#: js/oc-dialogs.js:431
+#: js/oc-dialogs.js:450
 msgid "New Files"
 msgstr "Yeni Dosyalar"
 
-#: js/oc-dialogs.js:432
+#: js/oc-dialogs.js:451
 msgid "Already existing files"
 msgstr "Zaten mevcut olan dosyalar"
 
-#: js/oc-dialogs.js:434
+#: js/oc-dialogs.js:453
 msgid "Which files do you want to keep?"
 msgstr "Hangi dosyaları saklamak istiyorsunuz?"
 
-#: js/oc-dialogs.js:435
+#: js/oc-dialogs.js:454
 msgid ""
 "If you select both versions, the copied file will have a number added to its"
 " name."
 msgstr "İki sürümü de seçerseniz, kopyalanan dosyanın ismine bir sayı ilave edilecektir."
 
-#: js/oc-dialogs.js:443
+#: js/oc-dialogs.js:462
 msgid "Cancel"
 msgstr "İptal"
 
-#: js/oc-dialogs.js:453
+#: js/oc-dialogs.js:472
 msgid "Continue"
 msgstr "Devam et"
 
-#: js/oc-dialogs.js:500 js/oc-dialogs.js:513
+#: js/oc-dialogs.js:519 js/oc-dialogs.js:532
 msgid "(all selected)"
 msgstr "(tümü seçildi)"
 
-#: js/oc-dialogs.js:503 js/oc-dialogs.js:517
+#: js/oc-dialogs.js:522 js/oc-dialogs.js:536
 msgid "({count} selected)"
 msgstr "({count} seçildi)"
 
-#: js/oc-dialogs.js:525
+#: js/oc-dialogs.js:544
 msgid "Error loading file exists template"
 msgstr "Dosya mevcut şablonu yüklenirken hata"
 
-#: js/setup.js:84
+#: js/setup.js:96
 msgid "Very weak password"
 msgstr "Çok güçsüz parola"
 
-#: js/setup.js:85
+#: js/setup.js:97
 msgid "Weak password"
 msgstr "Güçsüz parola"
 
-#: js/setup.js:86
+#: js/setup.js:98
 msgid "So-so password"
 msgstr "Normal parola"
 
-#: js/setup.js:87
+#: js/setup.js:99
 msgid "Good password"
 msgstr "İyi parola"
 
-#: js/setup.js:88
+#: js/setup.js:100
 msgid "Strong password"
 msgstr "Güçlü parola"
 
-#: js/share.js:51 js/share.js:66 js/share.js:106
+#: js/share.js:129 js/share.js:251
 msgid "Shared"
 msgstr "Paylaşılan"
 
-#: js/share.js:109
+#: js/share.js:257
+msgid "Shared with {recipients}"
+msgstr "{recipients} ile paylaşılmış"
+
+#: js/share.js:266
 msgid "Share"
 msgstr "Paylaş"
 
-#: js/share.js:173 js/share.js:186 js/share.js:193 js/share.js:800
+#: js/share.js:326 js/share.js:340 js/share.js:347 js/share.js:1007
 #: templates/installation.php:10
 msgid "Error"
 msgstr "Hata"
 
-#: js/share.js:175 js/share.js:863
+#: js/share.js:328 js/share.js:1070
 msgid "Error while sharing"
 msgstr "Paylaşım sırasında hata"
 
-#: js/share.js:186
+#: js/share.js:340
 msgid "Error while unsharing"
 msgstr "Paylaşım iptal edilirken hata"
 
-#: js/share.js:193
+#: js/share.js:347
 msgid "Error while changing permissions"
 msgstr "İzinleri değiştirirken hata"
 
-#: js/share.js:203
+#: js/share.js:357
 msgid "Shared with you and the group {group} by {owner}"
 msgstr "{owner} tarafından sizinle ve {group} ile paylaştırılmış"
 
-#: js/share.js:205
+#: js/share.js:359
 msgid "Shared with you by {owner}"
 msgstr "{owner} tarafından sizinle paylaşıldı"
 
-#: js/share.js:229
+#: js/share.js:383
 msgid "Share with user or group …"
 msgstr "Kullanıcı veya grup ile paylaş..."
 
-#: js/share.js:235
+#: js/share.js:389
 msgid "Share link"
 msgstr "Paylaşma bağlantısı"
 
-#: js/share.js:241
+#: js/share.js:394
 msgid ""
 "The public link will expire no later than {days} days after it is created"
 msgstr "Herkese açık bağlantı, oluşturulduktan en geç {days} gün sonra sona erecek"
 
-#: js/share.js:243
-msgid "By default the public link will expire after {days} days"
-msgstr "Öntanımlı olarak herkese açık bağlantı {days} gün sonra sona erecek"
-
-#: js/share.js:248
+#: js/share.js:398
 msgid "Password protect"
 msgstr "Parola koruması"
 
-#: js/share.js:250
+#: js/share.js:400
 msgid "Choose a password for the public link"
 msgstr "Herkese açık bağlantı için bir parola seçin"
 
-#: js/share.js:256
+#: js/share.js:406
 msgid "Allow Public Upload"
 msgstr "Herkes Tarafından Gönderime İzin Ver"
 
-#: js/share.js:260
+#: js/share.js:410
 msgid "Email link to person"
 msgstr "Bağlantıyı e-posta ile gönder"
 
-#: js/share.js:261
+#: js/share.js:411
 msgid "Send"
 msgstr "Gönder"
 
-#: js/share.js:266
+#: js/share.js:416
 msgid "Set expiration date"
 msgstr "Son kullanma tarihini ayarla"
 
-#: js/share.js:267
+#: js/share.js:417
 msgid "Expiration date"
 msgstr "Son kullanım tarihi"
 
-#: js/share.js:304
+#: js/share.js:455
 msgid "Share via email:"
 msgstr "E-posta ile paylaş:"
 
-#: js/share.js:307
+#: js/share.js:458
 msgid "No people found"
 msgstr "Kişi bulunamadı"
 
-#: js/share.js:355 js/share.js:416
+#: js/share.js:507 js/share.js:575
 msgid "group"
 msgstr "grup"
 
-#: js/share.js:388
+#: js/share.js:540
 msgid "Resharing is not allowed"
 msgstr "Tekrar paylaşmaya izin verilmiyor"
 
-#: js/share.js:432
+#: js/share.js:591
 msgid "Shared in {item} with {user}"
 msgstr "{item} içinde {user} ile paylaşılanlar"
 
-#: js/share.js:454
+#: js/share.js:613
 msgid "Unshare"
 msgstr "Paylaşmayı Kaldır"
 
-#: js/share.js:462
+#: js/share.js:621
 msgid "notify by email"
 msgstr "e-posta ile bildir"
 
-#: js/share.js:465
+#: js/share.js:624
+msgid "can share"
+msgstr "paylaşabilir"
+
+#: js/share.js:627
 msgid "can edit"
 msgstr "düzenleyebilir"
 
-#: js/share.js:467
+#: js/share.js:629
 msgid "access control"
 msgstr "erişim kontrolü"
 
-#: js/share.js:470
+#: js/share.js:632
 msgid "create"
 msgstr "oluştur"
 
-#: js/share.js:473
+#: js/share.js:635
 msgid "update"
 msgstr "güncelle"
 
-#: js/share.js:476
+#: js/share.js:638
 msgid "delete"
 msgstr "sil"
 
-#: js/share.js:479
-msgid "share"
-msgstr "paylaş"
-
-#: js/share.js:781
+#: js/share.js:988
 msgid "Password protected"
 msgstr "Parola korumalı"
 
-#: js/share.js:800
+#: js/share.js:1007
 msgid "Error unsetting expiration date"
 msgstr "Son kullanma tarihi kaldırma hatası"
 
-#: js/share.js:821
+#: js/share.js:1028
 msgid "Error setting expiration date"
 msgstr "Son kullanma tarihi ayarlama hatası"
 
-#: js/share.js:850
+#: js/share.js:1057
 msgid "Sending ..."
 msgstr "Gönderiliyor..."
 
-#: js/share.js:861
+#: js/share.js:1068
 msgid "Email sent"
 msgstr "E-posta gönderildi"
 
-#: js/share.js:885
+#: js/share.js:1092
 msgid "Warning"
 msgstr "Uyarı"
 
-#: js/tags.js:4
+#: js/tags.js:8
 msgid "The object type is not specified."
 msgstr "Nesne türü belirtilmemiş."
 
-#: js/tags.js:13
+#: js/tags.js:19
 msgid "Enter new"
 msgstr "Yeni girin"
 
-#: js/tags.js:27
+#: js/tags.js:33
 msgid "Delete"
 msgstr "Sil"
 
-#: js/tags.js:31
+#: js/tags.js:43
 msgid "Add"
 msgstr "Ekle"
 
-#: js/tags.js:39
+#: js/tags.js:57
 msgid "Edit tags"
 msgstr "Etiketleri düzenle"
 
-#: js/tags.js:57
+#: js/tags.js:75
 msgid "Error loading dialog template: {error}"
 msgstr "İletişim şablonu yüklenirken hata: {error}"
 
-#: js/tags.js:264
+#: js/tags.js:288
 msgid "No tags selected for deletion."
 msgstr "Silmek için bir etiket seçilmedi."
 
-#: js/update.js:8
+#: js/update.js:30
+msgid "Updating {productName} to version {version}, this may take a while."
+msgstr "{productName}, {version} sürümüne güncelleniyor, bu biraz zaman alabilir."
+
+#: js/update.js:43
 msgid "Please reload the page."
 msgstr "Lütfen sayfayı yeniden yükleyin."
 
-#: js/update.js:17
-msgid ""
-"The update was unsuccessful. Please report this issue to the <a "
-"href=\"https://github.com/owncloud/core/issues\" target=\"_blank\">ownCloud "
-"community</a>."
-msgstr "Güncelleme başarısız oldu. Lütfen bu hatayı <a href=\"https://github.com/owncloud/core/issues\" target=\"_blank\">ownCloud topluluğu</a>na bildirin."
+#: js/update.js:52
+msgid "The update was unsuccessful."
+msgstr "Güncelleme başarısız oldu."
 
-#: js/update.js:21
+#: js/update.js:61
 msgid "The update was successful. Redirecting you to ownCloud now."
 msgstr "Güncelleme başarılı. Şimdi ownCloud'a yönlendiriliyorsunuz."
 
-#: lostpassword/controller.php:70
+#: lostpassword/controller/lostcontroller.php:133
+msgid "Couldn't reset password because the token is invalid"
+msgstr "Belirteç geçersiz olduğundan parola sıfırlanamadı"
+
+#: lostpassword/controller/lostcontroller.php:159
+msgid "Couldn't send reset email. Please make sure your username is correct."
+msgstr "Sıfırlama e-postası gönderilemedi. Lütfen kullanıcı adınızın doğru olduğundan emin olun."
+
+#: lostpassword/controller/lostcontroller.php:174
+msgid ""
+"Couldn't send reset email because there is no email address for this "
+"username. Please contact your administrator."
+msgstr "Sıfırlama e-postası, bu kullanıcı için bir e-posta adresi olmadığından gönderilemedi. Lütfen yöneticiniz ile iletişime geçin."
+
+#: lostpassword/controller/lostcontroller.php:191
 #, php-format
 msgid "%s password reset"
 msgstr "%s parola sıfırlama"
-
-#: lostpassword/controller.php:72
-msgid ""
-"A problem has occurred whilst sending the email, please contact your "
-"administrator."
-msgstr "E-posta gönderilirken bir hata oluştu. Lütfen yöneticinizle iletişime geçin."
 
 #: lostpassword/templates/email.php:2
 msgid "Use the following link to reset your password: {link}"
 msgstr "Parolanızı sıfırlamak için bu bağlantıyı kullanın: {link}"
 
-#: lostpassword/templates/lostpassword.php:7
-msgid ""
-"The link to reset your password has been sent to your email.<br>If you do "
-"not receive it within a reasonable amount of time, check your spam/junk "
-"folders.<br>If it is not there ask your local administrator ."
-msgstr "Parolanızı değiştirme bağlantısı e-posta adresinize gönderildi.<br>Eğer makül bir süre içerisinde mesajı almadıysanız spam/junk/gereksiz dizinini kontrol ediniz.<br>Eğer yine bulamazsanız sistem yöneticinize danışın."
-
-#: lostpassword/templates/lostpassword.php:15
-msgid "Request failed!<br>Did you make sure your email/username was right?"
-msgstr "İstek başarısız!<br>E-posta ve/veya kullanıcı adınızın doğru olduğundan emin misiniz?"
-
-#: lostpassword/templates/lostpassword.php:18
+#: lostpassword/templates/lostpassword.php:6
 msgid "You will receive a link to reset your password via Email."
 msgstr "Parolanızı sıfırlamak için e-posta ile bir bağlantı alacaksınız."
 
-#: lostpassword/templates/lostpassword.php:21 templates/installation.php:53
-#: templates/login.php:32
+#: lostpassword/templates/lostpassword.php:8
+#: lostpassword/templates/lostpassword.php:9 templates/installation.php:51
+#: templates/installation.php:54 templates/login.php:23 templates/login.php:27
 msgid "Username"
 msgstr "Kullanıcı Adı"
 
-#: lostpassword/templates/lostpassword.php:25
+#: lostpassword/templates/lostpassword.php:13
 msgid ""
 "Your files are encrypted. If you haven't enabled the recovery key, there "
 "will be no way to get your data back after your password is reset. If you "
@@ -526,29 +577,21 @@ msgid ""
 "continue. Do you really want to continue?"
 msgstr "Dosyalarınız şifrelenmiş. Eğer kurtarma anahtarını etkinleştirmediyseniz parola sıfırlama işleminden sonra verilerinize erişmeniz imkansız olacak. Eğer ne yaptığınızdan emin değilseniz, devam etmeden önce sistem yöneticiniz ile iletişime geçin. Gerçekten devam etmek istiyor musunuz?"
 
-#: lostpassword/templates/lostpassword.php:27
+#: lostpassword/templates/lostpassword.php:15
 msgid "Yes, I really want to reset my password now"
 msgstr "Evet, gerçekten parolamı şimdi sıfırlamak istiyorum"
 
-#: lostpassword/templates/lostpassword.php:30
+#: lostpassword/templates/lostpassword.php:18
 msgid "Reset"
 msgstr "Sıfırla"
 
-#: lostpassword/templates/resetpassword.php:4
-msgid "Your password was reset"
-msgstr "Parolanız sıfırlandı"
-
 #: lostpassword/templates/resetpassword.php:5
-msgid "To login page"
-msgstr "Giriş sayfasına git"
-
-#: lostpassword/templates/resetpassword.php:8
 msgid "New password"
 msgstr "Yeni parola"
 
-#: lostpassword/templates/resetpassword.php:11
-msgid "Reset password"
-msgstr "Parolayı sıfırla"
+#: lostpassword/templates/resetpassword.php:6
+msgid "New Password"
+msgstr "Yeni Parola"
 
 #: setup/controller.php:140
 #, php-format
@@ -570,7 +613,7 @@ msgstr "Kişisel"
 msgid "Users"
 msgstr "Kullanıcılar"
 
-#: strings.php:7 templates/layout.user.php:116
+#: strings.php:7 templates/layout.user.php:56 templates/layout.user.php:121
 msgid "Apps"
 msgstr "Uygulamalar"
 
@@ -680,105 +723,99 @@ msgstr "Sunucunuzu nasıl ayarlayacağınıza dair bilgi için, lütfen <a href=
 msgid "Create an <strong>admin account</strong>"
 msgstr "Bir <strong>yönetici hesabı</strong> oluşturun"
 
-#: templates/installation.php:60 templates/login.php:40
+#: templates/installation.php:59 templates/installation.php:62
+#: templates/login.php:33 templates/login.php:36
 msgid "Password"
 msgstr "Parola"
 
-#: templates/installation.php:70
+#: templates/installation.php:72
 msgid "Storage & database"
 msgstr "Depolama ve veritabanı"
 
-#: templates/installation.php:77
+#: templates/installation.php:79
 msgid "Data folder"
 msgstr "Veri klasörü"
 
-#: templates/installation.php:90
+#: templates/installation.php:92
 msgid "Configure the database"
 msgstr "Veritabanını yapılandır"
 
-#: templates/installation.php:94
-msgid "will be used"
-msgstr "kullanılacak"
+#: templates/installation.php:96
+#, php-format
+msgid "Only %s is available."
+msgstr "Sadece %s kullanılabilir."
 
-#: templates/installation.php:109
+#: templates/installation.php:111 templates/installation.php:113
 msgid "Database user"
 msgstr "Veritabanı kullanıcı adı"
 
-#: templates/installation.php:118
+#: templates/installation.php:119 templates/installation.php:122
 msgid "Database password"
 msgstr "Veritabanı parolası"
 
-#: templates/installation.php:123
+#: templates/installation.php:127 templates/installation.php:129
 msgid "Database name"
 msgstr "Veritabanı adı"
 
-#: templates/installation.php:132
+#: templates/installation.php:137 templates/installation.php:139
 msgid "Database tablespace"
 msgstr "Veritabanı tablo alanı"
 
-#: templates/installation.php:140
+#: templates/installation.php:146 templates/installation.php:148
 msgid "Database host"
 msgstr "Veritabanı sunucusu"
 
-#: templates/installation.php:150
+#: templates/installation.php:157
+msgid ""
+"SQLite will be used as database. For larger installations we recommend to "
+"change this."
+msgstr "Veritabanı olarak SQLite kullanılacak. Daha büyük kurulumlar için bunu değiştirmenizi öneririz."
+
+#: templates/installation.php:159
 msgid "Finish setup"
 msgstr "Kurulumu tamamla"
 
-#: templates/installation.php:150
+#: templates/installation.php:159
 msgid "Finishing …"
 msgstr "Tamamlanıyor ..."
 
-#: templates/layout.user.php:40
+#: templates/layout.user.php:43
 msgid ""
 "This application requires JavaScript to be enabled for correct operation.  "
 "Please <a href=\"http://enable-javascript.com/\" target=\"_blank\">enable "
 "JavaScript</a> and re-load this interface."
 msgstr "Uygulama, doğru çalışabilmesi için JavaScript'in etkinleştirilmesini gerektiriyor. Lütfen <a href=\"http://enable-javascript.com/\" target=\"_blank\">JavaScript'i etkinleştirin</a> ve bu arayüzü yeniden yükleyin."
 
-#: templates/layout.user.php:44
+#: templates/layout.user.php:47
 #, php-format
 msgid "%s is available. Get more information on how to update."
 msgstr "%s kullanılabilir. Nasıl güncelleyeceğiniz hakkında daha fazla bilgi alın."
 
-#: templates/layout.user.php:74 templates/singleuser.user.php:8
+#: templates/layout.user.php:83 templates/singleuser.user.php:8
 msgid "Log out"
 msgstr "Çıkış yap"
 
-#: templates/login.php:9
-msgid "Automatic logon rejected!"
-msgstr "Otomatik oturum açma reddedildi!"
-
-#: templates/login.php:10
-msgid ""
-"If you did not change your password recently, your account may be "
-"compromised!"
-msgstr "Yakın zamanda parolanızı değiştirmediyseniz hesabınız tehlikede olabilir!"
-
-#: templates/login.php:12
-msgid "Please change your password to secure your account again."
-msgstr "Hesabınızı tekrar güvene almak için lütfen parolanızı değiştirin."
-
-#: templates/login.php:17
+#: templates/login.php:11
 msgid "Server side authentication failed!"
 msgstr "Sunucu taraflı yetkilendirme başarısız!"
 
-#: templates/login.php:18
+#: templates/login.php:12
 msgid "Please contact your administrator."
 msgstr "Lütfen sistem yöneticiniz ile iletişime geçin."
 
-#: templates/login.php:46
-msgid "Lost your password?"
-msgstr "Parolanızı mı unuttunuz?"
+#: templates/login.php:42
+msgid "Forgot your password? Reset it!"
+msgstr "Parolanızı mı unuttunuz? Sıfırlayın!"
 
-#: templates/login.php:51
+#: templates/login.php:47
 msgid "remember"
 msgstr "hatırla"
 
-#: templates/login.php:54
+#: templates/login.php:51
 msgid "Log in"
 msgstr "Giriş yap"
 
-#: templates/login.php:60
+#: templates/login.php:57
 msgid "Alternative Logins"
 msgstr "Alternatif Girişler"
 
@@ -809,8 +846,27 @@ msgstr "Sabrınız için teşekkür ederiz."
 
 #: templates/update.admin.php:3
 #, php-format
-msgid "Updating ownCloud to version %s, this may take a while."
-msgstr "ownCloud %s sürümüne güncelleniyor. Biraz zaman alabilir."
+msgid "%s will be updated to version %s."
+msgstr "%s, %s sürümüne güncellenecek."
+
+#: templates/update.admin.php:7
+msgid "The following apps will be disabled:"
+msgstr "Aşağıdaki uygulamalar devre dışı bırakılacak:"
+
+#: templates/update.admin.php:17
+#, php-format
+msgid "The theme %s has been disabled."
+msgstr "%s teması devre dışı bırakıldı."
+
+#: templates/update.admin.php:21
+msgid ""
+"Please make sure that the database, the config folder and the data folder "
+"have been backed up before proceeding."
+msgstr "Devam etmeden önce lütfen veritabanının, yapılandırma ve veri klasörlerinin yedeklenmiş olduğundan emin olun."
+
+#: templates/update.admin.php:23
+msgid "Start update"
+msgstr "Güncellemeyi başlat"
 
 #: templates/update.user.php:3
 msgid ""

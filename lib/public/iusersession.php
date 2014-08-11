@@ -49,4 +49,17 @@ interface IUserSession {
 	 */
 	public function logout();
 
+	/**
+	 * set the currently active user
+	 *
+	 * @param \OCP\IUser|null $user
+	 */
+	public function setUser($user);
+
+	/**
+	 * get the current active user
+	 *
+	 * @return \OCP\IUser
+	 */
+	public function getUser();
 }

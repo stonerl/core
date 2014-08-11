@@ -1,5 +1,8 @@
 <?php
 $TRANSLATIONS = array(
+"Storage not available" => "Speicher nicht verfügbar",
+"Storage invalid" => "Speicher ungültig",
+"Unknown error" => "Unbekannter Fehler",
 "Could not move %s - File with this name already exists" => "%s konnte nicht verschoben werden. Eine Datei mit diesem Namen existiert bereits.",
 "Could not move %s" => "Konnte %s nicht verschieben",
 "File name cannot be empty." => "Der Dateiname darf nicht leer sein.",
@@ -9,6 +12,7 @@ $TRANSLATIONS = array(
 "The name %s is already used in the folder %s. Please choose a different name." => "Der Name %s wird bereits im Ordner %s benutzt. Bitte wählen Sie einen anderen Namen.",
 "Not a valid source" => "Keine gültige Quelle",
 "Server is not allowed to open URLs, please check the server configuration" => "Dem Server ist das Öffnen von URLs nicht erlaubt, bitte die Serverkonfiguration prüfen",
+"The file exceeds your quota by %s" => "Die Datei überschreitet Ihr Limit um %s",
 "Error while downloading %s to %s" => "Fehler beim Herunterladen von %s nach %s",
 "Error when creating the file" => "Fehler beim Erstellen der Datei",
 "Folder name cannot be empty." => "Der Ordner-Name darf nicht leer sein.",
@@ -41,6 +45,9 @@ $TRANSLATIONS = array(
 "Could not create folder" => "Der Ordner konnte nicht erstellt werden",
 "Error fetching URL" => "Fehler beim Abrufen der URL",
 "Share" => "Teilen",
+"Delete" => "Löschen",
+"Disconnect storage" => "Speicher trennen",
+"Unshare" => "Freigabe aufheben",
 "Delete permanently" => "Endgültig löschen",
 "Rename" => "Umbenennen",
 "Your download is being prepared. This might take some time if the files are big." => "Ihr Download wird vorbereitet. Dies kann bei größeren Dateien etwas dauern.",
@@ -68,10 +75,6 @@ $TRANSLATIONS = array(
 "File handling" => "Dateibehandlung",
 "Maximum upload size" => "Maximale Upload-Größe",
 "max. possible: " => "maximal möglich:",
-"Needed for multi-file and folder downloads." => "Für Mehrfachdatei- und Ordnerdownloads benötigt:",
-"Enable ZIP-download" => "ZIP-Download aktivieren",
-"0 is unlimited" => "0 bedeutet unbegrenzt",
-"Maximum input size for ZIP files" => "Maximale Größe für ZIP-Dateien",
 "Save" => "Speichern",
 "WebDAV" => "WebDAV",
 "Use this address to <a href=\"%s\" target=\"_blank\">access your Files via WebDAV</a>" => "Verwenden Sie diese Adresse, um <a href=\"%s\" target=\"_blank\">via WebDAV auf Ihre Dateien zuzugreifen</a>",
@@ -81,14 +84,12 @@ $TRANSLATIONS = array(
 "New folder" => "Neuer Ordner",
 "Folder" => "Ordner",
 "From link" => "Von einem Link",
-"Cancel upload" => "Upload abbrechen",
 "You don’t have permission to upload or create files here" => "Sie besitzen hier keine Berechtigung Dateien hochzuladen oder zu erstellen",
 "Nothing in here. Upload something!" => "Alles leer. Laden Sie etwas hoch!",
 "Download" => "Herunterladen",
-"Delete" => "Löschen",
 "Upload too large" => "Der Upload ist zu groß",
 "The files you are trying to upload exceed the maximum size for file uploads on this server." => "Die Datei überschreitet die Maximalgröße für Uploads auf diesem Server.",
 "Files are being scanned, please wait." => "Dateien werden gescannt, bitte warten.",
-"Current scanning" => "Scanne"
+"Currently scanning" => "Durchsuchen läuft"
 );
 $PLURAL_FORMS = "nplurals=2; plural=(n != 1);";

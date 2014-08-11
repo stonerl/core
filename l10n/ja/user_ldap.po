@@ -4,17 +4,17 @@
 # 
 # Translators:
 # Daisuke Deguchi <ddeguchi@nagoya-u.jp>, 2013
-# plazmism <gomidori@live.jp>, 2013-2014
+# タカハシ <gomidori@live.jp>, 2013-2014
 # kuromabo <md81bird@hitaki.net>, 2014
-# mikako, 2014
-# tt yn <tetuyano+transi@gmail.com>, 2013-2014
+# Mika Kobayashi, 2014
+# YANO Tetsu <tetuyano+transi@gmail.com>, 2013-2014
 msgid ""
 msgstr ""
 "Project-Id-Version: ownCloud\n"
 "Report-Msgid-Bugs-To: translations@owncloud.org\n"
-"POT-Creation-Date: 2014-05-17 01:54-0400\n"
-"PO-Revision-Date: 2014-05-16 06:13+0000\n"
-"Last-Translator: tt yn <tetuyano+transi@gmail.com>\n"
+"POT-Creation-Date: 2014-07-05 01:54-0400\n"
+"PO-Revision-Date: 2014-07-04 15:13+0000\n"
+"Last-Translator: YANO Tetsu <tetuyano+transi@gmail.com>\n"
 "Language-Team: Japanese (Japan) (http://www.transifex.com/projects/p/owncloud/language/ja_JP/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -75,6 +75,10 @@ msgstr "最近のサーバー設定から設定を引き継ぎますか？"
 msgid "Keep settings?"
 msgstr "設定を保持しますか？"
 
+#: js/settings.js:93
+msgid "{nthServer}. Server"
+msgstr "{nthServer}. サーバー"
+
 #: js/settings.js:99
 msgid "Cannot add server configuration"
 msgstr "サーバー設定を追加できません"
@@ -90,6 +94,18 @@ msgstr "成功"
 #: js/settings.js:133
 msgid "Error"
 msgstr "エラー"
+
+#: js/settings.js:244
+msgid "Please specify a Base DN"
+msgstr "ベースDN を指定してください"
+
+#: js/settings.js:245
+msgid "Could not determine Base DN"
+msgstr "ベースDNを決定できませんでした"
+
+#: js/settings.js:276
+msgid "Please specify the port"
+msgstr "ポートを指定してください"
 
 #: js/settings.js:780
 msgid "Configuration OK"
@@ -131,25 +147,41 @@ msgstr "現在のサーバー設定を本当に削除してもよろしいです
 msgid "Confirm Deletion"
 msgstr "削除の確認"
 
-#: lib/wizard.php:83 lib/wizard.php:97
+#: lib/wizard.php:97 lib/wizard.php:112
 #, php-format
 msgid "%s group found"
 msgid_plural "%s groups found"
 msgstr[0] "%s グループが見つかりました"
 
-#: lib/wizard.php:130
+#: lib/wizard.php:126
 #, php-format
 msgid "%s user found"
 msgid_plural "%s users found"
 msgstr[0] "%s ユーザーが見つかりました"
 
-#: lib/wizard.php:825 lib/wizard.php:837
+#: lib/wizard.php:317 lib/wizard.php:1051
+msgid "Could not find the desired feature"
+msgstr "望ましい機能は見つかりませんでした"
+
+#: lib/wizard.php:858 lib/wizard.php:870
 msgid "Invalid Host"
 msgstr "無効なホスト"
 
-#: lib/wizard.php:1025
-msgid "Could not find the desired feature"
-msgstr "望ましい機能は見つかりませんでした"
+#: settings.php:52
+msgid "Server"
+msgstr "サーバー"
+
+#: settings.php:53
+msgid "User Filter"
+msgstr "ユーザーフィルター"
+
+#: settings.php:54
+msgid "Login Filter"
+msgstr "ログインフィルター"
+
+#: settings.php:55
+msgid "Group Filter"
+msgstr "グループフィルタ"
 
 #: templates/part.settingcontrols.php:2
 msgid "Save"
@@ -210,7 +242,7 @@ msgstr "LDAP ユーザー名:"
 
 #: templates/part.wizard-loginfilter.php:16
 msgid "LDAP Email Address:"
-msgstr "LDAP メールアドレス:"
+msgstr "LDAPメールアドレス:"
 
 #: templates/part.wizard-loginfilter.php:24
 msgid "Other Attributes:"
@@ -223,9 +255,22 @@ msgid ""
 "username in the login action. Example: \"uid=%%uid\""
 msgstr "ログイン実行時に適用するフィルタを定義します。%%uid にはログイン操作におけるユーザー名が入ります。例： \"uid=%%uid\""
 
+#: templates/part.wizard-server.php:6
+msgid "1. Server"
+msgstr "1. Server"
+
+#: templates/part.wizard-server.php:13
+#, php-format
+msgid "%s. Server:"
+msgstr "%s. サーバー:"
+
 #: templates/part.wizard-server.php:18
 msgid "Add Server Configuration"
 msgstr "サーバー設定を追加"
+
+#: templates/part.wizard-server.php:21
+msgid "Delete Configuration"
+msgstr "設定を削除"
 
 #: templates/part.wizard-server.php:30
 msgid "Host"
@@ -270,7 +315,7 @@ msgstr "拡張タブでユーザーとグループのベースDNを指定する�
 #: templates/part.wizard-userfilter.php:4
 #, php-format
 msgid "Limit %s access to users meeting these criteria:"
-msgstr "この基準を満たすユーザに対し %s へのアクセスを制限:"
+msgstr "この基準を満たすユーザーに対し %s へのアクセスを制限:"
 
 #: templates/part.wizard-userfilter.php:31
 #, php-format
@@ -289,6 +334,14 @@ msgstr "戻る"
 #: templates/part.wizardcontrols.php:8
 msgid "Continue"
 msgstr "続ける"
+
+#: templates/settings.php:7
+msgid "Expert"
+msgstr "エキスパート設定"
+
+#: templates/settings.php:8
+msgid "Advanced"
+msgstr "詳細設定"
 
 #: templates/settings.php:11
 msgid ""
@@ -339,7 +392,7 @@ msgstr "レプリカサーバーにのみ接続します。"
 
 #: templates/settings.php:26
 msgid "Case insensitive LDAP server (Windows)"
-msgstr "大文字と小文字を区別しない LDAP サーバ (Windows)"
+msgstr "大文字と小文字を区別しないLDAPサーバー (Windows)"
 
 #: templates/settings.php:27
 msgid "Turn off SSL certificate validation."
@@ -394,7 +447,7 @@ msgstr "グループ表示名のフィールド"
 
 #: templates/settings.php:35
 msgid "The LDAP attribute to use to generate the groups's display name."
-msgstr "ユーザのグループ表示名の生成に利用するLDAP属性"
+msgstr "ユーザーのグループ表示名の生成に利用するLDAP属性"
 
 #: templates/settings.php:36
 msgid "Base Group Tree"
@@ -504,7 +557,7 @@ msgstr "デフォルトでは、UUID 属性は自動的に検出されます。U
 
 #: templates/settings.php:58
 msgid "UUID Attribute for Users:"
-msgstr "ユーザーの UUID 属性:"
+msgstr "ユーザーのUUID属性:"
 
 #: templates/settings.php:59
 msgid "UUID Attribute for Groups:"
