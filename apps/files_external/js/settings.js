@@ -274,14 +274,6 @@ $(document).ready(function() {
 		OC.MountConfig.saveStorage($(this).parent().parent());
 	});
 
-	$('#sslCertificate').on('click', 'td.remove>img', function() {
-		var $tr = $(this).parent().parent();
-		var row = this.parentNode.parentNode;
-		$.post(OC.filePath('files_external', 'ajax', 'removeRootCertificate.php'), {cert: row.id});
-		$tr.remove();
-		return true;
-	});
-
 	$('#externalStorage').on('click', 'td.remove>img', function() {
 		var tr = $(this).parent().parent();
 		var mountPoint = $(tr).find('.mountPoint input').val();
